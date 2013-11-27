@@ -1,0 +1,422 @@
+
+Discarded input sections
+
+ .text          0x00000000        0x0 main.o
+ .data          0x00000000        0x0 main.o
+ .bss           0x00000000        0x0 main.o
+ .text          0x00000000        0x0 Ap.o
+ .data          0x00000000        0x0 Ap.o
+ .bss           0x00000000        0x0 Ap.o
+ .text          0x00000000        0x0 Ap_UartMenu.o
+ .data          0x00000000        0x0 Ap_UartMenu.o
+ .bss           0x00000000        0x0 Ap_UartMenu.o
+ .text          0x00000000        0x0 Lb_Util.o
+ .data          0x00000000        0x0 Lb_Util.o
+ .bss           0x00000000        0x0 Lb_Util.o
+ .text.delay    0x00000000       0x14 Lb_Util.o
+ .text          0x00000000        0x0 Lb_Printf.o
+ .data          0x00000000        0x0 Lb_Printf.o
+ .bss           0x00000000        0x0 Lb_Printf.o
+ .text.StrNCmp  0x00000000       0x5c Lb_Printf.o
+ .text.StrCmp   0x00000000       0x3c Lb_Printf.o
+ .text          0x00000000        0x0 Hw_StartUp.o
+ .data          0x00000000        0x0 Hw_StartUp.o
+ .bss           0x00000000        0x0 Hw_StartUp.o
+ .text          0x00000000        0x0 Hw.o
+ .data          0x00000000        0x0 Hw.o
+ .bss           0x00000000        0x0 Hw.o
+ .text.Hw_Wait  0x00000000       0x1c Hw.o
+ .text.Hw_Wait_Usec
+                0x00000000       0x24 Hw.o
+ .text          0x00000000        0x0 Hw_Uart.o
+ .data          0x00000000        0x0 Hw_Uart.o
+ .bss           0x00000000        0x0 Hw_Uart.o
+ .text          0x00000000        0x0 Hw_PLL.o
+ .data          0x00000000        0x0 Hw_PLL.o
+ .bss           0x00000000        0x0 Hw_PLL.o
+ .text          0x00000000        0x0 Hw_Led.o
+ .data          0x00000000        0x0 Hw_Led.o
+ .bss           0x00000000        0x0 Hw_Led.o
+ .text.Hw_Led_On
+                0x00000000       0x14 Hw_Led.o
+ .text.Hw_Led_Off
+                0x00000000       0x14 Hw_Led.o
+ .text.Hw_Led_Wait
+                0x00000000       0x1c Hw_Led.o
+
+Memory Configuration
+
+Name             Origin             Length             Attributes
+RAM              0x20000000         0x00005000         xrw
+EXTSRAM          0x68000000         0x00000000         xrw
+FLASH            0x08000000         0x0001f800         xr
+EEMUL            0x0801f800         0x00000800         xrw
+*default*        0x00000000         0xffffffff
+
+Linker script and memory map
+
+LOAD main.o
+LOAD Ap.o
+LOAD Ap_UartMenu.o
+LOAD Lb_Util.o
+LOAD Lb_Printf.o
+LOAD Hw_StartUp.o
+LOAD Hw.o
+LOAD Hw_Uart.o
+LOAD Hw_PLL.o
+LOAD Hw_Led.o
+LOAD c:/program files/codesourcery/sourcery g++ lite/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/lib/thumb2\libc.a
+LOAD c:/program files/codesourcery/sourcery g++ lite/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/lib/thumb2\libm.a
+LOAD c:/program files/codesourcery/sourcery g++ lite/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/lib/thumb2\libc.a
+LOAD c:/program files/codesourcery/sourcery g++ lite/bin/../lib/gcc/arm-none-eabi/4.5.2/thumb2\libgcc.a
+                0x20005000                _estack = 0x20005000
+                0x0801f800                _seemul = 0x801f800
+                0x00000100                _Minimum_Stack_Size = 0x100
+                0x00000001                ASSERT (0x1, Start of memory region flash not aligned for startup vector table)
+
+.text           0x08000000     0x1640
+                0x08000000                . = ALIGN (0x80)
+                0x00000000                _isr_vectorsflash_offs = (. - 0x8000000)
+ *(.isr_vectorsflash)
+ .isr_vectorsflash
+                0x08000000        0x8 Hw_StartUp.o
+                0x08000000                g_pfnVectors
+                0x08000008                . = ALIGN (0x4)
+ *(.text)
+ *(.text.*)
+ .text.main     0x08000008       0x34 main.o
+                0x08000008                main
+ .text.Ap_Init  0x0800003c        0x4 Ap.o
+                0x0800003c                Ap_Init
+ .text.main_menu
+                0x08000040       0xac Ap_UartMenu.o
+                0x08000040                main_menu
+ .text.Menu_ExeCmd
+                0x080000ec      0x4b0 Ap_UartMenu.o
+                0x080000ec                Menu_ExeCmd
+ .text.delay_second
+                0x0800059c       0x10 Lb_Util.o
+                0x0800059c                delay_second
+ .text.DecToLong
+                0x080005ac       0x4c Lb_Printf.o
+                0x080005ac                DecToLong
+ .text.printf   0x080005f8      0xb28 Lb_Printf.o
+                0x080005f8                printf
+ .text.Hw_StartUp_Init
+                0x08001120       0x64 Hw_StartUp.o
+                0x08001120                Hw_StartUp_Init
+ .text.Hw_Init  0x08001184       0x48 Hw.o
+                0x08001184                Hw_Init
+ .text.Hw_Uart_Init
+                0x080011cc       0x30 Hw_Uart.o
+                0x080011cc                Hw_Uart_Init
+ .text.print_byte
+                0x080011fc       0x2c Hw_Uart.o
+                0x080011fc                print_byte
+ .text.get_byte
+                0x08001228       0x1c Hw_Uart.o
+                0x08001228                get_byte
+ .text.Hw_PLL_Init
+                0x08001244       0x64 Hw_PLL.o
+                0x08001244                Hw_PLL_Init
+ .text.Hw_Led_Init
+                0x080012a8       0x40 Hw_Led.o
+                0x080012a8                Hw_Led_Init
+ .text.Hw_Led_Toggle
+                0x080012e8       0x14 Hw_Led.o
+                0x080012e8                Hw_Led_Toggle
+ *(.stub .gnu.linkonce.t.*)
+ *(.rodata .rodata.* .gnu.linkonce.r.*)
+ .rodata.str1.4
+                0x080012fc       0x21 main.o
+                                 0x24 (size before relaxing)
+ *fill*         0x0800131d        0x3 00
+ .rodata.str1.4
+                0x08001320      0x320 Ap_UartMenu.o
+ *(.glue_7 .glue_7t)
+ .glue_7        0x00000000        0x0 linker stubs
+ .glue_7t       0x00000000        0x0 linker stubs
+                0x08001640                . = ALIGN (0x4)
+                0x08001640                _etext = .
+                0x08001640                _sidata = _etext
+
+.vfp11_veneer   0x08001640        0x0
+ .vfp11_veneer  0x00000000        0x0 linker stubs
+
+.v4_bx          0x08001640        0x0
+ .v4_bx         0x00000000        0x0 linker stubs
+
+.data           0x20000000        0x0 load address 0x08001640
+                0x20000000                . = .
+                0x20000000                . = ALIGN (0x4)
+                0x20000000                _sdata = .
+                0x20000000                . = ALIGN (0x80)
+                0x00000000                _isr_vectorsram_offs = (. - 0x20000000)
+ *(.isr_vectorsram)
+                0x20000000                . = ALIGN (0x4)
+ *(.ramfunc*)
+                0x20000000                . = ALIGN (0x4)
+ *(.data .data.* .gnu.linkonce.d.*)
+                0x20000000                . = ALIGN (0x4)
+                0x20000000                _edata = .
+
+.bss            0x20000000        0x0
+                0x20000000                . = ALIGN (0x4)
+                0x20000000                _sbss = .
+ *(.bss .bss.*)
+ *(COMMON)
+                0x20000000                . = ALIGN (0x4)
+                0x20000000                _ebss = .
+                0x20000000                PROVIDE (end, _ebss)
+                0x20000000                PROVIDE (_end, _ebss)
+
+._usrstack      0x20000000      0x100
+                0x20000000                . = ALIGN (0x4)
+                0x20000000                _susrstack = .
+                0x20000100                . = (. + _Minimum_Stack_Size)
+ *fill*         0x20000000      0x100 00
+                0x20000100                . = ALIGN (0x4)
+                0x20000100                _eusrstack = .
+                0x00000400                __Stack_Size = 0x400
+                0x00000400                PROVIDE (_Stack_Size, __Stack_Size)
+                0x20004c00                __Stack_Init = (_estack - __Stack_Size)
+                0x20004c00                PROVIDE (_Stack_Init, __Stack_Init)
+OUTPUT(main.elf elf32-littlearm)
+
+.debug_abbrev   0x00000000      0x6ce
+ .debug_abbrev  0x00000000       0x6e main.o
+ .debug_abbrev  0x0000006e       0x41 Ap.o
+ .debug_abbrev  0x000000af       0x6b Ap_UartMenu.o
+ .debug_abbrev  0x0000011a       0x8f Lb_Util.o
+ .debug_abbrev  0x000001a9      0x1cf Lb_Printf.o
+ .debug_abbrev  0x00000378       0xb7 Hw_StartUp.o
+ .debug_abbrev  0x0000042f       0xe6 Hw.o
+ .debug_abbrev  0x00000515       0x7e Hw_Uart.o
+ .debug_abbrev  0x00000593       0x41 Hw_PLL.o
+ .debug_abbrev  0x000005d4       0xfa Hw_Led.o
+
+.debug_info     0x00000000      0xd00
+ .debug_info    0x00000000       0x9f main.o
+ .debug_info    0x0000009f       0x76 Ap.o
+ .debug_info    0x00000115       0xb8 Ap_UartMenu.o
+ .debug_info    0x000001cd       0xce Lb_Util.o
+ .debug_info    0x0000029b      0x5a9 Lb_Printf.o
+ .debug_info    0x00000844      0x100 Hw_StartUp.o
+ .debug_info    0x00000944      0x11a Hw.o
+ .debug_info    0x00000a5e       0xbc Hw_Uart.o
+ .debug_info    0x00000b1a       0x76 Hw_PLL.o
+ .debug_info    0x00000b90      0x170 Hw_Led.o
+
+.debug_line     0x00000000      0x878
+ .debug_line    0x00000000       0x42 main.o
+ .debug_line    0x00000042       0x3f Ap.o
+ .debug_line    0x00000081      0x158 Ap_UartMenu.o
+ .debug_line    0x000001d9       0x5a Lb_Util.o
+ .debug_line    0x00000233      0x394 Lb_Printf.o
+ .debug_line    0x000005c7       0x89 Hw_StartUp.o
+ .debug_line    0x00000650       0x94 Hw.o
+ .debug_line    0x000006e4       0x87 Hw_Uart.o
+ .debug_line    0x0000076b       0x5b Hw_PLL.o
+ .debug_line    0x000007c6       0xb2 Hw_Led.o
+
+.debug_loc      0x00000000     0x1a53
+ .debug_loc     0x00000000       0x20 main.o
+ .debug_loc     0x00000020      0x31e Ap_UartMenu.o
+ .debug_loc     0x0000033e       0x51 Lb_Util.o
+ .debug_loc     0x0000038f     0x14e9 Lb_Printf.o
+ .debug_loc     0x00001878       0x93 Hw_StartUp.o
+ .debug_loc     0x0000190b       0x92 Hw.o
+ .debug_loc     0x0000199d       0x3e Hw_Uart.o
+ .debug_loc     0x000019db       0x78 Hw_Led.o
+
+.debug_pubnames
+                0x00000000      0x20c
+ .debug_pubnames
+                0x00000000       0x1b main.o
+ .debug_pubnames
+                0x0000001b       0x1e Ap.o
+ .debug_pubnames
+                0x00000039       0x30 Ap_UartMenu.o
+ .debug_pubnames
+                0x00000069       0x2d Lb_Util.o
+ .debug_pubnames
+                0x00000096       0x42 Lb_Printf.o
+ .debug_pubnames
+                0x000000d8       0x37 Hw_StartUp.o
+ .debug_pubnames
+                0x0000010f       0x3b Hw.o
+ .debug_pubnames
+                0x0000014a       0x3f Hw_Uart.o
+ .debug_pubnames
+                0x00000189       0x22 Hw_PLL.o
+ .debug_pubnames
+                0x000001ab       0x61 Hw_Led.o
+
+.debug_pubtypes
+                0x00000000       0xf4
+ .debug_pubtypes
+                0x00000000       0x12 main.o
+ .debug_pubtypes
+                0x00000012       0x12 Ap.o
+ .debug_pubtypes
+                0x00000024       0x12 Ap_UartMenu.o
+ .debug_pubtypes
+                0x00000036       0x12 Lb_Util.o
+ .debug_pubtypes
+                0x00000048       0x27 Lb_Printf.o
+ .debug_pubtypes
+                0x0000006f       0x26 Hw_StartUp.o
+ .debug_pubtypes
+                0x00000095       0x1a Hw.o
+ .debug_pubtypes
+                0x000000af       0x12 Hw_Uart.o
+ .debug_pubtypes
+                0x000000c1       0x12 Hw_PLL.o
+ .debug_pubtypes
+                0x000000d3       0x21 Hw_Led.o
+
+.debug_aranges  0x00000000      0x1a8
+ .debug_aranges
+                0x00000000       0x20 main.o
+ .debug_aranges
+                0x00000020       0x20 Ap.o
+ .debug_aranges
+                0x00000040       0x28 Ap_UartMenu.o
+ .debug_aranges
+                0x00000068       0x28 Lb_Util.o
+ .debug_aranges
+                0x00000090       0x38 Lb_Printf.o
+ .debug_aranges
+                0x000000c8       0x20 Hw_StartUp.o
+ .debug_aranges
+                0x000000e8       0x30 Hw.o
+ .debug_aranges
+                0x00000118       0x30 Hw_Uart.o
+ .debug_aranges
+                0x00000148       0x20 Hw_PLL.o
+ .debug_aranges
+                0x00000168       0x40 Hw_Led.o
+
+.debug_ranges   0x00000000      0x2e0
+ .debug_ranges  0x00000000       0x10 main.o
+ .debug_ranges  0x00000010       0x10 Ap.o
+ .debug_ranges  0x00000020       0x18 Ap_UartMenu.o
+ .debug_ranges  0x00000038       0x18 Lb_Util.o
+ .debug_ranges  0x00000050      0x1a8 Lb_Printf.o
+ .debug_ranges  0x000001f8       0x10 Hw_StartUp.o
+ .debug_ranges  0x00000208       0x60 Hw.o
+ .debug_ranges  0x00000268       0x20 Hw_Uart.o
+ .debug_ranges  0x00000288       0x10 Hw_PLL.o
+ .debug_ranges  0x00000298       0x48 Hw_Led.o
+
+.debug_str      0x00000000      0x30c
+ .debug_str     0x00000000       0x89 main.o
+                                 0xa2 (size before relaxing)
+ .debug_str     0x00000089       0x17 Ap.o
+                                 0xa0 (size before relaxing)
+ .debug_str     0x000000a0       0x2e Ap_UartMenu.o
+                                 0xb7 (size before relaxing)
+ .debug_str     0x000000ce       0x31 Lb_Util.o
+                                 0xba (size before relaxing)
+ .debug_str     0x000000ff       0xc8 Lb_Printf.o
+                                0x15f (size before relaxing)
+ .debug_str     0x000001c7       0x6b Hw_StartUp.o
+                                 0xf4 (size before relaxing)
+ .debug_str     0x00000232       0x31 Hw.o
+                                 0xc0 (size before relaxing)
+ .debug_str     0x00000263       0x35 Hw_Uart.o
+                                 0xc3 (size before relaxing)
+ .debug_str     0x00000298       0x1f Hw_PLL.o
+                                 0xa8 (size before relaxing)
+ .debug_str     0x000002b7       0x55 Hw_Led.o
+                                 0xe4 (size before relaxing)
+
+.comment        0x00000000       0x2a
+ .comment       0x00000000       0x2a main.o
+                                 0x2b (size before relaxing)
+ .comment       0x00000000       0x2b Ap.o
+ .comment       0x00000000       0x2b Ap_UartMenu.o
+ .comment       0x00000000       0x2b Lb_Util.o
+ .comment       0x00000000       0x2b Lb_Printf.o
+ .comment       0x00000000       0x2b Hw_StartUp.o
+ .comment       0x00000000       0x2b Hw.o
+ .comment       0x00000000       0x2b Hw_Uart.o
+ .comment       0x00000000       0x2b Hw_PLL.o
+ .comment       0x00000000       0x2b Hw_Led.o
+
+.ARM.attributes
+                0x00000000       0x31
+ .ARM.attributes
+                0x00000000       0x31 main.o
+ .ARM.attributes
+                0x00000031       0x31 Ap.o
+ .ARM.attributes
+                0x00000062       0x31 Ap_UartMenu.o
+ .ARM.attributes
+                0x00000093       0x31 Lb_Util.o
+ .ARM.attributes
+                0x000000c4       0x31 Lb_Printf.o
+ .ARM.attributes
+                0x000000f5       0x31 Hw_StartUp.o
+ .ARM.attributes
+                0x00000126       0x31 Hw.o
+ .ARM.attributes
+                0x00000157       0x31 Hw_Uart.o
+ .ARM.attributes
+                0x00000188       0x31 Hw_PLL.o
+ .ARM.attributes
+                0x000001b9       0x31 Hw_Led.o
+
+.debug_frame    0x00000000      0x2c8
+ .debug_frame   0x00000000       0x2c main.o
+ .debug_frame   0x0000002c       0x20 Ap.o
+ .debug_frame   0x0000004c       0x58 Ap_UartMenu.o
+ .debug_frame   0x000000a4       0x34 Lb_Util.o
+ .debug_frame   0x000000d8       0x9c Lb_Printf.o
+ .debug_frame   0x00000174       0x30 Hw_StartUp.o
+ .debug_frame   0x000001a4       0x54 Hw.o
+ .debug_frame   0x000001f8       0x4c Hw_Uart.o
+ .debug_frame   0x00000244       0x20 Hw_PLL.o
+ .debug_frame   0x00000264       0x64 Hw_Led.o
+
+Cross Reference Table
+
+Symbol                                            File
+Ap_Init                                           Ap.o
+                                                  main.o
+DecToLong                                         Lb_Printf.o
+Hw_Init                                           Hw.o
+                                                  main.o
+Hw_Led_Init                                       Hw_Led.o
+                                                  Hw.o
+Hw_Led_Off                                        Hw_Led.o
+Hw_Led_On                                         Hw_Led.o
+Hw_Led_Toggle                                     Hw_Led.o
+                                                  Ap_UartMenu.o
+Hw_Led_Wait                                       Hw_Led.o
+Hw_PLL_Init                                       Hw_PLL.o
+                                                  Hw.o
+Hw_StartUp_Init                                   Hw_StartUp.o
+Hw_Uart_Init                                      Hw_Uart.o
+                                                  Hw.o
+Hw_Wait                                           Hw.o
+Hw_Wait_Usec                                      Hw.o
+Menu_ExeCmd                                       Ap_UartMenu.o
+                                                  main.o
+StrCmp                                            Lb_Printf.o
+StrNCmp                                           Lb_Printf.o
+_estack                                           Hw_StartUp.o
+delay                                             Lb_Util.o
+delay_second                                      Lb_Util.o
+                                                  Ap_UartMenu.o
+g_pfnVectors                                      Hw_StartUp.o
+get_byte                                          Hw_Uart.o
+                                                  Ap_UartMenu.o
+main                                              main.o
+                                                  Hw_StartUp.o
+main_menu                                         Ap_UartMenu.o
+print_byte                                        Hw_Uart.o
+                                                  Lb_Printf.o
+printf                                            Lb_Printf.o
+                                                  Ap_UartMenu.o
+                                                  main.o

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<AcroEditProject Version="1.0">
+  <Options>
+    <UserTools Value=""/>
+    <BaseFolder Value=""/>
+    <GenerateFunctionList Value="true"/>
+    <CodePage Value="949"/>
+    <ExcludeDir Value=""/>
+    <AcceptableExt Value=""/>
+    <OpenLastFiles Value="false"/>
+  </Options>
+  <Files>
+    <Category Name="Build">
+      <File Name="Build\clean_compile.cmd"/>
+      <File Name="Build\compile.cmd"/>
+      <File Name="Build\main.map"/>
+      <File Name="Build\Makefile"/>
+      <File Name="Build\STM32F10x_128k_20k_flash.ld"/>
+    </Category>
+    <Category Name="LIB_AP">
+      <File Name="LIB_AP\Ap.c"/>
+      <File Name="LIB_AP\Ap.h"/>
+      <File Name="LIB_AP\Ap_Define.h"/>
+      <File Name="LIB_AP\Ap_UartMenu.c"/>
+      <File Name="LIB_AP\Ap_UartMenu.h"/>
+    </Category>
+    <Category Name="LIB_HW">
+      <File Name="LIB_HW\Hw.c"/>
+      <File Name="LIB_HW\Hw.h"/>
+      <File Name="LIB_HW\Hw_Define.h"/>
+      <File Name="LIB_HW\Hw_Led.c"/>
+      <File Name="LIB_HW\Hw_Led.h"/>
+      <File Name="LIB_HW\Hw_PLL.c"/>
+      <File Name="LIB_HW\Hw_PLL.h"/>
+      <File Name="LIB_HW\Hw_Regs.h"/>
+      <File Name="LIB_HW\Hw_StartUp.c"/>
+      <File Name="LIB_HW\Hw_StartUp.h"/>
+      <File Name="LIB_HW\Hw_Uart.c"/>
+      <File Name="LIB_HW\Hw_Uart.h"/>
+    </Category>
+    <Category Name="LIB_LB">
+      <File Name="LIB_LB\Lb_Printf.c"/>
+      <File Name="LIB_LB\Lb_Printf.h"/>
+      <File Name="LIB_LB\Lb_Util.c"/>
+      <File Name="LIB_LB\Lb_Util.h"/>
+    </Category>
+    <Category Name="Main">
+      <File Name="main.c"/>
+      <File Name="main.h"/>
+    </Category>
+  </Files>
+  <ClosedFiles>
+    <File Name="E:\OROCA\STM32\FW\Ex01_Gpio_V2\LIB_AP\Ap_Define.h"/>
+    <File Name="E:\OROCA\STM32\FW\Ex01_Gpio_V2\LIB_AP\Ap.h"/>
+    <File Name="E:\OROCA\STM32\FW\Ex01_Gpio_V2\Build\STM32F10x_128k_20k_flash.ld"/>
+    <File Name="E:\OROCA\STM32\FW\Ex01_Gpio_V2\Build\clean_compile.cmd"/>
+    <File Name="E:\OROCA\STM32\FW\Ex01_Gpio_V2\Build\compile.cmd"/>
+    <File Name="E:\OROCA\STM32\FW\Ex01_Gpio_V2\LIB_LB\Lb_Util.h"/>
+    <File Name="E:\OROCA\STM32\FW\Ex01_Gpio_V2\LIB_HW\Hw_Uart.h"/>
+    <File Name="E:\OROCA\STM32\FW\Ex01_Gpio_V2\LIB_LB\Lb_Util.c"/>
+    <File Name="E:\OROCA\STM32\FW\Ex01_Gpio_V2\LIB_HW\Hw_Uart.c"/>
+    <File Name="E:\OROCA\STM32\FW\Ex01_Gpio_V2\LIB_LB\Lb_Printf.h"/>
+    <File Name="E:\OROCA\STM32\FW\Ex01_Gpio_V2\LIB_AP\Ap_UartMenu.h"/>
+    <File Name="E:\OROCA\STM32\FW\Ex01_Gpio_V2\LIB_AP\Ap.c"/>
+    <File Name="E:\OROCA\STM32\FW\Ex01_Gpio_V2\LIB_HW\Hw_PLL.h"/>
+    <File Name="E:\OROCA\STM32\FW\Ex01_Gpio_V2\LIB_HW\Hw.h"/>
+    <File Name="E:\OROCA\STM32\FW\Ex01_Gpio_V2\main.c"/>
+    <File Name="E:\OROCA\STM32\FW\Ex01_Gpio_V2\LIB_LB\Lb_Printf.c"/>
+    <File Name="E:\OROCA\STM32\FW\Ex01_Gpio_V2\Build\Makefile"/>
+    <File Name="E:\OROCA\STM32\FW\Ex01_Gpio_V2\LIB_HW\Hw_Led.h"/>
+    <File Name="E:\OROCA\STM32\FW\Ex01_Gpio_V2\LIB_HW\Hw.c"/>
+    <File Name="E:\OROCA\STM32\FW\Ex01_Gpio_V2\LIB_HW\Hw_StartUp.c"/>
+    <File Name="E:\OROCA\STM32\FW\Ex01_Gpio_V2\LIB_AP\Ap_UartMenu.c"/>
+    <File Name="E:\OROCA\STM32\FW\Ex01_Gpio_V2\LIB_HW\Hw_PLL.c"/>
+    <File Name="E:\OROCA\STM32\FW\Ex01_Gpio_V2\LIB_HW\Hw_Regs.h"/>
+    <File Name="E:\OROCA\STM32\FW\Ex01_Gpio_V2\LIB_HW\Hw_Led.c"/>
+  </ClosedFiles>
+</AcroEditProject>

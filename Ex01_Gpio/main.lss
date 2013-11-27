@@ -1,0 +1,4456 @@
+
+main.elf:     file format elf32-littlearm
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .text         000015bc  08000000  08000000  00008000  2**2
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  1 ._usrstack    00000100  20000000  20000000  000095bc  2**0
+                  CONTENTS
+  2 .debug_abbrev 00000414  00000000  00000000  000096bc  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  3 .debug_info   00000827  00000000  00000000  00009ad0  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  4 .debug_line   00000658  00000000  00000000  0000a2f7  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  5 .debug_loc    00001943  00000000  00000000  0000a94f  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  6 .debug_pubnames 0000010b  00000000  00000000  0000c292  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  7 .debug_pubtypes 0000007b  00000000  00000000  0000c39d  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_aranges 000000d8  00000000  00000000  0000c418  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  9 .debug_ranges 00000208  00000000  00000000  0000c4f0  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 10 .debug_str    000001d9  00000000  00000000  0000c6f8  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 11 .comment      0000002a  00000000  00000000  0000c8d1  2**0
+                  CONTENTS, READONLY
+ 12 .ARM.attributes 00000031  00000000  00000000  0000c8fb  2**0
+                  CONTENTS, READONLY
+ 13 .debug_frame  000001b4  00000000  00000000  0000c92c  2**2
+                  CONTENTS, READONLY, DEBUGGING
+
+Disassembly of section .text:
+
+08000000 <g_pfnVectors>:
+ 8000000:	00 50 00 20 09 00 00 08                             .P. ....
+
+08000008 <Reset_Handler>:
+};
+
+
+
+void Reset_Handler(void)
+{
+ 8000008:	4668      	mov	r0, sp
+ 800000a:	f020 0207 	bic.w	r2, r0, #7
+    // 12MHz x 6 = 72MHz
+    
+    
+    ////HSI(0x1) or HSE ON(0x1<<16)
+    //*(volatile unsigned long *) 0x40021000 |= 0x1;            //RCC_CR - HSION    Set HSION bit
+    *(volatile unsigned long *) 0x40021000 |= 0x1<<16;        //RCC_CR  CR_HSEON_Set
+ 800000e:	4939      	ldr	r1, [pc, #228]	; (80000f4 <Reset_Handler+0xec>)
+};
+
+
+
+void Reset_Handler(void)
+{
+ 8000010:	4695      	mov	sp, r2
+ 8000012:	b519      	push	{r0, r3, r4, lr}
+    // 12MHz x 6 = 72MHz
+    
+    
+    ////HSI(0x1) or HSE ON(0x1<<16)
+    //*(volatile unsigned long *) 0x40021000 |= 0x1;            //RCC_CR - HSION    Set HSION bit
+    *(volatile unsigned long *) 0x40021000 |= 0x1<<16;        //RCC_CR  CR_HSEON_Set
+ 8000014:	680c      	ldr	r4, [r1, #0]
+
+
+
+void Reset_Handler(void)
+{
+    unsigned long StartUpCounter = 0, HSEStatus = 0;
+ 8000016:	2300      	movs	r3, #0
+    // 12MHz x 6 = 72MHz
+    
+    
+    ////HSI(0x1) or HSE ON(0x1<<16)
+    //*(volatile unsigned long *) 0x40021000 |= 0x1;            //RCC_CR - HSION    Set HSION bit
+    *(volatile unsigned long *) 0x40021000 |= 0x1<<16;        //RCC_CR  CR_HSEON_Set
+ 8000018:	f444 3080 	orr.w	r0, r4, #65536	; 0x10000
+
+    // 설정된 clock 이 설정 되었는지 확인
+    do
+    {
+       //HSEStatus = (*(volatile unsigned long *) 0x40021000 & 0x1<<1);             // HSI 인경우
+       HSEStatus = (*(volatile unsigned long *) 0x40021000 & 0x1<<17);             // HSE 인경우
+ 800001c:	460a      	mov	r2, r1
+    // 12MHz x 6 = 72MHz
+    
+    
+    ////HSI(0x1) or HSE ON(0x1<<16)
+    //*(volatile unsigned long *) 0x40021000 |= 0x1;            //RCC_CR - HSION    Set HSION bit
+    *(volatile unsigned long *) 0x40021000 |= 0x1<<16;        //RCC_CR  CR_HSEON_Set
+ 800001e:	6008      	str	r0, [r1, #0]
+ 8000020:	e006      	b.n	8000030 <Reset_Handler+0x28>
+
+    // 설정된 clock 이 설정 되었는지 확인
+    do
+    {
+       //HSEStatus = (*(volatile unsigned long *) 0x40021000 & 0x1<<1);             // HSI 인경우
+       HSEStatus = (*(volatile unsigned long *) 0x40021000 & 0x1<<17);             // HSE 인경우
+ 8000022:	6811      	ldr	r1, [r2, #0]
+       StartUpCounter++;
+    } while((HSEStatus == 0) && (StartUpCounter != 0x0500));
+ 8000024:	f411 3f00 	tst.w	r1, #131072	; 0x20000
+ 8000028:	d107      	bne.n	800003a <Reset_Handler+0x32>
+ 800002a:	f5b3 6fa0 	cmp.w	r3, #1280	; 0x500
+ 800002e:	d004      	beq.n	800003a <Reset_Handler+0x32>
+
+    // 설정된 clock 이 설정 되었는지 확인
+    do
+    {
+       //HSEStatus = (*(volatile unsigned long *) 0x40021000 & 0x1<<1);             // HSI 인경우
+       HSEStatus = (*(volatile unsigned long *) 0x40021000 & 0x1<<17);             // HSE 인경우
+ 8000030:	6810      	ldr	r0, [r2, #0]
+       StartUpCounter++;
+ 8000032:	3302      	adds	r3, #2
+    } while((HSEStatus == 0) && (StartUpCounter != 0x0500));
+ 8000034:	f410 3f00 	tst.w	r0, #131072	; 0x20000
+ 8000038:	d0f3      	beq.n	8000022 <Reset_Handler+0x1a>
+  
+	#if 1
+	*(volatile unsigned long *) 0x40022000 |= 0x10;      //FLASH->ACR &= ACR_LATENCY_Mask;
+ 800003a:	4b2f      	ldr	r3, [pc, #188]	; (80000f8 <Reset_Handler+0xf0>)
+	*(volatile unsigned long *) 0x40022000 &= ~0x3;
+	*(volatile unsigned long *) 0x40022000 |= 0x2;
+	#endif
+
+    /////// PLL 설정 내부 일 경우 36MHz 외부 일 경우 72Mhz로 설정함
+    *(volatile unsigned long *) 0x40021004 &= ~(0xF<<18 | 0x1<<17 | 0x1<<16);                  //0x3F0000;      //RCC_CFGR
+ 800003c:	492f      	ldr	r1, [pc, #188]	; (80000fc <Reset_Handler+0xf4>)
+       HSEStatus = (*(volatile unsigned long *) 0x40021000 & 0x1<<17);             // HSE 인경우
+       StartUpCounter++;
+    } while((HSEStatus == 0) && (StartUpCounter != 0x0500));
+  
+	#if 1
+	*(volatile unsigned long *) 0x40022000 |= 0x10;      //FLASH->ACR &= ACR_LATENCY_Mask;
+ 800003e:	681c      	ldr	r4, [r3, #0]
+    /////// PLL 설정 내부 일 경우 36MHz 외부 일 경우 72Mhz로 설정함
+    *(volatile unsigned long *) 0x40021004 &= ~(0xF<<18 | 0x1<<17 | 0x1<<16);                  //0x3F0000;      //RCC_CFGR
+    //*(volatile unsigned long *) 0x40021004 |= (0x7<<18);              //RCC_CFGR  //내부 4MHz
+    *(volatile unsigned long *) 0x40021004 |= (0x7<<18 | 0x1<<16);              //0x1D0000;       //RCC_CFGR  //8MHz
+    //*(volatile unsigned long *) 0x40021004 |=  (0x4<<18 | 0x1<<16);              //0x110000;       //RCC_CFGR    //12MHz
+    *(volatile unsigned long *) 0x40021000 |= 0x01 << 24/*0x1000000*/;                       //PLLON
+ 8000040:	482c      	ldr	r0, [pc, #176]	; (80000f4 <Reset_Handler+0xec>)
+       HSEStatus = (*(volatile unsigned long *) 0x40021000 & 0x1<<17);             // HSE 인경우
+       StartUpCounter++;
+    } while((HSEStatus == 0) && (StartUpCounter != 0x0500));
+  
+	#if 1
+	*(volatile unsigned long *) 0x40022000 |= 0x10;      //FLASH->ACR &= ACR_LATENCY_Mask;
+ 8000042:	f044 0210 	orr.w	r2, r4, #16
+ 8000046:	601a      	str	r2, [r3, #0]
+	*(volatile unsigned long *) 0x40022000 &= ~0x3;
+ 8000048:	681c      	ldr	r4, [r3, #0]
+    *(volatile unsigned long *) 0x40021004 &= ~(0xF<<18 | 0x1<<17 | 0x1<<16);                  //0x3F0000;      //RCC_CFGR
+    //*(volatile unsigned long *) 0x40021004 |= (0x7<<18);              //RCC_CFGR  //내부 4MHz
+    *(volatile unsigned long *) 0x40021004 |= (0x7<<18 | 0x1<<16);              //0x1D0000;       //RCC_CFGR  //8MHz
+    //*(volatile unsigned long *) 0x40021004 |=  (0x4<<18 | 0x1<<16);              //0x110000;       //RCC_CFGR    //12MHz
+    *(volatile unsigned long *) 0x40021000 |= 0x01 << 24/*0x1000000*/;                       //PLLON
+    while( ((*(volatile unsigned long *) 0x40021000) & 0x01 << 25/*0x2000000*/) == 0);       //PLLRDY
+ 800004a:	4602      	mov	r2, r0
+       StartUpCounter++;
+    } while((HSEStatus == 0) && (StartUpCounter != 0x0500));
+  
+	#if 1
+	*(volatile unsigned long *) 0x40022000 |= 0x10;      //FLASH->ACR &= ACR_LATENCY_Mask;
+	*(volatile unsigned long *) 0x40022000 &= ~0x3;
+ 800004c:	f024 0403 	bic.w	r4, r4, #3
+ 8000050:	601c      	str	r4, [r3, #0]
+	*(volatile unsigned long *) 0x40022000 |= 0x2;
+ 8000052:	681c      	ldr	r4, [r3, #0]
+ 8000054:	f044 0402 	orr.w	r4, r4, #2
+ 8000058:	601c      	str	r4, [r3, #0]
+	#endif
+
+    /////// PLL 설정 내부 일 경우 36MHz 외부 일 경우 72Mhz로 설정함
+    *(volatile unsigned long *) 0x40021004 &= ~(0xF<<18 | 0x1<<17 | 0x1<<16);                  //0x3F0000;      //RCC_CFGR
+ 800005a:	680c      	ldr	r4, [r1, #0]
+ 800005c:	f424 137c 	bic.w	r3, r4, #4128768	; 0x3f0000
+ 8000060:	600b      	str	r3, [r1, #0]
+    //*(volatile unsigned long *) 0x40021004 |= (0x7<<18);              //RCC_CFGR  //내부 4MHz
+    *(volatile unsigned long *) 0x40021004 |= (0x7<<18 | 0x1<<16);              //0x1D0000;       //RCC_CFGR  //8MHz
+ 8000062:	680c      	ldr	r4, [r1, #0]
+ 8000064:	f444 13e8 	orr.w	r3, r4, #1900544	; 0x1d0000
+ 8000068:	600b      	str	r3, [r1, #0]
+    //*(volatile unsigned long *) 0x40021004 |=  (0x4<<18 | 0x1<<16);              //0x110000;       //RCC_CFGR    //12MHz
+    *(volatile unsigned long *) 0x40021000 |= 0x01 << 24/*0x1000000*/;                       //PLLON
+ 800006a:	6804      	ldr	r4, [r0, #0]
+ 800006c:	f044 7380 	orr.w	r3, r4, #16777216	; 0x1000000
+ 8000070:	6003      	str	r3, [r0, #0]
+    while( ((*(volatile unsigned long *) 0x40021000) & 0x01 << 25/*0x2000000*/) == 0);       //PLLRDY
+ 8000072:	6810      	ldr	r0, [r2, #0]
+ 8000074:	f010 7f00 	tst.w	r0, #33554432	; 0x2000000
+ 8000078:	d0fb      	beq.n	8000072 <Reset_Handler+0x6a>
+    /////Bits 1:0 SW : System clock switch
+    //00: HSI selected as system clock
+    //01: HSE selected as system clock
+    //10: PLL selected as system clock   <----------------- 선택됨
+    //11: not allowed
+    *(volatile unsigned long *) 0x40021004 &= ~0x3;
+ 800007a:	4b20      	ldr	r3, [pc, #128]	; (80000fc <Reset_Handler+0xf4>)
+ 800007c:	6819      	ldr	r1, [r3, #0]
+    *(volatile unsigned long *) 0x40021004 |= 0x2;
+    while( ((*(volatile unsigned long *) 0x40021004) & 0xC) != 0x08);
+ 800007e:	461a      	mov	r2, r3
+    /////Bits 1:0 SW : System clock switch
+    //00: HSI selected as system clock
+    //01: HSE selected as system clock
+    //10: PLL selected as system clock   <----------------- 선택됨
+    //11: not allowed
+    *(volatile unsigned long *) 0x40021004 &= ~0x3;
+ 8000080:	f021 0003 	bic.w	r0, r1, #3
+ 8000084:	6018      	str	r0, [r3, #0]
+    *(volatile unsigned long *) 0x40021004 |= 0x2;
+ 8000086:	681c      	ldr	r4, [r3, #0]
+ 8000088:	f044 0102 	orr.w	r1, r4, #2
+ 800008c:	6019      	str	r1, [r3, #0]
+    while( ((*(volatile unsigned long *) 0x40021004) & 0xC) != 0x08);
+ 800008e:	6813      	ldr	r3, [r2, #0]
+ 8000090:	f003 0c0c 	and.w	ip, r3, #12
+ 8000094:	f1bc 0f08 	cmp.w	ip, #8
+ 8000098:	d1f9      	bne.n	800008e <Reset_Handler+0x86>
+    
+    //APB2에 있는 UART 등 주변장치에 Clock 소스 동작제어
+    //UART가 동작되기 위해서는 GPIO와 Alternation Function IO가 동작상태에 있어야 함
+    *(volatile unsigned long *) 0x40021018 |= 0x1 << 14 | 0x1 << 4  | 0x1 << 3  | 0x1 << 2 | 0x1 << 0;         // UART/ IOPC EN / IOPB EN / IOPA EN / AFIO EN
+ 800009a:	4c19      	ldr	r4, [pc, #100]	; (8000100 <Reset_Handler+0xf8>)
+   
+    	/* Configure the GPIO ports */
+	*(volatile unsigned long *) 0x40010800 = 0x33333333;            // PA0 - 7
+ 800009c:	f04f 3233 	mov.w	r2, #858993459	; 0x33333333
+    *(volatile unsigned long *) 0x40021004 |= 0x2;
+    while( ((*(volatile unsigned long *) 0x40021004) & 0xC) != 0x08);
+    
+    //APB2에 있는 UART 등 주변장치에 Clock 소스 동작제어
+    //UART가 동작되기 위해서는 GPIO와 Alternation Function IO가 동작상태에 있어야 함
+    *(volatile unsigned long *) 0x40021018 |= 0x1 << 14 | 0x1 << 4  | 0x1 << 3  | 0x1 << 2 | 0x1 << 0;         // UART/ IOPC EN / IOPB EN / IOPA EN / AFIO EN
+ 80000a0:	6820      	ldr	r0, [r4, #0]
+    	 - No parity
+    	 - Hardware flow control disabled (RTS and CTS signals)
+    	 - Receive and transmit enabled
+    	*/
+    *(volatile unsigned long *) 0x40013810 	 = 0x0;           // 1 stop bit
+    *(volatile unsigned long *) 0x4001380C 	 = 0x200C;        // 8bit no parity
+ 80000a2:	4b18      	ldr	r3, [pc, #96]	; (8000104 <Reset_Handler+0xfc>)
+    *(volatile unsigned long *) 0x40021004 |= 0x2;
+    while( ((*(volatile unsigned long *) 0x40021004) & 0xC) != 0x08);
+    
+    //APB2에 있는 UART 등 주변장치에 Clock 소스 동작제어
+    //UART가 동작되기 위해서는 GPIO와 Alternation Function IO가 동작상태에 있어야 함
+    *(volatile unsigned long *) 0x40021018 |= 0x1 << 14 | 0x1 << 4  | 0x1 << 3  | 0x1 << 2 | 0x1 << 0;         // UART/ IOPC EN / IOPB EN / IOPA EN / AFIO EN
+ 80000a4:	f440 4e80 	orr.w	lr, r0, #16384	; 0x4000
+ 80000a8:	f04e 011d 	orr.w	r1, lr, #29
+ 80000ac:	6021      	str	r1, [r4, #0]
+   
+    	/* Configure the GPIO ports */
+	*(volatile unsigned long *) 0x40010800 = 0x33333333;            // PA0 - 7
+ 80000ae:	4916      	ldr	r1, [pc, #88]	; (8000108 <Reset_Handler+0x100>)
+	*(volatile unsigned long *) 0x40010804 = 0x333334B3;            // PA8 - 15    //PA9,10,11,12는 가각 UART, USB에 할당됨
+ 80000b0:	4c16      	ldr	r4, [pc, #88]	; (800010c <Reset_Handler+0x104>)
+    //APB2에 있는 UART 등 주변장치에 Clock 소스 동작제어
+    //UART가 동작되기 위해서는 GPIO와 Alternation Function IO가 동작상태에 있어야 함
+    *(volatile unsigned long *) 0x40021018 |= 0x1 << 14 | 0x1 << 4  | 0x1 << 3  | 0x1 << 2 | 0x1 << 0;         // UART/ IOPC EN / IOPB EN / IOPA EN / AFIO EN
+   
+    	/* Configure the GPIO ports */
+	*(volatile unsigned long *) 0x40010800 = 0x33333333;            // PA0 - 7
+ 80000b2:	600a      	str	r2, [r1, #0]
+	*(volatile unsigned long *) 0x40010804 = 0x333334B3;            // PA8 - 15    //PA9,10,11,12는 가각 UART, USB에 할당됨
+ 80000b4:	604c      	str	r4, [r1, #4]
+	*(volatile unsigned long *) 0x40010C00 = 0x33333333;            // PB0 - 7
+ 80000b6:	f8c1 2400 	str.w	r2, [r1, #1024]	; 0x400
+	*(volatile unsigned long *) 0x40010C04 = 0x33333333;            // PB8 - 15
+ 80000ba:	f8c1 2404 	str.w	r2, [r1, #1028]	; 0x404
+	*(volatile unsigned long *) 0x40011004 = 0x33444444;            // PC14, 15
+ 80000be:	4914      	ldr	r1, [pc, #80]	; (8000110 <Reset_Handler+0x108>)
+ 80000c0:	4a14      	ldr	r2, [pc, #80]	; (8000114 <Reset_Handler+0x10c>)
+    	 - One Stop Bit
+    	 - No parity
+    	 - Hardware flow control disabled (RTS and CTS signals)
+    	 - Receive and transmit enabled
+    	*/
+    *(volatile unsigned long *) 0x40013810 	 = 0x0;           // 1 stop bit
+ 80000c2:	2000      	movs	r0, #0
+    	/* Configure the GPIO ports */
+	*(volatile unsigned long *) 0x40010800 = 0x33333333;            // PA0 - 7
+	*(volatile unsigned long *) 0x40010804 = 0x333334B3;            // PA8 - 15    //PA9,10,11,12는 가각 UART, USB에 할당됨
+	*(volatile unsigned long *) 0x40010C00 = 0x33333333;            // PB0 - 7
+	*(volatile unsigned long *) 0x40010C04 = 0x33333333;            // PB8 - 15
+	*(volatile unsigned long *) 0x40011004 = 0x33444444;            // PC14, 15
+ 80000c4:	6011      	str	r1, [r2, #0]
+    	 - One Stop Bit
+    	 - No parity
+    	 - Hardware flow control disabled (RTS and CTS signals)
+    	 - Receive and transmit enabled
+    	*/
+    *(volatile unsigned long *) 0x40013810 	 = 0x0;           // 1 stop bit
+ 80000c6:	f502 5220 	add.w	r2, r2, #10240	; 0x2800
+ 80000ca:	320c      	adds	r2, #12
+ 80000cc:	6010      	str	r0, [r2, #0]
+    *(volatile unsigned long *) 0x4001380C 	 = 0x200C;        // 8bit no parity
+    *(volatile unsigned long *) 0x40013814 	 = 0x0;
+ 80000ce:	4a12      	ldr	r2, [pc, #72]	; (8000118 <Reset_Handler+0x110>)
+    	 - No parity
+    	 - Hardware flow control disabled (RTS and CTS signals)
+    	 - Receive and transmit enabled
+    	*/
+    *(volatile unsigned long *) 0x40013810 	 = 0x0;           // 1 stop bit
+    *(volatile unsigned long *) 0x4001380C 	 = 0x200C;        // 8bit no parity
+ 80000d0:	f242 010c 	movw	r1, #8204	; 0x200c
+ 80000d4:	6019      	str	r1, [r3, #0]
+    *(volatile unsigned long *) 0x40013814 	 = 0x0;
+ 80000d6:	6010      	str	r0, [r2, #0]
+    *(volatile unsigned long *) 0x40013808 	 = 39 << 4 | 1;   // 외부 OSC 72Mhz인 경우 115200bps로 통신 속도 설정
+ 80000d8:	f240 2071 	movw	r0, #625	; 0x271
+ 80000dc:	f842 0c0c 	str.w	r0, [r2, #-12]
+    *(volatile unsigned long *) 0x4001380C 	|= 0x2000;
+ 80000e0:	6819      	ldr	r1, [r3, #0]
+
+    main();
+ 80000e2:	4a0e      	ldr	r2, [pc, #56]	; (800011c <Reset_Handler+0x114>)
+    	*/
+    *(volatile unsigned long *) 0x40013810 	 = 0x0;           // 1 stop bit
+    *(volatile unsigned long *) 0x4001380C 	 = 0x200C;        // 8bit no parity
+    *(volatile unsigned long *) 0x40013814 	 = 0x0;
+    *(volatile unsigned long *) 0x40013808 	 = 39 << 4 | 1;   // 외부 OSC 72Mhz인 경우 115200bps로 통신 속도 설정
+    *(volatile unsigned long *) 0x4001380C 	|= 0x2000;
+ 80000e4:	f441 5000 	orr.w	r0, r1, #8192	; 0x2000
+ 80000e8:	6018      	str	r0, [r3, #0]
+
+    main();
+ 80000ea:	4790      	blx	r2
+}
+ 80000ec:	e8bd 4019 	ldmia.w	sp!, {r0, r3, r4, lr}
+ 80000f0:	4685      	mov	sp, r0
+ 80000f2:	4770      	bx	lr
+ 80000f4:	40021000 	.word	0x40021000
+ 80000f8:	40022000 	.word	0x40022000
+ 80000fc:	40021004 	.word	0x40021004
+ 8000100:	40021018 	.word	0x40021018
+ 8000104:	4001380c 	.word	0x4001380c
+ 8000108:	40010800 	.word	0x40010800
+ 800010c:	333334b3 	.word	0x333334b3
+ 8000110:	33444444 	.word	0x33444444
+ 8000114:	40011004 	.word	0x40011004
+ 8000118:	40013814 	.word	0x40013814
+ 800011c:	08000121 	.word	0x08000121
+
+08000120 <main>:
+* Input          : None
+* Output         : None
+* Return         : None
+*******************************************************************************/
+int main(void)
+{
+ 8000120:	b510      	push	{r4, lr}
+    int key;
+
+    printf("enter any key.......\n");
+ 8000122:	4804      	ldr	r0, [pc, #16]	; (8000134 <main+0x14>)
+ 8000124:	4c04      	ldr	r4, [pc, #16]	; (8000138 <main+0x18>)
+ 8000126:	47a0      	blx	r4
+
+	//-- 명령어 처리
+	//
+	Menu_ExeCmd();    
+ 8000128:	4b04      	ldr	r3, [pc, #16]	; (800013c <main+0x1c>)
+ 800012a:	4798      	blx	r3
+
+    printf("The End\n");
+ 800012c:	4804      	ldr	r0, [pc, #16]	; (8000140 <main+0x20>)
+ 800012e:	47a0      	blx	r4
+ 8000130:	e7fe      	b.n	8000130 <main+0x10>
+ 8000132:	bf00      	nop
+ 8000134:	08001278 	.word	0x08001278
+ 8000138:	080001d9 	.word	0x080001d9
+ 800013c:	08000da1 	.word	0x08000da1
+ 8000140:	08001290 	.word	0x08001290
+
+08000144 <print_byte>:
+
+
+
+void print_byte(unsigned int c)
+{
+    if (c == '\n') print_byte('\r');
+ 8000144:	280a      	cmp	r0, #10
+
+
+
+
+void print_byte(unsigned int c)
+{
+ 8000146:	b510      	push	{r4, lr}
+ 8000148:	4604      	mov	r4, r0
+    if (c == '\n') print_byte('\r');
+ 800014a:	d007      	beq.n	800015c <print_byte+0x18>
+    while( !((*(volatile unsigned long *) 0x40013800) & 0x80) ) ;
+ 800014c:	4a05      	ldr	r2, [pc, #20]	; (8000164 <print_byte+0x20>)
+ 800014e:	6810      	ldr	r0, [r2, #0]
+ 8000150:	f010 0f80 	tst.w	r0, #128	; 0x80
+ 8000154:	d0fb      	beq.n	800014e <print_byte+0xa>
+    *(volatile unsigned long *) 0x40013804 = c;
+ 8000156:	4904      	ldr	r1, [pc, #16]	; (8000168 <print_byte+0x24>)
+ 8000158:	600c      	str	r4, [r1, #0]
+}
+ 800015a:	bd10      	pop	{r4, pc}
+
+
+
+void print_byte(unsigned int c)
+{
+    if (c == '\n') print_byte('\r');
+ 800015c:	200d      	movs	r0, #13
+ 800015e:	4b03      	ldr	r3, [pc, #12]	; (800016c <print_byte+0x28>)
+ 8000160:	4798      	blx	r3
+ 8000162:	e7f3      	b.n	800014c <print_byte+0x8>
+ 8000164:	40013800 	.word	0x40013800
+ 8000168:	40013804 	.word	0x40013804
+ 800016c:	08000145 	.word	0x08000145
+
+08000170 <get_byte>:
+}
+
+
+char get_byte(void)
+{
+    while( !((*(volatile unsigned long *) 0x40013800) & 0x20) ) ;
+ 8000170:	4a04      	ldr	r2, [pc, #16]	; (8000184 <get_byte+0x14>)
+ 8000172:	6813      	ldr	r3, [r2, #0]
+ 8000174:	f013 0f20 	tst.w	r3, #32
+ 8000178:	d0fb      	beq.n	8000172 <get_byte+0x2>
+    return (char) *(volatile unsigned long *) 0x40013804;
+ 800017a:	4903      	ldr	r1, [pc, #12]	; (8000188 <get_byte+0x18>)
+ 800017c:	6808      	ldr	r0, [r1, #0]
+    
+}
+ 800017e:	b2c0      	uxtb	r0, r0
+ 8000180:	4770      	bx	lr
+ 8000182:	bf00      	nop
+ 8000184:	40013800 	.word	0x40013800
+ 8000188:	40013804 	.word	0x40013804
+
+0800018c <DecToLong>:
+// 역할 : 10진수 문자열 s에서 정수를 만들어 retval이 가리키는 위치에 기록.
+// 매개 : s      : 변환할 문자열의 주소.
+//        retval : 변환된 값이 기록될 주소.
+// 반환 : return : 1 : success                0 : failure.
+// 주의 :
+int DecToLong(char *s, long *retval){
+ 800018c:	b410      	push	{r4}
+        long remainder;
+        if (!s || !s[0]) return false;
+ 800018e:	b1e0      	cbz	r0, 80001ca <DecToLong+0x3e>
+ 8000190:	7802      	ldrb	r2, [r0, #0]
+ 8000192:	b1e2      	cbz	r2, 80001ce <DecToLong+0x42>
+
+
+        for (*retval=0; *s; s++){
+ 8000194:	2200      	movs	r2, #0
+ 8000196:	600a      	str	r2, [r1, #0]
+ 8000198:	7803      	ldrb	r3, [r0, #0]
+ 800019a:	b1ab      	cbz	r3, 80001c8 <DecToLong+0x3c>
+                if (*s < '0' || *s > '9') return false;
+ 800019c:	f1a3 0430 	sub.w	r4, r3, #48	; 0x30
+ 80001a0:	b2e4      	uxtb	r4, r4
+ 80001a2:	2c09      	cmp	r4, #9
+ 80001a4:	d902      	bls.n	80001ac <DecToLong+0x20>
+ 80001a6:	e012      	b.n	80001ce <DecToLong+0x42>
+ 80001a8:	2c09      	cmp	r4, #9
+ 80001aa:	d812      	bhi.n	80001d2 <DecToLong+0x46>
+                remainder = *s - '0';
+                *retval = *retval * 10 + remainder;
+ 80001ac:	eb02 0282 	add.w	r2, r2, r2, lsl #2
+        if (!s || !s[0]) return false;
+
+
+        for (*retval=0; *s; s++){
+                if (*s < '0' || *s > '9') return false;
+                remainder = *s - '0';
+ 80001b0:	eb03 0242 	add.w	r2, r3, r2, lsl #1
+                *retval = *retval * 10 + remainder;
+ 80001b4:	3a30      	subs	r2, #48	; 0x30
+ 80001b6:	600a      	str	r2, [r1, #0]
+int DecToLong(char *s, long *retval){
+        long remainder;
+        if (!s || !s[0]) return false;
+
+
+        for (*retval=0; *s; s++){
+ 80001b8:	f810 3f01 	ldrb.w	r3, [r0, #1]!
+                if (*s < '0' || *s > '9') return false;
+ 80001bc:	f1a3 0c30 	sub.w	ip, r3, #48	; 0x30
+ 80001c0:	fa5f f48c 	uxtb.w	r4, ip
+int DecToLong(char *s, long *retval){
+        long remainder;
+        if (!s || !s[0]) return false;
+
+
+        for (*retval=0; *s; s++){
+ 80001c4:	2b00      	cmp	r3, #0
+ 80001c6:	d1ef      	bne.n	80001a8 <DecToLong+0x1c>
+                remainder = *s - '0';
+                *retval = *retval * 10 + remainder;
+        }
+
+
+        return true;
+ 80001c8:	2001      	movs	r0, #1
+}        // DecToLong.
+ 80001ca:	bc10      	pop	{r4}
+ 80001cc:	4770      	bx	lr
+        long remainder;
+        if (!s || !s[0]) return false;
+
+
+        for (*retval=0; *s; s++){
+                if (*s < '0' || *s > '9') return false;
+ 80001ce:	4610      	mov	r0, r2
+ 80001d0:	e7fb      	b.n	80001ca <DecToLong+0x3e>
+ 80001d2:	2000      	movs	r0, #0
+ 80001d4:	e7f9      	b.n	80001ca <DecToLong+0x3e>
+ 80001d6:	bf00      	nop
+
+080001d8 <printf>:
+// 매개 : fmt : printf()와 동일하나 "%s", "%c", "%d", "%x" 사용 가능.
+//              %d, %x의 경우에는 "%08x", "%8x"와 같이 나타낼 길이와 빈 공간을 0으로 채울지 선택 가능.
+// 반환 : 없음.
+// 주의 : 없음.
+void printf(char *fmt, ...)
+{
+ 80001d8:	b40f      	push	{r0, r1, r2, r3}
+ 80001da:	e92d 4ff0 	stmdb	sp!, {r4, r5, r6, r7, r8, r9, sl, fp, lr}
+ 80001de:	b08d      	sub	sp, #52	; 0x34
+        int                i;
+        va_list args;
+        char        *s=fmt;
+ 80001e0:	f10d 0858 	add.w	r8, sp, #88	; 0x58
+ 80001e4:	f858 5b04 	ldr.w	r5, [r8], #4
+        } else {
+                remainder = l;
+
+
+                for (divisor=1000000000; divisor>0; divisor/=10){
+                        result = remainder/divisor;
+ 80001e8:	f8df 92c4 	ldr.w	r9, [pc, #708]	; 80004b0 <printf+0x2d8>
+                        for (j=0; s[i]>='0' && s[i]<='9'; j++){
+                                tol[j] = s[i++];
+                        }
+                        tol[j] = '\0';
+                        i--;
+                        DecToLong(tol, &flagcnt);
+ 80001ec:	4fae      	ldr	r7, [pc, #696]	; (80004a8 <printf+0x2d0>)
+        va_list args;
+        char        *s=fmt;
+        char        format[10];        // fmt의 인자가 "%08lx"라면, "08l"를 임시로 기록.
+        
+        va_start(args, fmt);
+        while (*s){
+ 80001ee:	7828      	ldrb	r0, [r5, #0]
+ 80001f0:	2800      	cmp	r0, #0
+ 80001f2:	f000 80ca 	beq.w	800038a <printf+0x1b2>
+                if (*s=='%'){
+ 80001f6:	2825      	cmp	r0, #37	; 0x25
+ 80001f8:	f040 80cc 	bne.w	8000394 <printf+0x1bc>
+                        s++;
+                        // s에서 "%08lx"형식을 가져와 format에 기록. 나중에 출력함수에 넘겨줌.
+                        format[0] = '%';
+ 80001fc:	f88d 001c 	strb.w	r0, [sp, #28]
+                        for (i=1; i<10;){
+                                if (*s=='c' || *s=='d' || *s=='x' || *s=='s' || *s=='%'){
+ 8000200:	7868      	ldrb	r0, [r5, #1]
+        char        format[10];        // fmt의 인자가 "%08lx"라면, "08l"를 임시로 기록.
+        
+        va_start(args, fmt);
+        while (*s){
+                if (*s=='%'){
+                        s++;
+ 8000202:	3501      	adds	r5, #1
+                        // s에서 "%08lx"형식을 가져와 format에 기록. 나중에 출력함수에 넘겨줌.
+                        format[0] = '%';
+                        for (i=1; i<10;){
+                                if (*s=='c' || *s=='d' || *s=='x' || *s=='s' || *s=='%'){
+ 8000204:	f1a0 0163 	sub.w	r1, r0, #99	; 0x63
+ 8000208:	b2cb      	uxtb	r3, r1
+ 800020a:	2b01      	cmp	r3, #1
+ 800020c:	f240 82fd 	bls.w	800080a <printf+0x632>
+ 8000210:	2873      	cmp	r0, #115	; 0x73
+ 8000212:	f000 82fa 	beq.w	800080a <printf+0x632>
+ 8000216:	2878      	cmp	r0, #120	; 0x78
+ 8000218:	f000 82f7 	beq.w	800080a <printf+0x632>
+ 800021c:	2825      	cmp	r0, #37	; 0x25
+ 800021e:	f000 82f4 	beq.w	800080a <printf+0x632>
+                                        format[i++] = *s;
+                                        format[i] = '\0';
+                                        break;
+                                }
+                                else {
+                                        format[i++] = *s++;
+ 8000222:	f88d 001d 	strb.w	r0, [sp, #29]
+                if (*s=='%'){
+                        s++;
+                        // s에서 "%08lx"형식을 가져와 format에 기록. 나중에 출력함수에 넘겨줌.
+                        format[0] = '%';
+                        for (i=1; i<10;){
+                                if (*s=='c' || *s=='d' || *s=='x' || *s=='s' || *s=='%'){
+ 8000226:	f815 0f01 	ldrb.w	r0, [r5, #1]!
+ 800022a:	f1a0 0c63 	sub.w	ip, r0, #99	; 0x63
+ 800022e:	fa5f f28c 	uxtb.w	r2, ip
+ 8000232:	2a01      	cmp	r2, #1
+ 8000234:	f240 82f3 	bls.w	800081e <printf+0x646>
+ 8000238:	2873      	cmp	r0, #115	; 0x73
+ 800023a:	f000 82f0 	beq.w	800081e <printf+0x646>
+ 800023e:	2878      	cmp	r0, #120	; 0x78
+ 8000240:	f000 82ed 	beq.w	800081e <printf+0x646>
+ 8000244:	2825      	cmp	r0, #37	; 0x25
+ 8000246:	f000 82ea 	beq.w	800081e <printf+0x646>
+                                        format[i++] = *s;
+                                        format[i] = '\0';
+                                        break;
+                                }
+                                else {
+                                        format[i++] = *s++;
+ 800024a:	f88d 001e 	strb.w	r0, [sp, #30]
+                if (*s=='%'){
+                        s++;
+                        // s에서 "%08lx"형식을 가져와 format에 기록. 나중에 출력함수에 넘겨줌.
+                        format[0] = '%';
+                        for (i=1; i<10;){
+                                if (*s=='c' || *s=='d' || *s=='x' || *s=='s' || *s=='%'){
+ 800024e:	f815 0f01 	ldrb.w	r0, [r5, #1]!
+ 8000252:	f1a0 0163 	sub.w	r1, r0, #99	; 0x63
+ 8000256:	b2cb      	uxtb	r3, r1
+ 8000258:	2b01      	cmp	r3, #1
+ 800025a:	f240 82e2 	bls.w	8000822 <printf+0x64a>
+ 800025e:	2873      	cmp	r0, #115	; 0x73
+ 8000260:	f000 82df 	beq.w	8000822 <printf+0x64a>
+ 8000264:	2878      	cmp	r0, #120	; 0x78
+ 8000266:	f000 82dc 	beq.w	8000822 <printf+0x64a>
+ 800026a:	2825      	cmp	r0, #37	; 0x25
+ 800026c:	f000 82d9 	beq.w	8000822 <printf+0x64a>
+                                        format[i++] = *s;
+                                        format[i] = '\0';
+                                        break;
+                                }
+                                else {
+                                        format[i++] = *s++;
+ 8000270:	f88d 001f 	strb.w	r0, [sp, #31]
+                if (*s=='%'){
+                        s++;
+                        // s에서 "%08lx"형식을 가져와 format에 기록. 나중에 출력함수에 넘겨줌.
+                        format[0] = '%';
+                        for (i=1; i<10;){
+                                if (*s=='c' || *s=='d' || *s=='x' || *s=='s' || *s=='%'){
+ 8000274:	f815 0f01 	ldrb.w	r0, [r5, #1]!
+ 8000278:	f1a0 0c63 	sub.w	ip, r0, #99	; 0x63
+ 800027c:	fa5f f28c 	uxtb.w	r2, ip
+ 8000280:	2a01      	cmp	r2, #1
+ 8000282:	f240 82d0 	bls.w	8000826 <printf+0x64e>
+ 8000286:	2873      	cmp	r0, #115	; 0x73
+ 8000288:	f000 82cd 	beq.w	8000826 <printf+0x64e>
+ 800028c:	2878      	cmp	r0, #120	; 0x78
+ 800028e:	f000 82ca 	beq.w	8000826 <printf+0x64e>
+ 8000292:	2825      	cmp	r0, #37	; 0x25
+ 8000294:	f000 82c7 	beq.w	8000826 <printf+0x64e>
+                                        format[i++] = *s;
+                                        format[i] = '\0';
+                                        break;
+                                }
+                                else {
+                                        format[i++] = *s++;
+ 8000298:	f88d 0020 	strb.w	r0, [sp, #32]
+                if (*s=='%'){
+                        s++;
+                        // s에서 "%08lx"형식을 가져와 format에 기록. 나중에 출력함수에 넘겨줌.
+                        format[0] = '%';
+                        for (i=1; i<10;){
+                                if (*s=='c' || *s=='d' || *s=='x' || *s=='s' || *s=='%'){
+ 800029c:	f815 0f01 	ldrb.w	r0, [r5, #1]!
+ 80002a0:	f1a0 0163 	sub.w	r1, r0, #99	; 0x63
+ 80002a4:	b2cb      	uxtb	r3, r1
+ 80002a6:	2b01      	cmp	r3, #1
+ 80002a8:	f240 82bf 	bls.w	800082a <printf+0x652>
+ 80002ac:	2873      	cmp	r0, #115	; 0x73
+ 80002ae:	f000 82bc 	beq.w	800082a <printf+0x652>
+ 80002b2:	2878      	cmp	r0, #120	; 0x78
+ 80002b4:	f000 82b9 	beq.w	800082a <printf+0x652>
+ 80002b8:	2825      	cmp	r0, #37	; 0x25
+ 80002ba:	f000 82b6 	beq.w	800082a <printf+0x652>
+                                        format[i++] = *s;
+                                        format[i] = '\0';
+                                        break;
+                                }
+                                else {
+                                        format[i++] = *s++;
+ 80002be:	f88d 0021 	strb.w	r0, [sp, #33]	; 0x21
+                if (*s=='%'){
+                        s++;
+                        // s에서 "%08lx"형식을 가져와 format에 기록. 나중에 출력함수에 넘겨줌.
+                        format[0] = '%';
+                        for (i=1; i<10;){
+                                if (*s=='c' || *s=='d' || *s=='x' || *s=='s' || *s=='%'){
+ 80002c2:	f815 0f01 	ldrb.w	r0, [r5, #1]!
+ 80002c6:	f1a0 0c63 	sub.w	ip, r0, #99	; 0x63
+ 80002ca:	fa5f f28c 	uxtb.w	r2, ip
+ 80002ce:	2a01      	cmp	r2, #1
+ 80002d0:	f240 82ad 	bls.w	800082e <printf+0x656>
+ 80002d4:	2873      	cmp	r0, #115	; 0x73
+ 80002d6:	f000 82aa 	beq.w	800082e <printf+0x656>
+ 80002da:	2878      	cmp	r0, #120	; 0x78
+ 80002dc:	f000 82a7 	beq.w	800082e <printf+0x656>
+ 80002e0:	2825      	cmp	r0, #37	; 0x25
+ 80002e2:	f000 82a4 	beq.w	800082e <printf+0x656>
+                                        format[i++] = *s;
+                                        format[i] = '\0';
+                                        break;
+                                }
+                                else {
+                                        format[i++] = *s++;
+ 80002e6:	f88d 0022 	strb.w	r0, [sp, #34]	; 0x22
+                if (*s=='%'){
+                        s++;
+                        // s에서 "%08lx"형식을 가져와 format에 기록. 나중에 출력함수에 넘겨줌.
+                        format[0] = '%';
+                        for (i=1; i<10;){
+                                if (*s=='c' || *s=='d' || *s=='x' || *s=='s' || *s=='%'){
+ 80002ea:	f815 0f01 	ldrb.w	r0, [r5, #1]!
+ 80002ee:	f1a0 0163 	sub.w	r1, r0, #99	; 0x63
+ 80002f2:	b2cb      	uxtb	r3, r1
+ 80002f4:	2b01      	cmp	r3, #1
+ 80002f6:	f240 829c 	bls.w	8000832 <printf+0x65a>
+ 80002fa:	2873      	cmp	r0, #115	; 0x73
+ 80002fc:	f000 8299 	beq.w	8000832 <printf+0x65a>
+ 8000300:	2878      	cmp	r0, #120	; 0x78
+ 8000302:	f000 8296 	beq.w	8000832 <printf+0x65a>
+ 8000306:	2825      	cmp	r0, #37	; 0x25
+ 8000308:	f000 8293 	beq.w	8000832 <printf+0x65a>
+                                        format[i++] = *s;
+                                        format[i] = '\0';
+                                        break;
+                                }
+                                else {
+                                        format[i++] = *s++;
+ 800030c:	f88d 0023 	strb.w	r0, [sp, #35]	; 0x23
+                if (*s=='%'){
+                        s++;
+                        // s에서 "%08lx"형식을 가져와 format에 기록. 나중에 출력함수에 넘겨줌.
+                        format[0] = '%';
+                        for (i=1; i<10;){
+                                if (*s=='c' || *s=='d' || *s=='x' || *s=='s' || *s=='%'){
+ 8000310:	f815 0f01 	ldrb.w	r0, [r5, #1]!
+ 8000314:	f1a0 0c63 	sub.w	ip, r0, #99	; 0x63
+ 8000318:	fa5f f28c 	uxtb.w	r2, ip
+ 800031c:	2a01      	cmp	r2, #1
+ 800031e:	f240 828a 	bls.w	8000836 <printf+0x65e>
+ 8000322:	2873      	cmp	r0, #115	; 0x73
+ 8000324:	f000 8287 	beq.w	8000836 <printf+0x65e>
+ 8000328:	2878      	cmp	r0, #120	; 0x78
+ 800032a:	f000 8284 	beq.w	8000836 <printf+0x65e>
+ 800032e:	2825      	cmp	r0, #37	; 0x25
+ 8000330:	f000 8281 	beq.w	8000836 <printf+0x65e>
+                                        format[i++] = *s;
+                                        format[i] = '\0';
+                                        break;
+                                }
+                                else {
+                                        format[i++] = *s++;
+ 8000334:	f88d 0024 	strb.w	r0, [sp, #36]	; 0x24
+                if (*s=='%'){
+                        s++;
+                        // s에서 "%08lx"형식을 가져와 format에 기록. 나중에 출력함수에 넘겨줌.
+                        format[0] = '%';
+                        for (i=1; i<10;){
+                                if (*s=='c' || *s=='d' || *s=='x' || *s=='s' || *s=='%'){
+ 8000338:	f815 0f01 	ldrb.w	r0, [r5, #1]!
+ 800033c:	f1a0 0163 	sub.w	r1, r0, #99	; 0x63
+ 8000340:	b2cb      	uxtb	r3, r1
+ 8000342:	2b01      	cmp	r3, #1
+ 8000344:	f240 844a 	bls.w	8000bdc <printf+0xa04>
+ 8000348:	2873      	cmp	r0, #115	; 0x73
+ 800034a:	f000 8447 	beq.w	8000bdc <printf+0xa04>
+ 800034e:	2878      	cmp	r0, #120	; 0x78
+ 8000350:	f000 8444 	beq.w	8000bdc <printf+0xa04>
+ 8000354:	2825      	cmp	r0, #37	; 0x25
+ 8000356:	f000 8441 	beq.w	8000bdc <printf+0xa04>
+                                        format[i++] = *s;
+                                        format[i] = '\0';
+                                        break;
+                                }
+                                else {
+                                        format[i++] = *s++;
+ 800035a:	f88d 0025 	strb.w	r0, [sp, #37]	; 0x25
+ 800035e:	f815 0f01 	ldrb.w	r0, [r5, #1]!
+                                }
+                        }
+                        // "%s", "%c", "%d", "%x"를 찾아 출력할 함수 호출.
+                        switch (*s++){
+ 8000362:	3501      	adds	r5, #1
+ 8000364:	2864      	cmp	r0, #100	; 0x64
+ 8000366:	f000 80a5 	beq.w	80004b4 <printf+0x2dc>
+ 800036a:	d817      	bhi.n	800039c <printf+0x1c4>
+ 800036c:	2825      	cmp	r0, #37	; 0x25
+ 800036e:	f000 8088 	beq.w	8000482 <printf+0x2aa>
+ 8000372:	2863      	cmp	r0, #99	; 0x63
+ 8000374:	f47f af3b 	bne.w	80001ee <printf+0x16>
+                                case 'c' :
+                                        PrintChar(format, va_arg(args, int));
+ 8000378:	f858 0b04 	ldr.w	r0, [r8], #4
+        return;
+}
+
+void PrintChar(char *fmt, char c)
+{
+        print_byte(c);
+ 800037c:	4b4b      	ldr	r3, [pc, #300]	; (80004ac <printf+0x2d4>)
+ 800037e:	b2c0      	uxtb	r0, r0
+ 8000380:	4798      	blx	r3
+        va_list args;
+        char        *s=fmt;
+        char        format[10];        // fmt의 인자가 "%08lx"라면, "08l"를 임시로 기록.
+        
+        va_start(args, fmt);
+        while (*s){
+ 8000382:	7828      	ldrb	r0, [r5, #0]
+ 8000384:	2800      	cmp	r0, #0
+ 8000386:	f47f af36 	bne.w	80001f6 <printf+0x1e>
+                        s++;
+                }
+        }
+        va_end(args);
+        return;
+}
+ 800038a:	b00d      	add	sp, #52	; 0x34
+ 800038c:	e8bd 4ff0 	ldmia.w	sp!, {r4, r5, r6, r7, r8, r9, sl, fp, lr}
+ 8000390:	b004      	add	sp, #16
+ 8000392:	4770      	bx	lr
+
+void PrintChar(char *fmt, char c)
+{
+        print_byte(c);
+ 8000394:	4945      	ldr	r1, [pc, #276]	; (80004ac <printf+0x2d4>)
+ 8000396:	4788      	blx	r1
+                                        break;
+                        }
+                }
+                else {
+                        PrintChar("%c", *s);
+                        s++;
+ 8000398:	3501      	adds	r5, #1
+ 800039a:	e728      	b.n	80001ee <printf+0x16>
+                                else {
+                                        format[i++] = *s++;
+                                }
+                        }
+                        // "%s", "%c", "%d", "%x"를 찾아 출력할 함수 호출.
+                        switch (*s++){
+ 800039c:	2873      	cmp	r0, #115	; 0x73
+ 800039e:	d073      	beq.n	8000488 <printf+0x2b0>
+ 80003a0:	2878      	cmp	r0, #120	; 0x78
+ 80003a2:	f47f af24 	bne.w	80001ee <printf+0x16>
+                                        break;
+                                case 'd' :
+                                        PrintDec(format, va_arg(args, int));
+                                        break;
+                                case 'x' :
+                                        PrintHex(format, va_arg(args, int));
+ 80003a6:	f858 2b04 	ldr.w	r2, [r8], #4
+        char        uHex, lHex;
+        int                cnt;                                                // "%5x"의 경우 5개만 출력하도록 출력한 개수.
+
+
+        // fmt의 "%08lx"에서 '0', '8', 'l'을 해석.
+        for (i=0; (c=s[i]) != 0; i++){
+ 80003aa:	f89d 301c 	ldrb.w	r3, [sp, #28]
+
+void PrintHex(char *fmt, int l){
+        int                i, j;
+        char        c, *s=fmt, tol[10];
+        bool        flag0=false, flagl=false;        // flags.
+        long        flagcnt=0;
+ 80003ae:	2400      	movs	r4, #0
+                                        break;
+                                case 'd' :
+                                        PrintDec(format, va_arg(args, int));
+                                        break;
+                                case 'x' :
+                                        PrintHex(format, va_arg(args, int));
+ 80003b0:	920b      	str	r2, [sp, #44]	; 0x2c
+
+void PrintHex(char *fmt, int l){
+        int                i, j;
+        char        c, *s=fmt, tol[10];
+        bool        flag0=false, flagl=false;        // flags.
+        long        flagcnt=0;
+ 80003b2:	940a      	str	r4, [sp, #40]	; 0x28
+        char        uHex, lHex;
+        int                cnt;                                                // "%5x"의 경우 5개만 출력하도록 출력한 개수.
+
+
+        // fmt의 "%08lx"에서 '0', '8', 'l'을 해석.
+        for (i=0; (c=s[i]) != 0; i++){
+ 80003b4:	2b00      	cmp	r3, #0
+ 80003b6:	f000 8471 	beq.w	8000c9c <printf+0xac4>
+                if (c=='x') break;
+ 80003ba:	2b78      	cmp	r3, #120	; 0x78
+ 80003bc:	d033      	beq.n	8000426 <printf+0x24e>
+ 80003be:	4626      	mov	r6, r4
+                else if (c>='1' && c<='9'){
+                        for (j=0; s[i]>='0' && s[i]<='9'; j++){
+                                tol[j] = s[i++];
+                        }
+                        tol[j] = '\0';
+ 80003c0:	46a2      	mov	sl, r4
+
+
+        // fmt의 "%08lx"에서 '0', '8', 'l'을 해석.
+        for (i=0; (c=s[i]) != 0; i++){
+                if (c=='x') break;
+                else if (c>='1' && c<='9'){
+ 80003c2:	f1a3 0131 	sub.w	r1, r3, #49	; 0x31
+ 80003c6:	fa5f fc81 	uxtb.w	ip, r1
+ 80003ca:	f1bc 0f08 	cmp.w	ip, #8
+ 80003ce:	d854      	bhi.n	800047a <printf+0x2a2>
+                        for (j=0; s[i]>='0' && s[i]<='9'; j++){
+ 80003d0:	aa0c      	add	r2, sp, #48	; 0x30
+ 80003d2:	eb02 0e06 	add.w	lr, r2, r6
+ 80003d6:	f81e 2c14 	ldrb.w	r2, [lr, #-20]
+ 80003da:	f1a2 0030 	sub.w	r0, r2, #48	; 0x30
+ 80003de:	b2c3      	uxtb	r3, r0
+ 80003e0:	2b09      	cmp	r3, #9
+ 80003e2:	f200 820f 	bhi.w	8000804 <printf+0x62c>
+ 80003e6:	2300      	movs	r3, #0
+ 80003e8:	a804      	add	r0, sp, #16
+ 80003ea:	f10d 0e1c 	add.w	lr, sp, #28
+                                tol[j] = s[i++];
+ 80003ee:	3601      	adds	r6, #1
+ 80003f0:	54c2      	strb	r2, [r0, r3]
+
+        // fmt의 "%08lx"에서 '0', '8', 'l'을 해석.
+        for (i=0; (c=s[i]) != 0; i++){
+                if (c=='x') break;
+                else if (c>='1' && c<='9'){
+                        for (j=0; s[i]>='0' && s[i]<='9'; j++){
+ 80003f2:	f81e 2006 	ldrb.w	r2, [lr, r6]
+ 80003f6:	3301      	adds	r3, #1
+ 80003f8:	f1a2 0130 	sub.w	r1, r2, #48	; 0x30
+ 80003fc:	fa5f fc81 	uxtb.w	ip, r1
+ 8000400:	f1bc 0f09 	cmp.w	ip, #9
+ 8000404:	d9f3      	bls.n	80003ee <printf+0x216>
+                                tol[j] = s[i++];
+                        }
+                        tol[j] = '\0';
+ 8000406:	f10d 0e30 	add.w	lr, sp, #48	; 0x30
+ 800040a:	4473      	add	r3, lr
+                        i--;
+                        DecToLong(tol, &flagcnt);
+ 800040c:	a90a      	add	r1, sp, #40	; 0x28
+                if (c=='x') break;
+                else if (c>='1' && c<='9'){
+                        for (j=0; s[i]>='0' && s[i]<='9'; j++){
+                                tol[j] = s[i++];
+                        }
+                        tol[j] = '\0';
+ 800040e:	f803 ac20 	strb.w	sl, [r3, #-32]
+                        i--;
+ 8000412:	3e01      	subs	r6, #1
+                        DecToLong(tol, &flagcnt);
+ 8000414:	47b8      	blx	r7
+        char        uHex, lHex;
+        int                cnt;                                                // "%5x"의 경우 5개만 출력하도록 출력한 개수.
+
+
+        // fmt의 "%08lx"에서 '0', '8', 'l'을 해석.
+        for (i=0; (c=s[i]) != 0; i++){
+ 8000416:	3601      	adds	r6, #1
+ 8000418:	aa0c      	add	r2, sp, #48	; 0x30
+ 800041a:	1990      	adds	r0, r2, r6
+ 800041c:	f810 3c14 	ldrb.w	r3, [r0, #-20]
+ 8000420:	b10b      	cbz	r3, 8000426 <printf+0x24e>
+                if (c=='x') break;
+ 8000422:	2b78      	cmp	r3, #120	; 0x78
+ 8000424:	d1cd      	bne.n	80003c2 <printf+0x1ea>
+                else continue;
+        }
+
+
+        s = (char *)(&l);
+        l = SWAP32(l);                // little, big endian에 따라서.(big이 출력하기 쉬워 순서를 바꿈)
+ 8000426:	9b0b      	ldr	r3, [sp, #44]	; 0x2c
+        
+        // 위의 flag에 따라 출력.
+        if (flagcnt){
+ 8000428:	9a0a      	ldr	r2, [sp, #40]	; 0x28
+                else continue;
+        }
+
+
+        s = (char *)(&l);
+        l = SWAP32(l);                // little, big endian에 따라서.(big이 출력하기 쉬워 순서를 바꿈)
+ 800042a:	f403 007f 	and.w	r0, r3, #16711680	; 0xff0000
+ 800042e:	f403 4c7f 	and.w	ip, r3, #65280	; 0xff00
+ 8000432:	1201      	asrs	r1, r0, #8
+ 8000434:	ea41 200c 	orr.w	r0, r1, ip, lsl #8
+ 8000438:	ea40 6c03 	orr.w	ip, r0, r3, lsl #24
+ 800043c:	ea4c 6113 	orr.w	r1, ip, r3, lsr #24
+ 8000440:	910b      	str	r1, [sp, #44]	; 0x2c
+        
+        // 위의 flag에 따라 출력.
+        if (flagcnt){
+ 8000442:	2a00      	cmp	r2, #0
+ 8000444:	f000 80df 	beq.w	8000606 <printf+0x42e>
+                if (flagcnt&0x01){        // flagcnt가 홀수 일때, upper를 무시, lower만 출력.
+ 8000448:	f012 0f01 	tst.w	r2, #1
+ 800044c:	f000 8297 	beq.w	800097e <printf+0x7a6>
+                        c = s[(8-(flagcnt+1))/2]; // 홀수 일때 그 위치를 포함하는 곳의 값을 가져 옵니다.
+ 8000450:	43d0      	mvns	r0, r2
+ 8000452:	3008      	adds	r0, #8
+ 8000454:	eb00 71d0 	add.w	r1, r0, r0, lsr #31
+ 8000458:	104a      	asrs	r2, r1, #1
+                        
+                        // lower 4 bits를 가져와서 ascii code로.
+                        lHex = ((c>>0)&0x0f);
+ 800045a:	ab0b      	add	r3, sp, #44	; 0x2c
+ 800045c:	f813 e002 	ldrb.w	lr, [r3, r2]
+                        if (lHex!=0) leading_zero=false;
+ 8000460:	f01e 030f 	ands.w	r3, lr, #15
+ 8000464:	f000 83d3 	beq.w	8000c0e <printf+0xa36>
+                        if (lHex<10) lHex+='0';
+ 8000468:	2b09      	cmp	r3, #9
+ 800046a:	f240 8438 	bls.w	8000cde <printf+0xb06>
+                        else         lHex+='A'-10;
+ 800046e:	3337      	adds	r3, #55	; 0x37
+                        // lower 4 bits 출력.
+                        if (leading_zero){
+                                if (flag0) print_byte('0');
+                                else       print_byte(' ');
+                        }
+                        else print_byte(lHex);
+ 8000470:	490e      	ldr	r1, [pc, #56]	; (80004ac <printf+0x2d4>)
+ 8000472:	4618      	mov	r0, r3
+ 8000474:	4788      	blx	r1
+ 8000476:	2100      	movs	r1, #0
+ 8000478:	e3cf      	b.n	8000c1a <printf+0xa42>
+                        }
+                        tol[j] = '\0';
+                        i--;
+                        DecToLong(tol, &flagcnt);
+                }
+                else if (c=='0') flag0=true;
+ 800047a:	2b30      	cmp	r3, #48	; 0x30
+ 800047c:	bf08      	it	eq
+ 800047e:	2401      	moveq	r4, #1
+ 8000480:	e7c9      	b.n	8000416 <printf+0x23e>
+        return;
+}
+
+void PrintChar(char *fmt, char c)
+{
+        print_byte(c);
+ 8000482:	4b0a      	ldr	r3, [pc, #40]	; (80004ac <printf+0x2d4>)
+ 8000484:	4798      	blx	r3
+                                case 's' :
+                                        PrintString(format, va_arg(args, char *));
+                                        break;
+                                case '%' :
+                                        PrintChar("%c", '%');
+                                        break;
+ 8000486:	e6b2      	b.n	80001ee <printf+0x16>
+                                        break;
+                                case 'x' :
+                                        PrintHex(format, va_arg(args, int));
+                                        break;
+                                case 's' :
+                                        PrintString(format, va_arg(args, char *));
+ 8000488:	f858 4b04 	ldr.w	r4, [r8], #4
+        }
+        return;
+}
+
+void PrintString(char *fmt, char *s){
+        if (!fmt || !s) return;
+ 800048c:	2c00      	cmp	r4, #0
+ 800048e:	f43f aeae 	beq.w	80001ee <printf+0x16>
+        while (*s) print_byte(*s++);
+ 8000492:	7820      	ldrb	r0, [r4, #0]
+ 8000494:	2800      	cmp	r0, #0
+ 8000496:	f43f aeaa 	beq.w	80001ee <printf+0x16>
+ 800049a:	4e04      	ldr	r6, [pc, #16]	; (80004ac <printf+0x2d4>)
+ 800049c:	47b0      	blx	r6
+ 800049e:	f814 0f01 	ldrb.w	r0, [r4, #1]!
+ 80004a2:	2800      	cmp	r0, #0
+ 80004a4:	d1fa      	bne.n	800049c <printf+0x2c4>
+ 80004a6:	e6a2      	b.n	80001ee <printf+0x16>
+ 80004a8:	0800018d 	.word	0x0800018d
+ 80004ac:	08000145 	.word	0x08000145
+ 80004b0:	66666667 	.word	0x66666667
+        bool        leading_zero=true;                        // long형의 data를 출력하기 위한 변수.
+        long        divisor, result, remainder;
+
+
+        // fmt의 "%08lx"에서 '0', '8', 'l'을 해석.
+        for (i=0; (c=s[i]) != 0; i++){
+ 80004b4:	f89d 301c 	ldrb.w	r3, [sp, #28]
+void PrintDec(char *fmt, int l)
+{
+        int        i, j;
+        char        c, *s=fmt, tol[10];
+        bool        flag0=false, flagl=false;	// "%08lx"에서 '0', 'l'의 존재 여부.
+        long        flagcnt=0;                                        // "%08lx"에서 "8"을 찾아서 long형으로.
+ 80004b8:	2600      	movs	r6, #0
+                        switch (*s++){
+                                case 'c' :
+                                        PrintChar(format, va_arg(args, int));
+                                        break;
+                                case 'd' :
+                                        PrintDec(format, va_arg(args, int));
+ 80004ba:	f858 bb04 	ldr.w	fp, [r8], #4
+void PrintDec(char *fmt, int l)
+{
+        int        i, j;
+        char        c, *s=fmt, tol[10];
+        bool        flag0=false, flagl=false;	// "%08lx"에서 '0', 'l'의 존재 여부.
+        long        flagcnt=0;                                        // "%08lx"에서 "8"을 찾아서 long형으로.
+ 80004be:	960a      	str	r6, [sp, #40]	; 0x28
+        bool        leading_zero=true;                        // long형의 data를 출력하기 위한 변수.
+        long        divisor, result, remainder;
+
+
+        // fmt의 "%08lx"에서 '0', '8', 'l'을 해석.
+        for (i=0; (c=s[i]) != 0; i++){
+ 80004c0:	2b00      	cmp	r3, #0
+ 80004c2:	f000 80f3 	beq.w	80006ac <printf+0x4d4>
+                if (c=='d') break;
+ 80004c6:	2b64      	cmp	r3, #100	; 0x64
+ 80004c8:	f000 80f0 	beq.w	80006ac <printf+0x4d4>
+ 80004cc:	4634      	mov	r4, r6
+                else if (c>='1' && c<='9'){
+                        for (j=0; s[i]>='0' && s[i]<='9'; j++){
+                                tol[j] = s[i++];
+                        }
+                        tol[j] = '\0';
+ 80004ce:	46b2      	mov	sl, r6
+
+
+        // fmt의 "%08lx"에서 '0', '8', 'l'을 해석.
+        for (i=0; (c=s[i]) != 0; i++){
+                if (c=='d') break;
+                else if (c>='1' && c<='9'){
+ 80004d0:	f1a3 0231 	sub.w	r2, r3, #49	; 0x31
+ 80004d4:	fa5f fe82 	uxtb.w	lr, r2
+ 80004d8:	f1be 0f08 	cmp.w	lr, #8
+ 80004dc:	f200 808f 	bhi.w	80005fe <printf+0x426>
+                        for (j=0; s[i]>='0' && s[i]<='9'; j++){
+ 80004e0:	a80c      	add	r0, sp, #48	; 0x30
+ 80004e2:	1903      	adds	r3, r0, r4
+ 80004e4:	f813 2c14 	ldrb.w	r2, [r3, #-20]
+ 80004e8:	f1a2 0130 	sub.w	r1, r2, #48	; 0x30
+ 80004ec:	fa5f fc81 	uxtb.w	ip, r1
+ 80004f0:	f1bc 0f09 	cmp.w	ip, #9
+ 80004f4:	f200 8183 	bhi.w	80007fe <printf+0x626>
+ 80004f8:	2300      	movs	r3, #0
+ 80004fa:	a804      	add	r0, sp, #16
+ 80004fc:	f10d 0e1c 	add.w	lr, sp, #28
+                                tol[j] = s[i++];
+ 8000500:	3401      	adds	r4, #1
+ 8000502:	54c2      	strb	r2, [r0, r3]
+
+        // fmt의 "%08lx"에서 '0', '8', 'l'을 해석.
+        for (i=0; (c=s[i]) != 0; i++){
+                if (c=='d') break;
+                else if (c>='1' && c<='9'){
+                        for (j=0; s[i]>='0' && s[i]<='9'; j++){
+ 8000504:	f81e 2004 	ldrb.w	r2, [lr, r4]
+ 8000508:	3301      	adds	r3, #1
+ 800050a:	f1a2 0130 	sub.w	r1, r2, #48	; 0x30
+ 800050e:	fa5f fc81 	uxtb.w	ip, r1
+ 8000512:	f1bc 0f09 	cmp.w	ip, #9
+ 8000516:	d9f3      	bls.n	8000500 <printf+0x328>
+                                tol[j] = s[i++];
+                        }
+                        tol[j] = '\0';
+ 8000518:	aa0c      	add	r2, sp, #48	; 0x30
+ 800051a:	eb02 0e03 	add.w	lr, r2, r3
+                        i--;
+                        DecToLong(tol, &flagcnt);
+ 800051e:	a90a      	add	r1, sp, #40	; 0x28
+                if (c=='d') break;
+                else if (c>='1' && c<='9'){
+                        for (j=0; s[i]>='0' && s[i]<='9'; j++){
+                                tol[j] = s[i++];
+                        }
+                        tol[j] = '\0';
+ 8000520:	f80e ac20 	strb.w	sl, [lr, #-32]
+                        i--;
+ 8000524:	3c01      	subs	r4, #1
+                        DecToLong(tol, &flagcnt);
+ 8000526:	47b8      	blx	r7
+        bool        leading_zero=true;                        // long형의 data를 출력하기 위한 변수.
+        long        divisor, result, remainder;
+
+
+        // fmt의 "%08lx"에서 '0', '8', 'l'을 해석.
+        for (i=0; (c=s[i]) != 0; i++){
+ 8000528:	3401      	adds	r4, #1
+ 800052a:	a80c      	add	r0, sp, #48	; 0x30
+ 800052c:	1903      	adds	r3, r0, r4
+ 800052e:	f813 3c14 	ldrb.w	r3, [r3, #-20]
+ 8000532:	b10b      	cbz	r3, 8000538 <printf+0x360>
+                if (c=='d') break;
+ 8000534:	2b64      	cmp	r3, #100	; 0x64
+ 8000536:	d1cb      	bne.n	80004d0 <printf+0x2f8>
+                else continue;
+        }
+
+
+        // 위의 flag에 따라 출력.
+        if (flagcnt){
+ 8000538:	990a      	ldr	r1, [sp, #40]	; 0x28
+ 800053a:	2900      	cmp	r1, #0
+ 800053c:	f000 80b6 	beq.w	80006ac <printf+0x4d4>
+                if (flagcnt>9) flagcnt=9;
+ 8000540:	2909      	cmp	r1, #9
+ 8000542:	f340 82dd 	ble.w	8000b00 <printf+0x928>
+ 8000546:	2009      	movs	r0, #9
+ 8000548:	2407      	movs	r4, #7
+ 800054a:	900a      	str	r0, [sp, #40]	; 0x28
+ 800054c:	2106      	movs	r1, #6
+int Power(int num, int cnt){
+        long retval=num;
+        cnt--;
+
+
+        while (cnt--){
+ 800054e:	4620      	mov	r0, r4
+ 8000550:	f000 0e01 	and.w	lr, r0, #1
+                retval *= num;
+ 8000554:	2364      	movs	r3, #100	; 0x64
+int Power(int num, int cnt){
+        long retval=num;
+        cnt--;
+
+
+        while (cnt--){
+ 8000556:	1e42      	subs	r2, r0, #1
+ 8000558:	b190      	cbz	r0, 8000580 <printf+0x3a8>
+ 800055a:	f1be 0f00 	cmp.w	lr, #0
+ 800055e:	d005      	beq.n	800056c <printf+0x394>
+ 8000560:	3a01      	subs	r2, #1
+ 8000562:	f1b2 3fff 	cmp.w	r2, #4294967295
+                retval *= num;
+ 8000566:	f44f 737a 	mov.w	r3, #1000	; 0x3e8
+int Power(int num, int cnt){
+        long retval=num;
+        cnt--;
+
+
+        while (cnt--){
+ 800056a:	d009      	beq.n	8000580 <printf+0x3a8>
+                retval *= num;
+ 800056c:	eb03 0383 	add.w	r3, r3, r3, lsl #2
+ 8000570:	00d8      	lsls	r0, r3, #3
+ 8000572:	eb00 0343 	add.w	r3, r0, r3, lsl #1
+int Power(int num, int cnt){
+        long retval=num;
+        cnt--;
+
+
+        while (cnt--){
+ 8000576:	3a02      	subs	r2, #2
+                retval *= num;
+ 8000578:	005b      	lsls	r3, r3, #1
+int Power(int num, int cnt){
+        long retval=num;
+        cnt--;
+
+
+        while (cnt--){
+ 800057a:	f1b2 3fff 	cmp.w	r2, #4294967295
+ 800057e:	d1f5      	bne.n	800056c <printf+0x394>
+
+
+        // 위의 flag에 따라 출력.
+        if (flagcnt){
+                if (flagcnt>9) flagcnt=9;
+                remainder = l%(Power(10, flagcnt));        // flagcnt보다 윗자리의 수는 걸러냄. 199에 flagcnt==2이면, 99만.
+ 8000580:	fb9b faf3 	sdiv	sl, fp, r3
+ 8000584:	fb03 bb1a 	mls	fp, r3, sl, fp
+int Power(int num, int cnt){
+        long retval=num;
+        cnt--;
+
+
+        while (cnt--){
+ 8000588:	2c00      	cmp	r4, #0
+ 800058a:	f000 8385 	beq.w	8000c98 <printf+0xac0>
+ 800058e:	f001 0201 	and.w	r2, r1, #1
+                retval *= num;
+ 8000592:	2464      	movs	r4, #100	; 0x64
+int Power(int num, int cnt){
+        long retval=num;
+        cnt--;
+
+
+        while (cnt--){
+ 8000594:	1e4b      	subs	r3, r1, #1
+ 8000596:	b181      	cbz	r1, 80005ba <printf+0x3e2>
+ 8000598:	b12a      	cbz	r2, 80005a6 <printf+0x3ce>
+ 800059a:	3b01      	subs	r3, #1
+ 800059c:	f1b3 3fff 	cmp.w	r3, #4294967295
+                retval *= num;
+ 80005a0:	f44f 747a 	mov.w	r4, #1000	; 0x3e8
+int Power(int num, int cnt){
+        long retval=num;
+        cnt--;
+
+
+        while (cnt--){
+ 80005a4:	d009      	beq.n	80005ba <printf+0x3e2>
+                retval *= num;
+ 80005a6:	eb04 0184 	add.w	r1, r4, r4, lsl #2
+ 80005aa:	00ca      	lsls	r2, r1, #3
+ 80005ac:	eb02 0441 	add.w	r4, r2, r1, lsl #1
+int Power(int num, int cnt){
+        long retval=num;
+        cnt--;
+
+
+        while (cnt--){
+ 80005b0:	3b02      	subs	r3, #2
+                retval *= num;
+ 80005b2:	0064      	lsls	r4, r4, #1
+int Power(int num, int cnt){
+        long retval=num;
+        cnt--;
+
+
+        while (cnt--){
+ 80005b4:	f1b3 3fff 	cmp.w	r3, #4294967295
+ 80005b8:	d1f5      	bne.n	80005a6 <printf+0x3ce>
+        while (*s) print_byte(*s++);
+        return;
+}
+
+int Power(int num, int cnt){
+        long retval=num;
+ 80005ba:	2301      	movs	r3, #1
+ 80005bc:	f8df a27c 	ldr.w	sl, [pc, #636]	; 800083c <printf+0x664>
+ 80005c0:	9503      	str	r5, [sp, #12]
+ 80005c2:	4635      	mov	r5, r6
+ 80005c4:	461e      	mov	r6, r3
+                if (flagcnt>9) flagcnt=9;
+                remainder = l%(Power(10, flagcnt));        // flagcnt보다 윗자리의 수는 걸러냄. 199에 flagcnt==2이면, 99만.
+
+
+                for (divisor=Power(10, flagcnt-1); divisor>0; divisor/=10){
+                        result = remainder/divisor;
+ 80005c6:	fb9b f1f4 	sdiv	r1, fp, r4
+
+                        if (leading_zero==true){
+                                if (flag0)        print_byte('0');
+                                else                print_byte(' ');
+                        }
+                        else print_byte((char)(result)+'0');
+ 80005ca:	b2c8      	uxtb	r0, r1
+ 80005cc:	3030      	adds	r0, #48	; 0x30
+                remainder = l%(Power(10, flagcnt));        // flagcnt보다 윗자리의 수는 걸러냄. 199에 flagcnt==2이면, 99만.
+
+
+                for (divisor=Power(10, flagcnt-1); divisor>0; divisor/=10){
+                        result = remainder/divisor;
+                        remainder %= divisor;
+ 80005ce:	fb04 bb11 	mls	fp, r4, r1, fp
+
+
+                        if (result!=0 || divisor==1) leading_zero = false;
+ 80005d2:	2900      	cmp	r1, #0
+ 80005d4:	f040 8110 	bne.w	80007f8 <printf+0x620>
+ 80005d8:	2c01      	cmp	r4, #1
+ 80005da:	f000 810d 	beq.w	80007f8 <printf+0x620>
+
+
+                        if (leading_zero==true){
+ 80005de:	2e00      	cmp	r6, #0
+ 80005e0:	f000 810a 	beq.w	80007f8 <printf+0x620>
+                                if (flag0)        print_byte('0');
+ 80005e4:	2030      	movs	r0, #48	; 0x30
+ 80005e6:	b905      	cbnz	r5, 80005ea <printf+0x412>
+                                else                print_byte(' ');
+ 80005e8:	2020      	movs	r0, #32
+ 80005ea:	47d0      	blx	sl
+        if (flagcnt){
+                if (flagcnt>9) flagcnt=9;
+                remainder = l%(Power(10, flagcnt));        // flagcnt보다 윗자리의 수는 걸러냄. 199에 flagcnt==2이면, 99만.
+
+
+                for (divisor=Power(10, flagcnt-1); divisor>0; divisor/=10){
+ 80005ec:	fb89 0e04 	smull	r0, lr, r9, r4
+ 80005f0:	17e0      	asrs	r0, r4, #31
+ 80005f2:	ebc0 04ae 	rsb	r4, r0, lr, asr #2
+ 80005f6:	2c00      	cmp	r4, #0
+ 80005f8:	dce5      	bgt.n	80005c6 <printf+0x3ee>
+ 80005fa:	9d03      	ldr	r5, [sp, #12]
+ 80005fc:	e5f7      	b.n	80001ee <printf+0x16>
+                        }
+                        tol[j] = '\0';
+                        i--;
+                        DecToLong(tol, &flagcnt);
+                }
+                else if (c=='0') flag0=true;
+ 80005fe:	2b30      	cmp	r3, #48	; 0x30
+ 8000600:	bf08      	it	eq
+ 8000602:	2601      	moveq	r6, #1
+ 8000604:	e790      	b.n	8000528 <printf+0x350>
+                        else print_byte(lHex);
+                }
+        }
+        else {
+                for (i=0; i<4; i++){
+                        c = s[i];
+ 8000606:	f89d 202c 	ldrb.w	r2, [sp, #44]	; 0x2c
+                        uHex = ((c>>4)&0x0f);
+                        lHex = ((c>>0)&0x0f);
+
+
+                        // upper 4 bits and lower 4 bits to '0'~'9', 'A'~'F'.
+                        if (uHex!=0) leading_zero = false;
+ 800060a:	0913      	lsrs	r3, r2, #4
+                for (i=0; i<4; i++){
+                        c = s[i];
+        
+                        // get upper 4 bits and lower 4 bits.
+                        uHex = ((c>>4)&0x0f);
+                        lHex = ((c>>0)&0x0f);
+ 800060c:	f002 040f 	and.w	r4, r2, #15
+
+
+                        // upper 4 bits and lower 4 bits to '0'~'9', 'A'~'F'.
+                        if (uHex!=0) leading_zero = false;
+ 8000610:	f040 82dc 	bne.w	8000bcc <printf+0x9f4>
+ 8000614:	4e89      	ldr	r6, [pc, #548]	; (800083c <printf+0x664>)
+ 8000616:	2301      	movs	r3, #1
+                        if (uHex<10) uHex+='0';
+                        else         uHex+='A'-10;
+                        if (!leading_zero) print_byte(uHex);
+                        
+                        if (lHex!=0 || i==3) leading_zero = false;
+ 8000618:	2c00      	cmp	r4, #0
+ 800061a:	f040 8291 	bne.w	8000b40 <printf+0x968>
+                        if (lHex<10) lHex+='0';
+                        else         lHex+='A'-10;
+                        if (!leading_zero) print_byte(lHex);
+ 800061e:	2b00      	cmp	r3, #0
+ 8000620:	f000 8345 	beq.w	8000cae <printf+0xad6>
+                        else print_byte(lHex);
+                }
+        }
+        else {
+                for (i=0; i<4; i++){
+                        c = s[i];
+ 8000624:	f89d c02d 	ldrb.w	ip, [sp, #45]	; 0x2d
+                        if (!leading_zero) print_byte(uHex);
+                        
+                        if (lHex!=0 || i==3) leading_zero = false;
+                        if (lHex<10) lHex+='0';
+                        else         lHex+='A'-10;
+                        if (!leading_zero) print_byte(lHex);
+ 8000628:	2201      	movs	r2, #1
+                        uHex = ((c>>4)&0x0f);
+                        lHex = ((c>>0)&0x0f);
+
+
+                        // upper 4 bits and lower 4 bits to '0'~'9', 'A'~'F'.
+                        if (uHex!=0) leading_zero = false;
+ 800062a:	ea5f 131c 	movs.w	r3, ip, lsr #4
+                for (i=0; i<4; i++){
+                        c = s[i];
+        
+                        // get upper 4 bits and lower 4 bits.
+                        uHex = ((c>>4)&0x0f);
+                        lHex = ((c>>0)&0x0f);
+ 800062e:	f00c 040f 	and.w	r4, ip, #15
+
+
+                        // upper 4 bits and lower 4 bits to '0'~'9', 'A'~'F'.
+                        if (uHex!=0) leading_zero = false;
+ 8000632:	f000 8294 	beq.w	8000b5e <printf+0x986>
+                        if (uHex<10) uHex+='0';
+ 8000636:	2b09      	cmp	r3, #9
+ 8000638:	f240 835c 	bls.w	8000cf4 <printf+0xb1c>
+                        else         uHex+='A'-10;
+ 800063c:	f103 0037 	add.w	r0, r3, #55	; 0x37
+                        if (!leading_zero) print_byte(uHex);
+ 8000640:	47b0      	blx	r6
+ 8000642:	2300      	movs	r3, #0
+                        
+                        if (lHex!=0 || i==3) leading_zero = false;
+ 8000644:	2c00      	cmp	r4, #0
+ 8000646:	f040 8291 	bne.w	8000b6c <printf+0x994>
+                        if (lHex<10) lHex+='0';
+                        else         lHex+='A'-10;
+                        if (!leading_zero) print_byte(lHex);
+ 800064a:	2b00      	cmp	r3, #0
+ 800064c:	f000 8332 	beq.w	8000cb4 <printf+0xadc>
+                        else print_byte(lHex);
+                }
+        }
+        else {
+                for (i=0; i<4; i++){
+                        c = s[i];
+ 8000650:	f89d e02e 	ldrb.w	lr, [sp, #46]	; 0x2e
+                        if (!leading_zero) print_byte(uHex);
+                        
+                        if (lHex!=0 || i==3) leading_zero = false;
+                        if (lHex<10) lHex+='0';
+                        else         lHex+='A'-10;
+                        if (!leading_zero) print_byte(lHex);
+ 8000654:	2201      	movs	r2, #1
+                        uHex = ((c>>4)&0x0f);
+                        lHex = ((c>>0)&0x0f);
+
+
+                        // upper 4 bits and lower 4 bits to '0'~'9', 'A'~'F'.
+                        if (uHex!=0) leading_zero = false;
+ 8000656:	ea5f 131e 	movs.w	r3, lr, lsr #4
+                for (i=0; i<4; i++){
+                        c = s[i];
+        
+                        // get upper 4 bits and lower 4 bits.
+                        uHex = ((c>>4)&0x0f);
+                        lHex = ((c>>0)&0x0f);
+ 800065a:	f00e 040f 	and.w	r4, lr, #15
+
+
+                        // upper 4 bits and lower 4 bits to '0'~'9', 'A'~'F'.
+                        if (uHex!=0) leading_zero = false;
+ 800065e:	f000 8294 	beq.w	8000b8a <printf+0x9b2>
+                        if (uHex<10) uHex+='0';
+ 8000662:	2b09      	cmp	r3, #9
+ 8000664:	f240 8329 	bls.w	8000cba <printf+0xae2>
+                        else         uHex+='A'-10;
+ 8000668:	f103 0037 	add.w	r0, r3, #55	; 0x37
+                        if (!leading_zero) print_byte(uHex);
+ 800066c:	47b0      	blx	r6
+ 800066e:	2300      	movs	r3, #0
+                        
+                        if (lHex!=0 || i==3) leading_zero = false;
+ 8000670:	2c00      	cmp	r4, #0
+ 8000672:	f040 8291 	bne.w	8000b98 <printf+0x9c0>
+                        if (lHex<10) lHex+='0';
+                        else         lHex+='A'-10;
+                        if (!leading_zero) print_byte(lHex);
+ 8000676:	2b00      	cmp	r3, #0
+ 8000678:	f000 8322 	beq.w	8000cc0 <printf+0xae8>
+                        else print_byte(lHex);
+                }
+        }
+        else {
+                for (i=0; i<4; i++){
+                        c = s[i];
+ 800067c:	f89d 002f 	ldrb.w	r0, [sp, #47]	; 0x2f
+                        if (!leading_zero) print_byte(uHex);
+                        
+                        if (lHex!=0 || i==3) leading_zero = false;
+                        if (lHex<10) lHex+='0';
+                        else         lHex+='A'-10;
+                        if (!leading_zero) print_byte(lHex);
+ 8000680:	2201      	movs	r2, #1
+                        uHex = ((c>>4)&0x0f);
+                        lHex = ((c>>0)&0x0f);
+
+
+                        // upper 4 bits and lower 4 bits to '0'~'9', 'A'~'F'.
+                        if (uHex!=0) leading_zero = false;
+ 8000682:	0903      	lsrs	r3, r0, #4
+                for (i=0; i<4; i++){
+                        c = s[i];
+        
+                        // get upper 4 bits and lower 4 bits.
+                        uHex = ((c>>4)&0x0f);
+                        lHex = ((c>>0)&0x0f);
+ 8000684:	f000 040f 	and.w	r4, r0, #15
+
+
+                        // upper 4 bits and lower 4 bits to '0'~'9', 'A'~'F'.
+                        if (uHex!=0) leading_zero = false;
+ 8000688:	f000 8294 	beq.w	8000bb4 <printf+0x9dc>
+                        if (uHex<10) uHex+='0';
+ 800068c:	2b09      	cmp	r3, #9
+ 800068e:	f240 8294 	bls.w	8000bba <printf+0x9e2>
+                        else         uHex+='A'-10;
+ 8000692:	f103 0037 	add.w	r0, r3, #55	; 0x37
+                        if (!leading_zero) print_byte(uHex);
+ 8000696:	47b0      	blx	r6
+                        
+                        if (lHex!=0 || i==3) leading_zero = false;
+ 8000698:	2c00      	cmp	r4, #0
+ 800069a:	f000 8292 	beq.w	8000bc2 <printf+0x9ea>
+                        if (lHex<10) lHex+='0';
+ 800069e:	2c09      	cmp	r4, #9
+ 80006a0:	f240 828f 	bls.w	8000bc2 <printf+0x9ea>
+                        else         lHex+='A'-10;
+ 80006a4:	f104 0037 	add.w	r0, r4, #55	; 0x37
+                        if (!leading_zero) print_byte(lHex);
+ 80006a8:	47b0      	blx	r6
+ 80006aa:	e5a0      	b.n	80001ee <printf+0x16>
+        } else {
+                remainder = l;
+
+
+                for (divisor=1000000000; divisor>0; divisor/=10){
+                        result = remainder/divisor;
+ 80006ac:	4964      	ldr	r1, [pc, #400]	; (8000840 <printf+0x668>)
+ 80006ae:	ea4f 76eb 	mov.w	r6, fp, asr #31
+ 80006b2:	fb81 3c0b 	smull	r3, ip, r1, fp
+                        remainder %= divisor;
+ 80006b6:	4c63      	ldr	r4, [pc, #396]	; (8000844 <printf+0x66c>)
+        } else {
+                remainder = l;
+
+
+                for (divisor=1000000000; divisor>0; divisor/=10){
+                        result = remainder/divisor;
+ 80006b8:	ebc6 732c 	rsb	r3, r6, ip, asr #28
+                        remainder %= divisor;
+ 80006bc:	fb04 bb13 	mls	fp, r4, r3, fp
+
+
+                        if (result!=0 || divisor==1) leading_zero = false;
+ 80006c0:	2b00      	cmp	r3, #0
+ 80006c2:	f000 80d7 	beq.w	8000874 <printf+0x69c>
+                        if (leading_zero==false) print_byte((char)(result)+'0');
+ 80006c6:	fa5f fe83 	uxtb.w	lr, r3
+        } else {
+                remainder = l;
+
+
+                for (divisor=1000000000; divisor>0; divisor/=10){
+                        result = remainder/divisor;
+ 80006ca:	4e5f      	ldr	r6, [pc, #380]	; (8000848 <printf+0x670>)
+                        remainder %= divisor;
+
+
+                        if (result!=0 || divisor==1) leading_zero = false;
+                        if (leading_zero==false) print_byte((char)(result)+'0');
+ 80006cc:	f10e 0030 	add.w	r0, lr, #48	; 0x30
+ 80006d0:	4c5a      	ldr	r4, [pc, #360]	; (800083c <printf+0x664>)
+ 80006d2:	47a0      	blx	r4
+        } else {
+                remainder = l;
+
+
+                for (divisor=1000000000; divisor>0; divisor/=10){
+                        result = remainder/divisor;
+ 80006d4:	fb86 600b 	smull	r6, r0, r6, fp
+ 80006d8:	ea4f 73eb 	mov.w	r3, fp, asr #31
+                        remainder %= divisor;
+ 80006dc:	4a5b      	ldr	r2, [pc, #364]	; (800084c <printf+0x674>)
+        } else {
+                remainder = l;
+
+
+                for (divisor=1000000000; divisor>0; divisor/=10){
+                        result = remainder/divisor;
+ 80006de:	ebc3 6360 	rsb	r3, r3, r0, asr #25
+                        remainder %= divisor;
+
+
+                        if (result!=0 || divisor==1) leading_zero = false;
+                        if (leading_zero==false) print_byte((char)(result)+'0');
+ 80006e2:	2100      	movs	r1, #0
+                remainder = l;
+
+
+                for (divisor=1000000000; divisor>0; divisor/=10){
+                        result = remainder/divisor;
+                        remainder %= divisor;
+ 80006e4:	fb02 b613 	mls	r6, r2, r3, fp
+
+
+                        if (result!=0 || divisor==1) leading_zero = false;
+ 80006e8:	2b00      	cmp	r3, #0
+ 80006ea:	f000 80d2 	beq.w	8000892 <printf+0x6ba>
+                        if (leading_zero==false) print_byte((char)(result)+'0');
+ 80006ee:	fa5f fc83 	uxtb.w	ip, r3
+ 80006f2:	f10c 0030 	add.w	r0, ip, #48	; 0x30
+ 80006f6:	47a0      	blx	r4
+        } else {
+                remainder = l;
+
+
+                for (divisor=1000000000; divisor>0; divisor/=10){
+                        result = remainder/divisor;
+ 80006f8:	4855      	ldr	r0, [pc, #340]	; (8000850 <printf+0x678>)
+ 80006fa:	17f3      	asrs	r3, r6, #31
+ 80006fc:	fb80 0e06 	smull	r0, lr, r0, r6
+                        remainder %= divisor;
+ 8000700:	4a54      	ldr	r2, [pc, #336]	; (8000854 <printf+0x67c>)
+        } else {
+                remainder = l;
+
+
+                for (divisor=1000000000; divisor>0; divisor/=10){
+                        result = remainder/divisor;
+ 8000702:	ebc3 53ae 	rsb	r3, r3, lr, asr #22
+                        remainder %= divisor;
+
+
+                        if (result!=0 || divisor==1) leading_zero = false;
+                        if (leading_zero==false) print_byte((char)(result)+'0');
+ 8000706:	2100      	movs	r1, #0
+                remainder = l;
+
+
+                for (divisor=1000000000; divisor>0; divisor/=10){
+                        result = remainder/divisor;
+                        remainder %= divisor;
+ 8000708:	fb02 6613 	mls	r6, r2, r3, r6
+
+
+                        if (result!=0 || divisor==1) leading_zero = false;
+ 800070c:	2b00      	cmp	r3, #0
+ 800070e:	f000 80d0 	beq.w	80008b2 <printf+0x6da>
+                        if (leading_zero==false) print_byte((char)(result)+'0');
+ 8000712:	b2d9      	uxtb	r1, r3
+ 8000714:	f101 0030 	add.w	r0, r1, #48	; 0x30
+ 8000718:	47a0      	blx	r4
+        } else {
+                remainder = l;
+
+
+                for (divisor=1000000000; divisor>0; divisor/=10){
+                        result = remainder/divisor;
+ 800071a:	484f      	ldr	r0, [pc, #316]	; (8000858 <printf+0x680>)
+ 800071c:	17f3      	asrs	r3, r6, #31
+ 800071e:	fb80 0c06 	smull	r0, ip, r0, r6
+                        remainder %= divisor;
+ 8000722:	4a4e      	ldr	r2, [pc, #312]	; (800085c <printf+0x684>)
+        } else {
+                remainder = l;
+
+
+                for (divisor=1000000000; divisor>0; divisor/=10){
+                        result = remainder/divisor;
+ 8000724:	ebc3 43ac 	rsb	r3, r3, ip, asr #18
+                        remainder %= divisor;
+
+
+                        if (result!=0 || divisor==1) leading_zero = false;
+                        if (leading_zero==false) print_byte((char)(result)+'0');
+ 8000728:	2100      	movs	r1, #0
+                remainder = l;
+
+
+                for (divisor=1000000000; divisor>0; divisor/=10){
+                        result = remainder/divisor;
+                        remainder %= divisor;
+ 800072a:	fb02 6613 	mls	r6, r2, r3, r6
+
+
+                        if (result!=0 || divisor==1) leading_zero = false;
+ 800072e:	2b00      	cmp	r3, #0
+ 8000730:	f000 80cf 	beq.w	80008d2 <printf+0x6fa>
+                        if (leading_zero==false) print_byte((char)(result)+'0');
+ 8000734:	fa5f fe83 	uxtb.w	lr, r3
+ 8000738:	f10e 0030 	add.w	r0, lr, #48	; 0x30
+ 800073c:	47a0      	blx	r4
+        } else {
+                remainder = l;
+
+
+                for (divisor=1000000000; divisor>0; divisor/=10){
+                        result = remainder/divisor;
+ 800073e:	4848      	ldr	r0, [pc, #288]	; (8000860 <printf+0x688>)
+ 8000740:	17f3      	asrs	r3, r6, #31
+ 8000742:	fb80 0c06 	smull	r0, ip, r0, r6
+                        remainder %= divisor;
+ 8000746:	4a47      	ldr	r2, [pc, #284]	; (8000864 <printf+0x68c>)
+        } else {
+                remainder = l;
+
+
+                for (divisor=1000000000; divisor>0; divisor/=10){
+                        result = remainder/divisor;
+ 8000748:	ebc3 336c 	rsb	r3, r3, ip, asr #13
+                        remainder %= divisor;
+
+
+                        if (result!=0 || divisor==1) leading_zero = false;
+                        if (leading_zero==false) print_byte((char)(result)+'0');
+ 800074c:	2100      	movs	r1, #0
+                remainder = l;
+
+
+                for (divisor=1000000000; divisor>0; divisor/=10){
+                        result = remainder/divisor;
+                        remainder %= divisor;
+ 800074e:	fb02 6613 	mls	r6, r2, r3, r6
+
+
+                        if (result!=0 || divisor==1) leading_zero = false;
+ 8000752:	2b00      	cmp	r3, #0
+ 8000754:	f000 80cd 	beq.w	80008f2 <printf+0x71a>
+                        if (leading_zero==false) print_byte((char)(result)+'0');
+ 8000758:	b2d9      	uxtb	r1, r3
+ 800075a:	f101 0030 	add.w	r0, r1, #48	; 0x30
+ 800075e:	47a0      	blx	r4
+        } else {
+                remainder = l;
+
+
+                for (divisor=1000000000; divisor>0; divisor/=10){
+                        result = remainder/divisor;
+ 8000760:	4841      	ldr	r0, [pc, #260]	; (8000868 <printf+0x690>)
+ 8000762:	17f3      	asrs	r3, r6, #31
+ 8000764:	fb80 0206 	smull	r0, r2, r0, r6
+                        remainder %= divisor;
+ 8000768:	f242 7e10 	movw	lr, #10000	; 0x2710
+        } else {
+                remainder = l;
+
+
+                for (divisor=1000000000; divisor>0; divisor/=10){
+                        result = remainder/divisor;
+ 800076c:	ebc3 3322 	rsb	r3, r3, r2, asr #12
+                        remainder %= divisor;
+
+
+                        if (result!=0 || divisor==1) leading_zero = false;
+                        if (leading_zero==false) print_byte((char)(result)+'0');
+ 8000770:	2100      	movs	r1, #0
+                remainder = l;
+
+
+                for (divisor=1000000000; divisor>0; divisor/=10){
+                        result = remainder/divisor;
+                        remainder %= divisor;
+ 8000772:	fb0e 6613 	mls	r6, lr, r3, r6
+
+
+                        if (result!=0 || divisor==1) leading_zero = false;
+ 8000776:	2b00      	cmp	r3, #0
+ 8000778:	f000 80cc 	beq.w	8000914 <printf+0x73c>
+                        if (leading_zero==false) print_byte((char)(result)+'0');
+ 800077c:	fa5f fc83 	uxtb.w	ip, r3
+ 8000780:	f10c 0030 	add.w	r0, ip, #48	; 0x30
+ 8000784:	47a0      	blx	r4
+        } else {
+                remainder = l;
+
+
+                for (divisor=1000000000; divisor>0; divisor/=10){
+                        result = remainder/divisor;
+ 8000786:	4839      	ldr	r0, [pc, #228]	; (800086c <printf+0x694>)
+ 8000788:	17f3      	asrs	r3, r6, #31
+ 800078a:	fb80 0206 	smull	r0, r2, r0, r6
+                        remainder %= divisor;
+ 800078e:	f44f 7e7a 	mov.w	lr, #1000	; 0x3e8
+        } else {
+                remainder = l;
+
+
+                for (divisor=1000000000; divisor>0; divisor/=10){
+                        result = remainder/divisor;
+ 8000792:	ebc3 13a2 	rsb	r3, r3, r2, asr #6
+                        remainder %= divisor;
+
+
+                        if (result!=0 || divisor==1) leading_zero = false;
+                        if (leading_zero==false) print_byte((char)(result)+'0');
+ 8000796:	2100      	movs	r1, #0
+                remainder = l;
+
+
+                for (divisor=1000000000; divisor>0; divisor/=10){
+                        result = remainder/divisor;
+                        remainder %= divisor;
+ 8000798:	fb0e 6613 	mls	r6, lr, r3, r6
+
+
+                        if (result!=0 || divisor==1) leading_zero = false;
+ 800079c:	2b00      	cmp	r3, #0
+ 800079e:	f000 80ca 	beq.w	8000936 <printf+0x75e>
+                        if (leading_zero==false) print_byte((char)(result)+'0');
+ 80007a2:	b2d9      	uxtb	r1, r3
+ 80007a4:	f101 0030 	add.w	r0, r1, #48	; 0x30
+ 80007a8:	47a0      	blx	r4
+        } else {
+                remainder = l;
+
+
+                for (divisor=1000000000; divisor>0; divisor/=10){
+                        result = remainder/divisor;
+ 80007aa:	4831      	ldr	r0, [pc, #196]	; (8000870 <printf+0x698>)
+ 80007ac:	17f3      	asrs	r3, r6, #31
+ 80007ae:	fb80 0c06 	smull	r0, ip, r0, r6
+                        remainder %= divisor;
+ 80007b2:	2264      	movs	r2, #100	; 0x64
+        } else {
+                remainder = l;
+
+
+                for (divisor=1000000000; divisor>0; divisor/=10){
+                        result = remainder/divisor;
+ 80007b4:	ebc3 136c 	rsb	r3, r3, ip, asr #5
+                        remainder %= divisor;
+
+
+                        if (result!=0 || divisor==1) leading_zero = false;
+                        if (leading_zero==false) print_byte((char)(result)+'0');
+ 80007b8:	2100      	movs	r1, #0
+                remainder = l;
+
+
+                for (divisor=1000000000; divisor>0; divisor/=10){
+                        result = remainder/divisor;
+                        remainder %= divisor;
+ 80007ba:	fb02 6613 	mls	r6, r2, r3, r6
+
+
+                        if (result!=0 || divisor==1) leading_zero = false;
+ 80007be:	2b00      	cmp	r3, #0
+ 80007c0:	f000 80c9 	beq.w	8000956 <printf+0x77e>
+                        if (leading_zero==false) print_byte((char)(result)+'0');
+ 80007c4:	fa5f fe83 	uxtb.w	lr, r3
+ 80007c8:	f10e 0030 	add.w	r0, lr, #48	; 0x30
+ 80007cc:	47a0      	blx	r4
+        } else {
+                remainder = l;
+
+
+                for (divisor=1000000000; divisor>0; divisor/=10){
+                        result = remainder/divisor;
+ 80007ce:	fb89 3c06 	smull	r3, ip, r9, r6
+ 80007d2:	17f3      	asrs	r3, r6, #31
+ 80007d4:	ebc3 03ac 	rsb	r3, r3, ip, asr #2
+                        remainder %= divisor;
+ 80007d8:	eb03 0283 	add.w	r2, r3, r3, lsl #2
+
+
+                        if (result!=0 || divisor==1) leading_zero = false;
+                        if (leading_zero==false) print_byte((char)(result)+'0');
+ 80007dc:	2100      	movs	r1, #0
+                remainder = l;
+
+
+                for (divisor=1000000000; divisor>0; divisor/=10){
+                        result = remainder/divisor;
+                        remainder %= divisor;
+ 80007de:	eba6 0642 	sub.w	r6, r6, r2, lsl #1
+
+
+                        if (result!=0 || divisor==1) leading_zero = false;
+ 80007e2:	2b00      	cmp	r3, #0
+ 80007e4:	f000 80c7 	beq.w	8000976 <printf+0x79e>
+                        if (leading_zero==false) print_byte((char)(result)+'0');
+ 80007e8:	b2d9      	uxtb	r1, r3
+ 80007ea:	f101 0030 	add.w	r0, r1, #48	; 0x30
+ 80007ee:	47a0      	blx	r4
+ 80007f0:	b2f0      	uxtb	r0, r6
+ 80007f2:	3030      	adds	r0, #48	; 0x30
+ 80007f4:	47a0      	blx	r4
+ 80007f6:	e4fa      	b.n	80001ee <printf+0x16>
+
+                        if (leading_zero==true){
+                                if (flag0)        print_byte('0');
+                                else                print_byte(' ');
+                        }
+                        else print_byte((char)(result)+'0');
+ 80007f8:	47d0      	blx	sl
+ 80007fa:	2600      	movs	r6, #0
+ 80007fc:	e6f6      	b.n	80005ec <printf+0x414>
+
+        // fmt의 "%08lx"에서 '0', '8', 'l'을 해석.
+        for (i=0; (c=s[i]) != 0; i++){
+                if (c=='d') break;
+                else if (c>='1' && c<='9'){
+                        for (j=0; s[i]>='0' && s[i]<='9'; j++){
+ 80007fe:	2300      	movs	r3, #0
+ 8000800:	a804      	add	r0, sp, #16
+ 8000802:	e689      	b.n	8000518 <printf+0x340>
+
+        // fmt의 "%08lx"에서 '0', '8', 'l'을 해석.
+        for (i=0; (c=s[i]) != 0; i++){
+                if (c=='x') break;
+                else if (c>='1' && c<='9'){
+                        for (j=0; s[i]>='0' && s[i]<='9'; j++){
+ 8000804:	2300      	movs	r3, #0
+ 8000806:	a804      	add	r0, sp, #16
+ 8000808:	e5fd      	b.n	8000406 <printf+0x22e>
+        while (*s){
+                if (*s=='%'){
+                        s++;
+                        // s에서 "%08lx"형식을 가져와 format에 기록. 나중에 출력함수에 넘겨줌.
+                        format[0] = '%';
+                        for (i=1; i<10;){
+ 800080a:	2301      	movs	r3, #1
+                                if (*s=='c' || *s=='d' || *s=='x' || *s=='s' || *s=='%'){
+                                        format[i++] = *s;
+ 800080c:	a90c      	add	r1, sp, #48	; 0x30
+ 800080e:	eb01 0c03 	add.w	ip, r1, r3
+                                        format[i] = '\0';
+ 8000812:	2200      	movs	r2, #0
+                        s++;
+                        // s에서 "%08lx"형식을 가져와 format에 기록. 나중에 출력함수에 넘겨줌.
+                        format[0] = '%';
+                        for (i=1; i<10;){
+                                if (*s=='c' || *s=='d' || *s=='x' || *s=='s' || *s=='%'){
+                                        format[i++] = *s;
+ 8000814:	f80c 0c14 	strb.w	r0, [ip, #-20]
+                                        format[i] = '\0';
+ 8000818:	f80c 2c13 	strb.w	r2, [ip, #-19]
+                                        break;
+ 800081c:	e5a1      	b.n	8000362 <printf+0x18a>
+                                }
+                                else {
+                                        format[i++] = *s++;
+ 800081e:	2302      	movs	r3, #2
+ 8000820:	e7f4      	b.n	800080c <printf+0x634>
+ 8000822:	2303      	movs	r3, #3
+ 8000824:	e7f2      	b.n	800080c <printf+0x634>
+ 8000826:	2304      	movs	r3, #4
+ 8000828:	e7f0      	b.n	800080c <printf+0x634>
+ 800082a:	2305      	movs	r3, #5
+ 800082c:	e7ee      	b.n	800080c <printf+0x634>
+ 800082e:	2306      	movs	r3, #6
+ 8000830:	e7ec      	b.n	800080c <printf+0x634>
+ 8000832:	2307      	movs	r3, #7
+ 8000834:	e7ea      	b.n	800080c <printf+0x634>
+ 8000836:	2308      	movs	r3, #8
+ 8000838:	e7e8      	b.n	800080c <printf+0x634>
+ 800083a:	bf00      	nop
+ 800083c:	08000145 	.word	0x08000145
+ 8000840:	44b82fa1 	.word	0x44b82fa1
+ 8000844:	3b9aca00 	.word	0x3b9aca00
+ 8000848:	55e63b89 	.word	0x55e63b89
+ 800084c:	05f5e100 	.word	0x05f5e100
+ 8000850:	6b5fca6b 	.word	0x6b5fca6b
+ 8000854:	00989680 	.word	0x00989680
+ 8000858:	431bde83 	.word	0x431bde83
+ 800085c:	000f4240 	.word	0x000f4240
+ 8000860:	14f8b589 	.word	0x14f8b589
+ 8000864:	000186a0 	.word	0x000186a0
+ 8000868:	68db8bad 	.word	0x68db8bad
+ 800086c:	10624dd3 	.word	0x10624dd3
+ 8000870:	51eb851f 	.word	0x51eb851f
+        } else {
+                remainder = l;
+
+
+                for (divisor=1000000000; divisor>0; divisor/=10){
+                        result = remainder/divisor;
+ 8000874:	4ea6      	ldr	r6, [pc, #664]	; (8000b10 <printf+0x938>)
+ 8000876:	ea4f 73eb 	mov.w	r3, fp, asr #31
+ 800087a:	fb86 600b 	smull	r6, r0, r6, fp
+                        remainder %= divisor;
+ 800087e:	4aa5      	ldr	r2, [pc, #660]	; (8000b14 <printf+0x93c>)
+        } else {
+                remainder = l;
+
+
+                for (divisor=1000000000; divisor>0; divisor/=10){
+                        result = remainder/divisor;
+ 8000880:	ebc3 6360 	rsb	r3, r3, r0, asr #25
+ 8000884:	4ca4      	ldr	r4, [pc, #656]	; (8000b18 <printf+0x940>)
+                        remainder %= divisor;
+
+
+                        if (result!=0 || divisor==1) leading_zero = false;
+ 8000886:	2101      	movs	r1, #1
+                remainder = l;
+
+
+                for (divisor=1000000000; divisor>0; divisor/=10){
+                        result = remainder/divisor;
+                        remainder %= divisor;
+ 8000888:	fb02 b613 	mls	r6, r2, r3, fp
+
+
+                        if (result!=0 || divisor==1) leading_zero = false;
+ 800088c:	2b00      	cmp	r3, #0
+ 800088e:	f47f af2e 	bne.w	80006ee <printf+0x516>
+                        if (leading_zero==false) print_byte((char)(result)+'0');
+ 8000892:	2900      	cmp	r1, #0
+ 8000894:	f43f af2b 	beq.w	80006ee <printf+0x516>
+        } else {
+                remainder = l;
+
+
+                for (divisor=1000000000; divisor>0; divisor/=10){
+                        result = remainder/divisor;
+ 8000898:	48a0      	ldr	r0, [pc, #640]	; (8000b1c <printf+0x944>)
+ 800089a:	17f3      	asrs	r3, r6, #31
+ 800089c:	fb80 0e06 	smull	r0, lr, r0, r6
+                        remainder %= divisor;
+ 80008a0:	4a9f      	ldr	r2, [pc, #636]	; (8000b20 <printf+0x948>)
+        } else {
+                remainder = l;
+
+
+                for (divisor=1000000000; divisor>0; divisor/=10){
+                        result = remainder/divisor;
+ 80008a2:	ebc3 53ae 	rsb	r3, r3, lr, asr #22
+                        remainder %= divisor;
+
+
+                        if (result!=0 || divisor==1) leading_zero = false;
+                        if (leading_zero==false) print_byte((char)(result)+'0');
+ 80008a6:	2101      	movs	r1, #1
+                remainder = l;
+
+
+                for (divisor=1000000000; divisor>0; divisor/=10){
+                        result = remainder/divisor;
+                        remainder %= divisor;
+ 80008a8:	fb02 6613 	mls	r6, r2, r3, r6
+
+
+                        if (result!=0 || divisor==1) leading_zero = false;
+ 80008ac:	2b00      	cmp	r3, #0
+ 80008ae:	f47f af30 	bne.w	8000712 <printf+0x53a>
+                        if (leading_zero==false) print_byte((char)(result)+'0');
+ 80008b2:	2900      	cmp	r1, #0
+ 80008b4:	f43f af2d 	beq.w	8000712 <printf+0x53a>
+        } else {
+                remainder = l;
+
+
+                for (divisor=1000000000; divisor>0; divisor/=10){
+                        result = remainder/divisor;
+ 80008b8:	489a      	ldr	r0, [pc, #616]	; (8000b24 <printf+0x94c>)
+ 80008ba:	17f3      	asrs	r3, r6, #31
+ 80008bc:	fb80 0c06 	smull	r0, ip, r0, r6
+                        remainder %= divisor;
+ 80008c0:	4a99      	ldr	r2, [pc, #612]	; (8000b28 <printf+0x950>)
+        } else {
+                remainder = l;
+
+
+                for (divisor=1000000000; divisor>0; divisor/=10){
+                        result = remainder/divisor;
+ 80008c2:	ebc3 43ac 	rsb	r3, r3, ip, asr #18
+                        remainder %= divisor;
+
+
+                        if (result!=0 || divisor==1) leading_zero = false;
+                        if (leading_zero==false) print_byte((char)(result)+'0');
+ 80008c6:	2101      	movs	r1, #1
+                remainder = l;
+
+
+                for (divisor=1000000000; divisor>0; divisor/=10){
+                        result = remainder/divisor;
+                        remainder %= divisor;
+ 80008c8:	fb02 6613 	mls	r6, r2, r3, r6
+
+
+                        if (result!=0 || divisor==1) leading_zero = false;
+ 80008cc:	2b00      	cmp	r3, #0
+ 80008ce:	f47f af31 	bne.w	8000734 <printf+0x55c>
+                        if (leading_zero==false) print_byte((char)(result)+'0');
+ 80008d2:	2900      	cmp	r1, #0
+ 80008d4:	f43f af2e 	beq.w	8000734 <printf+0x55c>
+        } else {
+                remainder = l;
+
+
+                for (divisor=1000000000; divisor>0; divisor/=10){
+                        result = remainder/divisor;
+ 80008d8:	4894      	ldr	r0, [pc, #592]	; (8000b2c <printf+0x954>)
+ 80008da:	17f3      	asrs	r3, r6, #31
+ 80008dc:	fb80 0c06 	smull	r0, ip, r0, r6
+                        remainder %= divisor;
+ 80008e0:	4a93      	ldr	r2, [pc, #588]	; (8000b30 <printf+0x958>)
+        } else {
+                remainder = l;
+
+
+                for (divisor=1000000000; divisor>0; divisor/=10){
+                        result = remainder/divisor;
+ 80008e2:	ebc3 336c 	rsb	r3, r3, ip, asr #13
+                        remainder %= divisor;
+
+
+                        if (result!=0 || divisor==1) leading_zero = false;
+                        if (leading_zero==false) print_byte((char)(result)+'0');
+ 80008e6:	2101      	movs	r1, #1
+                remainder = l;
+
+
+                for (divisor=1000000000; divisor>0; divisor/=10){
+                        result = remainder/divisor;
+                        remainder %= divisor;
+ 80008e8:	fb02 6613 	mls	r6, r2, r3, r6
+
+
+                        if (result!=0 || divisor==1) leading_zero = false;
+ 80008ec:	2b00      	cmp	r3, #0
+ 80008ee:	f47f af33 	bne.w	8000758 <printf+0x580>
+                        if (leading_zero==false) print_byte((char)(result)+'0');
+ 80008f2:	2900      	cmp	r1, #0
+ 80008f4:	f43f af30 	beq.w	8000758 <printf+0x580>
+        } else {
+                remainder = l;
+
+
+                for (divisor=1000000000; divisor>0; divisor/=10){
+                        result = remainder/divisor;
+ 80008f8:	488e      	ldr	r0, [pc, #568]	; (8000b34 <printf+0x95c>)
+ 80008fa:	17f3      	asrs	r3, r6, #31
+ 80008fc:	fb80 0206 	smull	r0, r2, r0, r6
+                        remainder %= divisor;
+ 8000900:	f242 7e10 	movw	lr, #10000	; 0x2710
+        } else {
+                remainder = l;
+
+
+                for (divisor=1000000000; divisor>0; divisor/=10){
+                        result = remainder/divisor;
+ 8000904:	ebc3 3322 	rsb	r3, r3, r2, asr #12
+                        remainder %= divisor;
+
+
+                        if (result!=0 || divisor==1) leading_zero = false;
+                        if (leading_zero==false) print_byte((char)(result)+'0');
+ 8000908:	2101      	movs	r1, #1
+                remainder = l;
+
+
+                for (divisor=1000000000; divisor>0; divisor/=10){
+                        result = remainder/divisor;
+                        remainder %= divisor;
+ 800090a:	fb0e 6613 	mls	r6, lr, r3, r6
+
+
+                        if (result!=0 || divisor==1) leading_zero = false;
+ 800090e:	2b00      	cmp	r3, #0
+ 8000910:	f47f af34 	bne.w	800077c <printf+0x5a4>
+                        if (leading_zero==false) print_byte((char)(result)+'0');
+ 8000914:	2900      	cmp	r1, #0
+ 8000916:	f43f af31 	beq.w	800077c <printf+0x5a4>
+        } else {
+                remainder = l;
+
+
+                for (divisor=1000000000; divisor>0; divisor/=10){
+                        result = remainder/divisor;
+ 800091a:	4887      	ldr	r0, [pc, #540]	; (8000b38 <printf+0x960>)
+ 800091c:	17f3      	asrs	r3, r6, #31
+ 800091e:	fb80 0206 	smull	r0, r2, r0, r6
+                        remainder %= divisor;
+ 8000922:	f44f 7e7a 	mov.w	lr, #1000	; 0x3e8
+        } else {
+                remainder = l;
+
+
+                for (divisor=1000000000; divisor>0; divisor/=10){
+                        result = remainder/divisor;
+ 8000926:	ebc3 13a2 	rsb	r3, r3, r2, asr #6
+                        remainder %= divisor;
+
+
+                        if (result!=0 || divisor==1) leading_zero = false;
+                        if (leading_zero==false) print_byte((char)(result)+'0');
+ 800092a:	2101      	movs	r1, #1
+                remainder = l;
+
+
+                for (divisor=1000000000; divisor>0; divisor/=10){
+                        result = remainder/divisor;
+                        remainder %= divisor;
+ 800092c:	fb0e 6613 	mls	r6, lr, r3, r6
+
+
+                        if (result!=0 || divisor==1) leading_zero = false;
+ 8000930:	2b00      	cmp	r3, #0
+ 8000932:	f47f af36 	bne.w	80007a2 <printf+0x5ca>
+                        if (leading_zero==false) print_byte((char)(result)+'0');
+ 8000936:	2900      	cmp	r1, #0
+ 8000938:	f43f af33 	beq.w	80007a2 <printf+0x5ca>
+        } else {
+                remainder = l;
+
+
+                for (divisor=1000000000; divisor>0; divisor/=10){
+                        result = remainder/divisor;
+ 800093c:	487f      	ldr	r0, [pc, #508]	; (8000b3c <printf+0x964>)
+ 800093e:	17f3      	asrs	r3, r6, #31
+ 8000940:	fb80 0c06 	smull	r0, ip, r0, r6
+                        remainder %= divisor;
+ 8000944:	2264      	movs	r2, #100	; 0x64
+        } else {
+                remainder = l;
+
+
+                for (divisor=1000000000; divisor>0; divisor/=10){
+                        result = remainder/divisor;
+ 8000946:	ebc3 136c 	rsb	r3, r3, ip, asr #5
+                        remainder %= divisor;
+
+
+                        if (result!=0 || divisor==1) leading_zero = false;
+                        if (leading_zero==false) print_byte((char)(result)+'0');
+ 800094a:	2101      	movs	r1, #1
+                remainder = l;
+
+
+                for (divisor=1000000000; divisor>0; divisor/=10){
+                        result = remainder/divisor;
+                        remainder %= divisor;
+ 800094c:	fb02 6613 	mls	r6, r2, r3, r6
+
+
+                        if (result!=0 || divisor==1) leading_zero = false;
+ 8000950:	2b00      	cmp	r3, #0
+ 8000952:	f47f af37 	bne.w	80007c4 <printf+0x5ec>
+                        if (leading_zero==false) print_byte((char)(result)+'0');
+ 8000956:	2900      	cmp	r1, #0
+ 8000958:	f43f af34 	beq.w	80007c4 <printf+0x5ec>
+        } else {
+                remainder = l;
+
+
+                for (divisor=1000000000; divisor>0; divisor/=10){
+                        result = remainder/divisor;
+ 800095c:	fb89 3c06 	smull	r3, ip, r9, r6
+ 8000960:	17f3      	asrs	r3, r6, #31
+ 8000962:	ebc3 03ac 	rsb	r3, r3, ip, asr #2
+                        remainder %= divisor;
+ 8000966:	eb03 0283 	add.w	r2, r3, r3, lsl #2
+
+
+                        if (result!=0 || divisor==1) leading_zero = false;
+                        if (leading_zero==false) print_byte((char)(result)+'0');
+ 800096a:	2101      	movs	r1, #1
+                remainder = l;
+
+
+                for (divisor=1000000000; divisor>0; divisor/=10){
+                        result = remainder/divisor;
+                        remainder %= divisor;
+ 800096c:	eba6 0642 	sub.w	r6, r6, r2, lsl #1
+
+
+                        if (result!=0 || divisor==1) leading_zero = false;
+ 8000970:	2b00      	cmp	r3, #0
+ 8000972:	f47f af39 	bne.w	80007e8 <printf+0x610>
+                        if (leading_zero==false) print_byte((char)(result)+'0');
+ 8000976:	2900      	cmp	r1, #0
+ 8000978:	f47f af3a 	bne.w	80007f0 <printf+0x618>
+ 800097c:	e734      	b.n	80007e8 <printf+0x610>
+void PrintHex(char *fmt, int l){
+        int                i, j;
+        char        c, *s=fmt, tol[10];
+        bool        flag0=false, flagl=false;        // flags.
+        long        flagcnt=0;
+        bool        leading_zero=true;
+ 800097e:	2101      	movs	r1, #1
+                        flagcnt--;
+                }
+
+
+                // byte단위의 data를 Hex로 출력.
+                for (cnt=0, i=(8-flagcnt)/2; i<4; i++){
+ 8000980:	f1c2 0c08 	rsb	ip, r2, #8
+ 8000984:	eb0c 72dc 	add.w	r2, ip, ip, lsr #31
+ 8000988:	1052      	asrs	r2, r2, #1
+ 800098a:	2a03      	cmp	r2, #3
+ 800098c:	f73f ac2f 	bgt.w	80001ee <printf+0x16>
+// 역할 : printf() 중 일부를 간단하게 구현.
+// 매개 : fmt : printf()와 동일하나 "%s", "%c", "%d", "%x" 사용 가능.
+//              %d, %x의 경우에는 "%08x", "%8x"와 같이 나타낼 길이와 빈 공간을 0으로 채울지 선택 가능.
+// 반환 : 없음.
+// 주의 : 없음.
+void printf(char *fmt, ...)
+ 8000990:	f10d 0b2c 	add.w	fp, sp, #44	; 0x2c
+ 8000994:	eb0b 0302 	add.w	r3, fp, r2
+                }
+
+
+                // byte단위의 data를 Hex로 출력.
+                for (cnt=0, i=(8-flagcnt)/2; i<4; i++){
+                        c = s[i];
+ 8000998:	f81b e002 	ldrb.w	lr, [fp, r2]
+ 800099c:	43d8      	mvns	r0, r3
+ 800099e:	f000 0601 	and.w	r6, r0, #1
+ 80009a2:	9603      	str	r6, [sp, #12]
+ 80009a4:	1c5e      	adds	r6, r3, #1
+                        lHex = ((c>>0)&0x0f);
+
+
+                        // upper 4 bits and lower 4 bits to '0'~'9', 'A'~'F'.
+                        // upper 4 bits를 ascii code로.
+                        if (uHex!=0) leading_zero = false;
+ 80009a6:	ea5f 101e 	movs.w	r0, lr, lsr #4
+// 역할 : printf() 중 일부를 간단하게 구현.
+// 매개 : fmt : printf()와 동일하나 "%s", "%c", "%d", "%x" 사용 가능.
+//              %d, %x의 경우에는 "%08x", "%8x"와 같이 나타낼 길이와 빈 공간을 0으로 채울지 선택 가능.
+// 반환 : 없음.
+// 주의 : 없음.
+void printf(char *fmt, ...)
+ 80009aa:	f10d 0b30 	add.w	fp, sp, #48	; 0x30
+ 80009ae:	f8df a168 	ldr.w	sl, [pc, #360]	; 8000b18 <printf+0x940>
+                for (cnt=0, i=(8-flagcnt)/2; i<4; i++){
+                        c = s[i];
+                                
+                        // get upper 4 bits and lower 4 bits.
+                        uHex = ((c>>4)&0x0f);
+                        lHex = ((c>>0)&0x0f);
+ 80009b2:	f00e 020f 	and.w	r2, lr, #15
+
+
+                        // upper 4 bits and lower 4 bits to '0'~'9', 'A'~'F'.
+                        // upper 4 bits를 ascii code로.
+                        if (uHex!=0) leading_zero = false;
+ 80009b6:	f040 8113 	bne.w	8000be0 <printf+0xa08>
+                        if (uHex<10) uHex+='0';
+                        else         uHex+='A'-10;
+
+
+                        // upper 4 bits 출력.
+                        if (leading_zero){
+ 80009ba:	2900      	cmp	r1, #0
+ 80009bc:	f000 8198 	beq.w	8000cf0 <printf+0xb18>
+                                if (flag0) print_byte('0');
+ 80009c0:	2c00      	cmp	r4, #0
+ 80009c2:	f040 8154 	bne.w	8000c6e <printf+0xa96>
+                                else       print_byte(' ');
+ 80009c6:	2020      	movs	r0, #32
+                        else         uHex+='A'-10;
+
+
+                        // upper 4 bits 출력.
+                        if (leading_zero){
+                                if (flag0) print_byte('0');
+ 80009c8:	9202      	str	r2, [sp, #8]
+ 80009ca:	9301      	str	r3, [sp, #4]
+ 80009cc:	47d0      	blx	sl
+ 80009ce:	9a02      	ldr	r2, [sp, #8]
+ 80009d0:	2101      	movs	r1, #1
+ 80009d2:	9b01      	ldr	r3, [sp, #4]
+                                else       print_byte(' ');
+                        }
+                        else print_byte(uHex);
+                        
+                        // lower 4 bits를 ascii code로.
+                        if (lHex!=0) leading_zero = false;
+ 80009d4:	2a00      	cmp	r2, #0
+ 80009d6:	f000 8110 	beq.w	8000bfa <printf+0xa22>
+                        if (lHex<10) lHex+='0';
+ 80009da:	2a09      	cmp	r2, #9
+ 80009dc:	f240 8185 	bls.w	8000cea <printf+0xb12>
+                        else         lHex+='A'-10;
+ 80009e0:	f102 0037 	add.w	r0, r2, #55	; 0x37
+                        // lower 4 bits 출력.
+                        if (leading_zero){
+                                if (flag0) print_byte('0');
+                                else       print_byte(' ');
+                        }
+                        else print_byte(lHex);
+ 80009e4:	9301      	str	r3, [sp, #4]
+ 80009e6:	47d0      	blx	sl
+ 80009e8:	9b01      	ldr	r3, [sp, #4]
+ 80009ea:	2200      	movs	r2, #0
+                        flagcnt--;
+                }
+
+
+                // byte단위의 data를 Hex로 출력.
+                for (cnt=0, i=(8-flagcnt)/2; i<4; i++){
+ 80009ec:	455e      	cmp	r6, fp
+ 80009ee:	f43f abfe 	beq.w	80001ee <printf+0x16>
+ 80009f2:	9803      	ldr	r0, [sp, #12]
+ 80009f4:	b1f0      	cbz	r0, 8000a34 <printf+0x85c>
+                        c = s[i];
+ 80009f6:	f893 c001 	ldrb.w	ip, [r3, #1]
+ 80009fa:	3601      	adds	r6, #1
+                        lHex = ((c>>0)&0x0f);
+
+
+                        // upper 4 bits and lower 4 bits to '0'~'9', 'A'~'F'.
+                        // upper 4 bits를 ascii code로.
+                        if (uHex!=0) leading_zero = false;
+ 80009fc:	ea5f 111c 	movs.w	r1, ip, lsr #4
+                for (cnt=0, i=(8-flagcnt)/2; i<4; i++){
+                        c = s[i];
+                                
+                        // get upper 4 bits and lower 4 bits.
+                        uHex = ((c>>4)&0x0f);
+                        lHex = ((c>>0)&0x0f);
+ 8000a00:	f00c 030f 	and.w	r3, ip, #15
+
+
+                        // upper 4 bits and lower 4 bits to '0'~'9', 'A'~'F'.
+                        // upper 4 bits를 ascii code로.
+                        if (uHex!=0) leading_zero = false;
+ 8000a04:	f000 8124 	beq.w	8000c50 <printf+0xa78>
+                        if (uHex<10) uHex+='0';
+ 8000a08:	2909      	cmp	r1, #9
+ 8000a0a:	f240 816b 	bls.w	8000ce4 <printf+0xb0c>
+                        else         uHex+='A'-10;
+ 8000a0e:	f101 0037 	add.w	r0, r1, #55	; 0x37
+                        // upper 4 bits 출력.
+                        if (leading_zero){
+                                if (flag0) print_byte('0');
+                                else       print_byte(' ');
+                        }
+                        else print_byte(uHex);
+ 8000a12:	9301      	str	r3, [sp, #4]
+ 8000a14:	47d0      	blx	sl
+ 8000a16:	9b01      	ldr	r3, [sp, #4]
+ 8000a18:	2200      	movs	r2, #0
+                        
+                        // lower 4 bits를 ascii code로.
+                        if (lHex!=0) leading_zero = false;
+ 8000a1a:	2b00      	cmp	r3, #0
+ 8000a1c:	f000 8111 	beq.w	8000c42 <printf+0xa6a>
+                        if (lHex<10) lHex+='0';
+ 8000a20:	2b09      	cmp	r3, #9
+ 8000a22:	f240 8159 	bls.w	8000cd8 <printf+0xb00>
+                        else         lHex+='A'-10;
+ 8000a26:	f103 0037 	add.w	r0, r3, #55	; 0x37
+                        // lower 4 bits 출력.
+                        if (leading_zero){
+                                if (flag0) print_byte('0');
+                                else       print_byte(' ');
+                        }
+                        else print_byte(lHex);
+ 8000a2a:	47d0      	blx	sl
+ 8000a2c:	2200      	movs	r2, #0
+                        flagcnt--;
+                }
+
+
+                // byte단위의 data를 Hex로 출력.
+                for (cnt=0, i=(8-flagcnt)/2; i<4; i++){
+ 8000a2e:	455e      	cmp	r6, fp
+ 8000a30:	f43f abdd 	beq.w	80001ee <printf+0x16>
+ 8000a34:	9503      	str	r5, [sp, #12]
+                        c = s[i];
+ 8000a36:	f816 3b01 	ldrb.w	r3, [r6], #1
+ 8000a3a:	4625      	mov	r5, r4
+                                
+                        // get upper 4 bits and lower 4 bits.
+                        uHex = ((c>>4)&0x0f);
+                        lHex = ((c>>0)&0x0f);
+ 8000a3c:	f003 040f 	and.w	r4, r3, #15
+
+
+                        // upper 4 bits and lower 4 bits to '0'~'9', 'A'~'F'.
+                        // upper 4 bits를 ascii code로.
+                        if (uHex!=0) leading_zero = false;
+ 8000a40:	091b      	lsrs	r3, r3, #4
+ 8000a42:	d02e      	beq.n	8000aa2 <printf+0x8ca>
+                        if (uHex<10) uHex+='0';
+ 8000a44:	2b09      	cmp	r3, #9
+ 8000a46:	f240 8144 	bls.w	8000cd2 <printf+0xafa>
+                        else         uHex+='A'-10;
+ 8000a4a:	f103 0037 	add.w	r0, r3, #55	; 0x37
+                        // upper 4 bits 출력.
+                        if (leading_zero){
+                                if (flag0) print_byte('0');
+                                else       print_byte(' ');
+                        }
+                        else print_byte(uHex);
+ 8000a4e:	47d0      	blx	sl
+ 8000a50:	2300      	movs	r3, #0
+                        
+                        // lower 4 bits를 ascii code로.
+                        if (lHex!=0) leading_zero = false;
+ 8000a52:	2c00      	cmp	r4, #0
+ 8000a54:	d030      	beq.n	8000ab8 <printf+0x8e0>
+                        if (lHex<10) lHex+='0';
+ 8000a56:	2c09      	cmp	r4, #9
+ 8000a58:	f240 8138 	bls.w	8000ccc <printf+0xaf4>
+                        else         lHex+='A'-10;
+ 8000a5c:	f104 0037 	add.w	r0, r4, #55	; 0x37
+                        // lower 4 bits 출력.
+                        if (leading_zero){
+                                if (flag0) print_byte('0');
+                                else       print_byte(' ');
+                        }
+                        else print_byte(lHex);
+ 8000a60:	47d0      	blx	sl
+ 8000a62:	2200      	movs	r2, #0
+                }
+
+
+                // byte단위의 data를 Hex로 출력.
+                for (cnt=0, i=(8-flagcnt)/2; i<4; i++){
+                        c = s[i];
+ 8000a64:	f816 1b01 	ldrb.w	r1, [r6], #1
+                        lHex = ((c>>0)&0x0f);
+
+
+                        // upper 4 bits and lower 4 bits to '0'~'9', 'A'~'F'.
+                        // upper 4 bits를 ascii code로.
+                        if (uHex!=0) leading_zero = false;
+ 8000a68:	090b      	lsrs	r3, r1, #4
+                for (cnt=0, i=(8-flagcnt)/2; i<4; i++){
+                        c = s[i];
+                                
+                        // get upper 4 bits and lower 4 bits.
+                        uHex = ((c>>4)&0x0f);
+                        lHex = ((c>>0)&0x0f);
+ 8000a6a:	f001 040f 	and.w	r4, r1, #15
+
+
+                        // upper 4 bits and lower 4 bits to '0'~'9', 'A'~'F'.
+                        // upper 4 bits를 ascii code로.
+                        if (uHex!=0) leading_zero = false;
+ 8000a6e:	d032      	beq.n	8000ad6 <printf+0x8fe>
+                        if (uHex<10) uHex+='0';
+ 8000a70:	2b09      	cmp	r3, #9
+ 8000a72:	f240 8119 	bls.w	8000ca8 <printf+0xad0>
+                        else         uHex+='A'-10;
+ 8000a76:	f103 0037 	add.w	r0, r3, #55	; 0x37
+                        // upper 4 bits 출력.
+                        if (leading_zero){
+                                if (flag0) print_byte('0');
+                                else       print_byte(' ');
+                        }
+                        else print_byte(uHex);
+ 8000a7a:	47d0      	blx	sl
+ 8000a7c:	2300      	movs	r3, #0
+                        
+                        // lower 4 bits를 ascii code로.
+                        if (lHex!=0) leading_zero = false;
+ 8000a7e:	2c00      	cmp	r4, #0
+ 8000a80:	d034      	beq.n	8000aec <printf+0x914>
+                        if (lHex<10) lHex+='0';
+ 8000a82:	2c09      	cmp	r4, #9
+ 8000a84:	f240 810d 	bls.w	8000ca2 <printf+0xaca>
+                        else         lHex+='A'-10;
+ 8000a88:	f104 0037 	add.w	r0, r4, #55	; 0x37
+                        // lower 4 bits 출력.
+                        if (leading_zero){
+                                if (flag0) print_byte('0');
+                                else       print_byte(' ');
+                        }
+                        else print_byte(lHex);
+ 8000a8c:	47d0      	blx	sl
+ 8000a8e:	2200      	movs	r2, #0
+                        flagcnt--;
+                }
+
+
+                // byte단위의 data를 Hex로 출력.
+                for (cnt=0, i=(8-flagcnt)/2; i<4; i++){
+ 8000a90:	455e      	cmp	r6, fp
+ 8000a92:	f43f adb2 	beq.w	80005fa <printf+0x422>
+                        c = s[i];
+ 8000a96:	f816 3b01 	ldrb.w	r3, [r6], #1
+                                
+                        // get upper 4 bits and lower 4 bits.
+                        uHex = ((c>>4)&0x0f);
+                        lHex = ((c>>0)&0x0f);
+ 8000a9a:	f003 040f 	and.w	r4, r3, #15
+
+
+                        // upper 4 bits and lower 4 bits to '0'~'9', 'A'~'F'.
+                        // upper 4 bits를 ascii code로.
+                        if (uHex!=0) leading_zero = false;
+ 8000a9e:	091b      	lsrs	r3, r3, #4
+ 8000aa0:	d1d0      	bne.n	8000a44 <printf+0x86c>
+                        if (uHex<10) uHex+='0';
+                        else         uHex+='A'-10;
+
+
+                        // upper 4 bits 출력.
+                        if (leading_zero){
+ 8000aa2:	2a00      	cmp	r2, #0
+ 8000aa4:	f000 8115 	beq.w	8000cd2 <printf+0xafa>
+                                if (flag0) print_byte('0');
+ 8000aa8:	2d00      	cmp	r5, #0
+ 8000aaa:	f000 80c6 	beq.w	8000c3a <printf+0xa62>
+ 8000aae:	2030      	movs	r0, #48	; 0x30
+ 8000ab0:	47d0      	blx	sl
+ 8000ab2:	2301      	movs	r3, #1
+                                else       print_byte(' ');
+                        }
+                        else print_byte(uHex);
+                        
+                        // lower 4 bits를 ascii code로.
+                        if (lHex!=0) leading_zero = false;
+ 8000ab4:	2c00      	cmp	r4, #0
+ 8000ab6:	d1ce      	bne.n	8000a56 <printf+0x87e>
+                        if (lHex<10) lHex+='0';
+                        else         lHex+='A'-10;
+
+
+                        // lower 4 bits 출력.
+                        if (leading_zero){
+ 8000ab8:	2b00      	cmp	r3, #0
+ 8000aba:	f000 8107 	beq.w	8000ccc <printf+0xaf4>
+                                if (flag0) print_byte('0');
+ 8000abe:	2d00      	cmp	r5, #0
+ 8000ac0:	f000 80b7 	beq.w	8000c32 <printf+0xa5a>
+ 8000ac4:	2030      	movs	r0, #48	; 0x30
+ 8000ac6:	47d0      	blx	sl
+                }
+
+
+                // byte단위의 data를 Hex로 출력.
+                for (cnt=0, i=(8-flagcnt)/2; i<4; i++){
+                        c = s[i];
+ 8000ac8:	f816 1b01 	ldrb.w	r1, [r6], #1
+                        else         lHex+='A'-10;
+
+
+                        // lower 4 bits 출력.
+                        if (leading_zero){
+                                if (flag0) print_byte('0');
+ 8000acc:	2201      	movs	r2, #1
+                        lHex = ((c>>0)&0x0f);
+
+
+                        // upper 4 bits and lower 4 bits to '0'~'9', 'A'~'F'.
+                        // upper 4 bits를 ascii code로.
+                        if (uHex!=0) leading_zero = false;
+ 8000ace:	090b      	lsrs	r3, r1, #4
+                for (cnt=0, i=(8-flagcnt)/2; i<4; i++){
+                        c = s[i];
+                                
+                        // get upper 4 bits and lower 4 bits.
+                        uHex = ((c>>4)&0x0f);
+                        lHex = ((c>>0)&0x0f);
+ 8000ad0:	f001 040f 	and.w	r4, r1, #15
+
+
+                        // upper 4 bits and lower 4 bits to '0'~'9', 'A'~'F'.
+                        // upper 4 bits를 ascii code로.
+                        if (uHex!=0) leading_zero = false;
+ 8000ad4:	d1cc      	bne.n	8000a70 <printf+0x898>
+                        if (uHex<10) uHex+='0';
+                        else         uHex+='A'-10;
+
+
+                        // upper 4 bits 출력.
+                        if (leading_zero){
+ 8000ad6:	2a00      	cmp	r2, #0
+ 8000ad8:	f000 80e6 	beq.w	8000ca8 <printf+0xad0>
+                                if (flag0) print_byte('0');
+ 8000adc:	2d00      	cmp	r5, #0
+ 8000ade:	f040 80a0 	bne.w	8000c22 <printf+0xa4a>
+                                else       print_byte(' ');
+ 8000ae2:	2020      	movs	r0, #32
+ 8000ae4:	47d0      	blx	sl
+ 8000ae6:	2301      	movs	r3, #1
+                        }
+                        else print_byte(uHex);
+                        
+                        // lower 4 bits를 ascii code로.
+                        if (lHex!=0) leading_zero = false;
+ 8000ae8:	2c00      	cmp	r4, #0
+ 8000aea:	d1ca      	bne.n	8000a82 <printf+0x8aa>
+                        if (lHex<10) lHex+='0';
+                        else         lHex+='A'-10;
+
+
+                        // lower 4 bits 출력.
+                        if (leading_zero){
+ 8000aec:	2b00      	cmp	r3, #0
+ 8000aee:	f000 80d8 	beq.w	8000ca2 <printf+0xaca>
+                                if (flag0) print_byte('0');
+ 8000af2:	2d00      	cmp	r5, #0
+ 8000af4:	f040 8099 	bne.w	8000c2a <printf+0xa52>
+                                else       print_byte(' ');
+ 8000af8:	2020      	movs	r0, #32
+ 8000afa:	47d0      	blx	sl
+ 8000afc:	2201      	movs	r2, #1
+ 8000afe:	e7c7      	b.n	8000a90 <printf+0x8b8>
+int Power(int num, int cnt){
+        long retval=num;
+        cnt--;
+
+
+        while (cnt--){
+ 8000b00:	1e48      	subs	r0, r1, #1
+ 8000b02:	f000 80c5 	beq.w	8000c90 <printf+0xab8>
+ 8000b06:	1e8c      	subs	r4, r1, #2
+ 8000b08:	3801      	subs	r0, #1
+ 8000b0a:	3903      	subs	r1, #3
+ 8000b0c:	e520      	b.n	8000550 <printf+0x378>
+ 8000b0e:	bf00      	nop
+ 8000b10:	55e63b89 	.word	0x55e63b89
+ 8000b14:	05f5e100 	.word	0x05f5e100
+ 8000b18:	08000145 	.word	0x08000145
+ 8000b1c:	6b5fca6b 	.word	0x6b5fca6b
+ 8000b20:	00989680 	.word	0x00989680
+ 8000b24:	431bde83 	.word	0x431bde83
+ 8000b28:	000f4240 	.word	0x000f4240
+ 8000b2c:	14f8b589 	.word	0x14f8b589
+ 8000b30:	000186a0 	.word	0x000186a0
+ 8000b34:	68db8bad 	.word	0x68db8bad
+ 8000b38:	10624dd3 	.word	0x10624dd3
+ 8000b3c:	51eb851f 	.word	0x51eb851f
+                        if (uHex<10) uHex+='0';
+                        else         uHex+='A'-10;
+                        if (!leading_zero) print_byte(uHex);
+                        
+                        if (lHex!=0 || i==3) leading_zero = false;
+                        if (lHex<10) lHex+='0';
+ 8000b40:	2c09      	cmp	r4, #9
+ 8000b42:	f240 80b4 	bls.w	8000cae <printf+0xad6>
+                        else         lHex+='A'-10;
+ 8000b46:	f104 0037 	add.w	r0, r4, #55	; 0x37
+                        if (!leading_zero) print_byte(lHex);
+ 8000b4a:	47b0      	blx	r6
+                        else print_byte(lHex);
+                }
+        }
+        else {
+                for (i=0; i<4; i++){
+                        c = s[i];
+ 8000b4c:	f89d c02d 	ldrb.w	ip, [sp, #45]	; 0x2d
+                        if (!leading_zero) print_byte(uHex);
+                        
+                        if (lHex!=0 || i==3) leading_zero = false;
+                        if (lHex<10) lHex+='0';
+                        else         lHex+='A'-10;
+                        if (!leading_zero) print_byte(lHex);
+ 8000b50:	2200      	movs	r2, #0
+                        uHex = ((c>>4)&0x0f);
+                        lHex = ((c>>0)&0x0f);
+
+
+                        // upper 4 bits and lower 4 bits to '0'~'9', 'A'~'F'.
+                        if (uHex!=0) leading_zero = false;
+ 8000b52:	ea5f 131c 	movs.w	r3, ip, lsr #4
+                for (i=0; i<4; i++){
+                        c = s[i];
+        
+                        // get upper 4 bits and lower 4 bits.
+                        uHex = ((c>>4)&0x0f);
+                        lHex = ((c>>0)&0x0f);
+ 8000b56:	f00c 040f 	and.w	r4, ip, #15
+
+
+                        // upper 4 bits and lower 4 bits to '0'~'9', 'A'~'F'.
+                        if (uHex!=0) leading_zero = false;
+ 8000b5a:	f47f ad6c 	bne.w	8000636 <printf+0x45e>
+                        if (uHex<10) uHex+='0';
+                        else         uHex+='A'-10;
+                        if (!leading_zero) print_byte(uHex);
+ 8000b5e:	2a00      	cmp	r2, #0
+ 8000b60:	f000 80c8 	beq.w	8000cf4 <printf+0xb1c>
+ 8000b64:	2301      	movs	r3, #1
+                        
+                        if (lHex!=0 || i==3) leading_zero = false;
+ 8000b66:	2c00      	cmp	r4, #0
+ 8000b68:	f43f ad6f 	beq.w	800064a <printf+0x472>
+                        if (lHex<10) lHex+='0';
+ 8000b6c:	2c09      	cmp	r4, #9
+ 8000b6e:	f240 80a1 	bls.w	8000cb4 <printf+0xadc>
+                        else         lHex+='A'-10;
+ 8000b72:	f104 0037 	add.w	r0, r4, #55	; 0x37
+                        if (!leading_zero) print_byte(lHex);
+ 8000b76:	47b0      	blx	r6
+                        else print_byte(lHex);
+                }
+        }
+        else {
+                for (i=0; i<4; i++){
+                        c = s[i];
+ 8000b78:	f89d e02e 	ldrb.w	lr, [sp, #46]	; 0x2e
+                        if (!leading_zero) print_byte(uHex);
+                        
+                        if (lHex!=0 || i==3) leading_zero = false;
+                        if (lHex<10) lHex+='0';
+                        else         lHex+='A'-10;
+                        if (!leading_zero) print_byte(lHex);
+ 8000b7c:	2200      	movs	r2, #0
+                        uHex = ((c>>4)&0x0f);
+                        lHex = ((c>>0)&0x0f);
+
+
+                        // upper 4 bits and lower 4 bits to '0'~'9', 'A'~'F'.
+                        if (uHex!=0) leading_zero = false;
+ 8000b7e:	ea5f 131e 	movs.w	r3, lr, lsr #4
+                for (i=0; i<4; i++){
+                        c = s[i];
+        
+                        // get upper 4 bits and lower 4 bits.
+                        uHex = ((c>>4)&0x0f);
+                        lHex = ((c>>0)&0x0f);
+ 8000b82:	f00e 040f 	and.w	r4, lr, #15
+
+
+                        // upper 4 bits and lower 4 bits to '0'~'9', 'A'~'F'.
+                        if (uHex!=0) leading_zero = false;
+ 8000b86:	f47f ad6c 	bne.w	8000662 <printf+0x48a>
+                        if (uHex<10) uHex+='0';
+                        else         uHex+='A'-10;
+                        if (!leading_zero) print_byte(uHex);
+ 8000b8a:	2a00      	cmp	r2, #0
+ 8000b8c:	f000 8095 	beq.w	8000cba <printf+0xae2>
+ 8000b90:	2301      	movs	r3, #1
+                        
+                        if (lHex!=0 || i==3) leading_zero = false;
+ 8000b92:	2c00      	cmp	r4, #0
+ 8000b94:	f43f ad6f 	beq.w	8000676 <printf+0x49e>
+                        if (lHex<10) lHex+='0';
+ 8000b98:	2c09      	cmp	r4, #9
+ 8000b9a:	f240 8091 	bls.w	8000cc0 <printf+0xae8>
+                        else         lHex+='A'-10;
+ 8000b9e:	f104 0037 	add.w	r0, r4, #55	; 0x37
+                        if (!leading_zero) print_byte(lHex);
+ 8000ba2:	47b0      	blx	r6
+                        else print_byte(lHex);
+                }
+        }
+        else {
+                for (i=0; i<4; i++){
+                        c = s[i];
+ 8000ba4:	f89d 002f 	ldrb.w	r0, [sp, #47]	; 0x2f
+                        if (!leading_zero) print_byte(uHex);
+                        
+                        if (lHex!=0 || i==3) leading_zero = false;
+                        if (lHex<10) lHex+='0';
+                        else         lHex+='A'-10;
+                        if (!leading_zero) print_byte(lHex);
+ 8000ba8:	2200      	movs	r2, #0
+                        uHex = ((c>>4)&0x0f);
+                        lHex = ((c>>0)&0x0f);
+
+
+                        // upper 4 bits and lower 4 bits to '0'~'9', 'A'~'F'.
+                        if (uHex!=0) leading_zero = false;
+ 8000baa:	0903      	lsrs	r3, r0, #4
+                for (i=0; i<4; i++){
+                        c = s[i];
+        
+                        // get upper 4 bits and lower 4 bits.
+                        uHex = ((c>>4)&0x0f);
+                        lHex = ((c>>0)&0x0f);
+ 8000bac:	f000 040f 	and.w	r4, r0, #15
+
+
+                        // upper 4 bits and lower 4 bits to '0'~'9', 'A'~'F'.
+                        if (uHex!=0) leading_zero = false;
+ 8000bb0:	f47f ad6c 	bne.w	800068c <printf+0x4b4>
+                        if (uHex<10) uHex+='0';
+                        else         uHex+='A'-10;
+                        if (!leading_zero) print_byte(uHex);
+ 8000bb4:	2a00      	cmp	r2, #0
+ 8000bb6:	f47f ad6f 	bne.w	8000698 <printf+0x4c0>
+                        lHex = ((c>>0)&0x0f);
+
+
+                        // upper 4 bits and lower 4 bits to '0'~'9', 'A'~'F'.
+                        if (uHex!=0) leading_zero = false;
+                        if (uHex<10) uHex+='0';
+ 8000bba:	f103 0030 	add.w	r0, r3, #48	; 0x30
+                        else         uHex+='A'-10;
+                        if (!leading_zero) print_byte(uHex);
+ 8000bbe:	47b0      	blx	r6
+ 8000bc0:	e56a      	b.n	8000698 <printf+0x4c0>
+                        
+                        if (lHex!=0 || i==3) leading_zero = false;
+                        if (lHex<10) lHex+='0';
+ 8000bc2:	f104 0030 	add.w	r0, r4, #48	; 0x30
+                        else         lHex+='A'-10;
+                        if (!leading_zero) print_byte(lHex);
+ 8000bc6:	47b0      	blx	r6
+ 8000bc8:	f7ff bb11 	b.w	80001ee <printf+0x16>
+                        lHex = ((c>>0)&0x0f);
+
+
+                        // upper 4 bits and lower 4 bits to '0'~'9', 'A'~'F'.
+                        if (uHex!=0) leading_zero = false;
+                        if (uHex<10) uHex+='0';
+ 8000bcc:	2b09      	cmp	r3, #9
+ 8000bce:	d97a      	bls.n	8000cc6 <printf+0xaee>
+                        else         uHex+='A'-10;
+ 8000bd0:	f103 0037 	add.w	r0, r3, #55	; 0x37
+                        if (!leading_zero) print_byte(uHex);
+ 8000bd4:	4e49      	ldr	r6, [pc, #292]	; (8000cfc <printf+0xb24>)
+ 8000bd6:	47b0      	blx	r6
+ 8000bd8:	2300      	movs	r3, #0
+ 8000bda:	e51d      	b.n	8000618 <printf+0x440>
+                if (*s=='%'){
+                        s++;
+                        // s에서 "%08lx"형식을 가져와 format에 기록. 나중에 출력함수에 넘겨줌.
+                        format[0] = '%';
+                        for (i=1; i<10;){
+                                if (*s=='c' || *s=='d' || *s=='x' || *s=='s' || *s=='%'){
+ 8000bdc:	2309      	movs	r3, #9
+ 8000bde:	e615      	b.n	800080c <printf+0x634>
+
+
+                        // upper 4 bits and lower 4 bits to '0'~'9', 'A'~'F'.
+                        // upper 4 bits를 ascii code로.
+                        if (uHex!=0) leading_zero = false;
+                        if (uHex<10) uHex+='0';
+ 8000be0:	2809      	cmp	r0, #9
+ 8000be2:	f240 8085 	bls.w	8000cf0 <printf+0xb18>
+                        else         uHex+='A'-10;
+ 8000be6:	3037      	adds	r0, #55	; 0x37
+                        // upper 4 bits 출력.
+                        if (leading_zero){
+                                if (flag0) print_byte('0');
+                                else       print_byte(' ');
+                        }
+                        else print_byte(uHex);
+ 8000be8:	9202      	str	r2, [sp, #8]
+ 8000bea:	9301      	str	r3, [sp, #4]
+ 8000bec:	47d0      	blx	sl
+ 8000bee:	9a02      	ldr	r2, [sp, #8]
+ 8000bf0:	2100      	movs	r1, #0
+ 8000bf2:	9b01      	ldr	r3, [sp, #4]
+                        
+                        // lower 4 bits를 ascii code로.
+                        if (lHex!=0) leading_zero = false;
+ 8000bf4:	2a00      	cmp	r2, #0
+ 8000bf6:	f47f aef0 	bne.w	80009da <printf+0x802>
+                        if (lHex<10) lHex+='0';
+                        else         lHex+='A'-10;
+
+
+                        // lower 4 bits 출력.
+                        if (leading_zero){
+ 8000bfa:	2900      	cmp	r1, #0
+ 8000bfc:	d075      	beq.n	8000cea <printf+0xb12>
+                                if (flag0) print_byte('0');
+ 8000bfe:	2c00      	cmp	r4, #0
+ 8000c00:	d12f      	bne.n	8000c62 <printf+0xa8a>
+                                else       print_byte(' ');
+ 8000c02:	9301      	str	r3, [sp, #4]
+ 8000c04:	2020      	movs	r0, #32
+ 8000c06:	47d0      	blx	sl
+ 8000c08:	2201      	movs	r2, #1
+ 8000c0a:	9b01      	ldr	r3, [sp, #4]
+ 8000c0c:	e6ee      	b.n	80009ec <printf+0x814>
+                        else         lHex+='A'-10;
+
+
+                        // lower 4 bits 출력.
+                        if (leading_zero){
+                                if (flag0) print_byte('0');
+ 8000c0e:	2c00      	cmp	r4, #0
+ 8000c10:	d039      	beq.n	8000c86 <printf+0xaae>
+ 8000c12:	2030      	movs	r0, #48	; 0x30
+ 8000c14:	4a39      	ldr	r2, [pc, #228]	; (8000cfc <printf+0xb24>)
+ 8000c16:	4790      	blx	r2
+ 8000c18:	2101      	movs	r1, #1
+                                else       print_byte(' ');
+                        }
+                        else print_byte(lHex);
+                        
+                        flagcnt--;
+ 8000c1a:	980a      	ldr	r0, [sp, #40]	; 0x28
+ 8000c1c:	1e42      	subs	r2, r0, #1
+ 8000c1e:	920a      	str	r2, [sp, #40]	; 0x28
+ 8000c20:	e6ae      	b.n	8000980 <printf+0x7a8>
+                        else         uHex+='A'-10;
+
+
+                        // upper 4 bits 출력.
+                        if (leading_zero){
+                                if (flag0) print_byte('0');
+ 8000c22:	2030      	movs	r0, #48	; 0x30
+ 8000c24:	47d0      	blx	sl
+ 8000c26:	2301      	movs	r3, #1
+ 8000c28:	e729      	b.n	8000a7e <printf+0x8a6>
+                        else         lHex+='A'-10;
+
+
+                        // lower 4 bits 출력.
+                        if (leading_zero){
+                                if (flag0) print_byte('0');
+ 8000c2a:	2030      	movs	r0, #48	; 0x30
+ 8000c2c:	47d0      	blx	sl
+ 8000c2e:	2201      	movs	r2, #1
+ 8000c30:	e72e      	b.n	8000a90 <printf+0x8b8>
+                                else       print_byte(' ');
+ 8000c32:	2020      	movs	r0, #32
+ 8000c34:	47d0      	blx	sl
+ 8000c36:	2201      	movs	r2, #1
+ 8000c38:	e714      	b.n	8000a64 <printf+0x88c>
+
+
+                        // upper 4 bits 출력.
+                        if (leading_zero){
+                                if (flag0) print_byte('0');
+                                else       print_byte(' ');
+ 8000c3a:	2020      	movs	r0, #32
+ 8000c3c:	47d0      	blx	sl
+ 8000c3e:	2301      	movs	r3, #1
+ 8000c40:	e707      	b.n	8000a52 <printf+0x87a>
+                        if (lHex<10) lHex+='0';
+                        else         lHex+='A'-10;
+
+
+                        // lower 4 bits 출력.
+                        if (leading_zero){
+ 8000c42:	2a00      	cmp	r2, #0
+ 8000c44:	d048      	beq.n	8000cd8 <printf+0xb00>
+                                if (flag0) print_byte('0');
+ 8000c46:	b9d4      	cbnz	r4, 8000c7e <printf+0xaa6>
+                                else       print_byte(' ');
+ 8000c48:	2020      	movs	r0, #32
+ 8000c4a:	47d0      	blx	sl
+ 8000c4c:	2201      	movs	r2, #1
+ 8000c4e:	e6ee      	b.n	8000a2e <printf+0x856>
+                        if (uHex<10) uHex+='0';
+                        else         uHex+='A'-10;
+
+
+                        // upper 4 bits 출력.
+                        if (leading_zero){
+ 8000c50:	2a00      	cmp	r2, #0
+ 8000c52:	d047      	beq.n	8000ce4 <printf+0xb0c>
+                                if (flag0) print_byte('0');
+ 8000c54:	b96c      	cbnz	r4, 8000c72 <printf+0xa9a>
+                                else       print_byte(' ');
+ 8000c56:	9301      	str	r3, [sp, #4]
+ 8000c58:	2020      	movs	r0, #32
+ 8000c5a:	47d0      	blx	sl
+ 8000c5c:	2201      	movs	r2, #1
+ 8000c5e:	9b01      	ldr	r3, [sp, #4]
+ 8000c60:	e6db      	b.n	8000a1a <printf+0x842>
+                        else         lHex+='A'-10;
+
+
+                        // lower 4 bits 출력.
+                        if (leading_zero){
+                                if (flag0) print_byte('0');
+ 8000c62:	9301      	str	r3, [sp, #4]
+ 8000c64:	2030      	movs	r0, #48	; 0x30
+ 8000c66:	47d0      	blx	sl
+ 8000c68:	2201      	movs	r2, #1
+ 8000c6a:	9b01      	ldr	r3, [sp, #4]
+ 8000c6c:	e6be      	b.n	80009ec <printf+0x814>
+                        else         uHex+='A'-10;
+
+
+                        // upper 4 bits 출력.
+                        if (leading_zero){
+                                if (flag0) print_byte('0');
+ 8000c6e:	2030      	movs	r0, #48	; 0x30
+ 8000c70:	e6aa      	b.n	80009c8 <printf+0x7f0>
+ 8000c72:	9301      	str	r3, [sp, #4]
+ 8000c74:	2030      	movs	r0, #48	; 0x30
+ 8000c76:	47d0      	blx	sl
+ 8000c78:	2201      	movs	r2, #1
+ 8000c7a:	9b01      	ldr	r3, [sp, #4]
+ 8000c7c:	e6cd      	b.n	8000a1a <printf+0x842>
+                        else         lHex+='A'-10;
+
+
+                        // lower 4 bits 출력.
+                        if (leading_zero){
+                                if (flag0) print_byte('0');
+ 8000c7e:	2030      	movs	r0, #48	; 0x30
+ 8000c80:	47d0      	blx	sl
+ 8000c82:	2201      	movs	r2, #1
+ 8000c84:	e6d3      	b.n	8000a2e <printf+0x856>
+
+
+                        // lower 4 bits 출력.
+                        if (leading_zero){
+                                if (flag0) print_byte('0');
+                                else       print_byte(' ');
+ 8000c86:	2020      	movs	r0, #32
+ 8000c88:	4b1c      	ldr	r3, [pc, #112]	; (8000cfc <printf+0xb24>)
+ 8000c8a:	4798      	blx	r3
+ 8000c8c:	2101      	movs	r1, #1
+ 8000c8e:	e7c4      	b.n	8000c1a <printf+0xa42>
+int Power(int num, int cnt){
+        long retval=num;
+        cnt--;
+
+
+        while (cnt--){
+ 8000c90:	1e8c      	subs	r4, r1, #2
+        while (*s) print_byte(*s++);
+        return;
+}
+
+int Power(int num, int cnt){
+        long retval=num;
+ 8000c92:	230a      	movs	r3, #10
+        cnt--;
+
+
+        while (cnt--){
+ 8000c94:	3903      	subs	r1, #3
+ 8000c96:	e473      	b.n	8000580 <printf+0x3a8>
+        while (*s) print_byte(*s++);
+        return;
+}
+
+int Power(int num, int cnt){
+        long retval=num;
+ 8000c98:	240a      	movs	r4, #10
+ 8000c9a:	e48e      	b.n	80005ba <printf+0x3e2>
+}
+
+void PrintHex(char *fmt, int l){
+        int                i, j;
+        char        c, *s=fmt, tol[10];
+        bool        flag0=false, flagl=false;        // flags.
+ 8000c9c:	461c      	mov	r4, r3
+ 8000c9e:	f7ff bbc2 	b.w	8000426 <printf+0x24e>
+                        }
+                        else print_byte(uHex);
+                        
+                        // lower 4 bits를 ascii code로.
+                        if (lHex!=0) leading_zero = false;
+                        if (lHex<10) lHex+='0';
+ 8000ca2:	f104 0030 	add.w	r0, r4, #48	; 0x30
+ 8000ca6:	e6f1      	b.n	8000a8c <printf+0x8b4>
+
+
+                        // upper 4 bits and lower 4 bits to '0'~'9', 'A'~'F'.
+                        // upper 4 bits를 ascii code로.
+                        if (uHex!=0) leading_zero = false;
+                        if (uHex<10) uHex+='0';
+ 8000ca8:	f103 0030 	add.w	r0, r3, #48	; 0x30
+ 8000cac:	e6e5      	b.n	8000a7a <printf+0x8a2>
+                        if (uHex<10) uHex+='0';
+                        else         uHex+='A'-10;
+                        if (!leading_zero) print_byte(uHex);
+                        
+                        if (lHex!=0 || i==3) leading_zero = false;
+                        if (lHex<10) lHex+='0';
+ 8000cae:	f104 0030 	add.w	r0, r4, #48	; 0x30
+ 8000cb2:	e74a      	b.n	8000b4a <printf+0x972>
+ 8000cb4:	f104 0030 	add.w	r0, r4, #48	; 0x30
+ 8000cb8:	e75d      	b.n	8000b76 <printf+0x99e>
+                        lHex = ((c>>0)&0x0f);
+
+
+                        // upper 4 bits and lower 4 bits to '0'~'9', 'A'~'F'.
+                        if (uHex!=0) leading_zero = false;
+                        if (uHex<10) uHex+='0';
+ 8000cba:	f103 0030 	add.w	r0, r3, #48	; 0x30
+ 8000cbe:	e4d5      	b.n	800066c <printf+0x494>
+                        else         uHex+='A'-10;
+                        if (!leading_zero) print_byte(uHex);
+                        
+                        if (lHex!=0 || i==3) leading_zero = false;
+                        if (lHex<10) lHex+='0';
+ 8000cc0:	f104 0030 	add.w	r0, r4, #48	; 0x30
+ 8000cc4:	e76d      	b.n	8000ba2 <printf+0x9ca>
+                        lHex = ((c>>0)&0x0f);
+
+
+                        // upper 4 bits and lower 4 bits to '0'~'9', 'A'~'F'.
+                        if (uHex!=0) leading_zero = false;
+                        if (uHex<10) uHex+='0';
+ 8000cc6:	f103 0030 	add.w	r0, r3, #48	; 0x30
+ 8000cca:	e783      	b.n	8000bd4 <printf+0x9fc>
+                        }
+                        else print_byte(uHex);
+                        
+                        // lower 4 bits를 ascii code로.
+                        if (lHex!=0) leading_zero = false;
+                        if (lHex<10) lHex+='0';
+ 8000ccc:	f104 0030 	add.w	r0, r4, #48	; 0x30
+ 8000cd0:	e6c6      	b.n	8000a60 <printf+0x888>
+
+
+                        // upper 4 bits and lower 4 bits to '0'~'9', 'A'~'F'.
+                        // upper 4 bits를 ascii code로.
+                        if (uHex!=0) leading_zero = false;
+                        if (uHex<10) uHex+='0';
+ 8000cd2:	f103 0030 	add.w	r0, r3, #48	; 0x30
+ 8000cd6:	e6ba      	b.n	8000a4e <printf+0x876>
+                        }
+                        else print_byte(uHex);
+                        
+                        // lower 4 bits를 ascii code로.
+                        if (lHex!=0) leading_zero = false;
+                        if (lHex<10) lHex+='0';
+ 8000cd8:	f103 0030 	add.w	r0, r3, #48	; 0x30
+ 8000cdc:	e6a5      	b.n	8000a2a <printf+0x852>
+                        c = s[(8-(flagcnt+1))/2]; // 홀수 일때 그 위치를 포함하는 곳의 값을 가져 옵니다.
+                        
+                        // lower 4 bits를 가져와서 ascii code로.
+                        lHex = ((c>>0)&0x0f);
+                        if (lHex!=0) leading_zero=false;
+                        if (lHex<10) lHex+='0';
+ 8000cde:	3330      	adds	r3, #48	; 0x30
+ 8000ce0:	f7ff bbc6 	b.w	8000470 <printf+0x298>
+
+
+                        // upper 4 bits and lower 4 bits to '0'~'9', 'A'~'F'.
+                        // upper 4 bits를 ascii code로.
+                        if (uHex!=0) leading_zero = false;
+                        if (uHex<10) uHex+='0';
+ 8000ce4:	f101 0030 	add.w	r0, r1, #48	; 0x30
+ 8000ce8:	e693      	b.n	8000a12 <printf+0x83a>
+                        }
+                        else print_byte(uHex);
+                        
+                        // lower 4 bits를 ascii code로.
+                        if (lHex!=0) leading_zero = false;
+                        if (lHex<10) lHex+='0';
+ 8000cea:	f102 0030 	add.w	r0, r2, #48	; 0x30
+ 8000cee:	e679      	b.n	80009e4 <printf+0x80c>
+
+
+                        // upper 4 bits and lower 4 bits to '0'~'9', 'A'~'F'.
+                        // upper 4 bits를 ascii code로.
+                        if (uHex!=0) leading_zero = false;
+                        if (uHex<10) uHex+='0';
+ 8000cf0:	3030      	adds	r0, #48	; 0x30
+ 8000cf2:	e779      	b.n	8000be8 <printf+0xa10>
+                        lHex = ((c>>0)&0x0f);
+
+
+                        // upper 4 bits and lower 4 bits to '0'~'9', 'A'~'F'.
+                        if (uHex!=0) leading_zero = false;
+                        if (uHex<10) uHex+='0';
+ 8000cf4:	f103 0030 	add.w	r0, r3, #48	; 0x30
+ 8000cf8:	e4a2      	b.n	8000640 <printf+0x468>
+ 8000cfa:	bf00      	nop
+ 8000cfc:	08000145 	.word	0x08000145
+
+08000d00 <main_menu>:
+
+
+
+
+int main_menu(void)
+{
+ 8000d00:	b570      	push	{r4, r5, r6, lr}
+    int key;
+
+    printf("\n\n");
+ 8000d02:	4e16      	ldr	r6, [pc, #88]	; (8000d5c <main_menu+0x5c>)
+    printf("-------------------------------------------------\n");
+ 8000d04:	4d16      	ldr	r5, [pc, #88]	; (8000d60 <main_menu+0x60>)
+
+int main_menu(void)
+{
+    int key;
+
+    printf("\n\n");
+ 8000d06:	4c17      	ldr	r4, [pc, #92]	; (8000d64 <main_menu+0x64>)
+ 8000d08:	4630      	mov	r0, r6
+ 8000d0a:	47a0      	blx	r4
+    printf("-------------------------------------------------\n");
+ 8000d0c:	4628      	mov	r0, r5
+ 8000d0e:	47a0      	blx	r4
+    printf("                    MAIN MENU                    \n");
+ 8000d10:	4815      	ldr	r0, [pc, #84]	; (8000d68 <main_menu+0x68>)
+ 8000d12:	47a0      	blx	r4
+    printf("-------------------------------------------------\n");
+ 8000d14:	4628      	mov	r0, r5
+ 8000d16:	47a0      	blx	r4
+    printf(" 0. Smart Robot B'D DIO 00                       \n");
+ 8000d18:	4814      	ldr	r0, [pc, #80]	; (8000d6c <main_menu+0x6c>)
+ 8000d1a:	47a0      	blx	r4
+    printf(" 1. Smart Robot B'D DIO 01                       \n");
+ 8000d1c:	4814      	ldr	r0, [pc, #80]	; (8000d70 <main_menu+0x70>)
+ 8000d1e:	47a0      	blx	r4
+    printf(" 2. Smart Robot B'D DIO 02                       \n");
+ 8000d20:	4814      	ldr	r0, [pc, #80]	; (8000d74 <main_menu+0x74>)
+ 8000d22:	47a0      	blx	r4
+    printf(" 3. Smart Robot B'D DIO 03                       \n");
+ 8000d24:	4814      	ldr	r0, [pc, #80]	; (8000d78 <main_menu+0x78>)
+ 8000d26:	47a0      	blx	r4
+    printf(" 4. Smart Robot B'D DIO 04                       \n");
+ 8000d28:	4814      	ldr	r0, [pc, #80]	; (8000d7c <main_menu+0x7c>)
+ 8000d2a:	47a0      	blx	r4
+    printf(" 5. Smart Robot B'D DIO 05                       \n");
+ 8000d2c:	4814      	ldr	r0, [pc, #80]	; (8000d80 <main_menu+0x80>)
+ 8000d2e:	47a0      	blx	r4
+    printf(" 6. Smart Robot B'D DIO 06                       \n");
+ 8000d30:	4814      	ldr	r0, [pc, #80]	; (8000d84 <main_menu+0x84>)
+ 8000d32:	47a0      	blx	r4
+    printf(" 7. Smart Robot B'D DIO 07                       \n");
+ 8000d34:	4814      	ldr	r0, [pc, #80]	; (8000d88 <main_menu+0x88>)
+ 8000d36:	47a0      	blx	r4
+    printf(" 8. Smart Robot B'D DIO 08                       \n");
+ 8000d38:	4814      	ldr	r0, [pc, #80]	; (8000d8c <main_menu+0x8c>)
+ 8000d3a:	47a0      	blx	r4
+    printf(" 9. Smart Robot B'D DIO 09                       \n");
+ 8000d3c:	4814      	ldr	r0, [pc, #80]	; (8000d90 <main_menu+0x90>)
+ 8000d3e:	47a0      	blx	r4
+
+    printf("-------------------------------------------------\n");
+ 8000d40:	4628      	mov	r0, r5
+ 8000d42:	47a0      	blx	r4
+    printf(" q. Smart Robot B'D FirmwareQUIT                 \n");
+ 8000d44:	4813      	ldr	r0, [pc, #76]	; (8000d94 <main_menu+0x94>)
+ 8000d46:	47a0      	blx	r4
+    printf("-------------------------------------------------\n");
+ 8000d48:	4628      	mov	r0, r5
+ 8000d4a:	47a0      	blx	r4
+    printf("\n\n");
+ 8000d4c:	4630      	mov	r0, r6
+ 8000d4e:	47a0      	blx	r4
+ 
+    printf("SELECT THE COMMAND NUMBER : ");
+ 8000d50:	4811      	ldr	r0, [pc, #68]	; (8000d98 <main_menu+0x98>)
+ 8000d52:	47a0      	blx	r4
+
+    key=get_byte();
+ 8000d54:	4b11      	ldr	r3, [pc, #68]	; (8000d9c <main_menu+0x9c>)
+ 8000d56:	4798      	blx	r3
+//        ;
+//    else
+//        getchar();
+
+    return key;
+}
+ 8000d58:	bd70      	pop	{r4, r5, r6, pc}
+ 8000d5a:	bf00      	nop
+ 8000d5c:	0800129c 	.word	0x0800129c
+ 8000d60:	080012a0 	.word	0x080012a0
+ 8000d64:	080001d9 	.word	0x080001d9
+ 8000d68:	080012d4 	.word	0x080012d4
+ 8000d6c:	08001308 	.word	0x08001308
+ 8000d70:	0800133c 	.word	0x0800133c
+ 8000d74:	08001370 	.word	0x08001370
+ 8000d78:	080013a4 	.word	0x080013a4
+ 8000d7c:	080013d8 	.word	0x080013d8
+ 8000d80:	0800140c 	.word	0x0800140c
+ 8000d84:	08001440 	.word	0x08001440
+ 8000d88:	08001474 	.word	0x08001474
+ 8000d8c:	080014a8 	.word	0x080014a8
+ 8000d90:	080014dc 	.word	0x080014dc
+ 8000d94:	08001510 	.word	0x08001510
+ 8000d98:	08001544 	.word	0x08001544
+ 8000d9c:	08000171 	.word	0x08000171
+
+08000da0 <Menu_ExeCmd>:
+
+
+
+int Menu_ExeCmd(void)
+{
+ 8000da0:	b5f8      	push	{r3, r4, r5, r6, r7, lr}
+ 8000da2:	4caa      	ldr	r4, [pc, #680]	; (800104c <Menu_ExeCmd+0x2ac>)
+
+
+
+
+           case 'q':
+               printf("exit\n");
+ 8000da4:	4daa      	ldr	r5, [pc, #680]	; (8001050 <Menu_ExeCmd+0x2b0>)
+               *(volatile unsigned long *) 0x40011014 |= 0x01 << 14;            // Off
+               break;
+
+           case 't':
+               printf("No.0\n");
+               *(volatile unsigned long *) 0x40011010 |= 0x01 << 15;            // On
+ 8000da6:	4fab      	ldr	r7, [pc, #684]	; (8001054 <Menu_ExeCmd+0x2b4>)
+               delay_second();               
+ 8000da8:	4eab      	ldr	r6, [pc, #684]	; (8001058 <Menu_ExeCmd+0x2b8>)
+
+int Menu_ExeCmd(void)
+{
+	int key;
+
+    while((key=main_menu()) != 0)
+ 8000daa:	47a0      	blx	r4
+ 8000dac:	4603      	mov	r3, r0
+ 8000dae:	2800      	cmp	r0, #0
+ 8000db0:	f000 80a1 	beq.w	8000ef6 <Menu_ExeCmd+0x156>
+    {
+        switch(key)
+ 8000db4:	3b30      	subs	r3, #48	; 0x30
+ 8000db6:	2b44      	cmp	r3, #68	; 0x44
+ 8000db8:	d8f7      	bhi.n	8000daa <Menu_ExeCmd+0xa>
+ 8000dba:	a201      	add	r2, pc, #4	; (adr r2, 8000dc0 <Menu_ExeCmd+0x20>)
+ 8000dbc:	f852 f023 	ldr.w	pc, [r2, r3, lsl #2]
+ 8000dc0:	08001215 	.word	0x08001215
+ 8000dc4:	080011f9 	.word	0x080011f9
+ 8000dc8:	080011dd 	.word	0x080011dd
+ 8000dcc:	080011c1 	.word	0x080011c1
+ 8000dd0:	080011a5 	.word	0x080011a5
+ 8000dd4:	08001189 	.word	0x08001189
+ 8000dd8:	0800116d 	.word	0x0800116d
+ 8000ddc:	08001151 	.word	0x08001151
+ 8000de0:	08001135 	.word	0x08001135
+ 8000de4:	08001119 	.word	0x08001119
+ 8000de8:	08000dab 	.word	0x08000dab
+ 8000dec:	08000dab 	.word	0x08000dab
+ 8000df0:	08000dab 	.word	0x08000dab
+ 8000df4:	08000dab 	.word	0x08000dab
+ 8000df8:	08000dab 	.word	0x08000dab
+ 8000dfc:	08000dab 	.word	0x08000dab
+ 8000e00:	08000dab 	.word	0x08000dab
+ 8000e04:	08000dab 	.word	0x08000dab
+ 8000e08:	08000dab 	.word	0x08000dab
+ 8000e0c:	08000dab 	.word	0x08000dab
+ 8000e10:	08000dab 	.word	0x08000dab
+ 8000e14:	08000dab 	.word	0x08000dab
+ 8000e18:	08000dab 	.word	0x08000dab
+ 8000e1c:	08000dab 	.word	0x08000dab
+ 8000e20:	08000dab 	.word	0x08000dab
+ 8000e24:	08000dab 	.word	0x08000dab
+ 8000e28:	08000dab 	.word	0x08000dab
+ 8000e2c:	08000dab 	.word	0x08000dab
+ 8000e30:	08000dab 	.word	0x08000dab
+ 8000e34:	08000dab 	.word	0x08000dab
+ 8000e38:	08000dab 	.word	0x08000dab
+ 8000e3c:	08000dab 	.word	0x08000dab
+ 8000e40:	08000dab 	.word	0x08000dab
+ 8000e44:	08000dab 	.word	0x08000dab
+ 8000e48:	08000dab 	.word	0x08000dab
+ 8000e4c:	08000dab 	.word	0x08000dab
+ 8000e50:	08000dab 	.word	0x08000dab
+ 8000e54:	08000dab 	.word	0x08000dab
+ 8000e58:	08000dab 	.word	0x08000dab
+ 8000e5c:	08000dab 	.word	0x08000dab
+ 8000e60:	08000dab 	.word	0x08000dab
+ 8000e64:	08000dab 	.word	0x08000dab
+ 8000e68:	08000dab 	.word	0x08000dab
+ 8000e6c:	08000dab 	.word	0x08000dab
+ 8000e70:	08000dab 	.word	0x08000dab
+ 8000e74:	08000dab 	.word	0x08000dab
+ 8000e78:	08000dab 	.word	0x08000dab
+ 8000e7c:	08000dab 	.word	0x08000dab
+ 8000e80:	08000dab 	.word	0x08000dab
+ 8000e84:	080010fd 	.word	0x080010fd
+ 8000e88:	080010e1 	.word	0x080010e1
+ 8000e8c:	080010c5 	.word	0x080010c5
+ 8000e90:	080010a9 	.word	0x080010a9
+ 8000e94:	0800108d 	.word	0x0800108d
+ 8000e98:	08001071 	.word	0x08001071
+ 8000e9c:	08001031 	.word	0x08001031
+ 8000ea0:	08001015 	.word	0x08001015
+ 8000ea4:	08000ff9 	.word	0x08000ff9
+ 8000ea8:	08000fdd 	.word	0x08000fdd
+ 8000eac:	08000fc1 	.word	0x08000fc1
+ 8000eb0:	08000fa5 	.word	0x08000fa5
+ 8000eb4:	08000f89 	.word	0x08000f89
+ 8000eb8:	08000f6d 	.word	0x08000f6d
+ 8000ebc:	08000f51 	.word	0x08000f51
+ 8000ec0:	08000f35 	.word	0x08000f35
+ 8000ec4:	08000f2f 	.word	0x08000f2f
+ 8000ec8:	08000f13 	.word	0x08000f13
+ 8000ecc:	08000ef9 	.word	0x08000ef9
+ 8000ed0:	08000ed5 	.word	0x08000ed5
+               delay_second();               
+               *(volatile unsigned long *) 0x40011014 |= 0x01 << 14;            // Off
+               break;
+
+           case 't':
+               printf("No.0\n");
+ 8000ed4:	4861      	ldr	r0, [pc, #388]	; (800105c <Menu_ExeCmd+0x2bc>)
+ 8000ed6:	47a8      	blx	r5
+               *(volatile unsigned long *) 0x40011010 |= 0x01 << 15;            // On
+ 8000ed8:	6839      	ldr	r1, [r7, #0]
+ 8000eda:	f441 4000 	orr.w	r0, r1, #32768	; 0x8000
+ 8000ede:	6038      	str	r0, [r7, #0]
+               delay_second();               
+ 8000ee0:	47b0      	blx	r6
+               *(volatile unsigned long *) 0x40011014 |= 0x01 << 15;            // Off
+ 8000ee2:	4b5f      	ldr	r3, [pc, #380]	; (8001060 <Menu_ExeCmd+0x2c0>)
+ 8000ee4:	681a      	ldr	r2, [r3, #0]
+ 8000ee6:	f442 4100 	orr.w	r1, r2, #32768	; 0x8000
+ 8000eea:	6019      	str	r1, [r3, #0]
+
+int Menu_ExeCmd(void)
+{
+	int key;
+
+    while((key=main_menu()) != 0)
+ 8000eec:	47a0      	blx	r4
+ 8000eee:	4603      	mov	r3, r0
+ 8000ef0:	2800      	cmp	r0, #0
+ 8000ef2:	f47f af5f 	bne.w	8000db4 <Menu_ExeCmd+0x14>
+               break;
+        }
+    }
+    
+    return key;
+}
+ 8000ef6:	bdf8      	pop	{r3, r4, r5, r6, r7, pc}
+               delay_second();               
+               *(volatile unsigned long *) 0x40010C14 |= 0x01 << 15;            // Off
+               break;
+
+           case 's':
+               printf("No.0\n");
+ 8000ef8:	4858      	ldr	r0, [pc, #352]	; (800105c <Menu_ExeCmd+0x2bc>)
+ 8000efa:	47a8      	blx	r5
+               *(volatile unsigned long *) 0x40011010 |= 0x01 << 14;            // On
+ 8000efc:	6838      	ldr	r0, [r7, #0]
+ 8000efe:	f440 4280 	orr.w	r2, r0, #16384	; 0x4000
+ 8000f02:	603a      	str	r2, [r7, #0]
+               delay_second();               
+ 8000f04:	47b0      	blx	r6
+               *(volatile unsigned long *) 0x40011014 |= 0x01 << 14;            // Off
+ 8000f06:	4956      	ldr	r1, [pc, #344]	; (8001060 <Menu_ExeCmd+0x2c0>)
+ 8000f08:	680b      	ldr	r3, [r1, #0]
+ 8000f0a:	f443 4080 	orr.w	r0, r3, #16384	; 0x4000
+ 8000f0e:	6008      	str	r0, [r1, #0]
+               break;
+ 8000f10:	e74b      	b.n	8000daa <Menu_ExeCmd+0xa>
+               delay_second();               
+               *(volatile unsigned long *) 0x40010C14 |= 0x01 << 14;            // Off
+               break;
+
+           case 'r':
+               printf("No.0\n");
+ 8000f12:	4852      	ldr	r0, [pc, #328]	; (800105c <Menu_ExeCmd+0x2bc>)
+ 8000f14:	47a8      	blx	r5
+               *(volatile unsigned long *) 0x40010C10 |= 0x01 << 15;            // On
+ 8000f16:	4b53      	ldr	r3, [pc, #332]	; (8001064 <Menu_ExeCmd+0x2c4>)
+ 8000f18:	681a      	ldr	r2, [r3, #0]
+ 8000f1a:	f442 4100 	orr.w	r1, r2, #32768	; 0x8000
+ 8000f1e:	6019      	str	r1, [r3, #0]
+               delay_second();               
+ 8000f20:	47b0      	blx	r6
+               *(volatile unsigned long *) 0x40010C14 |= 0x01 << 15;            // Off
+ 8000f22:	4b51      	ldr	r3, [pc, #324]	; (8001068 <Menu_ExeCmd+0x2c8>)
+ 8000f24:	6818      	ldr	r0, [r3, #0]
+ 8000f26:	f440 4200 	orr.w	r2, r0, #32768	; 0x8000
+ 8000f2a:	601a      	str	r2, [r3, #0]
+               break;
+ 8000f2c:	e73d      	b.n	8000daa <Menu_ExeCmd+0xa>
+
+
+
+
+           case 'q':
+               printf("exit\n");
+ 8000f2e:	484f      	ldr	r0, [pc, #316]	; (800106c <Menu_ExeCmd+0x2cc>)
+ 8000f30:	47a8      	blx	r5
+ 8000f32:	e73a      	b.n	8000daa <Menu_ExeCmd+0xa>
+               delay_second();               
+               *(volatile unsigned long *) 0x40010C14 |= 0x01 << 13;            // Off
+               break;
+
+           case 'p':
+               printf("No.0\n");
+ 8000f34:	4849      	ldr	r0, [pc, #292]	; (800105c <Menu_ExeCmd+0x2bc>)
+ 8000f36:	47a8      	blx	r5
+               *(volatile unsigned long *) 0x40010C10 |= 0x01 << 14;            // On
+ 8000f38:	484a      	ldr	r0, [pc, #296]	; (8001064 <Menu_ExeCmd+0x2c4>)
+ 8000f3a:	6801      	ldr	r1, [r0, #0]
+ 8000f3c:	f441 4280 	orr.w	r2, r1, #16384	; 0x4000
+ 8000f40:	6002      	str	r2, [r0, #0]
+               delay_second();               
+ 8000f42:	47b0      	blx	r6
+               *(volatile unsigned long *) 0x40010C14 |= 0x01 << 14;            // Off
+ 8000f44:	4948      	ldr	r1, [pc, #288]	; (8001068 <Menu_ExeCmd+0x2c8>)
+ 8000f46:	680b      	ldr	r3, [r1, #0]
+ 8000f48:	f443 4080 	orr.w	r0, r3, #16384	; 0x4000
+ 8000f4c:	6008      	str	r0, [r1, #0]
+               break;
+ 8000f4e:	e72c      	b.n	8000daa <Menu_ExeCmd+0xa>
+               delay_second();               
+               *(volatile unsigned long *) 0x40010C14 |= 0x01 << 12;            // Off
+               break;
+
+           case 'o':
+               printf("No.0\n");
+ 8000f50:	4842      	ldr	r0, [pc, #264]	; (800105c <Menu_ExeCmd+0x2bc>)
+ 8000f52:	47a8      	blx	r5
+               *(volatile unsigned long *) 0x40010C10 |= 0x01 << 13;            // On
+ 8000f54:	4b43      	ldr	r3, [pc, #268]	; (8001064 <Menu_ExeCmd+0x2c4>)
+ 8000f56:	681a      	ldr	r2, [r3, #0]
+ 8000f58:	f442 5100 	orr.w	r1, r2, #8192	; 0x2000
+ 8000f5c:	6019      	str	r1, [r3, #0]
+               delay_second();               
+ 8000f5e:	47b0      	blx	r6
+               *(volatile unsigned long *) 0x40010C14 |= 0x01 << 13;            // Off
+ 8000f60:	4b41      	ldr	r3, [pc, #260]	; (8001068 <Menu_ExeCmd+0x2c8>)
+ 8000f62:	6818      	ldr	r0, [r3, #0]
+ 8000f64:	f440 5200 	orr.w	r2, r0, #8192	; 0x2000
+ 8000f68:	601a      	str	r2, [r3, #0]
+               break;
+ 8000f6a:	e71e      	b.n	8000daa <Menu_ExeCmd+0xa>
+               delay_second();               
+               *(volatile unsigned long *) 0x40010C14 |= 0x01 << 10;            // Off
+               break;
+
+           case 'n':
+               printf("No.0\n");
+ 8000f6c:	483b      	ldr	r0, [pc, #236]	; (800105c <Menu_ExeCmd+0x2bc>)
+ 8000f6e:	47a8      	blx	r5
+               *(volatile unsigned long *) 0x40010C10 |= 0x01 << 11;            // On
+ 8000f70:	483c      	ldr	r0, [pc, #240]	; (8001064 <Menu_ExeCmd+0x2c4>)
+ 8000f72:	6801      	ldr	r1, [r0, #0]
+ 8000f74:	f441 6200 	orr.w	r2, r1, #2048	; 0x800
+ 8000f78:	6002      	str	r2, [r0, #0]
+               delay_second();               
+ 8000f7a:	47b0      	blx	r6
+               *(volatile unsigned long *) 0x40010C14 |= 0x01 << 12;            // Off
+ 8000f7c:	493a      	ldr	r1, [pc, #232]	; (8001068 <Menu_ExeCmd+0x2c8>)
+ 8000f7e:	680b      	ldr	r3, [r1, #0]
+ 8000f80:	f443 5080 	orr.w	r0, r3, #4096	; 0x1000
+ 8000f84:	6008      	str	r0, [r1, #0]
+               break;
+ 8000f86:	e710      	b.n	8000daa <Menu_ExeCmd+0xa>
+               delay_second();               
+               *(volatile unsigned long *) 0x40010C14 |= 0x01 << 9;            // Off
+               break;
+
+           case 'm':
+               printf("No.0\n");
+ 8000f88:	4834      	ldr	r0, [pc, #208]	; (800105c <Menu_ExeCmd+0x2bc>)
+ 8000f8a:	47a8      	blx	r5
+               *(volatile unsigned long *) 0x40010C10 |= 0x01 << 10;            // On
+ 8000f8c:	4b35      	ldr	r3, [pc, #212]	; (8001064 <Menu_ExeCmd+0x2c4>)
+ 8000f8e:	681a      	ldr	r2, [r3, #0]
+ 8000f90:	f442 6180 	orr.w	r1, r2, #1024	; 0x400
+ 8000f94:	6019      	str	r1, [r3, #0]
+               delay_second();               
+ 8000f96:	47b0      	blx	r6
+               *(volatile unsigned long *) 0x40010C14 |= 0x01 << 10;            // Off
+ 8000f98:	4b33      	ldr	r3, [pc, #204]	; (8001068 <Menu_ExeCmd+0x2c8>)
+ 8000f9a:	6818      	ldr	r0, [r3, #0]
+ 8000f9c:	f440 6280 	orr.w	r2, r0, #1024	; 0x400
+ 8000fa0:	601a      	str	r2, [r3, #0]
+               break;
+ 8000fa2:	e702      	b.n	8000daa <Menu_ExeCmd+0xa>
+               delay_second();               
+               *(volatile unsigned long *) 0x40010C14 |= 0x01 << 8;            // Off
+               break;
+
+           case 'l':
+               printf("No.0\n");
+ 8000fa4:	482d      	ldr	r0, [pc, #180]	; (800105c <Menu_ExeCmd+0x2bc>)
+ 8000fa6:	47a8      	blx	r5
+               *(volatile unsigned long *) 0x40010C10 |= 0x01 << 9;            // On
+ 8000fa8:	482e      	ldr	r0, [pc, #184]	; (8001064 <Menu_ExeCmd+0x2c4>)
+ 8000faa:	6801      	ldr	r1, [r0, #0]
+ 8000fac:	f441 7200 	orr.w	r2, r1, #512	; 0x200
+ 8000fb0:	6002      	str	r2, [r0, #0]
+               delay_second();               
+ 8000fb2:	47b0      	blx	r6
+               *(volatile unsigned long *) 0x40010C14 |= 0x01 << 9;            // Off
+ 8000fb4:	492c      	ldr	r1, [pc, #176]	; (8001068 <Menu_ExeCmd+0x2c8>)
+ 8000fb6:	680b      	ldr	r3, [r1, #0]
+ 8000fb8:	f443 7000 	orr.w	r0, r3, #512	; 0x200
+ 8000fbc:	6008      	str	r0, [r1, #0]
+               break;
+ 8000fbe:	e6f4      	b.n	8000daa <Menu_ExeCmd+0xa>
+               delay_second();               
+               *(volatile unsigned long *) 0x40010C14 |= 0x01 << 7;            // Off
+               break;
+
+           case 'k':
+               printf("No.0\n");
+ 8000fc0:	4826      	ldr	r0, [pc, #152]	; (800105c <Menu_ExeCmd+0x2bc>)
+ 8000fc2:	47a8      	blx	r5
+               *(volatile unsigned long *) 0x40010C10 |= 0x01 << 8;            // On
+ 8000fc4:	4b27      	ldr	r3, [pc, #156]	; (8001064 <Menu_ExeCmd+0x2c4>)
+ 8000fc6:	681a      	ldr	r2, [r3, #0]
+ 8000fc8:	f442 7180 	orr.w	r1, r2, #256	; 0x100
+ 8000fcc:	6019      	str	r1, [r3, #0]
+               delay_second();               
+ 8000fce:	47b0      	blx	r6
+               *(volatile unsigned long *) 0x40010C14 |= 0x01 << 8;            // Off
+ 8000fd0:	4b25      	ldr	r3, [pc, #148]	; (8001068 <Menu_ExeCmd+0x2c8>)
+ 8000fd2:	6818      	ldr	r0, [r3, #0]
+ 8000fd4:	f440 7280 	orr.w	r2, r0, #256	; 0x100
+ 8000fd8:	601a      	str	r2, [r3, #0]
+               break;
+ 8000fda:	e6e6      	b.n	8000daa <Menu_ExeCmd+0xa>
+               delay_second();               
+               *(volatile unsigned long *) 0x40010C14 |= 0x01 << 6;            // Off
+               break;
+
+           case 'j':
+               printf("No.0\n");
+ 8000fdc:	481f      	ldr	r0, [pc, #124]	; (800105c <Menu_ExeCmd+0x2bc>)
+ 8000fde:	47a8      	blx	r5
+               *(volatile unsigned long *) 0x40010C10 |= 0x01 << 7;            // On
+ 8000fe0:	4820      	ldr	r0, [pc, #128]	; (8001064 <Menu_ExeCmd+0x2c4>)
+ 8000fe2:	6801      	ldr	r1, [r0, #0]
+ 8000fe4:	f041 0280 	orr.w	r2, r1, #128	; 0x80
+ 8000fe8:	6002      	str	r2, [r0, #0]
+               delay_second();               
+ 8000fea:	47b0      	blx	r6
+               *(volatile unsigned long *) 0x40010C14 |= 0x01 << 7;            // Off
+ 8000fec:	491e      	ldr	r1, [pc, #120]	; (8001068 <Menu_ExeCmd+0x2c8>)
+ 8000fee:	680b      	ldr	r3, [r1, #0]
+ 8000ff0:	f043 0080 	orr.w	r0, r3, #128	; 0x80
+ 8000ff4:	6008      	str	r0, [r1, #0]
+               break;
+ 8000ff6:	e6d8      	b.n	8000daa <Menu_ExeCmd+0xa>
+               delay_second();               
+               *(volatile unsigned long *) 0x40010C14 |= 0x01 << 5;            // Off
+               break;
+
+           case 'i':
+               printf("No.0\n");
+ 8000ff8:	4818      	ldr	r0, [pc, #96]	; (800105c <Menu_ExeCmd+0x2bc>)
+ 8000ffa:	47a8      	blx	r5
+               *(volatile unsigned long *) 0x40010C10 |= 0x01 << 6;            // On
+ 8000ffc:	4b19      	ldr	r3, [pc, #100]	; (8001064 <Menu_ExeCmd+0x2c4>)
+ 8000ffe:	681a      	ldr	r2, [r3, #0]
+ 8001000:	f042 0140 	orr.w	r1, r2, #64	; 0x40
+ 8001004:	6019      	str	r1, [r3, #0]
+               delay_second();               
+ 8001006:	47b0      	blx	r6
+               *(volatile unsigned long *) 0x40010C14 |= 0x01 << 6;            // Off
+ 8001008:	4b17      	ldr	r3, [pc, #92]	; (8001068 <Menu_ExeCmd+0x2c8>)
+ 800100a:	6818      	ldr	r0, [r3, #0]
+ 800100c:	f040 0240 	orr.w	r2, r0, #64	; 0x40
+ 8001010:	601a      	str	r2, [r3, #0]
+               break;
+ 8001012:	e6ca      	b.n	8000daa <Menu_ExeCmd+0xa>
+               delay_second();               
+               *(volatile unsigned long *) 0x40010C14 |= 0x01 << 4;            // Off
+               break;
+
+           case 'h':
+               printf("No.0\n");
+ 8001014:	4811      	ldr	r0, [pc, #68]	; (800105c <Menu_ExeCmd+0x2bc>)
+ 8001016:	47a8      	blx	r5
+               *(volatile unsigned long *) 0x40010C10 |= 0x01 << 5;            // On
+ 8001018:	4812      	ldr	r0, [pc, #72]	; (8001064 <Menu_ExeCmd+0x2c4>)
+ 800101a:	6801      	ldr	r1, [r0, #0]
+ 800101c:	f041 0220 	orr.w	r2, r1, #32
+ 8001020:	6002      	str	r2, [r0, #0]
+               delay_second();               
+ 8001022:	47b0      	blx	r6
+               *(volatile unsigned long *) 0x40010C14 |= 0x01 << 5;            // Off
+ 8001024:	4910      	ldr	r1, [pc, #64]	; (8001068 <Menu_ExeCmd+0x2c8>)
+ 8001026:	680b      	ldr	r3, [r1, #0]
+ 8001028:	f043 0020 	orr.w	r0, r3, #32
+ 800102c:	6008      	str	r0, [r1, #0]
+               break;
+ 800102e:	e6bc      	b.n	8000daa <Menu_ExeCmd+0xa>
+               delay_second();               
+               *(volatile unsigned long *) 0x40010C14 |= 0x01 << 3;            // Off
+               break;
+
+           case 'g':
+               printf("No.0\n");
+ 8001030:	480a      	ldr	r0, [pc, #40]	; (800105c <Menu_ExeCmd+0x2bc>)
+ 8001032:	47a8      	blx	r5
+               *(volatile unsigned long *) 0x40010C10 |= 0x01 << 4;            // On
+ 8001034:	4b0b      	ldr	r3, [pc, #44]	; (8001064 <Menu_ExeCmd+0x2c4>)
+ 8001036:	681a      	ldr	r2, [r3, #0]
+ 8001038:	f042 0110 	orr.w	r1, r2, #16
+ 800103c:	6019      	str	r1, [r3, #0]
+               delay_second();               
+ 800103e:	47b0      	blx	r6
+               *(volatile unsigned long *) 0x40010C14 |= 0x01 << 4;            // Off
+ 8001040:	4b09      	ldr	r3, [pc, #36]	; (8001068 <Menu_ExeCmd+0x2c8>)
+ 8001042:	6818      	ldr	r0, [r3, #0]
+ 8001044:	f040 0210 	orr.w	r2, r0, #16
+ 8001048:	601a      	str	r2, [r3, #0]
+               break;
+ 800104a:	e6ae      	b.n	8000daa <Menu_ExeCmd+0xa>
+ 800104c:	08000d01 	.word	0x08000d01
+ 8001050:	080001d9 	.word	0x080001d9
+ 8001054:	40011010 	.word	0x40011010
+ 8001058:	08001269 	.word	0x08001269
+ 800105c:	080015ac 	.word	0x080015ac
+ 8001060:	40011014 	.word	0x40011014
+ 8001064:	40010c10 	.word	0x40010c10
+ 8001068:	40010c14 	.word	0x40010c14
+ 800106c:	080015b4 	.word	0x080015b4
+               delay_second();               
+               *(volatile unsigned long *) 0x40010C14 |= 0x01 << 2;            // Off
+               break;
+
+           case 'f':
+               printf("No.0\n");
+ 8001070:	486f      	ldr	r0, [pc, #444]	; (8001230 <Menu_ExeCmd+0x490>)
+ 8001072:	47a8      	blx	r5
+               *(volatile unsigned long *) 0x40010C10 |= 0x01 << 3;            // On
+ 8001074:	486f      	ldr	r0, [pc, #444]	; (8001234 <Menu_ExeCmd+0x494>)
+ 8001076:	6801      	ldr	r1, [r0, #0]
+ 8001078:	f041 0208 	orr.w	r2, r1, #8
+ 800107c:	6002      	str	r2, [r0, #0]
+               delay_second();               
+ 800107e:	47b0      	blx	r6
+               *(volatile unsigned long *) 0x40010C14 |= 0x01 << 3;            // Off
+ 8001080:	496d      	ldr	r1, [pc, #436]	; (8001238 <Menu_ExeCmd+0x498>)
+ 8001082:	680b      	ldr	r3, [r1, #0]
+ 8001084:	f043 0008 	orr.w	r0, r3, #8
+ 8001088:	6008      	str	r0, [r1, #0]
+               break;
+ 800108a:	e68e      	b.n	8000daa <Menu_ExeCmd+0xa>
+               delay_second();               
+               *(volatile unsigned long *) 0x40010C14 |= 0x01 << 1;            // Off
+               break;
+
+           case 'e':
+               printf("No.0\n");
+ 800108c:	4868      	ldr	r0, [pc, #416]	; (8001230 <Menu_ExeCmd+0x490>)
+ 800108e:	47a8      	blx	r5
+               *(volatile unsigned long *) 0x40010C10 |= 0x01 << 2;            // On
+ 8001090:	4b68      	ldr	r3, [pc, #416]	; (8001234 <Menu_ExeCmd+0x494>)
+ 8001092:	681a      	ldr	r2, [r3, #0]
+ 8001094:	f042 0104 	orr.w	r1, r2, #4
+ 8001098:	6019      	str	r1, [r3, #0]
+               delay_second();               
+ 800109a:	47b0      	blx	r6
+               *(volatile unsigned long *) 0x40010C14 |= 0x01 << 2;            // Off
+ 800109c:	4b66      	ldr	r3, [pc, #408]	; (8001238 <Menu_ExeCmd+0x498>)
+ 800109e:	6818      	ldr	r0, [r3, #0]
+ 80010a0:	f040 0204 	orr.w	r2, r0, #4
+ 80010a4:	601a      	str	r2, [r3, #0]
+               break;
+ 80010a6:	e680      	b.n	8000daa <Menu_ExeCmd+0xa>
+               delay_second();               
+               *(volatile unsigned long *) 0x40010C14 |= 0x01 << 0;            // Off
+               break;
+
+           case 'd':
+               printf("No.0\n");
+ 80010a8:	4861      	ldr	r0, [pc, #388]	; (8001230 <Menu_ExeCmd+0x490>)
+ 80010aa:	47a8      	blx	r5
+               *(volatile unsigned long *) 0x40010C10 |= 0x01 << 1;            // On
+ 80010ac:	4861      	ldr	r0, [pc, #388]	; (8001234 <Menu_ExeCmd+0x494>)
+ 80010ae:	6801      	ldr	r1, [r0, #0]
+ 80010b0:	f041 0202 	orr.w	r2, r1, #2
+ 80010b4:	6002      	str	r2, [r0, #0]
+               delay_second();               
+ 80010b6:	47b0      	blx	r6
+               *(volatile unsigned long *) 0x40010C14 |= 0x01 << 1;            // Off
+ 80010b8:	495f      	ldr	r1, [pc, #380]	; (8001238 <Menu_ExeCmd+0x498>)
+ 80010ba:	680b      	ldr	r3, [r1, #0]
+ 80010bc:	f043 0002 	orr.w	r0, r3, #2
+ 80010c0:	6008      	str	r0, [r1, #0]
+               break;
+ 80010c2:	e672      	b.n	8000daa <Menu_ExeCmd+0xa>
+               delay_second();               
+               *(volatile unsigned long *) 0x40010814 |= 0x01 << 15;            // Off
+               break;
+
+           case 'c':
+               printf("No.0\n");
+ 80010c4:	485a      	ldr	r0, [pc, #360]	; (8001230 <Menu_ExeCmd+0x490>)
+ 80010c6:	47a8      	blx	r5
+               *(volatile unsigned long *) 0x40010C10 |= 0x01 << 0;            // On
+ 80010c8:	4b5a      	ldr	r3, [pc, #360]	; (8001234 <Menu_ExeCmd+0x494>)
+ 80010ca:	681a      	ldr	r2, [r3, #0]
+ 80010cc:	f042 0101 	orr.w	r1, r2, #1
+ 80010d0:	6019      	str	r1, [r3, #0]
+               delay_second();               
+ 80010d2:	47b0      	blx	r6
+               *(volatile unsigned long *) 0x40010C14 |= 0x01 << 0;            // Off
+ 80010d4:	4b58      	ldr	r3, [pc, #352]	; (8001238 <Menu_ExeCmd+0x498>)
+ 80010d6:	6818      	ldr	r0, [r3, #0]
+ 80010d8:	f040 0201 	orr.w	r2, r0, #1
+ 80010dc:	601a      	str	r2, [r3, #0]
+               break;
+ 80010de:	e664      	b.n	8000daa <Menu_ExeCmd+0xa>
+               delay_second();               
+               *(volatile unsigned long *) 0x40010814 |= 0x01 << 14;            // Off
+               break;
+
+           case 'b':
+               printf("No.0\n");
+ 80010e0:	4853      	ldr	r0, [pc, #332]	; (8001230 <Menu_ExeCmd+0x490>)
+ 80010e2:	47a8      	blx	r5
+               *(volatile unsigned long *) 0x40010810 |= 0x01 << 15;            // On
+ 80010e4:	4855      	ldr	r0, [pc, #340]	; (800123c <Menu_ExeCmd+0x49c>)
+ 80010e6:	6801      	ldr	r1, [r0, #0]
+ 80010e8:	f441 4200 	orr.w	r2, r1, #32768	; 0x8000
+ 80010ec:	6002      	str	r2, [r0, #0]
+               delay_second();               
+ 80010ee:	47b0      	blx	r6
+               *(volatile unsigned long *) 0x40010814 |= 0x01 << 15;            // Off
+ 80010f0:	4953      	ldr	r1, [pc, #332]	; (8001240 <Menu_ExeCmd+0x4a0>)
+ 80010f2:	680b      	ldr	r3, [r1, #0]
+ 80010f4:	f443 4000 	orr.w	r0, r3, #32768	; 0x8000
+ 80010f8:	6008      	str	r0, [r1, #0]
+               break;
+ 80010fa:	e656      	b.n	8000daa <Menu_ExeCmd+0xa>
+
+
+
+
+           case 'a':
+               printf("No.0\n");
+ 80010fc:	484c      	ldr	r0, [pc, #304]	; (8001230 <Menu_ExeCmd+0x490>)
+ 80010fe:	47a8      	blx	r5
+               *(volatile unsigned long *) 0x40010810 |= 0x01 << 14;            // On
+ 8001100:	4b4e      	ldr	r3, [pc, #312]	; (800123c <Menu_ExeCmd+0x49c>)
+ 8001102:	681a      	ldr	r2, [r3, #0]
+ 8001104:	f442 4180 	orr.w	r1, r2, #16384	; 0x4000
+ 8001108:	6019      	str	r1, [r3, #0]
+               delay_second();               
+ 800110a:	47b0      	blx	r6
+               *(volatile unsigned long *) 0x40010814 |= 0x01 << 14;            // Off
+ 800110c:	4b4c      	ldr	r3, [pc, #304]	; (8001240 <Menu_ExeCmd+0x4a0>)
+ 800110e:	6818      	ldr	r0, [r3, #0]
+ 8001110:	f440 4280 	orr.w	r2, r0, #16384	; 0x4000
+ 8001114:	601a      	str	r2, [r3, #0]
+               break;
+ 8001116:	e648      	b.n	8000daa <Menu_ExeCmd+0xa>
+               delay_second();               
+               *(volatile unsigned long *) 0x40010814 |= 0x01 << 7;            // Off
+               break;
+
+           case '9':
+               printf("No.9\n");
+ 8001118:	484a      	ldr	r0, [pc, #296]	; (8001244 <Menu_ExeCmd+0x4a4>)
+ 800111a:	47a8      	blx	r5
+               *(volatile unsigned long *) 0x40010810 |= 0x01 << 8;            // On
+ 800111c:	4b47      	ldr	r3, [pc, #284]	; (800123c <Menu_ExeCmd+0x49c>)
+ 800111e:	681a      	ldr	r2, [r3, #0]
+ 8001120:	f442 7180 	orr.w	r1, r2, #256	; 0x100
+ 8001124:	6019      	str	r1, [r3, #0]
+               delay_second();               
+ 8001126:	47b0      	blx	r6
+               *(volatile unsigned long *) 0x40010814 |= 0x01 << 8;            // Off
+ 8001128:	4b45      	ldr	r3, [pc, #276]	; (8001240 <Menu_ExeCmd+0x4a0>)
+ 800112a:	6818      	ldr	r0, [r3, #0]
+ 800112c:	f440 7280 	orr.w	r2, r0, #256	; 0x100
+ 8001130:	601a      	str	r2, [r3, #0]
+               break;
+ 8001132:	e63a      	b.n	8000daa <Menu_ExeCmd+0xa>
+               delay_second();               
+               *(volatile unsigned long *) 0x40010814 |= 0x01 << 6;            // Off
+               break;  
+
+           case '8':
+               printf("No.8\n");
+ 8001134:	4844      	ldr	r0, [pc, #272]	; (8001248 <Menu_ExeCmd+0x4a8>)
+ 8001136:	47a8      	blx	r5
+               *(volatile unsigned long *) 0x40010810 |= 0x01 << 7;            // On
+ 8001138:	4840      	ldr	r0, [pc, #256]	; (800123c <Menu_ExeCmd+0x49c>)
+ 800113a:	6801      	ldr	r1, [r0, #0]
+ 800113c:	f041 0280 	orr.w	r2, r1, #128	; 0x80
+ 8001140:	6002      	str	r2, [r0, #0]
+               delay_second();               
+ 8001142:	47b0      	blx	r6
+               *(volatile unsigned long *) 0x40010814 |= 0x01 << 7;            // Off
+ 8001144:	493e      	ldr	r1, [pc, #248]	; (8001240 <Menu_ExeCmd+0x4a0>)
+ 8001146:	680b      	ldr	r3, [r1, #0]
+ 8001148:	f043 0080 	orr.w	r0, r3, #128	; 0x80
+ 800114c:	6008      	str	r0, [r1, #0]
+               break;
+ 800114e:	e62c      	b.n	8000daa <Menu_ExeCmd+0xa>
+               delay_second();               
+               *(volatile unsigned long *) 0x40010814 |= 0x01 << 5;            // Off
+               break;  
+
+           case '7':
+               printf("No.7\n");
+ 8001150:	483e      	ldr	r0, [pc, #248]	; (800124c <Menu_ExeCmd+0x4ac>)
+ 8001152:	47a8      	blx	r5
+               *(volatile unsigned long *) 0x40010810 |= 0x01 << 6;            // On
+ 8001154:	4b39      	ldr	r3, [pc, #228]	; (800123c <Menu_ExeCmd+0x49c>)
+ 8001156:	681a      	ldr	r2, [r3, #0]
+ 8001158:	f042 0140 	orr.w	r1, r2, #64	; 0x40
+ 800115c:	6019      	str	r1, [r3, #0]
+               delay_second();               
+ 800115e:	47b0      	blx	r6
+               *(volatile unsigned long *) 0x40010814 |= 0x01 << 6;            // Off
+ 8001160:	4b37      	ldr	r3, [pc, #220]	; (8001240 <Menu_ExeCmd+0x4a0>)
+ 8001162:	6818      	ldr	r0, [r3, #0]
+ 8001164:	f040 0240 	orr.w	r2, r0, #64	; 0x40
+ 8001168:	601a      	str	r2, [r3, #0]
+               break;  
+ 800116a:	e61e      	b.n	8000daa <Menu_ExeCmd+0xa>
+               delay_second();               
+               *(volatile unsigned long *) 0x40010814 |= 0x01 << 4;            // Off
+               break;  
+
+           case '6':
+               printf("No.6\n");
+ 800116c:	4838      	ldr	r0, [pc, #224]	; (8001250 <Menu_ExeCmd+0x4b0>)
+ 800116e:	47a8      	blx	r5
+               *(volatile unsigned long *) 0x40010810 |= 0x01 << 5;            // On
+ 8001170:	4832      	ldr	r0, [pc, #200]	; (800123c <Menu_ExeCmd+0x49c>)
+ 8001172:	6801      	ldr	r1, [r0, #0]
+ 8001174:	f041 0220 	orr.w	r2, r1, #32
+ 8001178:	6002      	str	r2, [r0, #0]
+               delay_second();               
+ 800117a:	47b0      	blx	r6
+               *(volatile unsigned long *) 0x40010814 |= 0x01 << 5;            // Off
+ 800117c:	4930      	ldr	r1, [pc, #192]	; (8001240 <Menu_ExeCmd+0x4a0>)
+ 800117e:	680b      	ldr	r3, [r1, #0]
+ 8001180:	f043 0020 	orr.w	r0, r3, #32
+ 8001184:	6008      	str	r0, [r1, #0]
+               break;  
+ 8001186:	e610      	b.n	8000daa <Menu_ExeCmd+0xa>
+               delay_second();               
+               *(volatile unsigned long *) 0x40010814 |= 0x01 << 3;            // Off
+               break;  
+
+           case '5':
+               printf("No.5\n");
+ 8001188:	4832      	ldr	r0, [pc, #200]	; (8001254 <Menu_ExeCmd+0x4b4>)
+ 800118a:	47a8      	blx	r5
+               *(volatile unsigned long *) 0x40010810 |= 0x01 << 4;            // On
+ 800118c:	4b2b      	ldr	r3, [pc, #172]	; (800123c <Menu_ExeCmd+0x49c>)
+ 800118e:	681a      	ldr	r2, [r3, #0]
+ 8001190:	f042 0110 	orr.w	r1, r2, #16
+ 8001194:	6019      	str	r1, [r3, #0]
+               delay_second();               
+ 8001196:	47b0      	blx	r6
+               *(volatile unsigned long *) 0x40010814 |= 0x01 << 4;            // Off
+ 8001198:	4b29      	ldr	r3, [pc, #164]	; (8001240 <Menu_ExeCmd+0x4a0>)
+ 800119a:	6818      	ldr	r0, [r3, #0]
+ 800119c:	f040 0210 	orr.w	r2, r0, #16
+ 80011a0:	601a      	str	r2, [r3, #0]
+               break;  
+ 80011a2:	e602      	b.n	8000daa <Menu_ExeCmd+0xa>
+               delay_second();               
+               *(volatile unsigned long *) 0x40010814 |= 0x01 << 2;            // Off
+               break; 
+
+           case '4':
+               printf("No.4\n");
+ 80011a4:	482c      	ldr	r0, [pc, #176]	; (8001258 <Menu_ExeCmd+0x4b8>)
+ 80011a6:	47a8      	blx	r5
+               *(volatile unsigned long *) 0x40010810 |= 0x01 << 3;            // On
+ 80011a8:	4824      	ldr	r0, [pc, #144]	; (800123c <Menu_ExeCmd+0x49c>)
+ 80011aa:	6801      	ldr	r1, [r0, #0]
+ 80011ac:	f041 0208 	orr.w	r2, r1, #8
+ 80011b0:	6002      	str	r2, [r0, #0]
+               delay_second();               
+ 80011b2:	47b0      	blx	r6
+               *(volatile unsigned long *) 0x40010814 |= 0x01 << 3;            // Off
+ 80011b4:	4922      	ldr	r1, [pc, #136]	; (8001240 <Menu_ExeCmd+0x4a0>)
+ 80011b6:	680b      	ldr	r3, [r1, #0]
+ 80011b8:	f043 0008 	orr.w	r0, r3, #8
+ 80011bc:	6008      	str	r0, [r1, #0]
+               break;  
+ 80011be:	e5f4      	b.n	8000daa <Menu_ExeCmd+0xa>
+               delay_second();               
+               *(volatile unsigned long *) 0x40010814 |= 0x01 << 1;            // Off
+               break;
+
+           case '3':
+               printf("No.3\n");
+ 80011c0:	4826      	ldr	r0, [pc, #152]	; (800125c <Menu_ExeCmd+0x4bc>)
+ 80011c2:	47a8      	blx	r5
+               *(volatile unsigned long *) 0x40010810 |= 0x01 << 2;            // On
+ 80011c4:	4b1d      	ldr	r3, [pc, #116]	; (800123c <Menu_ExeCmd+0x49c>)
+ 80011c6:	681a      	ldr	r2, [r3, #0]
+ 80011c8:	f042 0104 	orr.w	r1, r2, #4
+ 80011cc:	6019      	str	r1, [r3, #0]
+               delay_second();               
+ 80011ce:	47b0      	blx	r6
+               *(volatile unsigned long *) 0x40010814 |= 0x01 << 2;            // Off
+ 80011d0:	4b1b      	ldr	r3, [pc, #108]	; (8001240 <Menu_ExeCmd+0x4a0>)
+ 80011d2:	6818      	ldr	r0, [r3, #0]
+ 80011d4:	f040 0204 	orr.w	r2, r0, #4
+ 80011d8:	601a      	str	r2, [r3, #0]
+               break; 
+ 80011da:	e5e6      	b.n	8000daa <Menu_ExeCmd+0xa>
+               delay_second();               
+               *(volatile unsigned long *) 0x40010814 |= 0x01 << 0;            // Off   reset
+               break;
+
+           case '2':
+               printf("No.2\n");
+ 80011dc:	4820      	ldr	r0, [pc, #128]	; (8001260 <Menu_ExeCmd+0x4c0>)
+ 80011de:	47a8      	blx	r5
+               *(volatile unsigned long *) 0x40010810 |= 0x01 << 1;            // On
+ 80011e0:	4816      	ldr	r0, [pc, #88]	; (800123c <Menu_ExeCmd+0x49c>)
+ 80011e2:	6801      	ldr	r1, [r0, #0]
+ 80011e4:	f041 0202 	orr.w	r2, r1, #2
+ 80011e8:	6002      	str	r2, [r0, #0]
+               delay_second();               
+ 80011ea:	47b0      	blx	r6
+               *(volatile unsigned long *) 0x40010814 |= 0x01 << 1;            // Off
+ 80011ec:	4914      	ldr	r1, [pc, #80]	; (8001240 <Menu_ExeCmd+0x4a0>)
+ 80011ee:	680b      	ldr	r3, [r1, #0]
+ 80011f0:	f043 0002 	orr.w	r0, r3, #2
+ 80011f4:	6008      	str	r0, [r1, #0]
+               break;
+ 80011f6:	e5d8      	b.n	8000daa <Menu_ExeCmd+0xa>
+    while((key=main_menu()) != 0)
+    {
+        switch(key)
+        {
+           case '1':
+               printf("No.1\n");
+ 80011f8:	481a      	ldr	r0, [pc, #104]	; (8001264 <Menu_ExeCmd+0x4c4>)
+ 80011fa:	47a8      	blx	r5
+               *(volatile unsigned long *) 0x40010810 |= 0x01 << 0;            // On   Set
+ 80011fc:	4b0f      	ldr	r3, [pc, #60]	; (800123c <Menu_ExeCmd+0x49c>)
+ 80011fe:	681a      	ldr	r2, [r3, #0]
+ 8001200:	f042 0101 	orr.w	r1, r2, #1
+ 8001204:	6019      	str	r1, [r3, #0]
+               delay_second();               
+ 8001206:	47b0      	blx	r6
+               *(volatile unsigned long *) 0x40010814 |= 0x01 << 0;            // Off   reset
+ 8001208:	4b0d      	ldr	r3, [pc, #52]	; (8001240 <Menu_ExeCmd+0x4a0>)
+ 800120a:	6818      	ldr	r0, [r3, #0]
+ 800120c:	f040 0201 	orr.w	r2, r0, #1
+ 8001210:	601a      	str	r2, [r3, #0]
+               break;
+ 8001212:	e5ca      	b.n	8000daa <Menu_ExeCmd+0xa>
+               delay_second();               
+               *(volatile unsigned long *) 0x40010814 |= 0x01 << 8;            // Off
+               break;
+
+           case '0':
+               printf("No.0\n");
+ 8001214:	4806      	ldr	r0, [pc, #24]	; (8001230 <Menu_ExeCmd+0x490>)
+ 8001216:	47a8      	blx	r5
+               *(volatile unsigned long *) 0x40010810 |= 0x01 << 13;            // On
+ 8001218:	4808      	ldr	r0, [pc, #32]	; (800123c <Menu_ExeCmd+0x49c>)
+ 800121a:	6801      	ldr	r1, [r0, #0]
+ 800121c:	f441 5200 	orr.w	r2, r1, #8192	; 0x2000
+ 8001220:	6002      	str	r2, [r0, #0]
+               delay_second();               
+ 8001222:	47b0      	blx	r6
+               *(volatile unsigned long *) 0x40010814 |= 0x01 << 13;            // Off
+ 8001224:	4906      	ldr	r1, [pc, #24]	; (8001240 <Menu_ExeCmd+0x4a0>)
+ 8001226:	680b      	ldr	r3, [r1, #0]
+ 8001228:	f443 5000 	orr.w	r0, r3, #8192	; 0x2000
+ 800122c:	6008      	str	r0, [r1, #0]
+               break;
+ 800122e:	e5bc      	b.n	8000daa <Menu_ExeCmd+0xa>
+ 8001230:	080015ac 	.word	0x080015ac
+ 8001234:	40010c10 	.word	0x40010c10
+ 8001238:	40010c14 	.word	0x40010c14
+ 800123c:	40010810 	.word	0x40010810
+ 8001240:	40010814 	.word	0x40010814
+ 8001244:	080015a4 	.word	0x080015a4
+ 8001248:	0800159c 	.word	0x0800159c
+ 800124c:	08001594 	.word	0x08001594
+ 8001250:	0800158c 	.word	0x0800158c
+ 8001254:	08001584 	.word	0x08001584
+ 8001258:	0800157c 	.word	0x0800157c
+ 800125c:	08001574 	.word	0x08001574
+ 8001260:	0800156c 	.word	0x0800156c
+ 8001264:	08001564 	.word	0x08001564
+
+08001268 <delay_second>:
+
+
+
+void delay(volatile unsigned int timeCount)
+{
+    while(timeCount --);
+ 8001268:	4a02      	ldr	r2, [pc, #8]	; (8001274 <delay_second+0xc>)
+ 800126a:	1e53      	subs	r3, r2, #1
+ 800126c:	3a02      	subs	r2, #2
+ 800126e:	2b00      	cmp	r3, #0
+ 8001270:	d1fb      	bne.n	800126a <delay_second+0x2>
+}
+
+void delay_second(void)
+{
+    delay(806596);
+}
+ 8001272:	4770      	bx	lr
+ 8001274:	000c4ec3 	.word	0x000c4ec3
+ 8001278:	65746e65 	.word	0x65746e65
+ 800127c:	6e612072 	.word	0x6e612072
+ 8001280:	656b2079 	.word	0x656b2079
+ 8001284:	2e2e2e79 	.word	0x2e2e2e79
+ 8001288:	2e2e2e2e 	.word	0x2e2e2e2e
+ 800128c:	0000000a 	.word	0x0000000a
+ 8001290:	20656854 	.word	0x20656854
+ 8001294:	0a646e45 	.word	0x0a646e45
+ 8001298:	00000000 	.word	0x00000000
+ 800129c:	00000a0a 	.word	0x00000a0a
+ 80012a0:	2d2d2d2d 	.word	0x2d2d2d2d
+ 80012a4:	2d2d2d2d 	.word	0x2d2d2d2d
+ 80012a8:	2d2d2d2d 	.word	0x2d2d2d2d
+ 80012ac:	2d2d2d2d 	.word	0x2d2d2d2d
+ 80012b0:	2d2d2d2d 	.word	0x2d2d2d2d
+ 80012b4:	2d2d2d2d 	.word	0x2d2d2d2d
+ 80012b8:	2d2d2d2d 	.word	0x2d2d2d2d
+ 80012bc:	2d2d2d2d 	.word	0x2d2d2d2d
+ 80012c0:	2d2d2d2d 	.word	0x2d2d2d2d
+ 80012c4:	2d2d2d2d 	.word	0x2d2d2d2d
+ 80012c8:	2d2d2d2d 	.word	0x2d2d2d2d
+ 80012cc:	2d2d2d2d 	.word	0x2d2d2d2d
+ 80012d0:	00000a2d 	.word	0x00000a2d
+ 80012d4:	20202020 	.word	0x20202020
+ 80012d8:	20202020 	.word	0x20202020
+ 80012dc:	20202020 	.word	0x20202020
+ 80012e0:	20202020 	.word	0x20202020
+ 80012e4:	20202020 	.word	0x20202020
+ 80012e8:	4e49414d 	.word	0x4e49414d
+ 80012ec:	4e454d20 	.word	0x4e454d20
+ 80012f0:	20202055 	.word	0x20202055
+ 80012f4:	20202020 	.word	0x20202020
+ 80012f8:	20202020 	.word	0x20202020
+ 80012fc:	20202020 	.word	0x20202020
+ 8001300:	20202020 	.word	0x20202020
+ 8001304:	00000a20 	.word	0x00000a20
+ 8001308:	202e3020 	.word	0x202e3020
+ 800130c:	72616d53 	.word	0x72616d53
+ 8001310:	6f522074 	.word	0x6f522074
+ 8001314:	20746f62 	.word	0x20746f62
+ 8001318:	20442742 	.word	0x20442742
+ 800131c:	204f4944 	.word	0x204f4944
+ 8001320:	20203030 	.word	0x20203030
+ 8001324:	20202020 	.word	0x20202020
+ 8001328:	20202020 	.word	0x20202020
+ 800132c:	20202020 	.word	0x20202020
+ 8001330:	20202020 	.word	0x20202020
+ 8001334:	20202020 	.word	0x20202020
+ 8001338:	00000a20 	.word	0x00000a20
+ 800133c:	202e3120 	.word	0x202e3120
+ 8001340:	72616d53 	.word	0x72616d53
+ 8001344:	6f522074 	.word	0x6f522074
+ 8001348:	20746f62 	.word	0x20746f62
+ 800134c:	20442742 	.word	0x20442742
+ 8001350:	204f4944 	.word	0x204f4944
+ 8001354:	20203130 	.word	0x20203130
+ 8001358:	20202020 	.word	0x20202020
+ 800135c:	20202020 	.word	0x20202020
+ 8001360:	20202020 	.word	0x20202020
+ 8001364:	20202020 	.word	0x20202020
+ 8001368:	20202020 	.word	0x20202020
+ 800136c:	00000a20 	.word	0x00000a20
+ 8001370:	202e3220 	.word	0x202e3220
+ 8001374:	72616d53 	.word	0x72616d53
+ 8001378:	6f522074 	.word	0x6f522074
+ 800137c:	20746f62 	.word	0x20746f62
+ 8001380:	20442742 	.word	0x20442742
+ 8001384:	204f4944 	.word	0x204f4944
+ 8001388:	20203230 	.word	0x20203230
+ 800138c:	20202020 	.word	0x20202020
+ 8001390:	20202020 	.word	0x20202020
+ 8001394:	20202020 	.word	0x20202020
+ 8001398:	20202020 	.word	0x20202020
+ 800139c:	20202020 	.word	0x20202020
+ 80013a0:	00000a20 	.word	0x00000a20
+ 80013a4:	202e3320 	.word	0x202e3320
+ 80013a8:	72616d53 	.word	0x72616d53
+ 80013ac:	6f522074 	.word	0x6f522074
+ 80013b0:	20746f62 	.word	0x20746f62
+ 80013b4:	20442742 	.word	0x20442742
+ 80013b8:	204f4944 	.word	0x204f4944
+ 80013bc:	20203330 	.word	0x20203330
+ 80013c0:	20202020 	.word	0x20202020
+ 80013c4:	20202020 	.word	0x20202020
+ 80013c8:	20202020 	.word	0x20202020
+ 80013cc:	20202020 	.word	0x20202020
+ 80013d0:	20202020 	.word	0x20202020
+ 80013d4:	00000a20 	.word	0x00000a20
+ 80013d8:	202e3420 	.word	0x202e3420
+ 80013dc:	72616d53 	.word	0x72616d53
+ 80013e0:	6f522074 	.word	0x6f522074
+ 80013e4:	20746f62 	.word	0x20746f62
+ 80013e8:	20442742 	.word	0x20442742
+ 80013ec:	204f4944 	.word	0x204f4944
+ 80013f0:	20203430 	.word	0x20203430
+ 80013f4:	20202020 	.word	0x20202020
+ 80013f8:	20202020 	.word	0x20202020
+ 80013fc:	20202020 	.word	0x20202020
+ 8001400:	20202020 	.word	0x20202020
+ 8001404:	20202020 	.word	0x20202020
+ 8001408:	00000a20 	.word	0x00000a20
+ 800140c:	202e3520 	.word	0x202e3520
+ 8001410:	72616d53 	.word	0x72616d53
+ 8001414:	6f522074 	.word	0x6f522074
+ 8001418:	20746f62 	.word	0x20746f62
+ 800141c:	20442742 	.word	0x20442742
+ 8001420:	204f4944 	.word	0x204f4944
+ 8001424:	20203530 	.word	0x20203530
+ 8001428:	20202020 	.word	0x20202020
+ 800142c:	20202020 	.word	0x20202020
+ 8001430:	20202020 	.word	0x20202020
+ 8001434:	20202020 	.word	0x20202020
+ 8001438:	20202020 	.word	0x20202020
+ 800143c:	00000a20 	.word	0x00000a20
+ 8001440:	202e3620 	.word	0x202e3620
+ 8001444:	72616d53 	.word	0x72616d53
+ 8001448:	6f522074 	.word	0x6f522074
+ 800144c:	20746f62 	.word	0x20746f62
+ 8001450:	20442742 	.word	0x20442742
+ 8001454:	204f4944 	.word	0x204f4944
+ 8001458:	20203630 	.word	0x20203630
+ 800145c:	20202020 	.word	0x20202020
+ 8001460:	20202020 	.word	0x20202020
+ 8001464:	20202020 	.word	0x20202020
+ 8001468:	20202020 	.word	0x20202020
+ 800146c:	20202020 	.word	0x20202020
+ 8001470:	00000a20 	.word	0x00000a20
+ 8001474:	202e3720 	.word	0x202e3720
+ 8001478:	72616d53 	.word	0x72616d53
+ 800147c:	6f522074 	.word	0x6f522074
+ 8001480:	20746f62 	.word	0x20746f62
+ 8001484:	20442742 	.word	0x20442742
+ 8001488:	204f4944 	.word	0x204f4944
+ 800148c:	20203730 	.word	0x20203730
+ 8001490:	20202020 	.word	0x20202020
+ 8001494:	20202020 	.word	0x20202020
+ 8001498:	20202020 	.word	0x20202020
+ 800149c:	20202020 	.word	0x20202020
+ 80014a0:	20202020 	.word	0x20202020
+ 80014a4:	00000a20 	.word	0x00000a20
+ 80014a8:	202e3820 	.word	0x202e3820
+ 80014ac:	72616d53 	.word	0x72616d53
+ 80014b0:	6f522074 	.word	0x6f522074
+ 80014b4:	20746f62 	.word	0x20746f62
+ 80014b8:	20442742 	.word	0x20442742
+ 80014bc:	204f4944 	.word	0x204f4944
+ 80014c0:	20203830 	.word	0x20203830
+ 80014c4:	20202020 	.word	0x20202020
+ 80014c8:	20202020 	.word	0x20202020
+ 80014cc:	20202020 	.word	0x20202020
+ 80014d0:	20202020 	.word	0x20202020
+ 80014d4:	20202020 	.word	0x20202020
+ 80014d8:	00000a20 	.word	0x00000a20
+ 80014dc:	202e3920 	.word	0x202e3920
+ 80014e0:	72616d53 	.word	0x72616d53
+ 80014e4:	6f522074 	.word	0x6f522074
+ 80014e8:	20746f62 	.word	0x20746f62
+ 80014ec:	20442742 	.word	0x20442742
+ 80014f0:	204f4944 	.word	0x204f4944
+ 80014f4:	20203930 	.word	0x20203930
+ 80014f8:	20202020 	.word	0x20202020
+ 80014fc:	20202020 	.word	0x20202020
+ 8001500:	20202020 	.word	0x20202020
+ 8001504:	20202020 	.word	0x20202020
+ 8001508:	20202020 	.word	0x20202020
+ 800150c:	00000a20 	.word	0x00000a20
+ 8001510:	202e7120 	.word	0x202e7120
+ 8001514:	72616d53 	.word	0x72616d53
+ 8001518:	6f522074 	.word	0x6f522074
+ 800151c:	20746f62 	.word	0x20746f62
+ 8001520:	20442742 	.word	0x20442742
+ 8001524:	6d726946 	.word	0x6d726946
+ 8001528:	65726177 	.word	0x65726177
+ 800152c:	54495551 	.word	0x54495551
+ 8001530:	20202020 	.word	0x20202020
+ 8001534:	20202020 	.word	0x20202020
+ 8001538:	20202020 	.word	0x20202020
+ 800153c:	20202020 	.word	0x20202020
+ 8001540:	00000a20 	.word	0x00000a20
+ 8001544:	454c4553 	.word	0x454c4553
+ 8001548:	54205443 	.word	0x54205443
+ 800154c:	43204548 	.word	0x43204548
+ 8001550:	414d4d4f 	.word	0x414d4d4f
+ 8001554:	4e20444e 	.word	0x4e20444e
+ 8001558:	45424d55 	.word	0x45424d55
+ 800155c:	203a2052 	.word	0x203a2052
+ 8001560:	00000000 	.word	0x00000000
+ 8001564:	312e6f4e 	.word	0x312e6f4e
+ 8001568:	0000000a 	.word	0x0000000a
+ 800156c:	322e6f4e 	.word	0x322e6f4e
+ 8001570:	0000000a 	.word	0x0000000a
+ 8001574:	332e6f4e 	.word	0x332e6f4e
+ 8001578:	0000000a 	.word	0x0000000a
+ 800157c:	342e6f4e 	.word	0x342e6f4e
+ 8001580:	0000000a 	.word	0x0000000a
+ 8001584:	352e6f4e 	.word	0x352e6f4e
+ 8001588:	0000000a 	.word	0x0000000a
+ 800158c:	362e6f4e 	.word	0x362e6f4e
+ 8001590:	0000000a 	.word	0x0000000a
+ 8001594:	372e6f4e 	.word	0x372e6f4e
+ 8001598:	0000000a 	.word	0x0000000a
+ 800159c:	382e6f4e 	.word	0x382e6f4e
+ 80015a0:	0000000a 	.word	0x0000000a
+ 80015a4:	392e6f4e 	.word	0x392e6f4e
+ 80015a8:	0000000a 	.word	0x0000000a
+ 80015ac:	302e6f4e 	.word	0x302e6f4e
+ 80015b0:	0000000a 	.word	0x0000000a
+ 80015b4:	74697865 	.word	0x74697865
+ 80015b8:	0000000a 	.word	0x0000000a

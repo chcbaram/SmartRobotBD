@@ -1,0 +1,276 @@
+
+Discarded input sections
+
+ .text          0x00000000        0x0 Lib_StartUp_STM32F10X.o
+ .data          0x00000000        0x0 Lib_StartUp_STM32F10X.o
+ .bss           0x00000000        0x0 Lib_StartUp_STM32F10X.o
+ .text          0x00000000        0x0 main.o
+ .data          0x00000000        0x0 main.o
+ .bss           0x00000000        0x0 main.o
+ .text          0x00000000        0x0 Lib_Uart.o
+ .data          0x00000000        0x0 Lib_Uart.o
+ .bss           0x00000000        0x0 Lib_Uart.o
+ .text.StrNCmp  0x00000000       0x5c Lib_Uart.o
+ .text.StrCmp   0x00000000       0x3c Lib_Uart.o
+ .text          0x00000000        0x0 Lib_Menu.o
+ .data          0x00000000        0x0 Lib_Menu.o
+ .bss           0x00000000        0x0 Lib_Menu.o
+ .text          0x00000000        0x0 Lib_Util.o
+ .data          0x00000000        0x0 Lib_Util.o
+ .bss           0x00000000        0x0 Lib_Util.o
+ .text.delay    0x00000000       0x14 Lib_Util.o
+
+Memory Configuration
+
+Name             Origin             Length             Attributes
+RAM              0x20000000         0x00005000         xrw
+EXTSRAM          0x68000000         0x00000000         xrw
+FLASH            0x08000000         0x0001f800         xr
+EEMUL            0x0801f800         0x00000800         xrw
+*default*        0x00000000         0xffffffff
+
+Linker script and memory map
+
+LOAD Lib_StartUp_STM32F10X.o
+LOAD main.o
+LOAD Lib_Uart.o
+LOAD Lib_Menu.o
+LOAD Lib_Util.o
+LOAD c:/program files/codesourcery/sourcery g++ lite/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/lib/thumb2\libc.a
+LOAD c:/program files/codesourcery/sourcery g++ lite/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/lib/thumb2\libm.a
+LOAD c:/program files/codesourcery/sourcery g++ lite/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/lib/thumb2\libc.a
+LOAD c:/program files/codesourcery/sourcery g++ lite/bin/../lib/gcc/arm-none-eabi/4.5.2/thumb2\libgcc.a
+                0x20005000                _estack = 0x20005000
+                0x0801f800                _seemul = 0x801f800
+                0x00000100                _Minimum_Stack_Size = 0x100
+                0x00000001                ASSERT (0x1, Start of memory region flash not aligned for startup vector table)
+
+.text           0x08000000     0x15bc
+                0x08000000                . = ALIGN (0x80)
+                0x00000000                _isr_vectorsflash_offs = (. - 0x8000000)
+ *(.isr_vectorsflash)
+ .isr_vectorsflash
+                0x08000000        0x8 Lib_StartUp_STM32F10X.o
+                0x08000000                g_pfnVectors
+                0x08000008                . = ALIGN (0x4)
+ *(.text)
+ *(.text.*)
+ .text.Reset_Handler
+                0x08000008      0x118 Lib_StartUp_STM32F10X.o
+                0x08000008                Reset_Handler
+ .text.main     0x08000120       0x24 main.o
+                0x08000120                main
+ .text.print_byte
+                0x08000144       0x2c Lib_Uart.o
+                0x08000144                print_byte
+ .text.get_byte
+                0x08000170       0x1c Lib_Uart.o
+                0x08000170                get_byte
+ .text.DecToLong
+                0x0800018c       0x4c Lib_Uart.o
+                0x0800018c                DecToLong
+ .text.printf   0x080001d8      0xb28 Lib_Uart.o
+                0x080001d8                printf
+ .text.main_menu
+                0x08000d00       0xa0 Lib_Menu.o
+                0x08000d00                main_menu
+ .text.Menu_ExeCmd
+                0x08000da0      0x4c8 Lib_Menu.o
+                0x08000da0                Menu_ExeCmd
+ .text.delay_second
+                0x08001268       0x10 Lib_Util.o
+                0x08001268                delay_second
+ *(.stub .gnu.linkonce.t.*)
+ *(.rodata .rodata.* .gnu.linkonce.r.*)
+ .rodata.str1.4
+                0x08001278       0x21 main.o
+                                 0x24 (size before relaxing)
+ *fill*         0x08001299        0x3 00
+ .rodata.str1.4
+                0x0800129c      0x320 Lib_Menu.o
+ *(.glue_7 .glue_7t)
+ .glue_7        0x00000000        0x0 linker stubs
+ .glue_7t       0x00000000        0x0 linker stubs
+                0x080015bc                . = ALIGN (0x4)
+                0x080015bc                _etext = .
+                0x080015bc                _sidata = _etext
+
+.vfp11_veneer   0x080015bc        0x0
+ .vfp11_veneer  0x00000000        0x0 linker stubs
+
+.v4_bx          0x080015bc        0x0
+ .v4_bx         0x00000000        0x0 linker stubs
+
+.data           0x20000000        0x0 load address 0x080015bc
+                0x20000000                . = .
+                0x20000000                . = ALIGN (0x4)
+                0x20000000                _sdata = .
+                0x20000000                . = ALIGN (0x80)
+                0x00000000                _isr_vectorsram_offs = (. - 0x20000000)
+ *(.isr_vectorsram)
+                0x20000000                . = ALIGN (0x4)
+ *(.ramfunc*)
+                0x20000000                . = ALIGN (0x4)
+ *(.data .data.* .gnu.linkonce.d.*)
+                0x20000000                . = ALIGN (0x4)
+                0x20000000                _edata = .
+
+.bss            0x20000000        0x0
+                0x20000000                . = ALIGN (0x4)
+                0x20000000                _sbss = .
+ *(.bss .bss.*)
+ *(COMMON)
+                0x20000000                . = ALIGN (0x4)
+                0x20000000                _ebss = .
+                0x20000000                PROVIDE (end, _ebss)
+                0x20000000                PROVIDE (_end, _ebss)
+
+._usrstack      0x20000000      0x100
+                0x20000000                . = ALIGN (0x4)
+                0x20000000                _susrstack = .
+                0x20000100                . = (. + _Minimum_Stack_Size)
+ *fill*         0x20000000      0x100 00
+                0x20000100                . = ALIGN (0x4)
+                0x20000100                _eusrstack = .
+                0x00000400                __Stack_Size = 0x400
+                0x00000400                PROVIDE (_Stack_Size, __Stack_Size)
+                0x20004c00                __Stack_Init = (_estack - __Stack_Size)
+                0x20004c00                PROVIDE (_Stack_Init, __Stack_Init)
+OUTPUT(main.elf elf32-littlearm)
+
+.debug_abbrev   0x00000000      0x414
+ .debug_abbrev  0x00000000       0xc0 Lib_StartUp_STM32F10X.o
+ .debug_abbrev  0x000000c0       0x45 main.o
+ .debug_abbrev  0x00000105      0x1fd Lib_Uart.o
+ .debug_abbrev  0x00000302       0x83 Lib_Menu.o
+ .debug_abbrev  0x00000385       0x8f Lib_Util.o
+
+.debug_info     0x00000000      0x827
+ .debug_info    0x00000000       0xda Lib_StartUp_STM32F10X.o
+ .debug_info    0x000000da       0x56 main.o
+ .debug_info    0x00000130      0x5c1 Lib_Uart.o
+ .debug_info    0x000006f1       0x92 Lib_Menu.o
+ .debug_info    0x00000783       0xa4 Lib_Util.o
+
+.debug_line     0x00000000      0x658
+ .debug_line    0x00000000       0xc0 Lib_StartUp_STM32F10X.o
+ .debug_line    0x000000c0       0x39 main.o
+ .debug_line    0x000000f9      0x3ba Lib_Uart.o
+ .debug_line    0x000004b3      0x150 Lib_Menu.o
+ .debug_line    0x00000603       0x55 Lib_Util.o
+
+.debug_loc      0x00000000     0x1943
+ .debug_loc     0x00000000       0x93 Lib_StartUp_STM32F10X.o
+ .debug_loc     0x00000093       0x20 main.o
+ .debug_loc     0x000000b3     0x1527 Lib_Uart.o
+ .debug_loc     0x000015da      0x318 Lib_Menu.o
+ .debug_loc     0x000018f2       0x51 Lib_Util.o
+
+.debug_pubnames
+                0x00000000      0x10b
+ .debug_pubnames
+                0x00000000       0x35 Lib_StartUp_STM32F10X.o
+ .debug_pubnames
+                0x00000035       0x1b main.o
+ .debug_pubnames
+                0x00000050       0x5e Lib_Uart.o
+ .debug_pubnames
+                0x000000ae       0x30 Lib_Menu.o
+ .debug_pubnames
+                0x000000de       0x2d Lib_Util.o
+
+.debug_pubtypes
+                0x00000000       0x7b
+ .debug_pubtypes
+                0x00000000       0x1e Lib_StartUp_STM32F10X.o
+ .debug_pubtypes
+                0x0000001e       0x12 main.o
+ .debug_pubtypes
+                0x00000030       0x27 Lib_Uart.o
+ .debug_pubtypes
+                0x00000057       0x12 Lib_Menu.o
+ .debug_pubtypes
+                0x00000069       0x12 Lib_Util.o
+
+.debug_aranges  0x00000000       0xd8
+ .debug_aranges
+                0x00000000       0x20 Lib_StartUp_STM32F10X.o
+ .debug_aranges
+                0x00000020       0x20 main.o
+ .debug_aranges
+                0x00000040       0x48 Lib_Uart.o
+ .debug_aranges
+                0x00000088       0x28 Lib_Menu.o
+ .debug_aranges
+                0x000000b0       0x28 Lib_Util.o
+
+.debug_ranges   0x00000000      0x208
+ .debug_ranges  0x00000000       0x10 Lib_StartUp_STM32F10X.o
+ .debug_ranges  0x00000010       0x10 main.o
+ .debug_ranges  0x00000020      0x1b8 Lib_Uart.o
+ .debug_ranges  0x000001d8       0x18 Lib_Menu.o
+ .debug_ranges  0x000001f0       0x18 Lib_Util.o
+
+.debug_str      0x00000000      0x1d9
+ .debug_str     0x00000000       0x9e Lib_StartUp_STM32F10X.o
+                                 0xab (size before relaxing)
+ .debug_str     0x0000009e        0x7 main.o
+                                 0x33 (size before relaxing)
+ .debug_str     0x000000a5       0xe3 Lib_Uart.o
+                                0x117 (size before relaxing)
+ .debug_str     0x00000188       0x25 Lib_Menu.o
+                                 0x55 (size before relaxing)
+ .debug_str     0x000001ad       0x2c Lib_Util.o
+                                 0x60 (size before relaxing)
+
+.comment        0x00000000       0x2a
+ .comment       0x00000000       0x2a Lib_StartUp_STM32F10X.o
+                                 0x2b (size before relaxing)
+ .comment       0x00000000       0x2b main.o
+ .comment       0x00000000       0x2b Lib_Uart.o
+ .comment       0x00000000       0x2b Lib_Menu.o
+ .comment       0x00000000       0x2b Lib_Util.o
+
+.ARM.attributes
+                0x00000000       0x31
+ .ARM.attributes
+                0x00000000       0x31 Lib_StartUp_STM32F10X.o
+ .ARM.attributes
+                0x00000031       0x31 main.o
+ .ARM.attributes
+                0x00000062       0x31 Lib_Uart.o
+ .ARM.attributes
+                0x00000093       0x31 Lib_Menu.o
+ .ARM.attributes
+                0x000000c4       0x31 Lib_Util.o
+
+.debug_frame    0x00000000      0x1b4
+ .debug_frame   0x00000000       0x34 Lib_StartUp_STM32F10X.o
+ .debug_frame   0x00000034       0x2c main.o
+ .debug_frame   0x00000060       0xc8 Lib_Uart.o
+ .debug_frame   0x00000128       0x58 Lib_Menu.o
+ .debug_frame   0x00000180       0x34 Lib_Util.o
+
+Cross Reference Table
+
+Symbol                                            File
+DecToLong                                         Lib_Uart.o
+Menu_ExeCmd                                       Lib_Menu.o
+                                                  main.o
+Reset_Handler                                     Lib_StartUp_STM32F10X.o
+StrCmp                                            Lib_Uart.o
+StrNCmp                                           Lib_Uart.o
+_estack                                           Lib_StartUp_STM32F10X.o
+delay                                             Lib_Util.o
+delay_second                                      Lib_Util.o
+                                                  Lib_Menu.o
+g_pfnVectors                                      Lib_StartUp_STM32F10X.o
+get_byte                                          Lib_Uart.o
+                                                  Lib_Menu.o
+main                                              main.o
+                                                  Lib_StartUp_STM32F10X.o
+main_menu                                         Lib_Menu.o
+print_byte                                        Lib_Uart.o
+printf                                            Lib_Uart.o
+                                                  Lib_Menu.o
+                                                  main.o

@@ -1,0 +1,1226 @@
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 2
+  11              		.eabi_attribute 18, 4
+  12              		.thumb
+  13              		.file	"Hw_Timer.c"
+  21              	.Ltext0:
+  22              		.cfi_sections	.debug_frame
+  23              		.section	.text.Hw_Timer_SetupISR,"ax",%progbits
+  24              		.align	2
+  25              		.global	Hw_Timer_SetupISR
+  26              		.thumb
+  27              		.thumb_func
+  29              	Hw_Timer_SetupISR:
+  30              	.LFB2:
+  31              		.file 1 "../LIB_HW/Hw_Timer.c"
+   1:../LIB_HW/Hw_Timer.c **** //----------------------------------------------------------------------------
+   2:../LIB_HW/Hw_Timer.c **** //    프로그램명 	: Timer 관련 함수
+   3:../LIB_HW/Hw_Timer.c **** //
+   4:../LIB_HW/Hw_Timer.c **** //    만든이     	: Cho Han Cheol
+   5:../LIB_HW/Hw_Timer.c **** //
+   6:../LIB_HW/Hw_Timer.c **** //    날  짜     	: 
+   7:../LIB_HW/Hw_Timer.c **** //    
+   8:../LIB_HW/Hw_Timer.c **** //    최종 수정  	: 
+   9:../LIB_HW/Hw_Timer.c **** //
+  10:../LIB_HW/Hw_Timer.c **** //    MPU_Type		:
+  11:../LIB_HW/Hw_Timer.c **** //
+  12:../LIB_HW/Hw_Timer.c **** //    파일명     	: Hw_Timer.c
+  13:../LIB_HW/Hw_Timer.c **** //----------------------------------------------------------------------------
+  14:../LIB_HW/Hw_Timer.c **** 
+  15:../LIB_HW/Hw_Timer.c **** 
+  16:../LIB_HW/Hw_Timer.c **** 
+  17:../LIB_HW/Hw_Timer.c **** //----- 헤더파일 열기
+  18:../LIB_HW/Hw_Timer.c **** //
+  19:../LIB_HW/Hw_Timer.c **** #define  HW_TIMER_LOCAL  
+  20:../LIB_HW/Hw_Timer.c **** 
+  21:../LIB_HW/Hw_Timer.c **** #include "Hw_TImer.h"
+  22:../LIB_HW/Hw_Timer.c **** 
+  23:../LIB_HW/Hw_Timer.c **** 
+  24:../LIB_HW/Hw_Timer.c **** 
+  25:../LIB_HW/Hw_Timer.c **** 
+  26:../LIB_HW/Hw_Timer.c **** 
+  27:../LIB_HW/Hw_Timer.c **** 
+  28:../LIB_HW/Hw_Timer.c **** //-- 내부 선언
+  29:../LIB_HW/Hw_Timer.c **** //
+  30:../LIB_HW/Hw_Timer.c **** 
+  31:../LIB_HW/Hw_Timer.c **** 
+  32:../LIB_HW/Hw_Timer.c **** 
+  33:../LIB_HW/Hw_Timer.c **** 
+  34:../LIB_HW/Hw_Timer.c **** 
+  35:../LIB_HW/Hw_Timer.c **** 
+  36:../LIB_HW/Hw_Timer.c **** 
+  37:../LIB_HW/Hw_Timer.c **** //-- 내부 변수
+  38:../LIB_HW/Hw_Timer.c **** //
+  39:../LIB_HW/Hw_Timer.c **** 
+  40:../LIB_HW/Hw_Timer.c **** static volatile u32 Hw_Timer_Counter  = 0;	
+  41:../LIB_HW/Hw_Timer.c **** 
+  42:../LIB_HW/Hw_Timer.c **** static volatile u16 Tmr_Ctn  = 0;	// Delay용 타이머 변수.
+  43:../LIB_HW/Hw_Timer.c **** static volatile u16 Tmr_HandleIndex = 0;
+  44:../LIB_HW/Hw_Timer.c **** 
+  45:../LIB_HW/Hw_Timer.c **** static TMR  Timer_Tbl[ TIMER_MAX ];    // 타이머 배열 선언
+  46:../LIB_HW/Hw_Timer.c **** 
+  47:../LIB_HW/Hw_Timer.c **** 
+  48:../LIB_HW/Hw_Timer.c **** 
+  49:../LIB_HW/Hw_Timer.c **** 
+  50:../LIB_HW/Hw_Timer.c ****            
+  51:../LIB_HW/Hw_Timer.c **** 
+  52:../LIB_HW/Hw_Timer.c **** 
+  53:../LIB_HW/Hw_Timer.c **** //-- 내부 함수
+  54:../LIB_HW/Hw_Timer.c **** //
+  55:../LIB_HW/Hw_Timer.c **** 
+  56:../LIB_HW/Hw_Timer.c **** void Hw_Timer_SetupISR( void );
+  57:../LIB_HW/Hw_Timer.c **** void Hw_Timer_Setup( void );
+  58:../LIB_HW/Hw_Timer.c **** 
+  59:../LIB_HW/Hw_Timer.c **** 
+  60:../LIB_HW/Hw_Timer.c **** 
+  61:../LIB_HW/Hw_Timer.c **** void Hw_Timer_ISR(void)
+  62:../LIB_HW/Hw_Timer.c **** {
+  63:../LIB_HW/Hw_Timer.c **** 
+  64:../LIB_HW/Hw_Timer.c **** 	Hw_Timer_Tick();  
+  65:../LIB_HW/Hw_Timer.c **** 
+  66:../LIB_HW/Hw_Timer.c **** }
+  67:../LIB_HW/Hw_Timer.c **** 
+  68:../LIB_HW/Hw_Timer.c **** 
+  69:../LIB_HW/Hw_Timer.c **** 
+  70:../LIB_HW/Hw_Timer.c **** 
+  71:../LIB_HW/Hw_Timer.c **** 
+  72:../LIB_HW/Hw_Timer.c **** /*---------------------------------------------------------------------------
+  73:../LIB_HW/Hw_Timer.c ****      TITLE   : Hw_Timer_Init
+  74:../LIB_HW/Hw_Timer.c ****      WORK    :
+  75:../LIB_HW/Hw_Timer.c ****      ARG     : void
+  76:../LIB_HW/Hw_Timer.c ****      RET     : void
+  77:../LIB_HW/Hw_Timer.c **** ---------------------------------------------------------------------------*/
+  78:../LIB_HW/Hw_Timer.c **** void Hw_Timer_Init( void )
+  79:../LIB_HW/Hw_Timer.c **** {
+  80:../LIB_HW/Hw_Timer.c **** 	u8 i;
+  81:../LIB_HW/Hw_Timer.c **** 	static u8 Excute = 0;
+  82:../LIB_HW/Hw_Timer.c **** 
+  83:../LIB_HW/Hw_Timer.c **** 	
+  84:../LIB_HW/Hw_Timer.c **** 	if( Excute == 1 ) return;  // 이미 한번 실행했다면 정지.
+  85:../LIB_HW/Hw_Timer.c **** 	
+  86:../LIB_HW/Hw_Timer.c **** 	
+  87:../LIB_HW/Hw_Timer.c **** 	// 구조체 초기화
+  88:../LIB_HW/Hw_Timer.c **** 	for(i=0; i<TIMER_MAX; i++)
+  89:../LIB_HW/Hw_Timer.c **** 	{
+  90:../LIB_HW/Hw_Timer.c **** 		Timer_Tbl[i].Timer_En   = OFF;
+  91:../LIB_HW/Hw_Timer.c **** 		Timer_Tbl[i].Timer_Ctn  = 0;
+  92:../LIB_HW/Hw_Timer.c **** 		Timer_Tbl[i].Timer_Init = 0;
+  93:../LIB_HW/Hw_Timer.c **** 		Timer_Tbl[i].TmrFnct    = NULL;
+  94:../LIB_HW/Hw_Timer.c **** 	}	                   
+  95:../LIB_HW/Hw_Timer.c **** 	
+  96:../LIB_HW/Hw_Timer.c **** 	
+  97:../LIB_HW/Hw_Timer.c **** 	Hw_Timer_SetupISR();
+  98:../LIB_HW/Hw_Timer.c **** 	Hw_Timer_Setup();	
+  99:../LIB_HW/Hw_Timer.c **** 
+ 100:../LIB_HW/Hw_Timer.c **** 	Excute = 1;
+ 101:../LIB_HW/Hw_Timer.c **** 
+ 102:../LIB_HW/Hw_Timer.c **** }
+ 103:../LIB_HW/Hw_Timer.c **** 
+ 104:../LIB_HW/Hw_Timer.c **** 
+ 105:../LIB_HW/Hw_Timer.c **** 
+ 106:../LIB_HW/Hw_Timer.c **** 
+ 107:../LIB_HW/Hw_Timer.c **** 
+ 108:../LIB_HW/Hw_Timer.c **** /*---------------------------------------------------------------------------
+ 109:../LIB_HW/Hw_Timer.c ****      TITLE   : Hw_Timer_SetupISR
+ 110:../LIB_HW/Hw_Timer.c ****      WORK    :
+ 111:../LIB_HW/Hw_Timer.c ****      	 	 	 타이머 H/W 기능을 초기화 한다.
+ 112:../LIB_HW/Hw_Timer.c ****      ARG     : void
+ 113:../LIB_HW/Hw_Timer.c ****      RET     : void
+ 114:../LIB_HW/Hw_Timer.c **** ---------------------------------------------------------------------------*/
+ 115:../LIB_HW/Hw_Timer.c **** void Hw_Timer_SetupISR( void )
+ 116:../LIB_HW/Hw_Timer.c **** {	
+  32              		.loc 1 116 0
+  33              		.cfi_startproc
+  34              		@ args = 0, pretend = 0, frame = 0
+  35              		@ frame_needed = 0, uses_anonymous_args = 0
+  36 0000 08B5     		push	{r3, lr}
+  37              	.LCFI0:
+  38              		.cfi_def_cfa_offset 8
+ 117:../LIB_HW/Hw_Timer.c **** 	Hw_ISR_SetIRQFuncByAddr( 0x003C, (u32)Hw_Timer_ISR, 0 );	
+  39              		.loc 1 117 0
+  40 0002 3C20     		movs	r0, #60
+  41 0004 0249     		ldr	r1, .L2
+  42 0006 0022     		movs	r2, #0
+  43 0008 024B     		ldr	r3, .L2+4
+  44              		.cfi_offset 14, -4
+  45              		.cfi_offset 3, -8
+  46 000a 9847     		blx	r3
+ 118:../LIB_HW/Hw_Timer.c **** }
+  47              		.loc 1 118 0
+  48 000c 08BD     		pop	{r3, pc}
+  49              	.L3:
+  50 000e 00BF     		.align	2
+  51              	.L2:
+  52 0010 00000000 		.word	Hw_Timer_ISR
+  53 0014 00000000 		.word	Hw_ISR_SetIRQFuncByAddr
+  54              		.cfi_endproc
+  55              	.LFE2:
+  57              		.section	.text.Hw_Timer_Setup,"ax",%progbits
+  58              		.align	2
+  59              		.global	Hw_Timer_Setup
+  60              		.thumb
+  61              		.thumb_func
+  63              	Hw_Timer_Setup:
+  64              	.LFB3:
+ 119:../LIB_HW/Hw_Timer.c **** 
+ 120:../LIB_HW/Hw_Timer.c **** 
+ 121:../LIB_HW/Hw_Timer.c **** 
+ 122:../LIB_HW/Hw_Timer.c **** 
+ 123:../LIB_HW/Hw_Timer.c **** /*---------------------------------------------------------------------------
+ 124:../LIB_HW/Hw_Timer.c ****      TITLE   : Hw_Timer_Setup
+ 125:../LIB_HW/Hw_Timer.c ****      WORK    :
+ 126:../LIB_HW/Hw_Timer.c ****      	 	 	 타이머 H/W 기능을 초기화 한다.
+ 127:../LIB_HW/Hw_Timer.c ****      ARG     : void
+ 128:../LIB_HW/Hw_Timer.c ****      RET     : void
+ 129:../LIB_HW/Hw_Timer.c **** ---------------------------------------------------------------------------*/
+ 130:../LIB_HW/Hw_Timer.c **** void Hw_Timer_Setup( void )
+ 131:../LIB_HW/Hw_Timer.c **** {
+  65              		.loc 1 131 0
+  66              		.cfi_startproc
+  67              		@ args = 0, pretend = 0, frame = 0
+  68              		@ frame_needed = 0, uses_anonymous_args = 0
+  69              		@ link register save eliminated.
+ 132:../LIB_HW/Hw_Timer.c **** 
+ 133:../LIB_HW/Hw_Timer.c **** 	REG_STK_LOAD = 72000 - 1;	// 72000000 / 72000 = 1000us = 1ms
+  70              		.loc 1 133 0
+  71 0000 094A     		ldr	r2, .L5
+  72 0002 0A49     		ldr	r1, .L5+4
+ 134:../LIB_HW/Hw_Timer.c **** 	
+ 135:../LIB_HW/Hw_Timer.c **** 	REG_STK_VAL  = 0;	
+ 136:../LIB_HW/Hw_Timer.c **** 	
+ 137:../LIB_HW/Hw_Timer.c **** 	SET_BIT( REG_STK_CTRL, 2 );	// CLKSOURCE = Processor Clock 72Mhz		
+  73              		.loc 1 137 0
+  74 0004 0A4B     		ldr	r3, .L5+8
+ 135:../LIB_HW/Hw_Timer.c **** 	REG_STK_VAL  = 0;	
+  75              		.loc 1 135 0
+  76 0006 0020     		movs	r0, #0
+ 133:../LIB_HW/Hw_Timer.c **** 	REG_STK_LOAD = 72000 - 1;	// 72000000 / 72000 = 1000us = 1ms
+  77              		.loc 1 133 0
+  78 0008 1160     		str	r1, [r2, #0]
+ 135:../LIB_HW/Hw_Timer.c **** 	REG_STK_VAL  = 0;	
+  79              		.loc 1 135 0
+  80 000a 5060     		str	r0, [r2, #4]
+  81              		.loc 1 137 0
+  82 000c 1968     		ldr	r1, [r3, #0]
+  83 000e 41F00400 		orr	r0, r1, #4
+  84 0012 1860     		str	r0, [r3, #0]
+ 138:../LIB_HW/Hw_Timer.c **** 	SET_BIT( REG_STK_CTRL, 1 );	// 인터럽트 활성화		
+  85              		.loc 1 138 0
+  86 0014 1A68     		ldr	r2, [r3, #0]
+  87 0016 42F00201 		orr	r1, r2, #2
+  88 001a 1960     		str	r1, [r3, #0]
+ 139:../LIB_HW/Hw_Timer.c **** 	SET_BIT( REG_STK_CTRL, 0 );	// Counter Enable
+  89              		.loc 1 139 0
+  90 001c 1868     		ldr	r0, [r3, #0]
+  91 001e 40F00102 		orr	r2, r0, #1
+  92 0022 1A60     		str	r2, [r3, #0]
+ 140:../LIB_HW/Hw_Timer.c **** 	
+ 141:../LIB_HW/Hw_Timer.c **** }
+  93              		.loc 1 141 0
+  94 0024 7047     		bx	lr
+  95              	.L6:
+  96 0026 00BF     		.align	2
+  97              	.L5:
+  98 0028 14E000E0 		.word	-536813548
+  99 002c 3F190100 		.word	71999
+ 100 0030 10E000E0 		.word	-536813552
+ 101              		.cfi_endproc
+ 102              	.LFE3:
+ 104              		.section	.text.Hw_Timer_Init,"ax",%progbits
+ 105              		.align	2
+ 106              		.global	Hw_Timer_Init
+ 107              		.thumb
+ 108              		.thumb_func
+ 110              	Hw_Timer_Init:
+ 111              	.LFB1:
+  79:../LIB_HW/Hw_Timer.c **** {
+ 112              		.loc 1 79 0
+ 113              		.cfi_startproc
+ 114              		@ args = 0, pretend = 0, frame = 0
+ 115              		@ frame_needed = 0, uses_anonymous_args = 0
+ 116 0000 10B5     		push	{r4, lr}
+ 117              	.LCFI1:
+ 118              		.cfi_def_cfa_offset 8
+  84:../LIB_HW/Hw_Timer.c **** 	if( Excute == 1 ) return;  // 이미 한번 실행했다면 정지.
+ 119              		.loc 1 84 0
+ 120 0002 1A4C     		ldr	r4, .L10
+ 121              		.cfi_offset 14, -4
+ 122              		.cfi_offset 4, -8
+ 123 0004 2378     		ldrb	r3, [r4, #0]	@ zero_extendqisi2
+ 124 0006 012B     		cmp	r3, #1
+ 125 0008 2ED0     		beq	.L7
+  90:../LIB_HW/Hw_Timer.c **** 		Timer_Tbl[i].Timer_En   = OFF;
+ 126              		.loc 1 90 0
+ 127 000a 194B     		ldr	r3, .L10+4
+ 128 000c 0020     		movs	r0, #0
+ 129 000e 1870     		strb	r0, [r3, #0]
+  91:../LIB_HW/Hw_Timer.c **** 		Timer_Tbl[i].Timer_Ctn  = 0;
+ 130              		.loc 1 91 0
+ 131 0010 5880     		strh	r0, [r3, #2]	@ movhi
+  92:../LIB_HW/Hw_Timer.c **** 		Timer_Tbl[i].Timer_Init = 0;
+ 132              		.loc 1 92 0
+ 133 0012 9880     		strh	r0, [r3, #4]	@ movhi
+  93:../LIB_HW/Hw_Timer.c **** 		Timer_Tbl[i].TmrFnct    = NULL;
+ 134              		.loc 1 93 0
+ 135 0014 9860     		str	r0, [r3, #8]
+ 136              	.LVL0:
+  90:../LIB_HW/Hw_Timer.c **** 		Timer_Tbl[i].Timer_En   = OFF;
+ 137              		.loc 1 90 0
+ 138 0016 1874     		strb	r0, [r3, #16]
+  91:../LIB_HW/Hw_Timer.c **** 		Timer_Tbl[i].Timer_Ctn  = 0;
+ 139              		.loc 1 91 0
+ 140 0018 5882     		strh	r0, [r3, #18]	@ movhi
+  92:../LIB_HW/Hw_Timer.c **** 		Timer_Tbl[i].Timer_Init = 0;
+ 141              		.loc 1 92 0
+ 142 001a 9882     		strh	r0, [r3, #20]	@ movhi
+  93:../LIB_HW/Hw_Timer.c **** 		Timer_Tbl[i].TmrFnct    = NULL;
+ 143              		.loc 1 93 0
+ 144 001c 9861     		str	r0, [r3, #24]
+ 145              	.LVL1:
+  90:../LIB_HW/Hw_Timer.c **** 		Timer_Tbl[i].Timer_En   = OFF;
+ 146              		.loc 1 90 0
+ 147 001e 83F82000 		strb	r0, [r3, #32]
+  91:../LIB_HW/Hw_Timer.c **** 		Timer_Tbl[i].Timer_Ctn  = 0;
+ 148              		.loc 1 91 0
+ 149 0022 5884     		strh	r0, [r3, #34]	@ movhi
+  92:../LIB_HW/Hw_Timer.c **** 		Timer_Tbl[i].Timer_Init = 0;
+ 150              		.loc 1 92 0
+ 151 0024 9884     		strh	r0, [r3, #36]	@ movhi
+  93:../LIB_HW/Hw_Timer.c **** 		Timer_Tbl[i].TmrFnct    = NULL;
+ 152              		.loc 1 93 0
+ 153 0026 9862     		str	r0, [r3, #40]
+ 154              	.LVL2:
+  90:../LIB_HW/Hw_Timer.c **** 		Timer_Tbl[i].Timer_En   = OFF;
+ 155              		.loc 1 90 0
+ 156 0028 83F83000 		strb	r0, [r3, #48]
+  91:../LIB_HW/Hw_Timer.c **** 		Timer_Tbl[i].Timer_Ctn  = 0;
+ 157              		.loc 1 91 0
+ 158 002c 5886     		strh	r0, [r3, #50]	@ movhi
+  92:../LIB_HW/Hw_Timer.c **** 		Timer_Tbl[i].Timer_Init = 0;
+ 159              		.loc 1 92 0
+ 160 002e 9886     		strh	r0, [r3, #52]	@ movhi
+  93:../LIB_HW/Hw_Timer.c **** 		Timer_Tbl[i].TmrFnct    = NULL;
+ 161              		.loc 1 93 0
+ 162 0030 9863     		str	r0, [r3, #56]
+ 163              	.LVL3:
+  90:../LIB_HW/Hw_Timer.c **** 		Timer_Tbl[i].Timer_En   = OFF;
+ 164              		.loc 1 90 0
+ 165 0032 83F84000 		strb	r0, [r3, #64]
+  91:../LIB_HW/Hw_Timer.c **** 		Timer_Tbl[i].Timer_Ctn  = 0;
+ 166              		.loc 1 91 0
+ 167 0036 A3F84200 		strh	r0, [r3, #66]	@ movhi
+  92:../LIB_HW/Hw_Timer.c **** 		Timer_Tbl[i].Timer_Init = 0;
+ 168              		.loc 1 92 0
+ 169 003a A3F84400 		strh	r0, [r3, #68]	@ movhi
+  93:../LIB_HW/Hw_Timer.c **** 		Timer_Tbl[i].TmrFnct    = NULL;
+ 170              		.loc 1 93 0
+ 171 003e 9864     		str	r0, [r3, #72]
+ 172              	.LVL4:
+  90:../LIB_HW/Hw_Timer.c **** 		Timer_Tbl[i].Timer_En   = OFF;
+ 173              		.loc 1 90 0
+ 174 0040 83F85000 		strb	r0, [r3, #80]
+  91:../LIB_HW/Hw_Timer.c **** 		Timer_Tbl[i].Timer_Ctn  = 0;
+ 175              		.loc 1 91 0
+ 176 0044 A3F85200 		strh	r0, [r3, #82]	@ movhi
+  92:../LIB_HW/Hw_Timer.c **** 		Timer_Tbl[i].Timer_Init = 0;
+ 177              		.loc 1 92 0
+ 178 0048 A3F85400 		strh	r0, [r3, #84]	@ movhi
+  93:../LIB_HW/Hw_Timer.c **** 		Timer_Tbl[i].TmrFnct    = NULL;
+ 179              		.loc 1 93 0
+ 180 004c 9865     		str	r0, [r3, #88]
+ 181              	.LVL5:
+  90:../LIB_HW/Hw_Timer.c **** 		Timer_Tbl[i].Timer_En   = OFF;
+ 182              		.loc 1 90 0
+ 183 004e 83F86000 		strb	r0, [r3, #96]
+  91:../LIB_HW/Hw_Timer.c **** 		Timer_Tbl[i].Timer_Ctn  = 0;
+ 184              		.loc 1 91 0
+ 185 0052 A3F86200 		strh	r0, [r3, #98]	@ movhi
+  92:../LIB_HW/Hw_Timer.c **** 		Timer_Tbl[i].Timer_Init = 0;
+ 186              		.loc 1 92 0
+ 187 0056 A3F86400 		strh	r0, [r3, #100]	@ movhi
+  93:../LIB_HW/Hw_Timer.c **** 		Timer_Tbl[i].TmrFnct    = NULL;
+ 188              		.loc 1 93 0
+ 189 005a 9866     		str	r0, [r3, #104]
+ 190              	.LVL6:
+  97:../LIB_HW/Hw_Timer.c **** 	Hw_Timer_SetupISR();
+ 191              		.loc 1 97 0
+ 192 005c 054A     		ldr	r2, .L10+8
+ 193 005e 9047     		blx	r2
+  98:../LIB_HW/Hw_Timer.c **** 	Hw_Timer_Setup();	
+ 194              		.loc 1 98 0
+ 195 0060 0549     		ldr	r1, .L10+12
+ 196 0062 8847     		blx	r1
+ 100:../LIB_HW/Hw_Timer.c **** 	Excute = 1;
+ 197              		.loc 1 100 0
+ 198 0064 0120     		movs	r0, #1
+ 199 0066 2070     		strb	r0, [r4, #0]
+ 200              	.LVL7:
+ 201              	.L7:
+ 202 0068 10BD     		pop	{r4, pc}
+ 203              	.L11:
+ 204 006a 00BF     		.align	2
+ 205              	.L10:
+ 206 006c 00000000 		.word	.LANCHOR0
+ 207 0070 00000000 		.word	.LANCHOR1
+ 208 0074 00000000 		.word	Hw_Timer_SetupISR
+ 209 0078 00000000 		.word	Hw_Timer_Setup
+ 210              		.cfi_endproc
+ 211              	.LFE1:
+ 213              		.section	.text.Hw_Timer_Tick,"ax",%progbits
+ 214              		.align	2
+ 215              		.global	Hw_Timer_Tick
+ 216              		.thumb
+ 217              		.thumb_func
+ 219              	Hw_Timer_Tick:
+ 220              	.LFB4:
+ 142:../LIB_HW/Hw_Timer.c **** 
+ 143:../LIB_HW/Hw_Timer.c **** 
+ 144:../LIB_HW/Hw_Timer.c **** 
+ 145:../LIB_HW/Hw_Timer.c **** 
+ 146:../LIB_HW/Hw_Timer.c **** 
+ 147:../LIB_HW/Hw_Timer.c **** /*---------------------------------------------------------------------------
+ 148:../LIB_HW/Hw_Timer.c ****      TITLE	: Timer_Tick
+ 149:../LIB_HW/Hw_Timer.c ****      WORK	:
+ 150:../LIB_HW/Hw_Timer.c **** 			타이머인터럽트 발생시에 실행되는 함수(1ms 혹은 10ms 단위로 실행)
+ 151:../LIB_HW/Hw_Timer.c ****      ARG	: void
+ 152:../LIB_HW/Hw_Timer.c ****      RET	: void
+ 153:../LIB_HW/Hw_Timer.c **** ---------------------------------------------------------------------------*/
+ 154:../LIB_HW/Hw_Timer.c **** void Hw_Timer_Tick(void)
+ 155:../LIB_HW/Hw_Timer.c **** {
+ 221              		.loc 1 155 0
+ 222              		.cfi_startproc
+ 223              		@ args = 0, pretend = 0, frame = 0
+ 224              		@ frame_needed = 0, uses_anonymous_args = 0
+ 225 0000 10B5     		push	{r4, lr}
+ 226              	.LCFI2:
+ 227              		.cfi_def_cfa_offset 8
+ 156:../LIB_HW/Hw_Timer.c **** 	u8 i;
+ 157:../LIB_HW/Hw_Timer.c **** 
+ 158:../LIB_HW/Hw_Timer.c **** 	
+ 159:../LIB_HW/Hw_Timer.c **** 	Hw_Timer_Counter++;
+ 228              		.loc 1 159 0
+ 229 0002 6F4C     		ldr	r4, .L41
+ 230              		.cfi_offset 14, -4
+ 231              		.cfi_offset 4, -8
+ 160:../LIB_HW/Hw_Timer.c **** 
+ 161:../LIB_HW/Hw_Timer.c **** 
+ 162:../LIB_HW/Hw_Timer.c **** 	if( Tmr_Ctn ) Tmr_Ctn--;
+ 232              		.loc 1 162 0
+ 233 0004 6F4A     		ldr	r2, .L41+4
+ 159:../LIB_HW/Hw_Timer.c **** 	Hw_Timer_Counter++;
+ 234              		.loc 1 159 0
+ 235 0006 2368     		ldr	r3, [r4, #0]
+ 236 0008 591C     		adds	r1, r3, #1
+ 237 000a 2160     		str	r1, [r4, #0]
+ 238              		.loc 1 162 0
+ 239 000c 1088     		ldrh	r0, [r2, #0]
+ 240 000e 83B2     		uxth	r3, r0
+ 241 0010 13B1     		cbz	r3, .L13
+ 242              		.loc 1 162 0 is_stmt 0 discriminator 1
+ 243 0012 1188     		ldrh	r1, [r2, #0]
+ 244 0014 481E     		subs	r0, r1, #1
+ 245 0016 1080     		strh	r0, [r2, #0]	@ movhi
+ 246              	.L13:
+ 247              	.LVL8:
+ 163:../LIB_HW/Hw_Timer.c **** 	
+ 164:../LIB_HW/Hw_Timer.c **** 	
+ 165:../LIB_HW/Hw_Timer.c **** 			   
+ 166:../LIB_HW/Hw_Timer.c **** 	for(i=0; i<TIMER_MAX; i++)								// 타이머 갯수만큼
+ 167:../LIB_HW/Hw_Timer.c **** 	{
+ 168:../LIB_HW/Hw_Timer.c **** 		if( Timer_Tbl[i].Timer_En == ON)   					// 타이머가 활성화 됬니?
+ 248              		.loc 1 168 0 is_stmt 1 discriminator 1
+ 249 0018 6B4C     		ldr	r4, .L41+8
+ 250 001a 2278     		ldrb	r2, [r4, #0]	@ zero_extendqisi2
+ 251 001c 012A     		cmp	r2, #1
+ 252 001e 1ED0     		beq	.L34
+ 253              	.L14:
+ 254              	.LVL9:
+ 255              		.loc 1 168 0 is_stmt 0
+ 256 0020 237C     		ldrb	r3, [r4, #16]	@ zero_extendqisi2
+ 257 0022 694A     		ldr	r2, .L41+8
+ 258 0024 012B     		cmp	r3, #1
+ 259 0026 30D0     		beq	.L35
+ 260              	.L17:
+ 261              	.LVL10:
+ 262 0028 94F82030 		ldrb	r3, [r4, #32]	@ zero_extendqisi2
+ 263 002c 664A     		ldr	r2, .L41+8
+ 264 002e 012B     		cmp	r3, #1
+ 265 0030 41D0     		beq	.L36
+ 266              	.L20:
+ 267              	.LVL11:
+ 268 0032 94F83030 		ldrb	r3, [r4, #48]	@ zero_extendqisi2
+ 269 0036 644A     		ldr	r2, .L41+8
+ 270 0038 012B     		cmp	r3, #1
+ 271 003a 52D0     		beq	.L37
+ 272              	.L23:
+ 273              	.LVL12:
+ 274 003c 94F84030 		ldrb	r3, [r4, #64]	@ zero_extendqisi2
+ 275 0040 614A     		ldr	r2, .L41+8
+ 276 0042 012B     		cmp	r3, #1
+ 277 0044 63D0     		beq	.L38
+ 278              	.L26:
+ 279              	.LVL13:
+ 280 0046 94F85030 		ldrb	r3, [r4, #80]	@ zero_extendqisi2
+ 281 004a 5F4A     		ldr	r2, .L41+8
+ 282 004c 012B     		cmp	r3, #1
+ 283 004e 76D0     		beq	.L39
+ 284              	.L29:
+ 285              	.LVL14:
+ 286 0050 94F86030 		ldrb	r3, [r4, #96]	@ zero_extendqisi2
+ 287 0054 5C4A     		ldr	r2, .L41+8
+ 288 0056 012B     		cmp	r3, #1
+ 289 0058 00F08A80 		beq	.L40
+ 290              	.L12:
+ 291 005c 10BD     		pop	{r4, pc}
+ 292              	.LVL15:
+ 293              	.L34:
+ 169:../LIB_HW/Hw_Timer.c **** 		{
+ 170:../LIB_HW/Hw_Timer.c **** 			Timer_Tbl[i].Timer_Ctn--;  						// 타이머값 감소
+ 294              		.loc 1 170 0 is_stmt 1
+ 295 005e 6088     		ldrh	r0, [r4, #2]
+ 296 0060 431E     		subs	r3, r0, #1
+ 297 0062 9BB2     		uxth	r3, r3
+ 298 0064 6380     		strh	r3, [r4, #2]	@ movhi
+ 171:../LIB_HW/Hw_Timer.c **** 
+ 172:../LIB_HW/Hw_Timer.c **** 			if(Timer_Tbl[i].Timer_Ctn == 0) 				// 타이머 오버플로어
+ 299              		.loc 1 172 0
+ 300 0066 002B     		cmp	r3, #0
+ 301 0068 DAD1     		bne	.L14
+ 173:../LIB_HW/Hw_Timer.c **** 			{
+ 174:../LIB_HW/Hw_Timer.c **** 				if(Timer_Tbl[i].Timer_Mode == ONE_TIME)  	// 한번만 실행하는거면
+ 302              		.loc 1 174 0
+ 303 006a 94F801C0 		ldrb	ip, [r4, #1]	@ zero_extendqisi2
+ 304 006e BCF1010F 		cmp	ip, #1
+ 305 0072 00F09680 		beq	.L15
+ 306              	.L16:
+ 175:../LIB_HW/Hw_Timer.c **** 
+ 176:../LIB_HW/Hw_Timer.c **** 				Timer_Tbl[i].Timer_En = OFF;     			// 타이머 OFF 한다.
+ 177:../LIB_HW/Hw_Timer.c **** 
+ 178:../LIB_HW/Hw_Timer.c **** 				Timer_Tbl[i].Timer_Ctn = Timer_Tbl[i].Timer_Init; // 타이머 초기화
+ 307              		.loc 1 178 0
+ 308 0076 B4F804E0 		ldrh	lr, [r4, #4]
+ 179:../LIB_HW/Hw_Timer.c **** 
+ 180:../LIB_HW/Hw_Timer.c **** 				(*Timer_Tbl[i].TmrFnct)();  				// 전달변수 없이 함수 실행
+ 309              		.loc 1 180 0
+ 310 007a A168     		ldr	r1, [r4, #8]
+ 178:../LIB_HW/Hw_Timer.c **** 				Timer_Tbl[i].Timer_Ctn = Timer_Tbl[i].Timer_Init; // 타이머 초기화
+ 311              		.loc 1 178 0
+ 312 007c A4F802E0 		strh	lr, [r4, #2]	@ movhi
+ 313              		.loc 1 180 0
+ 314 0080 8847     		blx	r1
+ 315              	.LVL16:
+ 168:../LIB_HW/Hw_Timer.c **** 		if( Timer_Tbl[i].Timer_En == ON)   					// 타이머가 활성화 됬니?
+ 316              		.loc 1 168 0
+ 317 0082 237C     		ldrb	r3, [r4, #16]	@ zero_extendqisi2
+ 318 0084 504A     		ldr	r2, .L41+8
+ 319 0086 012B     		cmp	r3, #1
+ 320 0088 CED1     		bne	.L17
+ 321              	.L35:
+ 170:../LIB_HW/Hw_Timer.c **** 			Timer_Tbl[i].Timer_Ctn--;  						// 타이머값 감소
+ 322              		.loc 1 170 0
+ 323 008a 518A     		ldrh	r1, [r2, #18]
+ 324 008c 481E     		subs	r0, r1, #1
+ 325 008e 83B2     		uxth	r3, r0
+ 326 0090 5382     		strh	r3, [r2, #18]	@ movhi
+ 172:../LIB_HW/Hw_Timer.c **** 			if(Timer_Tbl[i].Timer_Ctn == 0) 				// 타이머 오버플로어
+ 327              		.loc 1 172 0
+ 328 0092 002B     		cmp	r3, #0
+ 329 0094 C8D1     		bne	.L17
+ 174:../LIB_HW/Hw_Timer.c **** 				if(Timer_Tbl[i].Timer_Mode == ONE_TIME)  	// 한번만 실행하는거면
+ 330              		.loc 1 174 0
+ 331 0096 92F811C0 		ldrb	ip, [r2, #17]	@ zero_extendqisi2
+ 332 009a BCF1010F 		cmp	ip, #1
+ 333 009e 7ED0     		beq	.L18
+ 334              	.L19:
+ 178:../LIB_HW/Hw_Timer.c **** 				Timer_Tbl[i].Timer_Ctn = Timer_Tbl[i].Timer_Init; // 타이머 초기화
+ 335              		.loc 1 178 0
+ 336 00a0 B4F814E0 		ldrh	lr, [r4, #20]
+ 337              		.loc 1 180 0
+ 338 00a4 A269     		ldr	r2, [r4, #24]
+ 178:../LIB_HW/Hw_Timer.c **** 				Timer_Tbl[i].Timer_Ctn = Timer_Tbl[i].Timer_Init; // 타이머 초기화
+ 339              		.loc 1 178 0
+ 340 00a6 A4F812E0 		strh	lr, [r4, #18]	@ movhi
+ 341              		.loc 1 180 0
+ 342 00aa 9047     		blx	r2
+ 343              	.LVL17:
+ 168:../LIB_HW/Hw_Timer.c **** 		if( Timer_Tbl[i].Timer_En == ON)   					// 타이머가 활성화 됬니?
+ 344              		.loc 1 168 0
+ 345 00ac 94F82030 		ldrb	r3, [r4, #32]	@ zero_extendqisi2
+ 346 00b0 454A     		ldr	r2, .L41+8
+ 347 00b2 012B     		cmp	r3, #1
+ 348 00b4 BDD1     		bne	.L20
+ 349              	.L36:
+ 170:../LIB_HW/Hw_Timer.c **** 			Timer_Tbl[i].Timer_Ctn--;  						// 타이머값 감소
+ 350              		.loc 1 170 0
+ 351 00b6 518C     		ldrh	r1, [r2, #34]
+ 352 00b8 481E     		subs	r0, r1, #1
+ 353 00ba 83B2     		uxth	r3, r0
+ 354 00bc 5384     		strh	r3, [r2, #34]	@ movhi
+ 172:../LIB_HW/Hw_Timer.c **** 			if(Timer_Tbl[i].Timer_Ctn == 0) 				// 타이머 오버플로어
+ 355              		.loc 1 172 0
+ 356 00be 002B     		cmp	r3, #0
+ 357 00c0 B7D1     		bne	.L20
+ 174:../LIB_HW/Hw_Timer.c **** 				if(Timer_Tbl[i].Timer_Mode == ONE_TIME)  	// 한번만 실행하는거면
+ 358              		.loc 1 174 0
+ 359 00c2 92F821C0 		ldrb	ip, [r2, #33]	@ zero_extendqisi2
+ 360 00c6 BCF1010F 		cmp	ip, #1
+ 361 00ca 75D0     		beq	.L21
+ 362              	.L22:
+ 178:../LIB_HW/Hw_Timer.c **** 				Timer_Tbl[i].Timer_Ctn = Timer_Tbl[i].Timer_Init; // 타이머 초기화
+ 363              		.loc 1 178 0
+ 364 00cc B4F824E0 		ldrh	lr, [r4, #36]
+ 365              		.loc 1 180 0
+ 366 00d0 A26A     		ldr	r2, [r4, #40]
+ 178:../LIB_HW/Hw_Timer.c **** 				Timer_Tbl[i].Timer_Ctn = Timer_Tbl[i].Timer_Init; // 타이머 초기화
+ 367              		.loc 1 178 0
+ 368 00d2 A4F822E0 		strh	lr, [r4, #34]	@ movhi
+ 369              		.loc 1 180 0
+ 370 00d6 9047     		blx	r2
+ 371              	.LVL18:
+ 168:../LIB_HW/Hw_Timer.c **** 		if( Timer_Tbl[i].Timer_En == ON)   					// 타이머가 활성화 됬니?
+ 372              		.loc 1 168 0
+ 373 00d8 94F83030 		ldrb	r3, [r4, #48]	@ zero_extendqisi2
+ 374 00dc 3A4A     		ldr	r2, .L41+8
+ 375 00de 012B     		cmp	r3, #1
+ 376 00e0 ACD1     		bne	.L23
+ 377              	.L37:
+ 170:../LIB_HW/Hw_Timer.c **** 			Timer_Tbl[i].Timer_Ctn--;  						// 타이머값 감소
+ 378              		.loc 1 170 0
+ 379 00e2 518E     		ldrh	r1, [r2, #50]
+ 380 00e4 481E     		subs	r0, r1, #1
+ 381 00e6 83B2     		uxth	r3, r0
+ 382 00e8 5386     		strh	r3, [r2, #50]	@ movhi
+ 172:../LIB_HW/Hw_Timer.c **** 			if(Timer_Tbl[i].Timer_Ctn == 0) 				// 타이머 오버플로어
+ 383              		.loc 1 172 0
+ 384 00ea 002B     		cmp	r3, #0
+ 385 00ec A6D1     		bne	.L23
+ 174:../LIB_HW/Hw_Timer.c **** 				if(Timer_Tbl[i].Timer_Mode == ONE_TIME)  	// 한번만 실행하는거면
+ 386              		.loc 1 174 0
+ 387 00ee 92F831C0 		ldrb	ip, [r2, #49]	@ zero_extendqisi2
+ 388 00f2 BCF1010F 		cmp	ip, #1
+ 389 00f6 5CD0     		beq	.L24
+ 390              	.L25:
+ 178:../LIB_HW/Hw_Timer.c **** 				Timer_Tbl[i].Timer_Ctn = Timer_Tbl[i].Timer_Init; // 타이머 초기화
+ 391              		.loc 1 178 0
+ 392 00f8 B4F834E0 		ldrh	lr, [r4, #52]
+ 393              		.loc 1 180 0
+ 394 00fc A26B     		ldr	r2, [r4, #56]
+ 178:../LIB_HW/Hw_Timer.c **** 				Timer_Tbl[i].Timer_Ctn = Timer_Tbl[i].Timer_Init; // 타이머 초기화
+ 395              		.loc 1 178 0
+ 396 00fe A4F832E0 		strh	lr, [r4, #50]	@ movhi
+ 397              		.loc 1 180 0
+ 398 0102 9047     		blx	r2
+ 399              	.LVL19:
+ 168:../LIB_HW/Hw_Timer.c **** 		if( Timer_Tbl[i].Timer_En == ON)   					// 타이머가 활성화 됬니?
+ 400              		.loc 1 168 0
+ 401 0104 94F84030 		ldrb	r3, [r4, #64]	@ zero_extendqisi2
+ 402 0108 2F4A     		ldr	r2, .L41+8
+ 403 010a 012B     		cmp	r3, #1
+ 404 010c 9BD1     		bne	.L26
+ 405              	.L38:
+ 170:../LIB_HW/Hw_Timer.c **** 			Timer_Tbl[i].Timer_Ctn--;  						// 타이머값 감소
+ 406              		.loc 1 170 0
+ 407 010e B2F84210 		ldrh	r1, [r2, #66]
+ 408 0112 481E     		subs	r0, r1, #1
+ 409 0114 83B2     		uxth	r3, r0
+ 410 0116 A2F84230 		strh	r3, [r2, #66]	@ movhi
+ 172:../LIB_HW/Hw_Timer.c **** 			if(Timer_Tbl[i].Timer_Ctn == 0) 				// 타이머 오버플로어
+ 411              		.loc 1 172 0
+ 412 011a 002B     		cmp	r3, #0
+ 413 011c 93D1     		bne	.L26
+ 174:../LIB_HW/Hw_Timer.c **** 				if(Timer_Tbl[i].Timer_Mode == ONE_TIME)  	// 한번만 실행하는거면
+ 414              		.loc 1 174 0
+ 415 011e 92F841C0 		ldrb	ip, [r2, #65]	@ zero_extendqisi2
+ 416 0122 BCF1010F 		cmp	ip, #1
+ 417 0126 41D0     		beq	.L27
+ 418              	.L28:
+ 178:../LIB_HW/Hw_Timer.c **** 				Timer_Tbl[i].Timer_Ctn = Timer_Tbl[i].Timer_Init; // 타이머 초기화
+ 419              		.loc 1 178 0
+ 420 0128 B4F844E0 		ldrh	lr, [r4, #68]
+ 421              		.loc 1 180 0
+ 422 012c A26C     		ldr	r2, [r4, #72]
+ 178:../LIB_HW/Hw_Timer.c **** 				Timer_Tbl[i].Timer_Ctn = Timer_Tbl[i].Timer_Init; // 타이머 초기화
+ 423              		.loc 1 178 0
+ 424 012e A4F842E0 		strh	lr, [r4, #66]	@ movhi
+ 425              		.loc 1 180 0
+ 426 0132 9047     		blx	r2
+ 427              	.LVL20:
+ 168:../LIB_HW/Hw_Timer.c **** 		if( Timer_Tbl[i].Timer_En == ON)   					// 타이머가 활성화 됬니?
+ 428              		.loc 1 168 0
+ 429 0134 94F85030 		ldrb	r3, [r4, #80]	@ zero_extendqisi2
+ 430 0138 234A     		ldr	r2, .L41+8
+ 431 013a 012B     		cmp	r3, #1
+ 432 013c 88D1     		bne	.L29
+ 433              	.L39:
+ 170:../LIB_HW/Hw_Timer.c **** 			Timer_Tbl[i].Timer_Ctn--;  						// 타이머값 감소
+ 434              		.loc 1 170 0
+ 435 013e B2F85210 		ldrh	r1, [r2, #82]
+ 436 0142 481E     		subs	r0, r1, #1
+ 437 0144 83B2     		uxth	r3, r0
+ 438 0146 A2F85230 		strh	r3, [r2, #82]	@ movhi
+ 172:../LIB_HW/Hw_Timer.c **** 			if(Timer_Tbl[i].Timer_Ctn == 0) 				// 타이머 오버플로어
+ 439              		.loc 1 172 0
+ 440 014a 002B     		cmp	r3, #0
+ 441 014c 80D1     		bne	.L29
+ 174:../LIB_HW/Hw_Timer.c **** 				if(Timer_Tbl[i].Timer_Mode == ONE_TIME)  	// 한번만 실행하는거면
+ 442              		.loc 1 174 0
+ 443 014e 92F851C0 		ldrb	ip, [r2, #81]	@ zero_extendqisi2
+ 444 0152 BCF1010F 		cmp	ip, #1
+ 445 0156 26D0     		beq	.L30
+ 446              	.L31:
+ 178:../LIB_HW/Hw_Timer.c **** 				Timer_Tbl[i].Timer_Ctn = Timer_Tbl[i].Timer_Init; // 타이머 초기화
+ 447              		.loc 1 178 0
+ 448 0158 B4F854E0 		ldrh	lr, [r4, #84]
+ 449              		.loc 1 180 0
+ 450 015c A26D     		ldr	r2, [r4, #88]
+ 178:../LIB_HW/Hw_Timer.c **** 				Timer_Tbl[i].Timer_Ctn = Timer_Tbl[i].Timer_Init; // 타이머 초기화
+ 451              		.loc 1 178 0
+ 452 015e A4F852E0 		strh	lr, [r4, #82]	@ movhi
+ 453              		.loc 1 180 0
+ 454 0162 9047     		blx	r2
+ 455              	.LVL21:
+ 168:../LIB_HW/Hw_Timer.c **** 		if( Timer_Tbl[i].Timer_En == ON)   					// 타이머가 활성화 됬니?
+ 456              		.loc 1 168 0
+ 457 0164 94F86030 		ldrb	r3, [r4, #96]	@ zero_extendqisi2
+ 458 0168 174A     		ldr	r2, .L41+8
+ 459 016a 012B     		cmp	r3, #1
+ 460 016c 7FF476AF 		bne	.L12
+ 461              	.L40:
+ 170:../LIB_HW/Hw_Timer.c **** 			Timer_Tbl[i].Timer_Ctn--;  						// 타이머값 감소
+ 462              		.loc 1 170 0
+ 463 0170 B2F86210 		ldrh	r1, [r2, #98]
+ 464 0174 481E     		subs	r0, r1, #1
+ 465 0176 83B2     		uxth	r3, r0
+ 466 0178 A2F86230 		strh	r3, [r2, #98]	@ movhi
+ 172:../LIB_HW/Hw_Timer.c **** 			if(Timer_Tbl[i].Timer_Ctn == 0) 				// 타이머 오버플로어
+ 467              		.loc 1 172 0
+ 468 017c 002B     		cmp	r3, #0
+ 469 017e 7FF46DAF 		bne	.L12
+ 174:../LIB_HW/Hw_Timer.c **** 				if(Timer_Tbl[i].Timer_Mode == ONE_TIME)  	// 한번만 실행하는거면
+ 470              		.loc 1 174 0
+ 471 0182 92F861E0 		ldrb	lr, [r2, #97]	@ zero_extendqisi2
+ 178:../LIB_HW/Hw_Timer.c **** 				Timer_Tbl[i].Timer_Ctn = Timer_Tbl[i].Timer_Init; // 타이머 초기화
+ 472              		.loc 1 178 0
+ 473 0186 B4F864C0 		ldrh	ip, [r4, #100]
+ 174:../LIB_HW/Hw_Timer.c **** 				if(Timer_Tbl[i].Timer_Mode == ONE_TIME)  	// 한번만 실행하는거면
+ 474              		.loc 1 174 0
+ 475 018a BEF1010F 		cmp	lr, #1
+ 176:../LIB_HW/Hw_Timer.c **** 				Timer_Tbl[i].Timer_En = OFF;     			// 타이머 OFF 한다.
+ 476              		.loc 1 176 0
+ 477 018e 08BF     		it	eq
+ 478 0190 82F86030 		strbeq	r3, [r2, #96]
+ 178:../LIB_HW/Hw_Timer.c **** 				Timer_Tbl[i].Timer_Ctn = Timer_Tbl[i].Timer_Init; // 타이머 초기화
+ 479              		.loc 1 178 0
+ 480 0194 A4F862C0 		strh	ip, [r4, #98]	@ movhi
+ 481              		.loc 1 180 0
+ 482 0198 A26E     		ldr	r2, [r4, #104]
+ 483 019a 9047     		blx	r2
+ 484              	.LVL22:
+ 485 019c 10BD     		pop	{r4, pc}
+ 486              	.LVL23:
+ 487              	.L18:
+ 176:../LIB_HW/Hw_Timer.c **** 				Timer_Tbl[i].Timer_En = OFF;     			// 타이머 OFF 한다.
+ 488              		.loc 1 176 0
+ 489 019e 1374     		strb	r3, [r2, #16]
+ 490 01a0 7EE7     		b	.L19
+ 491              	.LVL24:
+ 492              	.L15:
+ 493 01a2 2370     		strb	r3, [r4, #0]
+ 494 01a4 67E7     		b	.L16
+ 495              	.LVL25:
+ 496              	.L30:
+ 497 01a6 82F85030 		strb	r3, [r2, #80]
+ 498 01aa D5E7     		b	.L31
+ 499              	.LVL26:
+ 500              	.L27:
+ 501 01ac 82F84030 		strb	r3, [r2, #64]
+ 502 01b0 BAE7     		b	.L28
+ 503              	.LVL27:
+ 504              	.L24:
+ 505 01b2 82F83030 		strb	r3, [r2, #48]
+ 506 01b6 9FE7     		b	.L25
+ 507              	.LVL28:
+ 508              	.L21:
+ 509 01b8 82F82030 		strb	r3, [r2, #32]
+ 510 01bc 86E7     		b	.L22
+ 511              	.L42:
+ 512 01be 00BF     		.align	2
+ 513              	.L41:
+ 514 01c0 00000000 		.word	.LANCHOR2
+ 515 01c4 00000000 		.word	.LANCHOR3
+ 516 01c8 00000000 		.word	.LANCHOR1
+ 517              		.cfi_endproc
+ 518              	.LFE4:
+ 520              		.section	.text.Hw_Timer_ISR,"ax",%progbits
+ 521              		.align	2
+ 522              		.global	Hw_Timer_ISR
+ 523              		.thumb
+ 524              		.thumb_func
+ 526              	Hw_Timer_ISR:
+ 527              	.LFB0:
+  62:../LIB_HW/Hw_Timer.c **** {
+ 528              		.loc 1 62 0
+ 529              		.cfi_startproc
+ 530              		@ args = 0, pretend = 0, frame = 0
+ 531              		@ frame_needed = 0, uses_anonymous_args = 0
+ 532 0000 08B5     		push	{r3, lr}
+ 533              	.LCFI3:
+ 534              		.cfi_def_cfa_offset 8
+  64:../LIB_HW/Hw_Timer.c **** 	Hw_Timer_Tick();  
+ 535              		.loc 1 64 0
+ 536 0002 014B     		ldr	r3, .L44
+ 537              		.cfi_offset 14, -4
+ 538              		.cfi_offset 3, -8
+ 539 0004 9847     		blx	r3
+  66:../LIB_HW/Hw_Timer.c **** }
+ 540              		.loc 1 66 0
+ 541 0006 08BD     		pop	{r3, pc}
+ 542              	.L45:
+ 543              		.align	2
+ 544              	.L44:
+ 545 0008 00000000 		.word	Hw_Timer_Tick
+ 546              		.cfi_endproc
+ 547              	.LFE0:
+ 549              		.section	.text.Hw_Timer_Set,"ax",%progbits
+ 550              		.align	2
+ 551              		.global	Hw_Timer_Set
+ 552              		.thumb
+ 553              		.thumb_func
+ 555              	Hw_Timer_Set:
+ 556              	.LFB5:
+ 181:../LIB_HW/Hw_Timer.c **** 			}
+ 182:../LIB_HW/Hw_Timer.c **** 		}
+ 183:../LIB_HW/Hw_Timer.c **** 	}
+ 184:../LIB_HW/Hw_Timer.c **** 	
+ 185:../LIB_HW/Hw_Timer.c **** }
+ 186:../LIB_HW/Hw_Timer.c **** 
+ 187:../LIB_HW/Hw_Timer.c **** 
+ 188:../LIB_HW/Hw_Timer.c **** 
+ 189:../LIB_HW/Hw_Timer.c **** 
+ 190:../LIB_HW/Hw_Timer.c **** 
+ 191:../LIB_HW/Hw_Timer.c **** /*---------------------------------------------------------------------------
+ 192:../LIB_HW/Hw_Timer.c ****      TITLE	: Timer_Set
+ 193:../LIB_HW/Hw_Timer.c ****      WORK
+ 194:../LIB_HW/Hw_Timer.c **** 			소프트 타이머에서 이벤트 발생시 실행할 함수 연결
+ 195:../LIB_HW/Hw_Timer.c ****      ARG
+ 196:../LIB_HW/Hw_Timer.c ****      	 	U8 TmrNum 	: 타이머 번호
+ 197:../LIB_HW/Hw_Timer.c **** 			U16 TmrData : 타이머 시간값( ms 단위 )
+ 198:../LIB_HW/Hw_Timer.c **** 			U8 TmrMode 	: ONE_TIME : 타이머 시작후 한번만 실행
+ 199:../LIB_HW/Hw_Timer.c **** 			LOOP_TIME 	: 타이머가 시작후 주기적으로 무한 실행.
+ 200:../LIB_HW/Hw_Timer.c **** 			void (*Fnct)(void),void *arg : 실행할 타이머 함수.
+ 201:../LIB_HW/Hw_Timer.c ****      RET
+ 202:../LIB_HW/Hw_Timer.c ****      	 	void
+ 203:../LIB_HW/Hw_Timer.c **** ---------------------------------------------------------------------------*/
+ 204:../LIB_HW/Hw_Timer.c **** void Hw_Timer_Set(u8 TmrNum, u16 TmrData, u8 TmrMode, void (*Fnct)(void),void *arg)
+ 205:../LIB_HW/Hw_Timer.c **** {
+ 557              		.loc 1 205 0
+ 558              		.cfi_startproc
+ 559              		@ args = 4, pretend = 0, frame = 0
+ 560              		@ frame_needed = 0, uses_anonymous_args = 0
+ 561              		@ link register save eliminated.
+ 562              	.LVL29:
+ 563 0000 10B4     		push	{r4}
+ 564              	.LCFI4:
+ 565              		.cfi_def_cfa_offset 4
+ 206:../LIB_HW/Hw_Timer.c **** 	Timer_Tbl[TmrNum].Timer_Mode = TmrMode;    // 모트설정
+ 566              		.loc 1 206 0
+ 567 0002 054C     		ldr	r4, .L47
+ 568              		.cfi_offset 4, -4
+ 569 0004 04EB0010 		add	r0, r4, r0, lsl #4
+ 570              	.LVL30:
+ 571 0008 4270     		strb	r2, [r0, #1]
+ 207:../LIB_HW/Hw_Timer.c **** 	Timer_Tbl[TmrNum].TmrFnct    = Fnct;       // 실행할 함수
+ 572              		.loc 1 207 0
+ 573 000a 8360     		str	r3, [r0, #8]
+ 208:../LIB_HW/Hw_Timer.c **** 	Timer_Tbl[TmrNum].TmrFnctArg = arg;        // 매개변수
+ 574              		.loc 1 208 0
+ 575 000c 019B     		ldr	r3, [sp, #4]
+ 576              	.LVL31:
+ 209:../LIB_HW/Hw_Timer.c **** 	Timer_Tbl[TmrNum].Timer_Ctn  = TmrData;
+ 577              		.loc 1 209 0
+ 578 000e 4180     		strh	r1, [r0, #2]	@ movhi
+ 208:../LIB_HW/Hw_Timer.c **** 	Timer_Tbl[TmrNum].TmrFnctArg = arg;        // 매개변수
+ 579              		.loc 1 208 0
+ 580 0010 C360     		str	r3, [r0, #12]
+ 210:../LIB_HW/Hw_Timer.c **** 	Timer_Tbl[TmrNum].Timer_Init = TmrData;
+ 581              		.loc 1 210 0
+ 582 0012 8180     		strh	r1, [r0, #4]	@ movhi
+ 211:../LIB_HW/Hw_Timer.c **** }
+ 583              		.loc 1 211 0
+ 584 0014 10BC     		pop	{r4}
+ 585 0016 7047     		bx	lr
+ 586              	.L48:
+ 587              		.align	2
+ 588              	.L47:
+ 589 0018 00000000 		.word	.LANCHOR1
+ 590              		.cfi_endproc
+ 591              	.LFE5:
+ 593              		.section	.text.Hw_Timer_Start,"ax",%progbits
+ 594              		.align	2
+ 595              		.global	Hw_Timer_Start
+ 596              		.thumb
+ 597              		.thumb_func
+ 599              	Hw_Timer_Start:
+ 600              	.LFB6:
+ 212:../LIB_HW/Hw_Timer.c **** 
+ 213:../LIB_HW/Hw_Timer.c **** 
+ 214:../LIB_HW/Hw_Timer.c **** 
+ 215:../LIB_HW/Hw_Timer.c **** 
+ 216:../LIB_HW/Hw_Timer.c **** 
+ 217:../LIB_HW/Hw_Timer.c **** /*---------------------------------------------------------------------------
+ 218:../LIB_HW/Hw_Timer.c ****      TITLE	: Timer_Start
+ 219:../LIB_HW/Hw_Timer.c ****      WORK
+ 220:../LIB_HW/Hw_Timer.c ****      ARG
+ 221:../LIB_HW/Hw_Timer.c ****      RET
+ 222:../LIB_HW/Hw_Timer.c **** ---------------------------------------------------------------------------*/
+ 223:../LIB_HW/Hw_Timer.c **** void Hw_Timer_Start(u8 TmrNum)
+ 224:../LIB_HW/Hw_Timer.c **** {
+ 601              		.loc 1 224 0
+ 602              		.cfi_startproc
+ 603              		@ args = 0, pretend = 0, frame = 0
+ 604              		@ frame_needed = 0, uses_anonymous_args = 0
+ 605              		@ link register save eliminated.
+ 606              	.LVL32:
+ 225:../LIB_HW/Hw_Timer.c **** 	if(TmrNum < TIMER_MAX)
+ 607              		.loc 1 225 0
+ 608 0000 0628     		cmp	r0, #6
+ 609 0002 03D8     		bhi	.L49
+ 226:../LIB_HW/Hw_Timer.c **** 		Timer_Tbl[TmrNum].Timer_En = ON;
+ 610              		.loc 1 226 0
+ 611 0004 024B     		ldr	r3, .L51
+ 612 0006 0001     		lsls	r0, r0, #4
+ 613              	.LVL33:
+ 614 0008 0122     		movs	r2, #1
+ 615 000a 1A54     		strb	r2, [r3, r0]
+ 616              	.L49:
+ 617 000c 7047     		bx	lr
+ 618              	.L52:
+ 619 000e 00BF     		.align	2
+ 620              	.L51:
+ 621 0010 00000000 		.word	.LANCHOR1
+ 622              		.cfi_endproc
+ 623              	.LFE6:
+ 625              		.section	.text.Hw_Timer_Stop,"ax",%progbits
+ 626              		.align	2
+ 627              		.global	Hw_Timer_Stop
+ 628              		.thumb
+ 629              		.thumb_func
+ 631              	Hw_Timer_Stop:
+ 632              	.LFB7:
+ 227:../LIB_HW/Hw_Timer.c **** }
+ 228:../LIB_HW/Hw_Timer.c **** 
+ 229:../LIB_HW/Hw_Timer.c **** 
+ 230:../LIB_HW/Hw_Timer.c **** 
+ 231:../LIB_HW/Hw_Timer.c **** 
+ 232:../LIB_HW/Hw_Timer.c **** 
+ 233:../LIB_HW/Hw_Timer.c **** /*---------------------------------------------------------------------------
+ 234:../LIB_HW/Hw_Timer.c ****      TITLE	: Hw_Timer_Stop
+ 235:../LIB_HW/Hw_Timer.c ****      WORK
+ 236:../LIB_HW/Hw_Timer.c ****      ARG
+ 237:../LIB_HW/Hw_Timer.c ****      RET
+ 238:../LIB_HW/Hw_Timer.c **** ---------------------------------------------------------------------------*/
+ 239:../LIB_HW/Hw_Timer.c **** void Hw_Timer_Stop(u8 TmrNum)
+ 240:../LIB_HW/Hw_Timer.c **** {
+ 633              		.loc 1 240 0
+ 634              		.cfi_startproc
+ 635              		@ args = 0, pretend = 0, frame = 0
+ 636              		@ frame_needed = 0, uses_anonymous_args = 0
+ 637              		@ link register save eliminated.
+ 638              	.LVL34:
+ 241:../LIB_HW/Hw_Timer.c **** 	if(TmrNum < TIMER_MAX)
+ 639              		.loc 1 241 0
+ 640 0000 0628     		cmp	r0, #6
+ 641 0002 03D8     		bhi	.L53
+ 242:../LIB_HW/Hw_Timer.c **** 		Timer_Tbl[TmrNum].Timer_En = OFF;
+ 642              		.loc 1 242 0
+ 643 0004 024B     		ldr	r3, .L55
+ 644 0006 0001     		lsls	r0, r0, #4
+ 645              	.LVL35:
+ 646 0008 0022     		movs	r2, #0
+ 647 000a 1A54     		strb	r2, [r3, r0]
+ 648              	.L53:
+ 649 000c 7047     		bx	lr
+ 650              	.L56:
+ 651 000e 00BF     		.align	2
+ 652              	.L55:
+ 653 0010 00000000 		.word	.LANCHOR1
+ 654              		.cfi_endproc
+ 655              	.LFE7:
+ 657              		.section	.text.Hw_Timer_Reset,"ax",%progbits
+ 658              		.align	2
+ 659              		.global	Hw_Timer_Reset
+ 660              		.thumb
+ 661              		.thumb_func
+ 663              	Hw_Timer_Reset:
+ 664              	.LFB8:
+ 243:../LIB_HW/Hw_Timer.c **** }
+ 244:../LIB_HW/Hw_Timer.c **** 
+ 245:../LIB_HW/Hw_Timer.c **** 
+ 246:../LIB_HW/Hw_Timer.c **** 
+ 247:../LIB_HW/Hw_Timer.c **** 
+ 248:../LIB_HW/Hw_Timer.c **** 
+ 249:../LIB_HW/Hw_Timer.c **** /*---------------------------------------------------------------------------
+ 250:../LIB_HW/Hw_Timer.c ****      TITLE	: Timer_Reset
+ 251:../LIB_HW/Hw_Timer.c ****      WORK
+ 252:../LIB_HW/Hw_Timer.c ****      	 	 - 타이머값 초기화
+ 253:../LIB_HW/Hw_Timer.c ****      ARG
+ 254:../LIB_HW/Hw_Timer.c ****      RET
+ 255:../LIB_HW/Hw_Timer.c **** ---------------------------------------------------------------------------*/
+ 256:../LIB_HW/Hw_Timer.c **** void Hw_Timer_Reset(u8 TmrNum)
+ 257:../LIB_HW/Hw_Timer.c **** {
+ 665              		.loc 1 257 0
+ 666              		.cfi_startproc
+ 667              		@ args = 0, pretend = 0, frame = 0
+ 668              		@ frame_needed = 0, uses_anonymous_args = 0
+ 669              		@ link register save eliminated.
+ 670              	.LVL36:
+ 258:../LIB_HW/Hw_Timer.c **** 	Timer_Tbl[TmrNum].Timer_En   = OFF;
+ 671              		.loc 1 258 0
+ 672 0000 034B     		ldr	r3, .L58
+ 673 0002 0001     		lsls	r0, r0, #4
+ 674              	.LVL37:
+ 675 0004 1A18     		adds	r2, r3, r0
+ 676 0006 0021     		movs	r1, #0
+ 677 0008 1954     		strb	r1, [r3, r0]
+ 259:../LIB_HW/Hw_Timer.c **** 	Timer_Tbl[TmrNum].Timer_Ctn  = Timer_Tbl[TmrNum].Timer_Init;
+ 678              		.loc 1 259 0
+ 679 000a 9388     		ldrh	r3, [r2, #4]
+ 680 000c 5380     		strh	r3, [r2, #2]	@ movhi
+ 260:../LIB_HW/Hw_Timer.c **** }
+ 681              		.loc 1 260 0
+ 682 000e 7047     		bx	lr
+ 683              	.L59:
+ 684              		.align	2
+ 685              	.L58:
+ 686 0010 00000000 		.word	.LANCHOR1
+ 687              		.cfi_endproc
+ 688              	.LFE8:
+ 690              		.section	.text.Hw_Timer_Delay_ms,"ax",%progbits
+ 691              		.align	2
+ 692              		.global	Hw_Timer_Delay_ms
+ 693              		.thumb
+ 694              		.thumb_func
+ 696              	Hw_Timer_Delay_ms:
+ 697              	.LFB9:
+ 261:../LIB_HW/Hw_Timer.c **** 
+ 262:../LIB_HW/Hw_Timer.c **** 
+ 263:../LIB_HW/Hw_Timer.c **** 
+ 264:../LIB_HW/Hw_Timer.c **** 
+ 265:../LIB_HW/Hw_Timer.c **** 
+ 266:../LIB_HW/Hw_Timer.c **** /*---------------------------------------------------------------------------
+ 267:../LIB_HW/Hw_Timer.c ****      TITLE	: Hw_Timer_Delay_ms
+ 268:../LIB_HW/Hw_Timer.c ****      WORK
+ 269:../LIB_HW/Hw_Timer.c ****      	 	 ms 단위로 딜레이를 준다.
+ 270:../LIB_HW/Hw_Timer.c ****      ARG
+ 271:../LIB_HW/Hw_Timer.c ****      RET
+ 272:../LIB_HW/Hw_Timer.c **** ---------------------------------------------------------------------------*/
+ 273:../LIB_HW/Hw_Timer.c **** void Hw_Timer_Delay_ms( u16 DelayData )
+ 274:../LIB_HW/Hw_Timer.c **** {
+ 698              		.loc 1 274 0
+ 699              		.cfi_startproc
+ 700              		@ args = 0, pretend = 0, frame = 0
+ 701              		@ frame_needed = 0, uses_anonymous_args = 0
+ 702              		@ link register save eliminated.
+ 703              	.LVL38:
+ 275:../LIB_HW/Hw_Timer.c **** 	Tmr_Ctn = DelayData;
+ 704              		.loc 1 275 0
+ 705 0000 034B     		ldr	r3, .L63
+ 706 0002 1880     		strh	r0, [r3, #0]	@ movhi
+ 707              	.LVL39:
+ 708              	.L61:
+ 276:../LIB_HW/Hw_Timer.c **** 	
+ 277:../LIB_HW/Hw_Timer.c **** 	while( Tmr_Ctn );
+ 709              		.loc 1 277 0 discriminator 1
+ 710 0004 1888     		ldrh	r0, [r3, #0]
+ 711 0006 82B2     		uxth	r2, r0
+ 712 0008 002A     		cmp	r2, #0
+ 713 000a FBD1     		bne	.L61
+ 278:../LIB_HW/Hw_Timer.c **** }
+ 714              		.loc 1 278 0
+ 715 000c 7047     		bx	lr
+ 716              	.L64:
+ 717 000e 00BF     		.align	2
+ 718              	.L63:
+ 719 0010 00000000 		.word	.LANCHOR3
+ 720              		.cfi_endproc
+ 721              	.LFE9:
+ 723              		.section	.text.Hw_Timer_Get_Handle,"ax",%progbits
+ 724              		.align	2
+ 725              		.global	Hw_Timer_Get_Handle
+ 726              		.thumb
+ 727              		.thumb_func
+ 729              	Hw_Timer_Get_Handle:
+ 730              	.LFB10:
+ 279:../LIB_HW/Hw_Timer.c **** 
+ 280:../LIB_HW/Hw_Timer.c **** 
+ 281:../LIB_HW/Hw_Timer.c **** 
+ 282:../LIB_HW/Hw_Timer.c **** 
+ 283:../LIB_HW/Hw_Timer.c **** 
+ 284:../LIB_HW/Hw_Timer.c **** /*---------------------------------------------------------------------------
+ 285:../LIB_HW/Hw_Timer.c ****      TITLE	: Hw_Timer_Get_Handle
+ 286:../LIB_HW/Hw_Timer.c ****      WORK
+ 287:../LIB_HW/Hw_Timer.c ****      	 	 ms 단위로 딜레이를 준다.
+ 288:../LIB_HW/Hw_Timer.c ****      ARG
+ 289:../LIB_HW/Hw_Timer.c ****      RET
+ 290:../LIB_HW/Hw_Timer.c **** ---------------------------------------------------------------------------*/
+ 291:../LIB_HW/Hw_Timer.c **** s16 Hw_Timer_Get_Handle( void )
+ 292:../LIB_HW/Hw_Timer.c **** {
+ 731              		.loc 1 292 0
+ 732              		.cfi_startproc
+ 733              		@ args = 0, pretend = 0, frame = 0
+ 734              		@ frame_needed = 0, uses_anonymous_args = 0
+ 735              		@ link register save eliminated.
+ 293:../LIB_HW/Hw_Timer.c **** 	s16 TmrIndex = Tmr_HandleIndex;
+ 736              		.loc 1 293 0
+ 737 0000 034B     		ldr	r3, .L66
+ 738 0002 1888     		ldrh	r0, [r3, #0]
+ 739              	.LVL40:
+ 294:../LIB_HW/Hw_Timer.c **** 	
+ 295:../LIB_HW/Hw_Timer.c **** 	Tmr_HandleIndex++;
+ 740              		.loc 1 295 0
+ 741 0004 1988     		ldrh	r1, [r3, #0]
+ 296:../LIB_HW/Hw_Timer.c **** 	
+ 297:../LIB_HW/Hw_Timer.c **** 	return TmrIndex;
+ 298:../LIB_HW/Hw_Timer.c **** }
+ 742              		.loc 1 298 0
+ 743 0006 00B2     		sxth	r0, r0
+ 295:../LIB_HW/Hw_Timer.c **** 	Tmr_HandleIndex++;
+ 744              		.loc 1 295 0
+ 745 0008 4A1C     		adds	r2, r1, #1
+ 746 000a 1A80     		strh	r2, [r3, #0]	@ movhi
+ 747              		.loc 1 298 0
+ 748 000c 7047     		bx	lr
+ 749              	.L67:
+ 750 000e 00BF     		.align	2
+ 751              	.L66:
+ 752 0010 00000000 		.word	.LANCHOR4
+ 753              		.cfi_endproc
+ 754              	.LFE10:
+ 756              		.section	.text.Hw_Timer_Get_CountValue,"ax",%progbits
+ 757              		.align	2
+ 758              		.global	Hw_Timer_Get_CountValue
+ 759              		.thumb
+ 760              		.thumb_func
+ 762              	Hw_Timer_Get_CountValue:
+ 763              	.LFB11:
+ 299:../LIB_HW/Hw_Timer.c **** 
+ 300:../LIB_HW/Hw_Timer.c **** 
+ 301:../LIB_HW/Hw_Timer.c **** 
+ 302:../LIB_HW/Hw_Timer.c **** 
+ 303:../LIB_HW/Hw_Timer.c **** 
+ 304:../LIB_HW/Hw_Timer.c **** /*---------------------------------------------------------------------------
+ 305:../LIB_HW/Hw_Timer.c ****      TITLE	: Hw_Timer_Get_CountValue
+ 306:../LIB_HW/Hw_Timer.c ****      WORK
+ 307:../LIB_HW/Hw_Timer.c ****      ARG
+ 308:../LIB_HW/Hw_Timer.c ****      RET
+ 309:../LIB_HW/Hw_Timer.c **** ---------------------------------------------------------------------------*/
+ 310:../LIB_HW/Hw_Timer.c **** u32 Hw_Timer_Get_CountValue( void )
+ 311:../LIB_HW/Hw_Timer.c **** {
+ 764              		.loc 1 311 0
+ 765              		.cfi_startproc
+ 766              		@ args = 0, pretend = 0, frame = 0
+ 767              		@ frame_needed = 0, uses_anonymous_args = 0
+ 768              		@ link register save eliminated.
+ 312:../LIB_HW/Hw_Timer.c **** 	return Hw_Timer_Counter;
+ 769              		.loc 1 312 0
+ 770 0000 014B     		ldr	r3, .L69
+ 771 0002 1868     		ldr	r0, [r3, #0]
+ 313:../LIB_HW/Hw_Timer.c **** }
+ 772              		.loc 1 313 0
+ 773 0004 7047     		bx	lr
+ 774              	.L70:
+ 775 0006 00BF     		.align	2
+ 776              	.L69:
+ 777 0008 00000000 		.word	.LANCHOR2
+ 778              		.cfi_endproc
+ 779              	.LFE11:
+ 781              		.section	.bss.Tmr_HandleIndex,"aw",%nobits
+ 782              		.align	1
+ 783              		.set	.LANCHOR4,. + 0
+ 786              	Tmr_HandleIndex:
+ 787 0000 0000     		.space	2
+ 788              		.section	.bss.Timer_Tbl,"aw",%nobits
+ 789              		.align	2
+ 790              		.set	.LANCHOR1,. + 0
+ 793              	Timer_Tbl:
+ 794 0000 00000000 		.space	112
+ 794      00000000 
+ 794      00000000 
+ 794      00000000 
+ 794      00000000 
+ 795              		.section	.bss.Excute.4039,"aw",%nobits
+ 796              		.set	.LANCHOR0,. + 0
+ 799              	Excute.4039:
+ 800 0000 00       		.space	1
+ 801              		.section	.bss.Hw_Timer_Counter,"aw",%nobits
+ 802              		.align	2
+ 803              		.set	.LANCHOR2,. + 0
+ 806              	Hw_Timer_Counter:
+ 807 0000 00000000 		.space	4
+ 808              		.section	.bss.Tmr_Ctn,"aw",%nobits
+ 809              		.align	1
+ 810              		.set	.LANCHOR3,. + 0
+ 813              	Tmr_Ctn:
+ 814 0000 0000     		.space	2
+ 815              		.text
+ 816              	.Letext0:
+DEFINED SYMBOLS
+                            *ABS*:00000000 Hw_Timer.c
+C:\Users\CHOHAN~1\AppData\Local\Temp\ccB1ddvk.s:24     .text.Hw_Timer_SetupISR:00000000 $t
+C:\Users\CHOHAN~1\AppData\Local\Temp\ccB1ddvk.s:29     .text.Hw_Timer_SetupISR:00000000 Hw_Timer_SetupISR
+C:\Users\CHOHAN~1\AppData\Local\Temp\ccB1ddvk.s:52     .text.Hw_Timer_SetupISR:00000010 $d
+C:\Users\CHOHAN~1\AppData\Local\Temp\ccB1ddvk.s:526    .text.Hw_Timer_ISR:00000000 Hw_Timer_ISR
+C:\Users\CHOHAN~1\AppData\Local\Temp\ccB1ddvk.s:58     .text.Hw_Timer_Setup:00000000 $t
+C:\Users\CHOHAN~1\AppData\Local\Temp\ccB1ddvk.s:63     .text.Hw_Timer_Setup:00000000 Hw_Timer_Setup
+C:\Users\CHOHAN~1\AppData\Local\Temp\ccB1ddvk.s:98     .text.Hw_Timer_Setup:00000028 $d
+C:\Users\CHOHAN~1\AppData\Local\Temp\ccB1ddvk.s:105    .text.Hw_Timer_Init:00000000 $t
+C:\Users\CHOHAN~1\AppData\Local\Temp\ccB1ddvk.s:110    .text.Hw_Timer_Init:00000000 Hw_Timer_Init
+C:\Users\CHOHAN~1\AppData\Local\Temp\ccB1ddvk.s:206    .text.Hw_Timer_Init:0000006c $d
+C:\Users\CHOHAN~1\AppData\Local\Temp\ccB1ddvk.s:214    .text.Hw_Timer_Tick:00000000 $t
+C:\Users\CHOHAN~1\AppData\Local\Temp\ccB1ddvk.s:219    .text.Hw_Timer_Tick:00000000 Hw_Timer_Tick
+C:\Users\CHOHAN~1\AppData\Local\Temp\ccB1ddvk.s:514    .text.Hw_Timer_Tick:000001c0 $d
+C:\Users\CHOHAN~1\AppData\Local\Temp\ccB1ddvk.s:521    .text.Hw_Timer_ISR:00000000 $t
+C:\Users\CHOHAN~1\AppData\Local\Temp\ccB1ddvk.s:545    .text.Hw_Timer_ISR:00000008 $d
+C:\Users\CHOHAN~1\AppData\Local\Temp\ccB1ddvk.s:550    .text.Hw_Timer_Set:00000000 $t
+C:\Users\CHOHAN~1\AppData\Local\Temp\ccB1ddvk.s:555    .text.Hw_Timer_Set:00000000 Hw_Timer_Set
+C:\Users\CHOHAN~1\AppData\Local\Temp\ccB1ddvk.s:589    .text.Hw_Timer_Set:00000018 $d
+C:\Users\CHOHAN~1\AppData\Local\Temp\ccB1ddvk.s:594    .text.Hw_Timer_Start:00000000 $t
+C:\Users\CHOHAN~1\AppData\Local\Temp\ccB1ddvk.s:599    .text.Hw_Timer_Start:00000000 Hw_Timer_Start
+C:\Users\CHOHAN~1\AppData\Local\Temp\ccB1ddvk.s:621    .text.Hw_Timer_Start:00000010 $d
+C:\Users\CHOHAN~1\AppData\Local\Temp\ccB1ddvk.s:626    .text.Hw_Timer_Stop:00000000 $t
+C:\Users\CHOHAN~1\AppData\Local\Temp\ccB1ddvk.s:631    .text.Hw_Timer_Stop:00000000 Hw_Timer_Stop
+C:\Users\CHOHAN~1\AppData\Local\Temp\ccB1ddvk.s:653    .text.Hw_Timer_Stop:00000010 $d
+C:\Users\CHOHAN~1\AppData\Local\Temp\ccB1ddvk.s:658    .text.Hw_Timer_Reset:00000000 $t
+C:\Users\CHOHAN~1\AppData\Local\Temp\ccB1ddvk.s:663    .text.Hw_Timer_Reset:00000000 Hw_Timer_Reset
+C:\Users\CHOHAN~1\AppData\Local\Temp\ccB1ddvk.s:686    .text.Hw_Timer_Reset:00000010 $d
+C:\Users\CHOHAN~1\AppData\Local\Temp\ccB1ddvk.s:691    .text.Hw_Timer_Delay_ms:00000000 $t
+C:\Users\CHOHAN~1\AppData\Local\Temp\ccB1ddvk.s:696    .text.Hw_Timer_Delay_ms:00000000 Hw_Timer_Delay_ms
+C:\Users\CHOHAN~1\AppData\Local\Temp\ccB1ddvk.s:719    .text.Hw_Timer_Delay_ms:00000010 $d
+C:\Users\CHOHAN~1\AppData\Local\Temp\ccB1ddvk.s:724    .text.Hw_Timer_Get_Handle:00000000 $t
+C:\Users\CHOHAN~1\AppData\Local\Temp\ccB1ddvk.s:729    .text.Hw_Timer_Get_Handle:00000000 Hw_Timer_Get_Handle
+C:\Users\CHOHAN~1\AppData\Local\Temp\ccB1ddvk.s:752    .text.Hw_Timer_Get_Handle:00000010 $d
+C:\Users\CHOHAN~1\AppData\Local\Temp\ccB1ddvk.s:757    .text.Hw_Timer_Get_CountValue:00000000 $t
+C:\Users\CHOHAN~1\AppData\Local\Temp\ccB1ddvk.s:762    .text.Hw_Timer_Get_CountValue:00000000 Hw_Timer_Get_CountValue
+C:\Users\CHOHAN~1\AppData\Local\Temp\ccB1ddvk.s:777    .text.Hw_Timer_Get_CountValue:00000008 $d
+C:\Users\CHOHAN~1\AppData\Local\Temp\ccB1ddvk.s:782    .bss.Tmr_HandleIndex:00000000 $d
+C:\Users\CHOHAN~1\AppData\Local\Temp\ccB1ddvk.s:786    .bss.Tmr_HandleIndex:00000000 Tmr_HandleIndex
+C:\Users\CHOHAN~1\AppData\Local\Temp\ccB1ddvk.s:789    .bss.Timer_Tbl:00000000 $d
+C:\Users\CHOHAN~1\AppData\Local\Temp\ccB1ddvk.s:793    .bss.Timer_Tbl:00000000 Timer_Tbl
+C:\Users\CHOHAN~1\AppData\Local\Temp\ccB1ddvk.s:799    .bss.Excute.4039:00000000 Excute.4039
+C:\Users\CHOHAN~1\AppData\Local\Temp\ccB1ddvk.s:800    .bss.Excute.4039:00000000 $d
+C:\Users\CHOHAN~1\AppData\Local\Temp\ccB1ddvk.s:802    .bss.Hw_Timer_Counter:00000000 $d
+C:\Users\CHOHAN~1\AppData\Local\Temp\ccB1ddvk.s:806    .bss.Hw_Timer_Counter:00000000 Hw_Timer_Counter
+C:\Users\CHOHAN~1\AppData\Local\Temp\ccB1ddvk.s:809    .bss.Tmr_Ctn:00000000 $d
+C:\Users\CHOHAN~1\AppData\Local\Temp\ccB1ddvk.s:813    .bss.Tmr_Ctn:00000000 Tmr_Ctn
+                     .debug_frame:00000010 $d
+
+UNDEFINED SYMBOLS
+Hw_ISR_SetIRQFuncByAddr

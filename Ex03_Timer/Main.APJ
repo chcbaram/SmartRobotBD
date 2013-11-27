@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<AcroEditProject Version="1.0">
+  <Options>
+    <UserTools Value=""/>
+    <BaseFolder Value=""/>
+    <GenerateFunctionList Value="true"/>
+    <CodePage Value="949"/>
+    <ExcludeDir Value=""/>
+    <AcceptableExt Value=""/>
+    <OpenLastFiles Value="false"/>
+  </Options>
+  <Files>
+    <Category Name="Build">
+      <File Name="Build\clean_compile.cmd"/>
+      <File Name="Build\compile.cmd"/>
+      <File Name="Build\main.map"/>
+      <File Name="Build\Makefile"/>
+      <File Name="Build\STM32F10x_128k_20k_flash.ld"/>
+    </Category>
+    <Category Name="LIB_AP">
+      <File Name="LIB_AP\Ap.c"/>
+      <File Name="LIB_AP\Ap.h"/>
+      <File Name="LIB_AP\Ap_Define.h"/>
+      <File Name="LIB_AP\Ap_RadioMenu.c"/>
+      <File Name="LIB_AP\Ap_RadioMenu.h"/>
+    </Category>
+    <Category Name="LIB_HW">
+      <File Name="LIB_HW\Hw.c"/>
+      <File Name="LIB_HW\Hw.h"/>
+      <File Name="LIB_HW\Hw_Define.h"/>
+      <File Name="LIB_HW\Hw_ISR.c"/>
+      <File Name="LIB_HW\Hw_ISR.h"/>
+      <File Name="LIB_HW\Hw_Led.c"/>
+      <File Name="LIB_HW\Hw_Led.h"/>
+      <File Name="LIB_HW\Hw_PLL.c"/>
+      <File Name="LIB_HW\Hw_PLL.h"/>
+      <File Name="LIB_HW\Hw_Regs.h"/>
+      <File Name="LIB_HW\Hw_StartUp.c"/>
+      <File Name="LIB_HW\Hw_StartUp.h"/>
+      <File Name="LIB_HW\Hw_Timer.c"/>
+      <File Name="LIB_HW\Hw_Timer.h"/>
+      <File Name="LIB_HW\Hw_Uart.c"/>
+      <File Name="LIB_HW\Hw_Uart.h"/>
+      <File Name="LIB_HW\Hw_Uart_Q.c"/>
+      <File Name="LIB_HW\Hw_Uart_Q.h"/>
+    </Category>
+    <Category Name="LIB_LB">
+      <File Name="LIB_LB\Lb_Printf.c"/>
+      <File Name="LIB_LB\Lb_Printf.h"/>
+      <File Name="LIB_LB\Lb_Util.c"/>
+      <File Name="LIB_LB\Lb_Util.h"/>
+    </Category>
+    <Category Name="Main">
+      <File Name="main.c"/>
+      <File Name="main.h"/>
+    </Category>
+  </Files>
+  <ClosedFiles>
+    <File Name="E:\OROCA\STM32\FW\Ex02_UART\LIB_AP\Ap_UartMenu.c"/>
+    <File Name="E:\OROCA\STM32\FW\Ex02_UART\LIB_AP\Ap_UartMenu.h"/>
+    <File Name="E:\OROCA\STM32\FW\Ex02_UART\LIB_HW\Hw_Led.c"/>
+    <File Name="E:\OROCA\STM32\FW\Ex02_UART\Build\STM32F10x_128k_20k_flash.ld"/>
+    <File Name="E:\OROCA\STM32\FW\Ex02_UART\LIB_HW\Hw_Uart_Q.h"/>
+    <File Name="E:\OROCA\STM32\FW\Ex02_UART\LIB_HW\Hw_Uart_Q.c"/>
+    <File Name="E:\OROCA\STM32\FW\Ex02_UART\Build\Makefile"/>
+    <File Name="E:\OROCA\STM32\FW\Ex02_UART\LIB_HW\Hw.h"/>
+    <File Name="E:\OROCA\STM32\FW\Ex02_UART\LIB_HW\Hw_PLL.c"/>
+    <File Name="E:\OROCA\STM32\FW\Ex02_UART\Build\main.map"/>
+    <File Name="E:\OROCA\STM32\FW\Ex02_UART\LIB_HW\Hw_ISR.h"/>
+    <File Name="E:\OROCA\STM32\FW\Ex02_UART\LIB_HW\Hw_ISR.c"/>
+    <File Name="E:\OROCA\STM32\FW\Ex02_UART\LIB_HW\Hw_Uart.h"/>
+    <File Name="E:\OROCA\STM32\FW\Ex02_UART\LIB_HW\Hw_Regs.h"/>
+    <File Name="E:\OROCA\STM32\FW\Ex02_UART\LIB_HW\Hw.c"/>
+    <File Name="E:\OROCA\STM32\FW\Ex02_UART\LIB_HW\Hw_Uart.c"/>
+    <File Name="E:\OROCA\STM32\FW\Ex02_UART\LIB_HW\Hw_StartUp.c"/>
+  </ClosedFiles>
+</AcroEditProject>

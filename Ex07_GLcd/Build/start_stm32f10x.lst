@@ -1,0 +1,219 @@
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 2
+  11              		.eabi_attribute 18, 4
+  12              		.thumb
+  13              		.file	"Hw_PLL.c"
+  21              	.Ltext0:
+  22              		.cfi_sections	.debug_frame
+  23              		.section	.text.Hw_PLL_Init,"ax",%progbits
+  24              		.align	2
+  25              		.global	Hw_PLL_Init
+  26              		.thumb
+  27              		.thumb_func
+  29              	Hw_PLL_Init:
+  30              	.LFB0:
+  31              		.file 1 "../LIB_HW/Hw_PLL.c"
+   1:../LIB_HW/Hw_PLL.c **** //----------------------------------------------------------------------------
+   2:../LIB_HW/Hw_PLL.c **** //    프로그램명 	: PLL 관련 함수
+   3:../LIB_HW/Hw_PLL.c **** //
+   4:../LIB_HW/Hw_PLL.c **** //    만든이     	: 
+   5:../LIB_HW/Hw_PLL.c **** //
+   6:../LIB_HW/Hw_PLL.c **** //    날  짜     	: 2013. 8.20.
+   7:../LIB_HW/Hw_PLL.c **** //    
+   8:../LIB_HW/Hw_PLL.c **** //    최종 수정  	:
+   9:../LIB_HW/Hw_PLL.c **** //
+  10:../LIB_HW/Hw_PLL.c **** //    MPU_Type		:
+  11:../LIB_HW/Hw_PLL.c **** //
+  12:../LIB_HW/Hw_PLL.c **** //    파일명     	: Hw_PLL.c
+  13:../LIB_HW/Hw_PLL.c **** //----------------------------------------------------------------------------
+  14:../LIB_HW/Hw_PLL.c **** 
+  15:../LIB_HW/Hw_PLL.c **** 
+  16:../LIB_HW/Hw_PLL.c **** //----- 헤더파일 열기
+  17:../LIB_HW/Hw_PLL.c **** //
+  18:../LIB_HW/Hw_PLL.c **** #define  HW_PLL_LOCAL
+  19:../LIB_HW/Hw_PLL.c **** 
+  20:../LIB_HW/Hw_PLL.c **** 
+  21:../LIB_HW/Hw_PLL.c **** #include "Hw_PLL.h"
+  22:../LIB_HW/Hw_PLL.c **** 
+  23:../LIB_HW/Hw_PLL.c **** 
+  24:../LIB_HW/Hw_PLL.c **** 
+  25:../LIB_HW/Hw_PLL.c **** #define CLOCK_EXT		1		// 클럭을 외부로 사용하면 1
+  26:../LIB_HW/Hw_PLL.c **** 
+  27:../LIB_HW/Hw_PLL.c **** 
+  28:../LIB_HW/Hw_PLL.c **** 
+  29:../LIB_HW/Hw_PLL.c **** /*---------------------------------------------------------------------------
+  30:../LIB_HW/Hw_PLL.c ****      TITLE   : Hw_PLL_Init
+  31:../LIB_HW/Hw_PLL.c ****      WORK    : 
+  32:../LIB_HW/Hw_PLL.c ****      ARG     : void
+  33:../LIB_HW/Hw_PLL.c ****      RET     : void
+  34:../LIB_HW/Hw_PLL.c **** ---------------------------------------------------------------------------*/
+  35:../LIB_HW/Hw_PLL.c **** void Hw_PLL_Init( void )
+  36:../LIB_HW/Hw_PLL.c **** {
+  32              		.loc 1 36 0
+  33              		.cfi_startproc
+  34              		@ args = 0, pretend = 0, frame = 0
+  35              		@ frame_needed = 0, uses_anonymous_args = 0
+  36              		@ link register save eliminated.
+  37:../LIB_HW/Hw_PLL.c **** 	
+  38:../LIB_HW/Hw_PLL.c **** #if	CLOCK_EXT == 1
+  39:../LIB_HW/Hw_PLL.c **** 	//-- PLL 설정 72Mhz로 설정함
+  40:../LIB_HW/Hw_PLL.c **** 	//
+  41:../LIB_HW/Hw_PLL.c **** 	REG_RCC_CFGR &= ~(0xF<<18 | 0x1<<17 | 0x1<<16 | 0xF<<4);
+  37              		.loc 1 41 0
+  38 0000 1F4B     		ldr	r3, .L7
+  42:../LIB_HW/Hw_PLL.c **** 	REG_RCC_CFGR |=  (0x7<<18 | 0x1<<16);			// 8MHz
+  43:../LIB_HW/Hw_PLL.c ****     REG_RCC_CR   |=  0x01 << 24;                    // PLLON
+  39              		.loc 1 43 0
+  40 0002 2049     		ldr	r1, .L7+4
+  41:../LIB_HW/Hw_PLL.c **** 	REG_RCC_CFGR &= ~(0xF<<18 | 0x1<<17 | 0x1<<16 | 0xF<<4);
+  41              		.loc 1 41 0
+  42 0004 1868     		ldr	r0, [r3, #0]
+  44:../LIB_HW/Hw_PLL.c **** 
+  45:../LIB_HW/Hw_PLL.c **** 	while( (REG_RCC_CR & (1<<25)) == 0 );			// PLLRDY
+  43              		.loc 1 45 0
+  44 0006 0A46     		mov	r2, r1
+  41:../LIB_HW/Hw_PLL.c **** 	REG_RCC_CFGR &= ~(0xF<<18 | 0x1<<17 | 0x1<<16 | 0xF<<4);
+  45              		.loc 1 41 0
+  46 0008 20F47C1C 		bic	ip, r0, #4128768
+  47 000c 2CF0F000 		bic	r0, ip, #240
+  48 0010 1860     		str	r0, [r3, #0]
+  42:../LIB_HW/Hw_PLL.c **** 	REG_RCC_CFGR |=  (0x7<<18 | 0x1<<16);			// 8MHz
+  49              		.loc 1 42 0
+  50 0012 1868     		ldr	r0, [r3, #0]
+  51 0014 40F4E810 		orr	r0, r0, #1900544
+  52 0018 1860     		str	r0, [r3, #0]
+  43:../LIB_HW/Hw_PLL.c ****     REG_RCC_CR   |=  0x01 << 24;                    // PLLON
+  53              		.loc 1 43 0
+  54 001a 0868     		ldr	r0, [r1, #0]
+  55 001c 40F08073 		orr	r3, r0, #16777216
+  56 0020 0B60     		str	r3, [r1, #0]
+  57              	.L2:
+  58              		.loc 1 45 0 discriminator 1
+  59 0022 1168     		ldr	r1, [r2, #0]
+  60 0024 11F0007F 		tst	r1, #33554432
+  61 0028 FBD0     		beq	.L2
+  46:../LIB_HW/Hw_PLL.c **** 
+  47:../LIB_HW/Hw_PLL.c **** #else	
+  48:../LIB_HW/Hw_PLL.c **** 	//-- PLL 설정 내부 36MHz 설정함
+  49:../LIB_HW/Hw_PLL.c **** 	//
+  50:../LIB_HW/Hw_PLL.c **** 	REG_RCC_CFGR |= (0x7<<18);              		// 내부 4MHz
+  51:../LIB_HW/Hw_PLL.c **** 	REG_RCC_CFGR |= (0x4<<18 | 0x1<<16);			// 12MHz
+  52:../LIB_HW/Hw_PLL.c **** 	REG_RCC_CR   |=  0x01<<24;						// PLLON
+  53:../LIB_HW/Hw_PLL.c **** 	while( (REG_RCC_CR & (1<<25)) == 0 );			// PLLRDY
+  54:../LIB_HW/Hw_PLL.c **** #endif
+  55:../LIB_HW/Hw_PLL.c **** 
+  56:../LIB_HW/Hw_PLL.c ****     
+  57:../LIB_HW/Hw_PLL.c ****     /////PLL을 선택한다.
+  58:../LIB_HW/Hw_PLL.c ****     /////Bits 1:0 SW : System clock switch
+  59:../LIB_HW/Hw_PLL.c ****     //00: HSI selected as system clock
+  60:../LIB_HW/Hw_PLL.c ****     //01: HSE selected as system clock
+  61:../LIB_HW/Hw_PLL.c ****     //10: PLL selected as system clock   <----------------- 선택됨
+  62:../LIB_HW/Hw_PLL.c ****     //11: not allowed
+  63:../LIB_HW/Hw_PLL.c **** 	REG_RCC_CFGR &= ~0x3;
+  62              		.loc 1 63 0
+  63 002a 154B     		ldr	r3, .L7
+  64 002c 1868     		ldr	r0, [r3, #0]
+  64:../LIB_HW/Hw_PLL.c **** 	REG_RCC_CFGR |=  0x2;
+  65:../LIB_HW/Hw_PLL.c **** 
+  66:../LIB_HW/Hw_PLL.c **** 	// USB 72M * 2 / 3 = 48Mhz
+  67:../LIB_HW/Hw_PLL.c **** 	//
+  68:../LIB_HW/Hw_PLL.c **** 	CLR_BIT( REG_RCC_CFGR, 22 );
+  69:../LIB_HW/Hw_PLL.c **** 
+  70:../LIB_HW/Hw_PLL.c **** 	// APB1 - PCLK1 36Mhz
+  71:../LIB_HW/Hw_PLL.c **** 	//
+  72:../LIB_HW/Hw_PLL.c **** 	REG_RCC_CFGR &= ~(0x7<<8);
+  73:../LIB_HW/Hw_PLL.c **** 	REG_RCC_CFGR |=  (0x4<<8);
+  74:../LIB_HW/Hw_PLL.c **** 	
+  75:../LIB_HW/Hw_PLL.c **** 	// APB2 - PCLK2 72Mhz
+  76:../LIB_HW/Hw_PLL.c **** 	//
+  77:../LIB_HW/Hw_PLL.c **** 	REG_RCC_CFGR &= ~(0x7<<11);
+  78:../LIB_HW/Hw_PLL.c **** 	REG_RCC_CFGR |=  (0x0<<11);
+  79:../LIB_HW/Hw_PLL.c **** 
+  80:../LIB_HW/Hw_PLL.c ****     
+  81:../LIB_HW/Hw_PLL.c ****     while( (REG_RCC_CFGR & 0xC) != 0x08 );
+  65              		.loc 1 81 0
+  66 002e 1A46     		mov	r2, r3
+  63:../LIB_HW/Hw_PLL.c **** 	REG_RCC_CFGR &= ~0x3;
+  67              		.loc 1 63 0
+  68 0030 20F00301 		bic	r1, r0, #3
+  69 0034 1960     		str	r1, [r3, #0]
+  64:../LIB_HW/Hw_PLL.c **** 	REG_RCC_CFGR |=  0x2;
+  70              		.loc 1 64 0
+  71 0036 1868     		ldr	r0, [r3, #0]
+  72 0038 40F00201 		orr	r1, r0, #2
+  73 003c 1960     		str	r1, [r3, #0]
+  68:../LIB_HW/Hw_PLL.c **** 	CLR_BIT( REG_RCC_CFGR, 22 );
+  74              		.loc 1 68 0
+  75 003e 1868     		ldr	r0, [r3, #0]
+  76 0040 20F48001 		bic	r1, r0, #4194304
+  77 0044 1960     		str	r1, [r3, #0]
+  72:../LIB_HW/Hw_PLL.c **** 	REG_RCC_CFGR &= ~(0x7<<8);
+  78              		.loc 1 72 0
+  79 0046 1868     		ldr	r0, [r3, #0]
+  80 0048 20F4E061 		bic	r1, r0, #1792
+  81 004c 1960     		str	r1, [r3, #0]
+  73:../LIB_HW/Hw_PLL.c **** 	REG_RCC_CFGR |=  (0x4<<8);
+  82              		.loc 1 73 0
+  83 004e 1868     		ldr	r0, [r3, #0]
+  84 0050 40F48061 		orr	r1, r0, #1024
+  85 0054 1960     		str	r1, [r3, #0]
+  77:../LIB_HW/Hw_PLL.c **** 	REG_RCC_CFGR &= ~(0x7<<11);
+  86              		.loc 1 77 0
+  87 0056 1868     		ldr	r0, [r3, #0]
+  88 0058 20F46051 		bic	r1, r0, #14336
+  89 005c 1960     		str	r1, [r3, #0]
+  78:../LIB_HW/Hw_PLL.c **** 	REG_RCC_CFGR |=  (0x0<<11);
+  90              		.loc 1 78 0
+  91 005e 1868     		ldr	r0, [r3, #0]
+  92 0060 1860     		str	r0, [r3, #0]
+  93              	.L3:
+  94              		.loc 1 81 0 discriminator 1
+  95 0062 1368     		ldr	r3, [r2, #0]
+  96 0064 03F00C0C 		and	ip, r3, #12
+  97 0068 BCF1080F 		cmp	ip, #8
+  98 006c F9D1     		bne	.L3
+  82:../LIB_HW/Hw_PLL.c ****     
+  83:../LIB_HW/Hw_PLL.c ****     //APB2에 있는 UART 등 주변장치에 Clock 소스 동작제어
+  84:../LIB_HW/Hw_PLL.c ****     //UART가 동작되기 위해서는 GPIO와 Alternation Function IO가 동작상태에 있어�
+  85:../LIB_HW/Hw_PLL.c **** 	REG_RCC_APB2ENR |= 0  |
+  99              		.loc 1 85 0
+ 100 006e 064A     		ldr	r2, .L7+8
+ 101 0070 1368     		ldr	r3, [r2, #0]
+ 102 0072 43F48040 		orr	r0, r3, #16384
+ 103 0076 40F01D01 		orr	r1, r0, #29
+ 104 007a 1160     		str	r1, [r2, #0]
+  86:../LIB_HW/Hw_PLL.c **** 				0x1 << 14 |	// USART1 
+  87:../LIB_HW/Hw_PLL.c **** 				0x1 <<  4 | // IOPC
+  88:../LIB_HW/Hw_PLL.c **** 				0x1 <<  3 | // IOPB
+  89:../LIB_HW/Hw_PLL.c **** 				0x1 <<  2 | // IOPA
+  90:../LIB_HW/Hw_PLL.c **** 				0x1 <<  0;  // AFIO
+  91:../LIB_HW/Hw_PLL.c **** 					
+  92:../LIB_HW/Hw_PLL.c **** }...
+ 105              		.loc 1 92 0
+ 106 007c 7047     		bx	lr
+ 107              	.L8:
+ 108 007e 00BF     		.align	2
+ 109              	.L7:
+ 110 0080 04100240 		.word	1073876996
+ 111 0084 00100240 		.word	1073876992
+ 112 0088 18100240 		.word	1073877016
+ 113              		.cfi_endproc
+ 114              	.LFE0:
+ 116              		.text
+ 117              	.Letext0:
+DEFINED SYMBOLS
+                            *ABS*:00000000 Hw_PLL.c
+C:\Users\CHOHAN~1\AppData\Local\Temp\ccKCaFYa.s:24     .text.Hw_PLL_Init:00000000 $t
+C:\Users\CHOHAN~1\AppData\Local\Temp\ccKCaFYa.s:29     .text.Hw_PLL_Init:00000000 Hw_PLL_Init
+C:\Users\CHOHAN~1\AppData\Local\Temp\ccKCaFYa.s:110    .text.Hw_PLL_Init:00000080 $d
+                     .debug_frame:00000010 $d
+
+NO UNDEFINED SYMBOLS
