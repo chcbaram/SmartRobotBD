@@ -22,7 +22,6 @@
 #include "Hw_Uart.h"
 #include "Hw_Uart_Q.h"
 
-#include <stdarg.h >
 
 
 //-- 내부 선언

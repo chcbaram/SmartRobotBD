@@ -14,7 +14,7 @@
 # Toolchain prefix (i.e arm-elf- -> arm-elf-gcc.exe)
 #---------------------------------------------------------------------------
 TCHAIN_PREFIX = arm-none-eabi-
-REMOVE_CMD=cs-rm
+REMOVE_CMD=rm
 
 
 #---------------------------------------------------------------------------
@@ -115,7 +115,8 @@ INCLUDE = -I./include -I.
 #
 # Flags for C and C++ (arm-elf-gcc/arm-elf-g++)
 CFLAGS  = -gdwarf-2 -O2 -mcpu=cortex-m3 -mthumb-interwork -DSTM32F10X_MD 
-CFLAGS += $(INCLUDE) -mlong-calls -ffunction-sections -fdata-sections -fpromote-loop-indices -Wall -Wextra -Wimplicit -Wcast-align -Wpointer-arith -Wredundant-decls 
+#CFLAGS += $(INCLUDE) -mlong-calls -ffunction-sections -fdata-sections -fpromote-loop-indices -Wall -Wextra -Wimplicit -Wcast-align -Wpointer-arith -Wredundant-decls 
+CFLAGS += $(INCLUDE) -mlong-calls -ffunction-sections -fdata-sections -Wall -Wextra -Wimplicit -Wcast-align -Wpointer-arith -Wredundant-decls 
 CFLAGS += -Wshadow -Wcast-qual -Wcast-align -Wa,-adhlns=start_stm32f10x.lst -MD -MP -MF $(TARGET).elf.d
 CFLAGS += $(patsubst %,-I%,$(EXTRAINCDIRS))
 
@@ -158,7 +159,7 @@ ALLOBJ = $(addsuffix .o, $(ALLSRCBASE))
 
 
 # Default target.
-all: createdirs build
+all: createdirs build sizeinfo
 
 elf: $(TARGET).elf
 lss: $(TARGET).lss 
@@ -167,7 +168,10 @@ hex: $(TARGET).hex
 bin: $(TARGET).bin
 
 
-build: elf hex bin lss sym
+ELFSIZE = $(SIZE) -A $(TARGET).elf
+
+sizeinfo:
+	$(ELFSIZE)
 
 # Create output directories.
 createdirs:

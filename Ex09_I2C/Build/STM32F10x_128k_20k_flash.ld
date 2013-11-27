@@ -59,16 +59,31 @@ SECTIONS
         *(.rodata .rodata.* .gnu.linkonce.r.*) /* read-only data (constants) */
         *(.glue_7 .glue_7t)        /* redundant for thumb2 ?! */
         . = ALIGN(4);
-        _etext = .;
-        /* This is used by the startup in order to initialize the .data secion */
-        _sidata = _etext;
+
     } >FLASH
+
+
+    /* 컴파일러 변경하면서 추가 */
+
+    .ARM.extab   : { *(.ARM.extab* .gnu.linkonce.armextab.*) } >FLASH
+    .ARM : {
+    __exidx_start = .;
+      *(.ARM.exidx*)
+      __exidx_end = .;
+    } >FLASH
+
+
+    _etext = .;
+    /* This is used by the startup in order to initialize the .data secion */
+    _sidata = _etext;
+
 
     /* This is the initialized data section
     The program executes knowing that the data is in the RAM
     but the loader puts the initial values in the FLASH (inidata).
     It is one task of the startup to copy the initial values from FLASH to RAM. */
-    .data  : AT ( _sidata )
+    /* .data  : AT ( _sidata ) */
+    .data  : AT ( __exidx_end )
     {
         . = .;
         . = ALIGN(4);
@@ -104,6 +119,9 @@ SECTIONS
     PROVIDE ( end = _ebss );
     PROVIDE ( _end = _ebss );
     
+    . = ALIGN(4);
+    . = ALIGN(256);
+
     /* This is the user stack section 
     This is just to check that there is enough RAM left for the User mode stack
     It should generate an error if it's full.
@@ -116,6 +134,9 @@ SECTIONS
         . = ALIGN(4);
         _eusrstack = . ;
     } >RAM
+
+
+  .ARM.attributes 0 : { *(.ARM.attributes) }    
 }
 
 /* default stack size(s). These are used by the startup in order to allocate stacks for 
