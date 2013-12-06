@@ -34,6 +34,7 @@
 ---------------------------------------------------------------------------*/
 void Ap_Init( void )
 {
+	/*
 	if( Ap_Radio_Init() == ERR_NONE )
 	{
 		Lb_printf("Radio Init OK : FM Mode\n");
@@ -42,6 +43,7 @@ void Ap_Init( void )
 	{
 		Lb_printf("Radio Init Fail\n");
 	}
+	*/
 }
 
 

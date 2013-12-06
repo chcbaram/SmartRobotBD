@@ -66,12 +66,13 @@ SRC_HW = 	../LIB_HW/$(STARTUP_C)	\
 			../LIB_HW/Hw_VCom.c		\
 			../LIB_HW/Hw_I2C.c		\
 			../LIB_HW/Hw_I2C_SW.c	\
+			../LIB_HW/Hw_I2C_HW.c 	\
 			../LIB_HW/Hw_Si47xx.c	\
 			../LIB_HW/Hw_SPI.c		\
 			../LIB_HW/Hw_N5110G.c	\
 			../LIB_HW/Hw_DMA.c
 			
-			
+
 SRC_USB =   ../LIB_USB/usb_desc.c	\
 			../LIB_USB/usb_endp.c	\
 			../LIB_USB/usb_istr.c	\
@@ -85,8 +86,8 @@ SRC_USB =   ../LIB_USB/usb_desc.c	\
 			../LIB_USB/DRV/usb_sil.c	\
 			../LIB_USB/DRV/usb_int.c	
 			
-			
-			
+
+
 			
 SRC = $(SRC_AP) $(SRC_LB) $(SRC_HW) $(SRC_USB)
 
@@ -173,6 +174,10 @@ ELFSIZE = $(SIZE) -A $(TARGET).elf
 sizeinfo:
 	$(ELFSIZE)
 
+
+build: elf hex bin lss sym
+
+	
 # Create output directories.
 createdirs:
 	-@md $(OUTDIR) >NUL 2>&1 || echo "" >NUL

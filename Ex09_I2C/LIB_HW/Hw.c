@@ -56,6 +56,7 @@ void Hw_Init( void )
 	Hw_Timer_Init();
 	Hw_Si47xx_Init();
 	Hw_N5110G_Init();
+	Hw_I2C_Init();
 	
 	Hw_VCom_Init();
 }

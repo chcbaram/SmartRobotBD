@@ -11,670 +11,711 @@
   11              		.eabi_attribute 34, 1
   12              		.eabi_attribute 18, 4
   13              		.thumb
-  14              		.file	"usb_int.c"
+  14              		.file	"Hw_I2C_HW.c"
   15              		.text
   16              	.Ltext0:
   17              		.cfi_sections	.debug_frame
-  18              		.section	.text.CTR_LP,"ax",%progbits
+  18              		.section	.text.Hw_I2C_HW_IO_Setup,"ax",%progbits
   19              		.align	2
-  20              		.global	CTR_LP
+  20              		.global	Hw_I2C_HW_IO_Setup
   21              		.thumb
   22              		.thumb_func
-  24              	CTR_LP:
-  25              	.LFB0:
-  26              		.file 1 "../LIB_USB/DRV/usb_int.c"
-   1:../LIB_USB/DRV/usb_int.c **** /**
-   2:../LIB_USB/DRV/usb_int.c ****   ******************************************************************************
-   3:../LIB_USB/DRV/usb_int.c ****   * @file    usb_int.c
-   4:../LIB_USB/DRV/usb_int.c ****   * @author  MCD Application Team
-   5:../LIB_USB/DRV/usb_int.c ****   * @version V4.0.0
-   6:../LIB_USB/DRV/usb_int.c ****   * @date    28-August-2012
-   7:../LIB_USB/DRV/usb_int.c ****   * @brief   Endpoint CTR (Low and High) interrupt's service routines
-   8:../LIB_USB/DRV/usb_int.c ****   ******************************************************************************
-   9:../LIB_USB/DRV/usb_int.c ****   * @attention
-  10:../LIB_USB/DRV/usb_int.c ****   *
-  11:../LIB_USB/DRV/usb_int.c ****   * <h2><center>&copy; COPYRIGHT 2012 STMicroelectronics</center></h2>
-  12:../LIB_USB/DRV/usb_int.c ****   *
-  13:../LIB_USB/DRV/usb_int.c ****   * Licensed under MCD-ST Liberty SW License Agreement V2, (the "License");
-  14:../LIB_USB/DRV/usb_int.c ****   * You may not use this file except in compliance with the License.
-  15:../LIB_USB/DRV/usb_int.c ****   * You may obtain a copy of the License at:
-  16:../LIB_USB/DRV/usb_int.c ****   *
-  17:../LIB_USB/DRV/usb_int.c ****   *        http://www.st.com/software_license_agreement_liberty_v2
-  18:../LIB_USB/DRV/usb_int.c ****   *
-  19:../LIB_USB/DRV/usb_int.c ****   * Unless required by applicable law or agreed to in writing, software 
-  20:../LIB_USB/DRV/usb_int.c ****   * distributed under the License is distributed on an "AS IS" BASIS, 
-  21:../LIB_USB/DRV/usb_int.c ****   * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-  22:../LIB_USB/DRV/usb_int.c ****   * See the License for the specific language governing permissions and
-  23:../LIB_USB/DRV/usb_int.c ****   * limitations under the License.
-  24:../LIB_USB/DRV/usb_int.c ****   *
-  25:../LIB_USB/DRV/usb_int.c ****   ******************************************************************************
-  26:../LIB_USB/DRV/usb_int.c ****   */
-  27:../LIB_USB/DRV/usb_int.c **** 
-  28:../LIB_USB/DRV/usb_int.c **** /* Includes ------------------------------------------------------------------*/
-  29:../LIB_USB/DRV/usb_int.c **** #include "usb_lib.h"
-  30:../LIB_USB/DRV/usb_int.c **** 
-  31:../LIB_USB/DRV/usb_int.c **** /* Private typedef -----------------------------------------------------------*/
-  32:../LIB_USB/DRV/usb_int.c **** /* Private define ------------------------------------------------------------*/
-  33:../LIB_USB/DRV/usb_int.c **** /* Private macro -------------------------------------------------------------*/
-  34:../LIB_USB/DRV/usb_int.c **** /* Private variables ---------------------------------------------------------*/
-  35:../LIB_USB/DRV/usb_int.c **** __IO uint16_t SaveRState;
-  36:../LIB_USB/DRV/usb_int.c **** __IO uint16_t SaveTState;
-  37:../LIB_USB/DRV/usb_int.c **** 
-  38:../LIB_USB/DRV/usb_int.c **** /* Extern variables ----------------------------------------------------------*/
-  39:../LIB_USB/DRV/usb_int.c **** extern void (*pEpInt_IN[7])(void);    /*  Handles IN  interrupts   */
-  40:../LIB_USB/DRV/usb_int.c **** extern void (*pEpInt_OUT[7])(void);   /*  Handles OUT interrupts   */
-  41:../LIB_USB/DRV/usb_int.c **** 
-  42:../LIB_USB/DRV/usb_int.c **** /* Private function prototypes -----------------------------------------------*/
-  43:../LIB_USB/DRV/usb_int.c **** /* Private functions ---------------------------------------------------------*/
-  44:../LIB_USB/DRV/usb_int.c **** 
-  45:../LIB_USB/DRV/usb_int.c **** /*******************************************************************************
-  46:../LIB_USB/DRV/usb_int.c **** * Function Name  : CTR_LP.
-  47:../LIB_USB/DRV/usb_int.c **** * Description    : Low priority Endpoint Correct Transfer interrupt's service
-  48:../LIB_USB/DRV/usb_int.c **** *                  routine.
-  49:../LIB_USB/DRV/usb_int.c **** * Input          : None.
-  50:../LIB_USB/DRV/usb_int.c **** * Output         : None.
-  51:../LIB_USB/DRV/usb_int.c **** * Return         : None.
-  52:../LIB_USB/DRV/usb_int.c **** *******************************************************************************/
-  53:../LIB_USB/DRV/usb_int.c **** void CTR_LP(void)
-  54:../LIB_USB/DRV/usb_int.c **** {
-  27              		.loc 1 54 0
+  24              	Hw_I2C_HW_IO_Setup:
+  25              	.LFB1:
+  26              		.file 1 "../LIB_HW/Hw_I2C_HW.c"
+   1:../LIB_HW/Hw_I2C_HW.c **** //----------------------------------------------------------------------------
+   2:../LIB_HW/Hw_I2C_HW.c **** //    프로그램명 	: I2C HW 관련 함수
+   3:../LIB_HW/Hw_I2C_HW.c **** //
+   4:../LIB_HW/Hw_I2C_HW.c **** //    만든이     	: 
+   5:../LIB_HW/Hw_I2C_HW.c **** //
+   6:../LIB_HW/Hw_I2C_HW.c **** //    날  짜     	: 
+   7:../LIB_HW/Hw_I2C_HW.c **** //    
+   8:../LIB_HW/Hw_I2C_HW.c **** //    최종 수정  	:
+   9:../LIB_HW/Hw_I2C_HW.c **** //
+  10:../LIB_HW/Hw_I2C_HW.c **** //    MPU_Type		:
+  11:../LIB_HW/Hw_I2C_HW.c **** //
+  12:../LIB_HW/Hw_I2C_HW.c **** //    파일명     	: Hw_I2C_GW.c
+  13:../LIB_HW/Hw_I2C_HW.c **** //----------------------------------------------------------------------------
+  14:../LIB_HW/Hw_I2C_HW.c **** 
+  15:../LIB_HW/Hw_I2C_HW.c **** 
+  16:../LIB_HW/Hw_I2C_HW.c **** //----- 헤더파일 열기
+  17:../LIB_HW/Hw_I2C_HW.c **** //
+  18:../LIB_HW/Hw_I2C_HW.c **** #define  HW_I2C_HW_LOCAL
+  19:../LIB_HW/Hw_I2C_HW.c **** 
+  20:../LIB_HW/Hw_I2C_HW.c **** 
+  21:../LIB_HW/Hw_I2C_HW.c **** #include "Hw_I2C_HW.h"
+  22:../LIB_HW/Hw_I2C_HW.c **** #include "Lb_Printf.h"
+  23:../LIB_HW/Hw_I2C_HW.c **** 
+  24:../LIB_HW/Hw_I2C_HW.c **** 
+  25:../LIB_HW/Hw_I2C_HW.c **** #define HW_I2C_HW_CH_MAX  			2
+  26:../LIB_HW/Hw_I2C_HW.c **** 
+  27:../LIB_HW/Hw_I2C_HW.c **** 
+  28:../LIB_HW/Hw_I2C_HW.c **** 
+  29:../LIB_HW/Hw_I2C_HW.c **** 
+  30:../LIB_HW/Hw_I2C_HW.c **** 
+  31:../LIB_HW/Hw_I2C_HW.c **** 
+  32:../LIB_HW/Hw_I2C_HW.c **** void Hw_I2C_HW_IO_Setup( void );
+  33:../LIB_HW/Hw_I2C_HW.c **** u16  Hw_I2C_HW_WaitForBitSet( u8 Ch, u32 *reg_addr, u32 reg_bit, u32 time_out );
+  34:../LIB_HW/Hw_I2C_HW.c **** 
+  35:../LIB_HW/Hw_I2C_HW.c **** /*
+  36:../LIB_HW/Hw_I2C_HW.c **** void Hw_I2C_SW_StartTransmit( u8 Ch );
+  37:../LIB_HW/Hw_I2C_HW.c **** void Hw_I2C_SW_EndTransmit  ( u8 Ch );
+  38:../LIB_HW/Hw_I2C_HW.c **** 
+  39:../LIB_HW/Hw_I2C_HW.c **** 
+  40:../LIB_HW/Hw_I2C_HW.c **** u8 Hw_I2C_SW_WriteByte_NoAck( u8 Ch, u8   Data );
+  41:../LIB_HW/Hw_I2C_HW.c **** u8 Hw_I2C_SW_WriteByte_Ack  ( u8 Ch, u8   Data );
+  42:../LIB_HW/Hw_I2C_HW.c **** u8 Hw_I2C_SW_ReadByte_NoAck ( u8 Ch, u8 *pData );
+  43:../LIB_HW/Hw_I2C_HW.c **** u8 Hw_I2C_SW_ReadByte_Ack   ( u8 Ch, u8 *pData );
+  44:../LIB_HW/Hw_I2C_HW.c **** */
+  45:../LIB_HW/Hw_I2C_HW.c **** 
+  46:../LIB_HW/Hw_I2C_HW.c **** 
+  47:../LIB_HW/Hw_I2C_HW.c **** 
+  48:../LIB_HW/Hw_I2C_HW.c **** 
+  49:../LIB_HW/Hw_I2C_HW.c **** 
+  50:../LIB_HW/Hw_I2C_HW.c **** /*---------------------------------------------------------------------------
+  51:../LIB_HW/Hw_I2C_HW.c ****      TITLE   : Hw_I2C_SW_Init
+  52:../LIB_HW/Hw_I2C_HW.c ****      WORK    : 
+  53:../LIB_HW/Hw_I2C_HW.c ****      ARG     : void
+  54:../LIB_HW/Hw_I2C_HW.c ****      RET     : void
+  55:../LIB_HW/Hw_I2C_HW.c **** ---------------------------------------------------------------------------*/
+  56:../LIB_HW/Hw_I2C_HW.c **** void Hw_I2C_HW_Init( void )
+  57:../LIB_HW/Hw_I2C_HW.c **** {
+  58:../LIB_HW/Hw_I2C_HW.c **** 	u32 SR;
+  59:../LIB_HW/Hw_I2C_HW.c **** 
+  60:../LIB_HW/Hw_I2C_HW.c **** 
+  61:../LIB_HW/Hw_I2C_HW.c **** 	//-- I/O 초기화
+  62:../LIB_HW/Hw_I2C_HW.c **** 	//
+  63:../LIB_HW/Hw_I2C_HW.c **** 	Hw_I2C_HW_IO_Setup();	
+  64:../LIB_HW/Hw_I2C_HW.c **** 
+  65:../LIB_HW/Hw_I2C_HW.c **** 
+  66:../LIB_HW/Hw_I2C_HW.c **** 	REG_I2C1_CR1 = 0;
+  67:../LIB_HW/Hw_I2C_HW.c **** 
+  68:../LIB_HW/Hw_I2C_HW.c **** 	//-- 1. I2C 클럭 입력 주파수 설정 
+  69:../LIB_HW/Hw_I2C_HW.c **** 	//
+  70:../LIB_HW/Hw_I2C_HW.c **** 	REG_I2C1_CR2 = 0 
+  71:../LIB_HW/Hw_I2C_HW.c **** 				| ( 36 << 0 );		// FREQ = 36Mhz
+  72:../LIB_HW/Hw_I2C_HW.c **** 
+  73:../LIB_HW/Hw_I2C_HW.c **** 	//-- 2. Clock Control 
+  74:../LIB_HW/Hw_I2C_HW.c **** 	//
+  75:../LIB_HW/Hw_I2C_HW.c **** 	REG_I2C1_CCR = 0 
+  76:../LIB_HW/Hw_I2C_HW.c **** 				| (  1 << 15 )		// Fast Mode I2C
+  77:../LIB_HW/Hw_I2C_HW.c **** 				| (  0 << 14 )		// Duty Tlow/Thig = 2
+  78:../LIB_HW/Hw_I2C_HW.c **** 				| ( 30 <<  0 );		// 30*27ns + 2*30*27ns = 400Khz
+  79:../LIB_HW/Hw_I2C_HW.c **** 
+  80:../LIB_HW/Hw_I2C_HW.c **** 	//-- 3. Maximum Rise Time  
+  81:../LIB_HW/Hw_I2C_HW.c **** 	//
+  82:../LIB_HW/Hw_I2C_HW.c **** 	REG_I2C1_TRISE = 4;				// 300ns / 100ns + 1 = 4 
+  83:../LIB_HW/Hw_I2C_HW.c **** 
+  84:../LIB_HW/Hw_I2C_HW.c **** 
+  85:../LIB_HW/Hw_I2C_HW.c **** 	//-- Clock Enable
+  86:../LIB_HW/Hw_I2C_HW.c **** 	//
+  87:../LIB_HW/Hw_I2C_HW.c **** 	REG_RCC_APB1ENR |= (1<<21);		// I2C1 Clock enable
+  88:../LIB_HW/Hw_I2C_HW.c **** 
+  89:../LIB_HW/Hw_I2C_HW.c **** 
+  90:../LIB_HW/Hw_I2C_HW.c **** 	CLR_BIT( REG_I2C1_CR1, 1 );		// I2C Mode		
+  91:../LIB_HW/Hw_I2C_HW.c **** 	SET_BIT( REG_I2C1_CR1, 0 );		// Peripheral enable	
+  92:../LIB_HW/Hw_I2C_HW.c **** 
+  93:../LIB_HW/Hw_I2C_HW.c **** 	SR = REG_I2C1_SR1;
+  94:../LIB_HW/Hw_I2C_HW.c **** 	SR = REG_I2C1_SR2;
+  95:../LIB_HW/Hw_I2C_HW.c **** }
+  96:../LIB_HW/Hw_I2C_HW.c **** 
+  97:../LIB_HW/Hw_I2C_HW.c **** 
+  98:../LIB_HW/Hw_I2C_HW.c **** 
+  99:../LIB_HW/Hw_I2C_HW.c **** 
+ 100:../LIB_HW/Hw_I2C_HW.c **** 
+ 101:../LIB_HW/Hw_I2C_HW.c **** /*---------------------------------------------------------------------------
+ 102:../LIB_HW/Hw_I2C_HW.c ****      TITLE   : Hw_I2C_SW_IO_Setup
+ 103:../LIB_HW/Hw_I2C_HW.c ****      WORK    : 
+ 104:../LIB_HW/Hw_I2C_HW.c ****      ARG     : void
+ 105:../LIB_HW/Hw_I2C_HW.c ****      RET     : void
+ 106:../LIB_HW/Hw_I2C_HW.c **** ---------------------------------------------------------------------------*/
+ 107:../LIB_HW/Hw_I2C_HW.c **** void Hw_I2C_HW_IO_Setup( void )
+ 108:../LIB_HW/Hw_I2C_HW.c **** {
+  27              		.loc 1 108 0
   28              		.cfi_startproc
-  29              		@ args = 0, pretend = 0, frame = 8
+  29              		@ args = 0, pretend = 0, frame = 0
   30              		@ frame_needed = 0, uses_anonymous_args = 0
-  31 0000 2DE9F04F 		push	{r4, r5, r6, r7, r8, r9, sl, fp, lr}
-  32              	.LCFI0:
-  33              		.cfi_def_cfa_offset 36
-  34              		.cfi_offset 4, -36
-  35              		.cfi_offset 5, -32
-  36              		.cfi_offset 6, -28
-  37              		.cfi_offset 7, -24
-  38              		.cfi_offset 8, -20
-  39              		.cfi_offset 9, -16
-  40              		.cfi_offset 10, -12
-  41              		.cfi_offset 11, -8
-  42              		.cfi_offset 14, -4
-  43 0004 DFF8ACA1 		ldr	sl, .L83+20
-  44 0008 83B0     		sub	sp, sp, #12
-  45              	.LCFI1:
-  46              		.cfi_def_cfa_offset 48
-  55:../LIB_USB/DRV/usb_int.c ****   __IO uint16_t wEPVal = 0;
-  56:../LIB_USB/DRV/usb_int.c ****   /* stay in loop while pending interrupts */
-  57:../LIB_USB/DRV/usb_int.c ****   while (((wIstr = _GetISTR()) & ISTR_CTR) != 0)
-  47              		.loc 1 57 0
-  48 000a 45F6444B 		movw	fp, #23620
-  55:../LIB_USB/DRV/usb_int.c ****   __IO uint16_t wEPVal = 0;
-  49              		.loc 1 55 0
-  50 000e 0023     		movs	r3, #0
-  58:../LIB_USB/DRV/usb_int.c ****   {
-  59:../LIB_USB/DRV/usb_int.c ****     /* extract highest priority endpoint number */
-  60:../LIB_USB/DRV/usb_int.c ****     EPindex = (uint8_t)(wIstr & ISTR_EP_ID);
-  51              		.loc 1 60 0
-  52 0010 DFF8A491 		ldr	r9, .L83+24
-  61:../LIB_USB/DRV/usb_int.c ****     if (EPindex == 0)
-  62:../LIB_USB/DRV/usb_int.c ****     {
-  63:../LIB_USB/DRV/usb_int.c ****       /* Decode and service control endpoint interrupt */
-  64:../LIB_USB/DRV/usb_int.c ****       /* calling related service routine */
-  65:../LIB_USB/DRV/usb_int.c ****       /* (Setup0_Process, In0_Process, Out0_Process) */
-  66:../LIB_USB/DRV/usb_int.c **** 
-  67:../LIB_USB/DRV/usb_int.c ****       /* save RX & TX status */
-  68:../LIB_USB/DRV/usb_int.c ****       /* and set both to NAK */
-  69:../LIB_USB/DRV/usb_int.c ****       
-  70:../LIB_USB/DRV/usb_int.c **** 	    SaveRState = _GetENDPOINT(ENDP0);
-  53              		.loc 1 70 0
-  54 0014 624D     		ldr	r5, .L83
-  55:../LIB_USB/DRV/usb_int.c ****   __IO uint16_t wEPVal = 0;
-  55              		.loc 1 55 0
-  56 0016 ADF80630 		strh	r3, [sp, #6]	@ movhi
-  57              	.LVL0:
-  57:../LIB_USB/DRV/usb_int.c ****   while (((wIstr = _GetISTR()) & ISTR_CTR) != 0)
-  58              		.loc 1 57 0
-  59 001a C4F2000B 		movt	fp, 16384
-  60 001e D046     		mov	r8, sl
-  61              	.L65:
-  57:../LIB_USB/DRV/usb_int.c ****   while (((wIstr = _GetISTR()) & ISTR_CTR) != 0)
-  62              		.loc 1 57 0 is_stmt 0 discriminator 1
-  63 0020 DBF80000 		ldr	r0, [fp, #0]
-  64              		.loc 1 70 0 is_stmt 1 discriminator 1
-  65 0024 4FF4B844 		mov	r4, #23552
-  57:../LIB_USB/DRV/usb_int.c ****   while (((wIstr = _GetISTR()) & ISTR_CTR) != 0)
-  66              		.loc 1 57 0 discriminator 1
-  67 0028 82B2     		uxth	r2, r0
-  68 002a 0304     		lsls	r3, r0, #16
-  69 002c AAF80020 		strh	r2, [sl, #0]	@ movhi
-  70 0030 40F1AB80 		bpl	.L1
-  60:../LIB_USB/DRV/usb_int.c ****     EPindex = (uint8_t)(wIstr & ISTR_EP_ID);
-  71              		.loc 1 60 0
-  72 0034 B8F80030 		ldrh	r3, [r8, #0]
-  73              		.loc 1 70 0
-  74 0038 C4F20004 		movt	r4, 16384
-  60:../LIB_USB/DRV/usb_int.c ****     EPindex = (uint8_t)(wIstr & ISTR_EP_ID);
-  75              		.loc 1 60 0
-  76 003c 03F00F02 		and	r2, r3, #15
-  71:../LIB_USB/DRV/usb_int.c **** 	    SaveTState = SaveRState & EPTX_STAT;
-  72:../LIB_USB/DRV/usb_int.c **** 	    SaveRState &=  EPRX_STAT;	
-  73:../LIB_USB/DRV/usb_int.c **** 
-  74:../LIB_USB/DRV/usb_int.c **** 	    _SetEPRxTxStatus(ENDP0,EP_RX_NAK,EP_TX_NAK);
-  75:../LIB_USB/DRV/usb_int.c **** 
-  76:../LIB_USB/DRV/usb_int.c ****       /* DIR bit = origin of the interrupt */
-  77:../LIB_USB/DRV/usb_int.c **** 
-  78:../LIB_USB/DRV/usb_int.c ****       if ((wIstr & ISTR_DIR) == 0)
-  79:../LIB_USB/DRV/usb_int.c ****       {
-  80:../LIB_USB/DRV/usb_int.c ****         /* DIR = 0 */
-  81:../LIB_USB/DRV/usb_int.c **** 
-  82:../LIB_USB/DRV/usb_int.c ****         /* DIR = 0      => IN  int */
-  83:../LIB_USB/DRV/usb_int.c ****         /* DIR = 0 implies that (EP_CTR_TX = 1) always  */
-  84:../LIB_USB/DRV/usb_int.c **** 
-  85:../LIB_USB/DRV/usb_int.c ****         _ClearEP_CTR_TX(ENDP0);
-  86:../LIB_USB/DRV/usb_int.c ****         In0_Process();
-  87:../LIB_USB/DRV/usb_int.c **** 
-  88:../LIB_USB/DRV/usb_int.c ****            /* before terminate set Tx & Rx status */
-  89:../LIB_USB/DRV/usb_int.c **** 
-  90:../LIB_USB/DRV/usb_int.c ****             _SetEPRxTxStatus(ENDP0,SaveRState,SaveTState);
-  91:../LIB_USB/DRV/usb_int.c **** 		  return;
-  92:../LIB_USB/DRV/usb_int.c ****       }
-  93:../LIB_USB/DRV/usb_int.c ****       else
-  94:../LIB_USB/DRV/usb_int.c ****       {
-  95:../LIB_USB/DRV/usb_int.c ****         /* DIR = 1 */
-  96:../LIB_USB/DRV/usb_int.c **** 
-  97:../LIB_USB/DRV/usb_int.c ****         /* DIR = 1 & CTR_RX       => SETUP or OUT int */
-  98:../LIB_USB/DRV/usb_int.c ****         /* DIR = 1 & (CTR_TX | CTR_RX) => 2 int pending */
-  99:../LIB_USB/DRV/usb_int.c **** 
- 100:../LIB_USB/DRV/usb_int.c ****         wEPVal = _GetENDPOINT(ENDP0);
- 101:../LIB_USB/DRV/usb_int.c ****         
- 102:../LIB_USB/DRV/usb_int.c ****         if ((wEPVal &EP_SETUP) != 0)
- 103:../LIB_USB/DRV/usb_int.c ****         {
- 104:../LIB_USB/DRV/usb_int.c ****           _ClearEP_CTR_RX(ENDP0); /* SETUP bit kept frozen while CTR_RX = 1 */
- 105:../LIB_USB/DRV/usb_int.c ****           Setup0_Process();
- 106:../LIB_USB/DRV/usb_int.c ****           /* before terminate set Tx & Rx status */
- 107:../LIB_USB/DRV/usb_int.c **** 
- 108:../LIB_USB/DRV/usb_int.c **** 		      _SetEPRxTxStatus(ENDP0,SaveRState,SaveTState);
- 109:../LIB_USB/DRV/usb_int.c ****           return;
- 110:../LIB_USB/DRV/usb_int.c ****         }
- 111:../LIB_USB/DRV/usb_int.c **** 
- 112:../LIB_USB/DRV/usb_int.c ****         else if ((wEPVal & EP_CTR_RX) != 0)
- 113:../LIB_USB/DRV/usb_int.c ****         {
- 114:../LIB_USB/DRV/usb_int.c ****           _ClearEP_CTR_RX(ENDP0);
- 115:../LIB_USB/DRV/usb_int.c ****           Out0_Process();
- 116:../LIB_USB/DRV/usb_int.c ****           /* before terminate set Tx & Rx status */
- 117:../LIB_USB/DRV/usb_int.c ****      
- 118:../LIB_USB/DRV/usb_int.c **** 		     _SetEPRxTxStatus(ENDP0,SaveRState,SaveTState);
- 119:../LIB_USB/DRV/usb_int.c ****           return;
- 120:../LIB_USB/DRV/usb_int.c ****         }
- 121:../LIB_USB/DRV/usb_int.c ****       }
- 122:../LIB_USB/DRV/usb_int.c ****     }/* if(EPindex == 0) */
- 123:../LIB_USB/DRV/usb_int.c ****     else
- 124:../LIB_USB/DRV/usb_int.c ****     {
- 125:../LIB_USB/DRV/usb_int.c ****       /* Decode and service non control endpoints interrupt  */
- 126:../LIB_USB/DRV/usb_int.c **** 
- 127:../LIB_USB/DRV/usb_int.c ****       /* process related endpoint register */
- 128:../LIB_USB/DRV/usb_int.c ****       wEPVal = _GetENDPOINT(EPindex);
-  77              		.loc 1 128 0
-  78 0040 9000     		lsls	r0, r2, #2
-  79              	.LVL1:
-  80 0042 00F18040 		add	r0, r0, #1073741824
-  71:../LIB_USB/DRV/usb_int.c **** 	    SaveTState = SaveRState & EPTX_STAT;
-  81              		.loc 1 71 0
-  82 0046 574E     		ldr	r6, .L83+4
-  83              	.LBB2:
-  74:../LIB_USB/DRV/usb_int.c **** 	    _SetEPRxTxStatus(ENDP0,EP_RX_NAK,EP_TX_NAK);
-  84              		.loc 1 74 0
-  85 0048 4BF6BF71 		movw	r1, #49087
-  86              	.LBE2:
-  70:../LIB_USB/DRV/usb_int.c **** 	    SaveRState = _GetENDPOINT(ENDP0);
-  87              		.loc 1 70 0
-  88 004c 544F     		ldr	r7, .L83
-  61:../LIB_USB/DRV/usb_int.c ****     if (EPindex == 0)
-  89              		.loc 1 61 0
-  90 004e 1346     		mov	r3, r2
-  91              	.LVL2:
-  92              		.loc 1 128 0
-  93 0050 00F5B840 		add	r0, r0, #23552
-  60:../LIB_USB/DRV/usb_int.c ****     EPindex = (uint8_t)(wIstr & ISTR_EP_ID);
-  94              		.loc 1 60 0
-  95 0054 89F80020 		strb	r2, [r9, #0]
-  61:../LIB_USB/DRV/usb_int.c ****     if (EPindex == 0)
-  96              		.loc 1 61 0
-  97 0058 002A     		cmp	r2, #0
-  98 005a 33D1     		bne	.L3
-  99              	.LVL3:
-  70:../LIB_USB/DRV/usb_int.c **** 	    SaveRState = _GetENDPOINT(ENDP0);
- 100              		.loc 1 70 0
- 101 005c 2268     		ldr	r2, [r4, #0]
- 102              	.LVL4:
- 103 005e 90B2     		uxth	r0, r2
- 104 0060 2880     		strh	r0, [r5, #0]	@ movhi
-  71:../LIB_USB/DRV/usb_int.c **** 	    SaveTState = SaveRState & EPTX_STAT;
- 105              		.loc 1 71 0
- 106 0062 2B88     		ldrh	r3, [r5, #0]
- 107 0064 03F03002 		and	r2, r3, #48
- 108 0068 3280     		strh	r2, [r6, #0]	@ movhi
-  72:../LIB_USB/DRV/usb_int.c **** 	    SaveRState &=  EPRX_STAT;	
- 109              		.loc 1 72 0
- 110 006a 2888     		ldrh	r0, [r5, #0]
- 111 006c 00F44053 		and	r3, r0, #12288
- 112 0070 2B80     		strh	r3, [r5, #0]	@ movhi
- 113              	.LBB3:
-  74:../LIB_USB/DRV/usb_int.c **** 	    _SetEPRxTxStatus(ENDP0,EP_RX_NAK,EP_TX_NAK);
- 114              		.loc 1 74 0
- 115 0072 2268     		ldr	r2, [r4, #0]
- 116 0074 1140     		ands	r1, r1, r2
- 117              	.LVL5:
- 118 0076 81F40051 		eor	r1, r1, #8192
- 119              	.LVL6:
- 120 007a 81F02000 		eor	r0, r1, #32
- 121 007e 40F40043 		orr	r3, r0, #32768
- 122 0082 43F08002 		orr	r2, r3, #128
- 123 0086 2260     		str	r2, [r4, #0]
- 124              	.LBE3:
-  78:../LIB_USB/DRV/usb_int.c ****       if ((wIstr & ISTR_DIR) == 0)
- 125              		.loc 1 78 0
- 126 0088 B8F80010 		ldrh	r1, [r8, #0]
- 127              	.LVL7:
- 128 008c 01F01000 		and	r0, r1, #16
- 129              	.LVL8:
- 130 0090 83B2     		uxth	r3, r0
- 131 0092 002B     		cmp	r3, #0
- 132 0094 49D0     		beq	.L80
- 100:../LIB_USB/DRV/usb_int.c ****         wEPVal = _GetENDPOINT(ENDP0);
- 133              		.loc 1 100 0
- 134 0096 2268     		ldr	r2, [r4, #0]
- 135 0098 91B2     		uxth	r1, r2
- 136              	.LVL9:
- 137 009a ADF80610 		strh	r1, [sp, #6]	@ movhi
- 102:../LIB_USB/DRV/usb_int.c ****         if ((wEPVal &EP_SETUP) != 0)
- 138              		.loc 1 102 0
- 139 009e BDF80600 		ldrh	r0, [sp, #6]
- 140 00a2 00F40063 		and	r3, r0, #2048
- 141 00a6 9AB2     		uxth	r2, r3
- 142 00a8 002A     		cmp	r2, #0
- 143 00aa 71D1     		bne	.L81
- 112:../LIB_USB/DRV/usb_int.c ****         else if ((wEPVal & EP_CTR_RX) != 0)
- 144              		.loc 1 112 0
- 145 00ac BDF80610 		ldrh	r1, [sp, #6]
- 146              	.LVL10:
- 147 00b0 08B2     		sxth	r0, r1
- 148 00b2 0028     		cmp	r0, #0
- 149 00b4 B4DA     		bge	.L65
- 114:../LIB_USB/DRV/usb_int.c ****           _ClearEP_CTR_RX(ENDP0);
- 150              		.loc 1 114 0
- 151 00b6 2268     		ldr	r2, [r4, #0]
- 152 00b8 40F68F73 		movw	r3, #3983
- 153 00bc 1340     		ands	r3, r3, r2
- 154 00be 2360     		str	r3, [r4, #0]
- 115:../LIB_USB/DRV/usb_int.c ****           Out0_Process();
- 155              		.loc 1 115 0
- 156 00c0 3949     		ldr	r1, .L83+8
- 157 00c2 38E0     		b	.L77
- 158              	.LVL11:
- 159              	.L3:
- 160              		.loc 1 128 0
- 161 00c4 0468     		ldr	r4, [r0, #0]
- 162 00c6 A1B2     		uxth	r1, r4
- 163              	.LVL12:
- 164 00c8 ADF80610 		strh	r1, [sp, #6]	@ movhi
- 129:../LIB_USB/DRV/usb_int.c ****       if ((wEPVal & EP_CTR_RX) != 0)
- 165              		.loc 1 129 0
- 166 00cc BDF80620 		ldrh	r2, [sp, #6]
- 167              	.LVL13:
- 168 00d0 14B2     		sxth	r4, r2
- 169 00d2 002C     		cmp	r4, #0
- 170 00d4 1BDB     		blt	.L82
- 171              	.L21:
- 130:../LIB_USB/DRV/usb_int.c ****       {
- 131:../LIB_USB/DRV/usb_int.c ****         /* clear int flag */
- 132:../LIB_USB/DRV/usb_int.c ****         _ClearEP_CTR_RX(EPindex);
- 133:../LIB_USB/DRV/usb_int.c **** 
- 134:../LIB_USB/DRV/usb_int.c ****         /* call OUT service function */
- 135:../LIB_USB/DRV/usb_int.c ****         (*pEpInt_OUT[EPindex-1])();
- 136:../LIB_USB/DRV/usb_int.c **** 
- 137:../LIB_USB/DRV/usb_int.c ****       } /* if((wEPVal & EP_CTR_RX) */
- 138:../LIB_USB/DRV/usb_int.c **** 
- 139:../LIB_USB/DRV/usb_int.c ****       if ((wEPVal & EP_CTR_TX) != 0)
- 172              		.loc 1 139 0
- 173 00d6 BDF80610 		ldrh	r1, [sp, #6]
- 174 00da 01F08002 		and	r2, r1, #128
- 175 00de 93B2     		uxth	r3, r2
- 176 00e0 002B     		cmp	r3, #0
- 177 00e2 9DD0     		beq	.L65
- 140:../LIB_USB/DRV/usb_int.c ****       {
- 141:../LIB_USB/DRV/usb_int.c ****         /* clear int flag */
- 142:../LIB_USB/DRV/usb_int.c ****         _ClearEP_CTR_TX(EPindex);
- 178              		.loc 1 142 0
- 179 00e4 99F80040 		ldrb	r4, [r9, #0]	@ zero_extendqisi2
- 180 00e8 48F60F73 		movw	r3, #36623
- 181 00ec A000     		lsls	r0, r4, #2
- 182 00ee 00F18041 		add	r1, r0, #1073741824
- 183 00f2 01F5B842 		add	r2, r1, #23552
- 184 00f6 1068     		ldr	r0, [r2, #0]
- 143:../LIB_USB/DRV/usb_int.c **** 
- 144:../LIB_USB/DRV/usb_int.c ****         /* call IN service function */
- 145:../LIB_USB/DRV/usb_int.c ****         (*pEpInt_IN[EPindex-1])();
- 185              		.loc 1 145 0
- 186 00f8 013C     		subs	r4, r4, #1
- 142:../LIB_USB/DRV/usb_int.c ****         _ClearEP_CTR_TX(EPindex);
- 187              		.loc 1 142 0
- 188 00fa 0340     		ands	r3, r3, r0
- 189 00fc 1360     		str	r3, [r2, #0]
- 190              		.loc 1 145 0
- 191 00fe 40F20003 		movw	r3, #:lower16:pEpInt_IN
- 192 0102 C0F20003 		movt	r3, #:upper16:pEpInt_IN
- 193 0106 53F82410 		ldr	r1, [r3, r4, lsl #2]
- 194 010a 8847     		blx	r1
- 195              	.LVL14:
- 196 010c 88E7     		b	.L65
- 197              	.LVL15:
- 198              	.L82:
- 132:../LIB_USB/DRV/usb_int.c ****         _ClearEP_CTR_RX(EPindex);
- 199              		.loc 1 132 0
- 200 010e 0168     		ldr	r1, [r0, #0]
- 201 0110 40F68F72 		movw	r2, #3983
- 202              	.LVL16:
- 203 0114 0A40     		ands	r2, r2, r1
- 204 0116 0260     		str	r2, [r0, #0]
- 135:../LIB_USB/DRV/usb_int.c ****         (*pEpInt_OUT[EPindex-1])();
- 205              		.loc 1 135 0
- 206 0118 40F20000 		movw	r0, #:lower16:pEpInt_OUT
- 207              	.LVL17:
- 208 011c 013B     		subs	r3, r3, #1
- 209              	.LVL18:
- 210 011e C0F20000 		movt	r0, #:upper16:pEpInt_OUT
- 211 0122 50F82340 		ldr	r4, [r0, r3, lsl #2]
- 212 0126 A047     		blx	r4
- 213              	.LVL19:
- 214 0128 D5E7     		b	.L21
- 215              	.L80:
-  85:../LIB_USB/DRV/usb_int.c ****         _ClearEP_CTR_TX(ENDP0);
- 216              		.loc 1 85 0
- 217 012a 2168     		ldr	r1, [r4, #0]
- 218 012c 48F60F73 		movw	r3, #36623
- 219 0130 0B40     		ands	r3, r3, r1
-  86:../LIB_USB/DRV/usb_int.c ****         In0_Process();
- 220              		.loc 1 86 0
- 221 0132 1E49     		ldr	r1, .L83+12
-  85:../LIB_USB/DRV/usb_int.c ****         _ClearEP_CTR_TX(ENDP0);
- 222              		.loc 1 85 0
- 223 0134 2360     		str	r3, [r4, #0]
- 224              	.L77:
- 115:../LIB_USB/DRV/usb_int.c ****           Out0_Process();
- 225              		.loc 1 115 0
- 226 0136 8847     		blx	r1
- 227              	.LVL20:
- 228              	.LBB4:
- 118:../LIB_USB/DRV/usb_int.c **** 		     _SetEPRxTxStatus(ENDP0,SaveRState,SaveTState);
- 229              		.loc 1 118 0
- 230 0138 2068     		ldr	r0, [r4, #0]
- 231 013a 3A88     		ldrh	r2, [r7, #0]
- 232 013c 4BF6BF73 		movw	r3, #49087
- 233 0140 02F48051 		and	r1, r2, #4096
- 234 0144 8AB2     		uxth	r2, r1
- 235 0146 0340     		ands	r3, r3, r0
- 236              	.LVL21:
- 237 0148 0AB1     		cbz	r2, .L17
- 118:../LIB_USB/DRV/usb_int.c **** 		     _SetEPRxTxStatus(ENDP0,SaveRState,SaveTState);
- 238              		.loc 1 118 0 is_stmt 0 discriminator 1
- 239 014a 83F48053 		eor	r3, r3, #4096
- 240              	.LVL22:
- 241              	.L17:
- 118:../LIB_USB/DRV/usb_int.c **** 		     _SetEPRxTxStatus(ENDP0,SaveRState,SaveTState);
- 242              		.loc 1 118 0 discriminator 2
- 243 014e 3888     		ldrh	r0, [r7, #0]
- 244 0150 00F40051 		and	r1, r0, #8192
- 245 0154 8AB2     		uxth	r2, r1
- 246 0156 0AB1     		cbz	r2, .L18
- 118:../LIB_USB/DRV/usb_int.c **** 		     _SetEPRxTxStatus(ENDP0,SaveRState,SaveTState);
- 247              		.loc 1 118 0 discriminator 3
- 248 0158 83F40053 		eor	r3, r3, #8192
- 249              	.LVL23:
- 250              	.L18:
- 118:../LIB_USB/DRV/usb_int.c **** 		     _SetEPRxTxStatus(ENDP0,SaveRState,SaveTState);
- 251              		.loc 1 118 0 discriminator 4
- 252 015c 3088     		ldrh	r0, [r6, #0]
- 253 015e 00F01001 		and	r1, r0, #16
- 254 0162 8AB2     		uxth	r2, r1
- 255 0164 0AB1     		cbz	r2, .L19
- 118:../LIB_USB/DRV/usb_int.c **** 		     _SetEPRxTxStatus(ENDP0,SaveRState,SaveTState);
- 256              		.loc 1 118 0 discriminator 5
- 257 0166 83F01003 		eor	r3, r3, #16
- 258              	.LVL24:
- 259              	.L19:
- 118:../LIB_USB/DRV/usb_int.c **** 		     _SetEPRxTxStatus(ENDP0,SaveRState,SaveTState);
- 260              		.loc 1 118 0 discriminator 6
- 261 016a 3088     		ldrh	r0, [r6, #0]
- 262 016c 00F02001 		and	r1, r0, #32
- 263 0170 8AB2     		uxth	r2, r1
- 264 0172 0AB1     		cbz	r2, .L20
- 118:../LIB_USB/DRV/usb_int.c **** 		     _SetEPRxTxStatus(ENDP0,SaveRState,SaveTState);
- 265              		.loc 1 118 0 discriminator 7
- 266 0174 83F02003 		eor	r3, r3, #32
- 267              	.LVL25:
- 268              	.L20:
- 118:../LIB_USB/DRV/usb_int.c **** 		     _SetEPRxTxStatus(ENDP0,SaveRState,SaveTState);
- 269              		.loc 1 118 0 discriminator 8
- 270 0178 43F40040 		orr	r0, r3, #32768
- 271 017c 4FF4B841 		mov	r1, #23552
- 272 0180 40F08002 		orr	r2, r0, #128
- 273 0184 C4F20001 		movt	r1, 16384
- 274 0188 0A60     		str	r2, [r1, #0]
- 275              	.LVL26:
- 276              	.L1:
- 277              	.LBE4:
- 146:../LIB_USB/DRV/usb_int.c ****       } /* if((wEPVal & EP_CTR_TX) != 0) */
- 147:../LIB_USB/DRV/usb_int.c **** 
- 148:../LIB_USB/DRV/usb_int.c ****     }/* if(EPindex == 0) else */
- 149:../LIB_USB/DRV/usb_int.c **** 
- 150:../LIB_USB/DRV/usb_int.c ****   }/* while(...) */
- 151:../LIB_USB/DRV/usb_int.c **** }
- 278              		.loc 1 151 0 is_stmt 1
- 279 018a 03B0     		add	sp, sp, #12
- 280 018c BDE8F08F 		pop	{r4, r5, r6, r7, r8, r9, sl, fp, pc}
- 281              	.LVL27:
- 282              	.L81:
- 104:../LIB_USB/DRV/usb_int.c ****           _ClearEP_CTR_RX(ENDP0); /* SETUP bit kept frozen while CTR_RX = 1 */
- 283              		.loc 1 104 0
- 284 0190 2068     		ldr	r0, [r4, #0]
- 285              	.LVL28:
- 286 0192 40F68F72 		movw	r2, #3983
- 287 0196 0240     		ands	r2, r2, r0
- 288 0198 2260     		str	r2, [r4, #0]
- 105:../LIB_USB/DRV/usb_int.c ****           Setup0_Process();
- 289              		.loc 1 105 0
- 290 019a 0549     		ldr	r1, .L83+16
- 291 019c CBE7     		b	.L77
- 292              	.L84:
- 293 019e 00BF     		.align	2
- 294              	.L83:
- 295 01a0 00000000 		.word	SaveRState
- 296 01a4 00000000 		.word	SaveTState
- 297 01a8 00000000 		.word	Out0_Process
- 298 01ac 00000000 		.word	In0_Process
- 299 01b0 00000000 		.word	Setup0_Process
- 300 01b4 00000000 		.word	wIstr
- 301 01b8 00000000 		.word	EPindex
+  31              		@ link register save eliminated.
+ 109:../LIB_HW/Hw_I2C_HW.c **** 
+ 110:../LIB_HW/Hw_I2C_HW.c **** 	//-- I2C1 Remap
+ 111:../LIB_HW/Hw_I2C_HW.c **** 	//
+ 112:../LIB_HW/Hw_I2C_HW.c **** 	SET_BIT( REG_AFIO_MAPR, 1 );	// SCL/PB8, SDA/PB9)
+  32              		.loc 1 112 0
+  33 0000 0422     		movs	r2, #4
+  34 0002 C4F20102 		movt	r2, 16385
+  35 0006 1168     		ldr	r1, [r2, #0]
+ 113:../LIB_HW/Hw_I2C_HW.c **** 
+ 114:../LIB_HW/Hw_I2C_HW.c **** 
+ 115:../LIB_HW/Hw_I2C_HW.c **** 	//-- SCL PB.8
+ 116:../LIB_HW/Hw_I2C_HW.c **** 	//
+ 117:../LIB_HW/Hw_I2C_HW.c **** 	REG_GPIOB_CRH &= ~(0x0F << ( 0));	// Clear
+  36              		.loc 1 117 0
+  37 0008 40F60443 		movw	r3, #3076
+ 112:../LIB_HW/Hw_I2C_HW.c **** 	SET_BIT( REG_AFIO_MAPR, 1 );	// SCL/PB8, SDA/PB9)
+  38              		.loc 1 112 0
+  39 000c 41F00200 		orr	r0, r1, #2
+  40 0010 1060     		str	r0, [r2, #0]
+  41              		.loc 1 117 0
+  42 0012 C4F20103 		movt	r3, 16385
+  43 0016 1A68     		ldr	r2, [r3, #0]
+  44 0018 22F00F01 		bic	r1, r2, #15
+  45 001c 1960     		str	r1, [r3, #0]
+ 118:../LIB_HW/Hw_I2C_HW.c **** 	REG_GPIOB_CRH |=  (0x03 << ( 0));	// MODE, PB.8 Output mode, max speed 50Mhz
+  46              		.loc 1 118 0
+  47 001e 1868     		ldr	r0, [r3, #0]
+  48 0020 40F00302 		orr	r2, r0, #3
+  49 0024 1A60     		str	r2, [r3, #0]
+ 119:../LIB_HW/Hw_I2C_HW.c **** 	REG_GPIOB_CRH |=  (0x03 << ( 2));	// CNF,  PB.8 Alternate function output Open-drain	
+  50              		.loc 1 119 0
+  51 0026 1968     		ldr	r1, [r3, #0]
+  52 0028 41F00C00 		orr	r0, r1, #12
+  53 002c 1860     		str	r0, [r3, #0]
+ 120:../LIB_HW/Hw_I2C_HW.c **** 
+ 121:../LIB_HW/Hw_I2C_HW.c **** 
+ 122:../LIB_HW/Hw_I2C_HW.c **** 	//-- SDA PB.9
+ 123:../LIB_HW/Hw_I2C_HW.c **** 	//
+ 124:../LIB_HW/Hw_I2C_HW.c **** 	REG_GPIOB_CRH &= ~(0x0F << ( 4));	// Clear
+  54              		.loc 1 124 0
+  55 002e 1A68     		ldr	r2, [r3, #0]
+  56 0030 22F0F001 		bic	r1, r2, #240
+  57 0034 1960     		str	r1, [r3, #0]
+ 125:../LIB_HW/Hw_I2C_HW.c **** 	REG_GPIOB_CRH |=  (0x03 << ( 4));	// MODE, PB.9 Output mode, max speed 50Mhz
+  58              		.loc 1 125 0
+  59 0036 1868     		ldr	r0, [r3, #0]
+  60 0038 40F03002 		orr	r2, r0, #48
+  61 003c 1A60     		str	r2, [r3, #0]
+ 126:../LIB_HW/Hw_I2C_HW.c **** 	REG_GPIOB_CRH |=  (0x03 << ( 6));	// CNF,  PB.9 Alternate function output Open-drain	
+  62              		.loc 1 126 0
+  63 003e 1968     		ldr	r1, [r3, #0]
+  64 0040 41F0C000 		orr	r0, r1, #192
+  65 0044 1860     		str	r0, [r3, #0]
+  66 0046 7047     		bx	lr
+  67              		.cfi_endproc
+  68              	.LFE1:
+  70              		.section	.text.Hw_I2C_HW_Init,"ax",%progbits
+  71              		.align	2
+  72              		.global	Hw_I2C_HW_Init
+  73              		.thumb
+  74              		.thumb_func
+  76              	Hw_I2C_HW_Init:
+  77              	.LFB0:
+  57:../LIB_HW/Hw_I2C_HW.c **** {
+  78              		.loc 1 57 0
+  79              		.cfi_startproc
+  80              		@ args = 0, pretend = 0, frame = 0
+  81              		@ frame_needed = 0, uses_anonymous_args = 0
+  82 0000 38B5     		push	{r3, r4, r5, lr}
+  83              	.LCFI0:
+  84              		.cfi_def_cfa_offset 16
+  85              		.cfi_offset 3, -16
+  86              		.cfi_offset 4, -12
+  87              		.cfi_offset 5, -8
+  88              		.cfi_offset 14, -4
+  63:../LIB_HW/Hw_I2C_HW.c **** 	Hw_I2C_HW_IO_Setup();	
+  89              		.loc 1 63 0
+  90 0002 40F20003 		movw	r3, #:lower16:Hw_I2C_HW_IO_Setup
+  91 0006 C0F20003 		movt	r3, #:upper16:Hw_I2C_HW_IO_Setup
+  92 000a 9847     		blx	r3
+  93              	.LVL0:
+  66:../LIB_HW/Hw_I2C_HW.c **** 	REG_I2C1_CR1 = 0;
+  94              		.loc 1 66 0
+  95 000c 4FF4A843 		mov	r3, #21504
+  96 0010 C4F20003 		movt	r3, 16384
+  97 0014 0025     		movs	r5, #0
+  70:../LIB_HW/Hw_I2C_HW.c **** 	REG_I2C1_CR2 = 0 
+  98              		.loc 1 70 0
+  99 0016 45F20444 		movw	r4, #21508
+  66:../LIB_HW/Hw_I2C_HW.c **** 	REG_I2C1_CR1 = 0;
+ 100              		.loc 1 66 0
+ 101 001a 1D60     		str	r5, [r3, #0]
+  70:../LIB_HW/Hw_I2C_HW.c **** 	REG_I2C1_CR2 = 0 
+ 102              		.loc 1 70 0
+ 103 001c C4F20004 		movt	r4, 16384
+  75:../LIB_HW/Hw_I2C_HW.c **** 	REG_I2C1_CCR = 0 
+ 104              		.loc 1 75 0
+ 105 0020 45F21C40 		movw	r0, #21532
+  70:../LIB_HW/Hw_I2C_HW.c **** 	REG_I2C1_CR2 = 0 
+ 106              		.loc 1 70 0
+ 107 0024 2425     		movs	r5, #36
+ 108 0026 2560     		str	r5, [r4, #0]
+  75:../LIB_HW/Hw_I2C_HW.c **** 	REG_I2C1_CCR = 0 
+ 109              		.loc 1 75 0
+ 110 0028 C4F20000 		movt	r0, 16384
+  82:../LIB_HW/Hw_I2C_HW.c **** 	REG_I2C1_TRISE = 4;				// 300ns / 100ns + 1 = 4 
+ 111              		.loc 1 82 0
+ 112 002c 45F22041 		movw	r1, #21536
+  75:../LIB_HW/Hw_I2C_HW.c **** 	REG_I2C1_CCR = 0 
+ 113              		.loc 1 75 0
+ 114 0030 48F21E04 		movw	r4, #32798
+ 115 0034 0460     		str	r4, [r0, #0]
+  82:../LIB_HW/Hw_I2C_HW.c **** 	REG_I2C1_TRISE = 4;				// 300ns / 100ns + 1 = 4 
+ 116              		.loc 1 82 0
+ 117 0036 C4F20001 		movt	r1, 16384
+ 118 003a 0420     		movs	r0, #4
+  87:../LIB_HW/Hw_I2C_HW.c **** 	REG_RCC_APB1ENR |= (1<<21);		// I2C1 Clock enable
+ 119              		.loc 1 87 0
+ 120 003c 41F21C02 		movw	r2, #4124
+  82:../LIB_HW/Hw_I2C_HW.c **** 	REG_I2C1_TRISE = 4;				// 300ns / 100ns + 1 = 4 
+ 121              		.loc 1 82 0
+ 122 0040 0860     		str	r0, [r1, #0]
+  87:../LIB_HW/Hw_I2C_HW.c **** 	REG_RCC_APB1ENR |= (1<<21);		// I2C1 Clock enable
+ 123              		.loc 1 87 0
+ 124 0042 C4F20202 		movt	r2, 16386
+ 125 0046 1068     		ldr	r0, [r2, #0]
+  93:../LIB_HW/Hw_I2C_HW.c **** 	SR = REG_I2C1_SR1;
+ 126              		.loc 1 93 0
+ 127 0048 45F21441 		movw	r1, #21524
+  87:../LIB_HW/Hw_I2C_HW.c **** 	REG_RCC_APB1ENR |= (1<<21);		// I2C1 Clock enable
+ 128              		.loc 1 87 0
+ 129 004c 40F40010 		orr	r0, r0, #2097152
+ 130 0050 1060     		str	r0, [r2, #0]
+  90:../LIB_HW/Hw_I2C_HW.c **** 	CLR_BIT( REG_I2C1_CR1, 1 );		// I2C Mode		
+ 131              		.loc 1 90 0
+ 132 0052 1868     		ldr	r0, [r3, #0]
+  94:../LIB_HW/Hw_I2C_HW.c **** 	SR = REG_I2C1_SR2;
+ 133              		.loc 1 94 0
+ 134 0054 45F21842 		movw	r2, #21528
+  90:../LIB_HW/Hw_I2C_HW.c **** 	CLR_BIT( REG_I2C1_CR1, 1 );		// I2C Mode		
+ 135              		.loc 1 90 0
+ 136 0058 20F00200 		bic	r0, r0, #2
+ 137 005c 1860     		str	r0, [r3, #0]
+  91:../LIB_HW/Hw_I2C_HW.c **** 	SET_BIT( REG_I2C1_CR1, 0 );		// Peripheral enable	
+ 138              		.loc 1 91 0
+ 139 005e 1868     		ldr	r0, [r3, #0]
+  93:../LIB_HW/Hw_I2C_HW.c **** 	SR = REG_I2C1_SR1;
+ 140              		.loc 1 93 0
+ 141 0060 C4F20001 		movt	r1, 16384
+  91:../LIB_HW/Hw_I2C_HW.c **** 	SET_BIT( REG_I2C1_CR1, 0 );		// Peripheral enable	
+ 142              		.loc 1 91 0
+ 143 0064 40F00100 		orr	r0, r0, #1
+ 144 0068 1860     		str	r0, [r3, #0]
+  94:../LIB_HW/Hw_I2C_HW.c **** 	SR = REG_I2C1_SR2;
+ 145              		.loc 1 94 0
+ 146 006a C4F20002 		movt	r2, 16384
+  93:../LIB_HW/Hw_I2C_HW.c **** 	SR = REG_I2C1_SR1;
+ 147              		.loc 1 93 0
+ 148 006e 0B68     		ldr	r3, [r1, #0]
+  94:../LIB_HW/Hw_I2C_HW.c **** 	SR = REG_I2C1_SR2;
+ 149              		.loc 1 94 0
+ 150 0070 1368     		ldr	r3, [r2, #0]
+ 151 0072 38BD     		pop	{r3, r4, r5, pc}
+ 152              		.cfi_endproc
+ 153              	.LFE0:
+ 155              		.section	.text.Hw_I2C_HW_Write,"ax",%progbits
+ 156              		.align	2
+ 157              		.global	Hw_I2C_HW_Write
+ 158              		.thumb
+ 159              		.thumb_func
+ 161              	Hw_I2C_HW_Write:
+ 162              	.LFB2:
+ 127:../LIB_HW/Hw_I2C_HW.c **** }
+ 128:../LIB_HW/Hw_I2C_HW.c **** 
+ 129:../LIB_HW/Hw_I2C_HW.c **** 
+ 130:../LIB_HW/Hw_I2C_HW.c **** 
+ 131:../LIB_HW/Hw_I2C_HW.c **** 
+ 132:../LIB_HW/Hw_I2C_HW.c **** 
+ 133:../LIB_HW/Hw_I2C_HW.c **** /*---------------------------------------------------------------------------
+ 134:../LIB_HW/Hw_I2C_HW.c ****      TITLE   : Hw_I2C_SW_Write
+ 135:../LIB_HW/Hw_I2C_HW.c ****      WORK    : 
+ 136:../LIB_HW/Hw_I2C_HW.c ****      ARG     : void
+ 137:../LIB_HW/Hw_I2C_HW.c ****      RET     : void
+ 138:../LIB_HW/Hw_I2C_HW.c **** ---------------------------------------------------------------------------*/
+ 139:../LIB_HW/Hw_I2C_HW.c **** u16 Hw_I2C_HW_Write( u8 Ch, u16 i2c_addr, u8* pdata, u16 len )
+ 140:../LIB_HW/Hw_I2C_HW.c **** {
+ 163              		.loc 1 140 0
+ 164              		.cfi_startproc
+ 165              		@ args = 0, pretend = 0, frame = 0
+ 166              		@ frame_needed = 0, uses_anonymous_args = 0
+ 167              	.LVL1:
+ 168 0000 2DE9F047 		push	{r4, r5, r6, r7, r8, r9, sl, lr}
+ 169              	.LCFI1:
+ 170              		.cfi_def_cfa_offset 32
+ 171              		.cfi_offset 4, -32
+ 172              		.cfi_offset 5, -28
+ 173              		.cfi_offset 6, -24
+ 174              		.cfi_offset 7, -20
+ 175              		.cfi_offset 8, -16
+ 176              		.cfi_offset 9, -12
+ 177              		.cfi_offset 10, -8
+ 178              		.cfi_offset 14, -4
+ 141:../LIB_HW/Hw_I2C_HW.c ****     u16 Ret = 0;;
+ 142:../LIB_HW/Hw_I2C_HW.c **** 	u8  i;
+ 143:../LIB_HW/Hw_I2C_HW.c **** 	u32 TimeOut;
+ 144:../LIB_HW/Hw_I2C_HW.c **** 	u32 SR1;
+ 145:../LIB_HW/Hw_I2C_HW.c **** 	u32 SR2;
+ 146:../LIB_HW/Hw_I2C_HW.c **** 
+ 147:../LIB_HW/Hw_I2C_HW.c **** 
+ 148:../LIB_HW/Hw_I2C_HW.c **** 	switch( Ch )
+ 179              		.loc 1 148 0
+ 180 0004 0546     		mov	r5, r0
+ 140:../LIB_HW/Hw_I2C_HW.c **** {
+ 181              		.loc 1 140 0
+ 182 0006 8A46     		mov	sl, r1
+ 183              		.loc 1 148 0
+ 184 0008 0028     		cmp	r0, #0
+ 185 000a 3AD1     		bne	.L4
+ 149:../LIB_HW/Hw_I2C_HW.c **** 	{
+ 150:../LIB_HW/Hw_I2C_HW.c **** 		case 0:
+ 151:../LIB_HW/Hw_I2C_HW.c **** 			SET_BIT( REG_I2C1_CR1, 8 );	// START
+ 186              		.loc 1 151 0
+ 187 000c 4FF4A848 		mov	r8, #21504
+ 188 0010 C4F20008 		movt	r8, 16384
+ 189 0014 D8F80030 		ldr	r3, [r8, #0]
+ 190              	.LVL2:
+ 152:../LIB_HW/Hw_I2C_HW.c **** 
+ 153:../LIB_HW/Hw_I2C_HW.c **** 			Lb_printf("S0\n" );
+ 154:../LIB_HW/Hw_I2C_HW.c **** 
+ 155:../LIB_HW/Hw_I2C_HW.c **** 			Ret = Hw_I2C_HW_WaitForBitSet( Ch, (u32 *)&REG_I2C1_SR1, 0, 10000 );
+ 156:../LIB_HW/Hw_I2C_HW.c **** 			if( Ret != 0 ) break;
+ 157:../LIB_HW/Hw_I2C_HW.c **** 
+ 158:../LIB_HW/Hw_I2C_HW.c **** 			Lb_printf("S1 %x\n", REG_I2C1_SR1);
+ 191              		.loc 1 158 0
+ 192 0018 45F21447 		movw	r7, #21524
+ 151:../LIB_HW/Hw_I2C_HW.c **** 			SET_BIT( REG_I2C1_CR1, 8 );	// START
+ 193              		.loc 1 151 0
+ 194 001c 43F48071 		orr	r1, r3, #256
+ 195              	.LVL3:
+ 153:../LIB_HW/Hw_I2C_HW.c **** 			Lb_printf("S0\n" );
+ 196              		.loc 1 153 0
+ 197 0020 194C     		ldr	r4, .L8
+ 198              		.loc 1 158 0
+ 199 0022 C4F20007 		movt	r7, 16384
+ 153:../LIB_HW/Hw_I2C_HW.c **** 			Lb_printf("S0\n" );
+ 200              		.loc 1 153 0
+ 201 0026 1948     		ldr	r0, .L8+4
+ 202              	.LVL4:
+ 151:../LIB_HW/Hw_I2C_HW.c **** 			SET_BIT( REG_I2C1_CR1, 8 );	// START
+ 203              		.loc 1 151 0
+ 204 0028 C8F80010 		str	r1, [r8, #0]
+ 159:../LIB_HW/Hw_I2C_HW.c **** 			Lb_printf("S1 %x\n", REG_I2C1_SR2);
+ 205              		.loc 1 159 0
+ 206 002c 45F21846 		movw	r6, #21528
+ 153:../LIB_HW/Hw_I2C_HW.c **** 			Lb_printf("S0\n" );
+ 207              		.loc 1 153 0
+ 208 0030 A047     		blx	r4
+ 209              	.LVL5:
+ 210              		.loc 1 159 0
+ 211 0032 C4F20006 		movt	r6, 16384
+ 158:../LIB_HW/Hw_I2C_HW.c **** 			Lb_printf("S1 %x\n", REG_I2C1_SR1);
+ 212              		.loc 1 158 0
+ 213 0036 3968     		ldr	r1, [r7, #0]
+ 214 0038 1548     		ldr	r0, .L8+8
+ 160:../LIB_HW/Hw_I2C_HW.c **** 
+ 161:../LIB_HW/Hw_I2C_HW.c **** 
+ 162:../LIB_HW/Hw_I2C_HW.c **** 			REG_I2C1_DR = i2c_addr;		// ADDR Write 
+ 215              		.loc 1 162 0
+ 216 003a 45F21049 		movw	r9, #21520
+ 158:../LIB_HW/Hw_I2C_HW.c **** 			Lb_printf("S1 %x\n", REG_I2C1_SR1);
+ 217              		.loc 1 158 0
+ 218 003e A047     		blx	r4
+ 219              	.LVL6:
+ 220              		.loc 1 162 0
+ 221 0040 C4F20009 		movt	r9, 16384
+ 159:../LIB_HW/Hw_I2C_HW.c **** 			Lb_printf("S1 %x\n", REG_I2C1_SR2);
+ 222              		.loc 1 159 0
+ 223 0044 3168     		ldr	r1, [r6, #0]
+ 224 0046 1248     		ldr	r0, .L8+8
+ 225 0048 A047     		blx	r4
+ 226              	.LVL7:
+ 227              		.loc 1 162 0
+ 228 004a C9F800A0 		str	sl, [r9, #0]
+ 229              	.LVL8:
+ 163:../LIB_HW/Hw_I2C_HW.c **** 
+ 164:../LIB_HW/Hw_I2C_HW.c **** 			Ret = Hw_I2C_HW_WaitForBitSet( Ch, (u32 *)&REG_I2C1_SR1, 1, 10000 );
+ 165:../LIB_HW/Hw_I2C_HW.c **** 			if( Ret != 0 ) break;
+ 166:../LIB_HW/Hw_I2C_HW.c **** 
+ 167:../LIB_HW/Hw_I2C_HW.c **** 			Lb_printf("S2 %x\n", REG_I2C1_SR1);
+ 230              		.loc 1 167 0
+ 231 004e 3968     		ldr	r1, [r7, #0]
+ 232 0050 1048     		ldr	r0, .L8+12
+ 233 0052 A047     		blx	r4
+ 234              	.LVL9:
+ 168:../LIB_HW/Hw_I2C_HW.c **** 			Lb_printf("S2 %x\n", REG_I2C1_SR2);
+ 235              		.loc 1 168 0
+ 236 0054 3168     		ldr	r1, [r6, #0]
+ 237 0056 0F48     		ldr	r0, .L8+12
+ 238 0058 A047     		blx	r4
+ 239              	.LVL10:
+ 169:../LIB_HW/Hw_I2C_HW.c **** 
+ 170:../LIB_HW/Hw_I2C_HW.c **** 
+ 171:../LIB_HW/Hw_I2C_HW.c **** 			REG_I2C1_DR = 0x00;		
+ 240              		.loc 1 171 0
+ 241 005a C9F80050 		str	r5, [r9, #0]
+ 242              	.LVL11:
+ 172:../LIB_HW/Hw_I2C_HW.c **** 
+ 173:../LIB_HW/Hw_I2C_HW.c **** 			Ret = Hw_I2C_HW_WaitForBitSet( Ch, (u32 *)&REG_I2C1_SR1, 7, 10000 );
+ 174:../LIB_HW/Hw_I2C_HW.c **** 			if( Ret != 0 ) break;
+ 175:../LIB_HW/Hw_I2C_HW.c **** 			Ret = Hw_I2C_HW_WaitForBitSet( Ch, (u32 *)&REG_I2C1_SR1, 2, 10000 );
+ 176:../LIB_HW/Hw_I2C_HW.c **** 			if( Ret != 0 ) break;
+ 177:../LIB_HW/Hw_I2C_HW.c **** 
+ 178:../LIB_HW/Hw_I2C_HW.c **** 			Lb_printf("S2 %x\n", REG_I2C1_SR1);
+ 243              		.loc 1 178 0
+ 244 005e 3968     		ldr	r1, [r7, #0]
+ 245 0060 0C48     		ldr	r0, .L8+12
+ 246 0062 A047     		blx	r4
+ 247              	.LVL12:
+ 179:../LIB_HW/Hw_I2C_HW.c **** 			Lb_printf("S2 %x\n", REG_I2C1_SR2);
+ 248              		.loc 1 179 0
+ 249 0064 3168     		ldr	r1, [r6, #0]
+ 250 0066 0B48     		ldr	r0, .L8+12
+ 251 0068 A047     		blx	r4
+ 252              	.LVL13:
+ 180:../LIB_HW/Hw_I2C_HW.c **** 
+ 181:../LIB_HW/Hw_I2C_HW.c **** 			SET_BIT( REG_I2C1_CR1, 9 );	// STOP
+ 253              		.loc 1 181 0
+ 254 006a D8F80020 		ldr	r2, [r8, #0]
+ 182:../LIB_HW/Hw_I2C_HW.c **** 
+ 183:../LIB_HW/Hw_I2C_HW.c **** 			Lb_printf("S3 %x\n", REG_I2C1_SR1);
+ 255              		.loc 1 183 0
+ 256 006e 0A48     		ldr	r0, .L8+16
+ 181:../LIB_HW/Hw_I2C_HW.c **** 			SET_BIT( REG_I2C1_CR1, 9 );	// STOP
+ 257              		.loc 1 181 0
+ 258 0070 42F40073 		orr	r3, r2, #512
+ 259 0074 C8F80030 		str	r3, [r8, #0]
+ 260              		.loc 1 183 0
+ 261 0078 3968     		ldr	r1, [r7, #0]
+ 262 007a A047     		blx	r4
+ 263              	.LVL14:
+ 184:../LIB_HW/Hw_I2C_HW.c **** 			Lb_printf("S3 %x\n", REG_I2C1_SR2);
+ 264              		.loc 1 184 0
+ 265 007c 3168     		ldr	r1, [r6, #0]
+ 266 007e 0648     		ldr	r0, .L8+16
+ 267 0080 A047     		blx	r4
+ 268              	.LVL15:
+ 269              	.L4:
+ 185:../LIB_HW/Hw_I2C_HW.c **** 
+ 186:../LIB_HW/Hw_I2C_HW.c **** 
+ 187:../LIB_HW/Hw_I2C_HW.c **** 			break;
+ 188:../LIB_HW/Hw_I2C_HW.c **** 	}
+ 189:../LIB_HW/Hw_I2C_HW.c **** 
+ 190:../LIB_HW/Hw_I2C_HW.c **** 	
+ 191:../LIB_HW/Hw_I2C_HW.c **** 
+ 192:../LIB_HW/Hw_I2C_HW.c **** 	/*
+ 193:../LIB_HW/Hw_I2C_HW.c **** 	Hw_I2C_SW_StartTransmit(Ch);
+ 194:../LIB_HW/Hw_I2C_HW.c **** 
+ 195:../LIB_HW/Hw_I2C_HW.c **** 	Ret |= Hw_I2C_SW_WriteByte_Ack(Ch, (i2c_addr<<1) | (0<<0)); // Address
+ 196:../LIB_HW/Hw_I2C_HW.c **** 
+ 197:../LIB_HW/Hw_I2C_HW.c **** 
+ 198:../LIB_HW/Hw_I2C_HW.c **** 	for( i=0; i<len; i++ )
+ 199:../LIB_HW/Hw_I2C_HW.c **** 	{
+ 200:../LIB_HW/Hw_I2C_HW.c **** 		Ret |= Hw_I2C_SW_WriteByte_Ack(Ch, pdata[i]);  			// Data	
+ 201:../LIB_HW/Hw_I2C_HW.c **** 	}
+ 202:../LIB_HW/Hw_I2C_HW.c **** 	
+ 203:../LIB_HW/Hw_I2C_HW.c **** 	Hw_I2C_SW_EndTransmit(Ch);
+ 204:../LIB_HW/Hw_I2C_HW.c **** 	*/
+ 205:../LIB_HW/Hw_I2C_HW.c ****     return Ret;
+ 206:../LIB_HW/Hw_I2C_HW.c **** }
+ 270              		.loc 1 206 0
+ 271 0082 0020     		movs	r0, #0
+ 272 0084 BDE8F087 		pop	{r4, r5, r6, r7, r8, r9, sl, pc}
+ 273              	.L9:
+ 274              		.align	2
+ 275              	.L8:
+ 276 0088 00000000 		.word	Lb_printf
+ 277 008c 00000000 		.word	.LC0
+ 278 0090 04000000 		.word	.LC1
+ 279 0094 0C000000 		.word	.LC2
+ 280 0098 14000000 		.word	.LC3
+ 281              		.cfi_endproc
+ 282              	.LFE2:
+ 284              		.section	.text.Hw_I2C_HW_Read,"ax",%progbits
+ 285              		.align	2
+ 286              		.global	Hw_I2C_HW_Read
+ 287              		.thumb
+ 288              		.thumb_func
+ 290              	Hw_I2C_HW_Read:
+ 291              	.LFB3:
+ 207:../LIB_HW/Hw_I2C_HW.c **** 
+ 208:../LIB_HW/Hw_I2C_HW.c **** 
+ 209:../LIB_HW/Hw_I2C_HW.c **** 
+ 210:../LIB_HW/Hw_I2C_HW.c **** 
+ 211:../LIB_HW/Hw_I2C_HW.c **** 
+ 212:../LIB_HW/Hw_I2C_HW.c **** /*---------------------------------------------------------------------------
+ 213:../LIB_HW/Hw_I2C_HW.c ****      TITLE   : Hw_I2C_HW_Read
+ 214:../LIB_HW/Hw_I2C_HW.c ****      WORK    : 
+ 215:../LIB_HW/Hw_I2C_HW.c ****      ARG     : void
+ 216:../LIB_HW/Hw_I2C_HW.c ****      RET     : void
+ 217:../LIB_HW/Hw_I2C_HW.c **** ---------------------------------------------------------------------------*/
+ 218:../LIB_HW/Hw_I2C_HW.c **** u16 Hw_I2C_HW_Read( u8 Ch, u16 i2c_addr, u8 *pdata, u16 len )
+ 219:../LIB_HW/Hw_I2C_HW.c **** {
+ 292              		.loc 1 219 0
+ 293              		.cfi_startproc
+ 294              		@ args = 0, pretend = 0, frame = 0
+ 295              		@ frame_needed = 0, uses_anonymous_args = 0
+ 296              		@ link register save eliminated.
+ 297              	.LVL16:
+ 220:../LIB_HW/Hw_I2C_HW.c **** 	u16 Ret = 0;
+ 221:../LIB_HW/Hw_I2C_HW.c **** 	u8  i;
+ 222:../LIB_HW/Hw_I2C_HW.c **** 	u8  LastIndex = 0;
+ 223:../LIB_HW/Hw_I2C_HW.c **** 
+ 224:../LIB_HW/Hw_I2C_HW.c **** 	if( len > 0 ) LastIndex = len - 1;
+ 225:../LIB_HW/Hw_I2C_HW.c **** 
+ 226:../LIB_HW/Hw_I2C_HW.c **** 	/*
+ 227:../LIB_HW/Hw_I2C_HW.c **** 	Hw_I2C_SW_StartTransmit(Ch);
+ 228:../LIB_HW/Hw_I2C_HW.c **** 
+ 229:../LIB_HW/Hw_I2C_HW.c **** 	Ret |= Hw_I2C_SW_WriteByte_Ack(Ch, (i2c_addr<<1) | (1<<0));  		// Address
+ 230:../LIB_HW/Hw_I2C_HW.c **** 
+ 231:../LIB_HW/Hw_I2C_HW.c **** 	for( i=0; i<len; i++ )
+ 232:../LIB_HW/Hw_I2C_HW.c **** 	{
+ 233:../LIB_HW/Hw_I2C_HW.c **** 		if( i < LastIndex )
+ 234:../LIB_HW/Hw_I2C_HW.c **** 		{
+ 235:../LIB_HW/Hw_I2C_HW.c **** 			Ret |= Hw_I2C_SW_ReadByte_Ack(Ch, &pdata[i] );				// Read Data
+ 236:../LIB_HW/Hw_I2C_HW.c **** 		}
+ 237:../LIB_HW/Hw_I2C_HW.c **** 		else
+ 238:../LIB_HW/Hw_I2C_HW.c **** 		{
+ 239:../LIB_HW/Hw_I2C_HW.c **** 			Ret |= Hw_I2C_SW_ReadByte_NoAck(Ch, &pdata[i] );			// Read Data 마지막 데이터는 NACK 처�
+ 240:../LIB_HW/Hw_I2C_HW.c **** 		}
+ 241:../LIB_HW/Hw_I2C_HW.c **** 	}
+ 242:../LIB_HW/Hw_I2C_HW.c **** 	
+ 243:../LIB_HW/Hw_I2C_HW.c **** 	Hw_I2C_SW_EndTransmit(Ch);
+ 244:../LIB_HW/Hw_I2C_HW.c **** 	*/
+ 245:../LIB_HW/Hw_I2C_HW.c **** 
+ 246:../LIB_HW/Hw_I2C_HW.c ****     return Ret;
+ 247:../LIB_HW/Hw_I2C_HW.c **** }
+ 298              		.loc 1 247 0
+ 299 0000 0020     		movs	r0, #0
+ 300              	.LVL17:
+ 301 0002 7047     		bx	lr
  302              		.cfi_endproc
- 303              	.LFE0:
- 305              		.section	.text.CTR_HP,"ax",%progbits
+ 303              	.LFE3:
+ 305              		.section	.text.Hw_I2C_HW_WaitForBitSet,"ax",%progbits
  306              		.align	2
- 307              		.global	CTR_HP
+ 307              		.global	Hw_I2C_HW_WaitForBitSet
  308              		.thumb
  309              		.thumb_func
- 311              	CTR_HP:
- 312              	.LFB1:
- 152:../LIB_USB/DRV/usb_int.c **** 
- 153:../LIB_USB/DRV/usb_int.c **** /*******************************************************************************
- 154:../LIB_USB/DRV/usb_int.c **** * Function Name  : CTR_HP.
- 155:../LIB_USB/DRV/usb_int.c **** * Description    : High Priority Endpoint Correct Transfer interrupt's service 
- 156:../LIB_USB/DRV/usb_int.c **** *                  routine.
- 157:../LIB_USB/DRV/usb_int.c **** * Input          : None.
- 158:../LIB_USB/DRV/usb_int.c **** * Output         : None.
- 159:../LIB_USB/DRV/usb_int.c **** * Return         : None.
- 160:../LIB_USB/DRV/usb_int.c **** *******************************************************************************/
- 161:../LIB_USB/DRV/usb_int.c **** void CTR_HP(void)
- 162:../LIB_USB/DRV/usb_int.c **** {
- 313              		.loc 1 162 0
+ 311              	Hw_I2C_HW_WaitForBitSet:
+ 312              	.LFB4:
+ 248:../LIB_HW/Hw_I2C_HW.c **** 
+ 249:../LIB_HW/Hw_I2C_HW.c **** 
+ 250:../LIB_HW/Hw_I2C_HW.c **** 
+ 251:../LIB_HW/Hw_I2C_HW.c **** 
+ 252:../LIB_HW/Hw_I2C_HW.c **** /*---------------------------------------------------------------------------
+ 253:../LIB_HW/Hw_I2C_HW.c ****      TITLE   : Hw_I2C_HW_WaitForBitSet
+ 254:../LIB_HW/Hw_I2C_HW.c ****      WORK    : 
+ 255:../LIB_HW/Hw_I2C_HW.c ****      ARG     : void
+ 256:../LIB_HW/Hw_I2C_HW.c ****      RET     : void
+ 257:../LIB_HW/Hw_I2C_HW.c **** ---------------------------------------------------------------------------*/
+ 258:../LIB_HW/Hw_I2C_HW.c **** u16 Hw_I2C_HW_WaitForBitSet( u8 Ch, u32 *reg_addr, u32 reg_bit, u32 time_out )
+ 259:../LIB_HW/Hw_I2C_HW.c **** {
+ 313              		.loc 1 259 0
  314              		.cfi_startproc
  315              		@ args = 0, pretend = 0, frame = 0
  316              		@ frame_needed = 0, uses_anonymous_args = 0
- 317 0000 2DE9F047 		push	{r4, r5, r6, r7, r8, r9, sl, lr}
- 318              	.LCFI2:
- 319              		.cfi_def_cfa_offset 32
- 320              		.cfi_offset 4, -32
- 321              		.cfi_offset 5, -28
- 322              		.cfi_offset 6, -24
- 323              		.cfi_offset 7, -20
- 324              		.cfi_offset 8, -16
- 325              		.cfi_offset 9, -12
- 326              		.cfi_offset 10, -8
- 327              		.cfi_offset 14, -4
- 328 0004 1C4F     		ldr	r7, .L97
- 163:../LIB_USB/DRV/usb_int.c ****   uint32_t wEPVal = 0;
- 164:../LIB_USB/DRV/usb_int.c **** 
- 165:../LIB_USB/DRV/usb_int.c ****   while (((wIstr = _GetISTR()) & ISTR_CTR) != 0)
- 329              		.loc 1 165 0
- 330 0006 45F64444 		movw	r4, #23620
- 166:../LIB_USB/DRV/usb_int.c ****   {
- 167:../LIB_USB/DRV/usb_int.c ****     _SetISTR((uint16_t)CLR_CTR); /* clear CTR flag */
- 168:../LIB_USB/DRV/usb_int.c ****     /* extract highest priority endpoint number */
- 169:../LIB_USB/DRV/usb_int.c ****     EPindex = (uint8_t)(wIstr & ISTR_EP_ID);
- 331              		.loc 1 169 0
- 332 000a DFF878A0 		ldr	sl, .L97+12
- 170:../LIB_USB/DRV/usb_int.c ****     /* process related endpoint register */
- 171:../LIB_USB/DRV/usb_int.c ****     wEPVal = _GetENDPOINT(EPindex);
- 172:../LIB_USB/DRV/usb_int.c ****     if ((wEPVal & EP_CTR_RX) != 0)
- 173:../LIB_USB/DRV/usb_int.c ****     {
- 174:../LIB_USB/DRV/usb_int.c ****       /* clear int flag */
- 175:../LIB_USB/DRV/usb_int.c ****       _ClearEP_CTR_RX(EPindex);
- 176:../LIB_USB/DRV/usb_int.c **** 
- 177:../LIB_USB/DRV/usb_int.c ****       /* call OUT service function */
- 178:../LIB_USB/DRV/usb_int.c ****       (*pEpInt_OUT[EPindex-1])();
- 179:../LIB_USB/DRV/usb_int.c **** 
- 180:../LIB_USB/DRV/usb_int.c ****     } /* if((wEPVal & EP_CTR_RX) */
- 181:../LIB_USB/DRV/usb_int.c ****     else if ((wEPVal & EP_CTR_TX) != 0)
- 182:../LIB_USB/DRV/usb_int.c ****     {
- 183:../LIB_USB/DRV/usb_int.c ****       /* clear int flag */
- 184:../LIB_USB/DRV/usb_int.c ****       _ClearEP_CTR_TX(EPindex);
- 185:../LIB_USB/DRV/usb_int.c **** 
- 186:../LIB_USB/DRV/usb_int.c ****       /* call IN service function */
- 187:../LIB_USB/DRV/usb_int.c ****       (*pEpInt_IN[EPindex-1])();
- 333              		.loc 1 187 0
- 334 000e 1B4E     		ldr	r6, .L97+4
- 178:../LIB_USB/DRV/usb_int.c ****       (*pEpInt_OUT[EPindex-1])();
- 335              		.loc 1 178 0
- 336 0010 1B4D     		ldr	r5, .L97+8
- 165:../LIB_USB/DRV/usb_int.c ****   while (((wIstr = _GetISTR()) & ISTR_CTR) != 0)
- 337              		.loc 1 165 0
- 338 0012 C4F20004 		movt	r4, 16384
- 339 0016 B946     		mov	r9, r7
- 167:../LIB_USB/DRV/usb_int.c ****     _SetISTR((uint16_t)CLR_CTR); /* clear CTR flag */
- 340              		.loc 1 167 0
- 341 0018 47F6FF78 		movw	r8, #32767
- 342              	.L95:
- 343              	.LVL29:
- 165:../LIB_USB/DRV/usb_int.c ****   while (((wIstr = _GetISTR()) & ISTR_CTR) != 0)
- 344              		.loc 1 165 0
- 345 001c 2368     		ldr	r3, [r4, #0]
- 346 001e 9AB2     		uxth	r2, r3
- 347 0020 1B04     		lsls	r3, r3, #16
- 348 0022 3A80     		strh	r2, [r7, #0]	@ movhi
- 349 0024 25D5     		bpl	.L85
- 167:../LIB_USB/DRV/usb_int.c ****     _SetISTR((uint16_t)CLR_CTR); /* clear CTR flag */
- 350              		.loc 1 167 0
- 351 0026 C4F80080 		str	r8, [r4, #0]
- 169:../LIB_USB/DRV/usb_int.c ****     EPindex = (uint8_t)(wIstr & ISTR_EP_ID);
- 352              		.loc 1 169 0
- 353 002a B9F80000 		ldrh	r0, [r9, #0]
- 354 002e 00F00F03 		and	r3, r0, #15
- 171:../LIB_USB/DRV/usb_int.c ****     wEPVal = _GetENDPOINT(EPindex);
- 355              		.loc 1 171 0
- 356 0032 9900     		lsls	r1, r3, #2
- 357 0034 01F18042 		add	r2, r1, #1073741824
- 169:../LIB_USB/DRV/usb_int.c ****     EPindex = (uint8_t)(wIstr & ISTR_EP_ID);
- 358              		.loc 1 169 0
- 359 0038 8AF80030 		strb	r3, [sl, #0]
- 171:../LIB_USB/DRV/usb_int.c ****     wEPVal = _GetENDPOINT(EPindex);
- 360              		.loc 1 171 0
- 361 003c 02F5B842 		add	r2, r2, #23552
- 362 0040 1168     		ldr	r1, [r2, #0]
- 363              	.LVL30:
- 172:../LIB_USB/DRV/usb_int.c ****     if ((wEPVal & EP_CTR_RX) != 0)
- 364              		.loc 1 172 0
- 365 0042 0804     		lsls	r0, r1, #16
- 366 0044 0BD4     		bmi	.L96
- 181:../LIB_USB/DRV/usb_int.c ****     else if ((wEPVal & EP_CTR_TX) != 0)
- 367              		.loc 1 181 0
- 368 0046 0906     		lsls	r1, r1, #24
- 369              	.LVL31:
- 370 0048 E8D5     		bpl	.L95
- 184:../LIB_USB/DRV/usb_int.c ****       _ClearEP_CTR_TX(EPindex);
- 371              		.loc 1 184 0
- 372 004a 1068     		ldr	r0, [r2, #0]
- 373 004c 48F60F71 		movw	r1, #36623
- 374 0050 0140     		ands	r1, r1, r0
- 375              		.loc 1 187 0
- 376 0052 013B     		subs	r3, r3, #1
- 184:../LIB_USB/DRV/usb_int.c ****       _ClearEP_CTR_TX(EPindex);
- 377              		.loc 1 184 0
- 378 0054 1160     		str	r1, [r2, #0]
- 379              		.loc 1 187 0
- 380 0056 56F82320 		ldr	r2, [r6, r3, lsl #2]
- 381 005a 9047     		blx	r2
- 382              	.LVL32:
- 383 005c DEE7     		b	.L95
- 384              	.LVL33:
- 385              	.L96:
- 175:../LIB_USB/DRV/usb_int.c ****       _ClearEP_CTR_RX(EPindex);
- 386              		.loc 1 175 0
- 387 005e 1068     		ldr	r0, [r2, #0]
- 388 0060 40F68F71 		movw	r1, #3983
- 389              	.LVL34:
- 390 0064 0140     		ands	r1, r1, r0
- 178:../LIB_USB/DRV/usb_int.c ****       (*pEpInt_OUT[EPindex-1])();
- 391              		.loc 1 178 0
- 392 0066 013B     		subs	r3, r3, #1
- 175:../LIB_USB/DRV/usb_int.c ****       _ClearEP_CTR_RX(EPindex);
- 393              		.loc 1 175 0
- 394 0068 1160     		str	r1, [r2, #0]
- 178:../LIB_USB/DRV/usb_int.c ****       (*pEpInt_OUT[EPindex-1])();
- 395              		.loc 1 178 0
- 396 006a 55F82320 		ldr	r2, [r5, r3, lsl #2]
- 397 006e 9047     		blx	r2
- 398              	.LVL35:
- 399 0070 D4E7     		b	.L95
- 400              	.LVL36:
- 401              	.L85:
- 402 0072 BDE8F087 		pop	{r4, r5, r6, r7, r8, r9, sl, pc}
- 403              	.L98:
- 404 0076 00BF     		.align	2
- 405              	.L97:
- 406 0078 00000000 		.word	wIstr
- 407 007c 00000000 		.word	pEpInt_IN
- 408 0080 00000000 		.word	pEpInt_OUT
- 409 0084 00000000 		.word	EPindex
- 410              		.cfi_endproc
- 411              	.LFE1:
- 413              		.comm	SaveTState,2,2
- 414              		.comm	SaveRState,2,2
- 415              		.text
- 416              	.Letext0:
- 417              		.file 2 "../LIB_HW/Hw_Define.h"
- 418              		.file 3 "../LIB_USB/DRV/usb_regs.h"
- 419              		.file 4 "../LIB_USB/DRV/usb_init.h"
+ 317              		@ link register save eliminated.
+ 318              	.LVL18:
+ 319 0000 10B4     		push	{r4}
+ 320              	.LCFI2:
+ 321              		.cfi_def_cfa_offset 4
+ 322              		.cfi_offset 4, -4
+ 260:../LIB_HW/Hw_I2C_HW.c **** 	u32 Ret = 0;
+ 261:../LIB_HW/Hw_I2C_HW.c **** 
+ 262:../LIB_HW/Hw_I2C_HW.c **** 
+ 263:../LIB_HW/Hw_I2C_HW.c **** 	switch( Ch )
+ 323              		.loc 1 263 0
+ 324 0002 10B1     		cbz	r0, .L27
+ 325 0004 0020     		movs	r0, #0
+ 326              	.LVL19:
+ 327              	.L12:
+ 264:../LIB_HW/Hw_I2C_HW.c **** 	{
+ 265:../LIB_HW/Hw_I2C_HW.c **** 		case 0:
+ 266:../LIB_HW/Hw_I2C_HW.c **** 
+ 267:../LIB_HW/Hw_I2C_HW.c **** 			while( time_out-- )
+ 268:../LIB_HW/Hw_I2C_HW.c **** 			{
+ 269:../LIB_HW/Hw_I2C_HW.c **** 				if( IS_SET_BIT( *reg_addr, reg_bit ) ) break;
+ 270:../LIB_HW/Hw_I2C_HW.c **** 			};
+ 271:../LIB_HW/Hw_I2C_HW.c **** 			
+ 272:../LIB_HW/Hw_I2C_HW.c **** 			if( time_out == 0 ) 
+ 273:../LIB_HW/Hw_I2C_HW.c **** 			{
+ 274:../LIB_HW/Hw_I2C_HW.c **** 				Ret = HW_I2C_ERR_TIMEOUT;
+ 275:../LIB_HW/Hw_I2C_HW.c **** 			}
+ 276:../LIB_HW/Hw_I2C_HW.c **** 			break;
+ 277:../LIB_HW/Hw_I2C_HW.c **** 
+ 278:../LIB_HW/Hw_I2C_HW.c **** 	}
+ 279:../LIB_HW/Hw_I2C_HW.c **** 	return Ret;
+ 280:../LIB_HW/Hw_I2C_HW.c **** }
+ 328              		.loc 1 280 0
+ 329 0006 10BC     		pop	{r4}
+ 330 0008 7047     		bx	lr
+ 331              	.LVL20:
+ 332              	.L27:
+ 269:../LIB_HW/Hw_I2C_HW.c **** 				if( IS_SET_BIT( *reg_addr, reg_bit ) ) break;
+ 333              		.loc 1 269 0
+ 334 000a 0120     		movs	r0, #1
+ 335              	.LVL21:
+ 336 000c 00FA02F2 		lsl	r2, r0, r2
+ 337              	.LVL22:
+ 338 0010 581E     		subs	r0, r3, #1
+ 339 0012 DC07     		lsls	r4, r3, #31
+ 340 0014 0CD5     		bpl	.L14
+ 341              	.LVL23:
+ 342 0016 0B68     		ldr	r3, [r1, #0]
+ 343 0018 441E     		subs	r4, r0, #1
+ 344 001a 1A42     		tst	r2, r3
+ 345 001c 0CD1     		bne	.L16
+ 346 001e 2046     		mov	r0, r4
+ 347              	.LVL24:
+ 267:../LIB_HW/Hw_I2C_HW.c **** 			while( time_out-- )
+ 348              		.loc 1 267 0
+ 349 0020 431C     		adds	r3, r0, #1
+ 350 0022 00F1FF34 		add	r4, r0, #-1
+ 351              	.LVL25:
+ 352 0026 07D0     		beq	.L16
+ 353              	.L15:
+ 269:../LIB_HW/Hw_I2C_HW.c **** 				if( IS_SET_BIT( *reg_addr, reg_bit ) ) break;
+ 354              		.loc 1 269 0
+ 355 0028 0B68     		ldr	r3, [r1, #0]
+ 356 002a 1A42     		tst	r2, r3
+ 357 002c 04D1     		bne	.L16
+ 358 002e 601E     		subs	r0, r4, #1
+ 359              	.LVL26:
+ 360              	.L14:
+ 267:../LIB_HW/Hw_I2C_HW.c **** 			while( time_out-- )
+ 361              		.loc 1 267 0 discriminator 1
+ 362 0030 431C     		adds	r3, r0, #1
+ 363 0032 00F1FF34 		add	r4, r0, #-1
+ 364              	.LVL27:
+ 365 0036 F7D1     		bne	.L15
+ 366              	.LVL28:
+ 367              	.L16:
+ 368 0038 D0F10100 		rsbs	r0, r0, #1
+ 369 003c 38BF     		it	cc
+ 370 003e 0020     		movcc	r0, #0
+ 371 0040 E1E7     		b	.L12
+ 372              		.cfi_endproc
+ 373              	.LFE4:
+ 375 0042 00BF     		.section	.rodata.str1.4,"aMS",%progbits,1
+ 376              		.align	2
+ 377              	.LC0:
+ 378 0000 53300A00 		.ascii	"S0\012\000"
+ 379              	.LC1:
+ 380 0004 53312025 		.ascii	"S1 %x\012\000"
+ 380      780A00
+ 381 000b 00       		.space	1
+ 382              	.LC2:
+ 383 000c 53322025 		.ascii	"S2 %x\012\000"
+ 383      780A00
+ 384 0013 00       		.space	1
+ 385              	.LC3:
+ 386 0014 53332025 		.ascii	"S3 %x\012\000"
+ 386      780A00
+ 387 001b 00       		.text
+ 388              	.Letext0:
+ 389              		.file 2 "../LIB_HW/Hw_Define.h"
 DEFINED SYMBOLS
-                            *ABS*:0000000000000000 usb_int.c
-/var/folders/bz/nn5481rn5xq59rb0mbj7x0880000gn/T//ccOqcWdQ.s:19     .text.CTR_LP:0000000000000000 $t
-/var/folders/bz/nn5481rn5xq59rb0mbj7x0880000gn/T//ccOqcWdQ.s:24     .text.CTR_LP:0000000000000000 CTR_LP
-/var/folders/bz/nn5481rn5xq59rb0mbj7x0880000gn/T//ccOqcWdQ.s:295    .text.CTR_LP:00000000000001a0 $d
-                            *COM*:0000000000000002 SaveRState
-                            *COM*:0000000000000002 SaveTState
-/var/folders/bz/nn5481rn5xq59rb0mbj7x0880000gn/T//ccOqcWdQ.s:306    .text.CTR_HP:0000000000000000 $t
-/var/folders/bz/nn5481rn5xq59rb0mbj7x0880000gn/T//ccOqcWdQ.s:311    .text.CTR_HP:0000000000000000 CTR_HP
-/var/folders/bz/nn5481rn5xq59rb0mbj7x0880000gn/T//ccOqcWdQ.s:406    .text.CTR_HP:0000000000000078 $d
+                            *ABS*:0000000000000000 Hw_I2C_HW.c
+/var/folders/bz/nn5481rn5xq59rb0mbj7x0880000gn/T//ccW8zA5c.s:19     .text.Hw_I2C_HW_IO_Setup:0000000000000000 $t
+/var/folders/bz/nn5481rn5xq59rb0mbj7x0880000gn/T//ccW8zA5c.s:24     .text.Hw_I2C_HW_IO_Setup:0000000000000000 Hw_I2C_HW_IO_Setup
+/var/folders/bz/nn5481rn5xq59rb0mbj7x0880000gn/T//ccW8zA5c.s:71     .text.Hw_I2C_HW_Init:0000000000000000 $t
+/var/folders/bz/nn5481rn5xq59rb0mbj7x0880000gn/T//ccW8zA5c.s:76     .text.Hw_I2C_HW_Init:0000000000000000 Hw_I2C_HW_Init
+/var/folders/bz/nn5481rn5xq59rb0mbj7x0880000gn/T//ccW8zA5c.s:156    .text.Hw_I2C_HW_Write:0000000000000000 $t
+/var/folders/bz/nn5481rn5xq59rb0mbj7x0880000gn/T//ccW8zA5c.s:161    .text.Hw_I2C_HW_Write:0000000000000000 Hw_I2C_HW_Write
+/var/folders/bz/nn5481rn5xq59rb0mbj7x0880000gn/T//ccW8zA5c.s:276    .text.Hw_I2C_HW_Write:0000000000000088 $d
+/var/folders/bz/nn5481rn5xq59rb0mbj7x0880000gn/T//ccW8zA5c.s:285    .text.Hw_I2C_HW_Read:0000000000000000 $t
+/var/folders/bz/nn5481rn5xq59rb0mbj7x0880000gn/T//ccW8zA5c.s:290    .text.Hw_I2C_HW_Read:0000000000000000 Hw_I2C_HW_Read
+/var/folders/bz/nn5481rn5xq59rb0mbj7x0880000gn/T//ccW8zA5c.s:306    .text.Hw_I2C_HW_WaitForBitSet:0000000000000000 $t
+/var/folders/bz/nn5481rn5xq59rb0mbj7x0880000gn/T//ccW8zA5c.s:311    .text.Hw_I2C_HW_WaitForBitSet:0000000000000000 Hw_I2C_HW_WaitForBitSet
+/var/folders/bz/nn5481rn5xq59rb0mbj7x0880000gn/T//ccW8zA5c.s:376    .rodata.str1.4:0000000000000000 $d
                      .debug_frame:0000000000000010 $d
 
 UNDEFINED SYMBOLS
-pEpInt_IN
-pEpInt_OUT
-Out0_Process
-In0_Process
-Setup0_Process
-wIstr
-EPindex
+Lb_printf

@@ -26,8 +26,10 @@
 
 #include "Hw.h"
 #include "Hw_I2C_SW.h"
+#include "Hw_I2C_HW.h"
 
-#define HW_I2C_USE_SW_I2C	1
+
+#define HW_I2C_USE_SW_I2C	0
 
 
 

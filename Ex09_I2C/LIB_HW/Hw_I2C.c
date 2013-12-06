@@ -34,7 +34,11 @@ void Hw_I2C_Init( void )
 {
 	//-- I/O 초기화
 	//
+	#if HW_I2C_USE_SW_I2C == 1
 	Hw_I2C_SW_Init();	
+	#else
+	Hw_I2C_HW_Init();		
+	#endif
 }
 
 
@@ -56,6 +60,8 @@ u16 Hw_I2C_Write( u8 Ch, u16 i2c_addr, u8 *pdata, u16 len )
 	Ret = Hw_I2C_SW_Write( Ch, i2c_addr, pdata, len );
 	
 	#else
+
+	Ret = Hw_I2C_HW_Write( Ch, i2c_addr, pdata, len );
 	
 	#endif
 

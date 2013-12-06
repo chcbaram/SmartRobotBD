@@ -115,7 +115,7 @@ void Ap_GLcdMenu_ShowMenu(void)
 	Lb_printf("* 3. Count --                                         *\n");
 	Lb_printf("* 4. Move Circle Start                                *\n");
 	Lb_printf("* 5. Move Circle End                                  *\n");
-	Lb_printf("* 6.                                                  *\n");
+	Lb_printf("* 6. I2C HW                                           *\n");
 	Lb_printf("* 7.                                                  *\n");
 	Lb_printf("* 8.                                                  *\n");
 	Lb_printf("* 9.                                                  *\n");
@@ -167,7 +167,7 @@ u8 Ap_GLcdMenu_ExeCmd(void)
 	u16 Ret;
 	static u8  Count    = 0;	
 	static s8  CircleX  = 0;	
-			
+	u8 I2C_Data[10];		
 	
 	if( ExeFirst == TRUE )
 	{
@@ -215,6 +215,7 @@ u8 Ap_GLcdMenu_ExeCmd(void)
                break;  
 
            case '6':
+           		Hw_I2C_Write( 0, 0x68<<1, I2C_Data, 0 );
                break;  
 
            case '7':
