@@ -31,6 +31,7 @@
 
 void Hw_I2C_HW_IO_Setup( void );
 u16  Hw_I2C_HW_WaitForBitSet( u8 Ch, u32 *reg_addr, u32 reg_bit, u32 time_out );
+u16  Hw_I2C_HW_GetErrStatus( u8 Ch );
 
 /*
 void Hw_I2C_SW_StartTransmit( u8 Ch );
@@ -138,7 +139,8 @@ void Hw_I2C_HW_IO_Setup( void )
 ---------------------------------------------------------------------------*/
 u16 Hw_I2C_HW_Write( u8 Ch, u16 i2c_addr, u8* pdata, u16 len )
 {
-    u16 Ret = 0;;
+    u16 Ret = 0;
+    u16 Err = 0;
 	u8  i;
 	u32 TimeOut;
 	u32 SR1;
@@ -148,45 +150,81 @@ u16 Hw_I2C_HW_Write( u8 Ch, u16 i2c_addr, u8* pdata, u16 len )
 	switch( Ch )
 	{
 		case 0:
-			SET_BIT( REG_I2C1_CR1, 8 );	// START
 
-			Lb_printf("S0\n" );
+			//-- START
+			//
+			SET_BIT( REG_I2C1_CR1, 8 );
 
 			Ret = Hw_I2C_HW_WaitForBitSet( Ch, (u32 *)&REG_I2C1_SR1, 0, 10000 );
-			if( Ret != 0 ) break;
+			if( Ret != 0 )
+			{
+				Err = HW_I2C_ERR_START;
+				break;
+			}
 
-			Lb_printf("S1 %x\n", REG_I2C1_SR1);
-			Lb_printf("S1 %x\n", REG_I2C1_SR2);
+			//Lb_printf("S1 %x\n", REG_I2C1_SR1);
+			//Lb_printf("S1 %x\n", REG_I2C1_SR2);
+
+			//-- ADDR
+			//
+			REG_I2C1_DR = i2c_addr<<1;	// ADDR Write 
+
+			Ret = Hw_I2C_HW_WaitForBitSet( Ch, (u32 *)&REG_I2C1_SR1, 1, 10000 );	// ADDR Sent
+			SR2 = REG_I2C1_SR2;
+
+			if( Ret != 0 ) 
+			{
+				Err = HW_I2C_ERR_ADDR;
+				break;
+			}
 
 
-			REG_I2C1_DR = i2c_addr;		// ADDR Write 
+			//Lb_printf("S2 %x\n", REG_I2C1_SR1);
+			//Lb_printf("S2 %x\n", REG_I2C1_SR2);
+				
+			Ret = Hw_I2C_HW_WaitForBitSet( Ch, (u32 *)&REG_I2C1_SR1, 7, 10000 );	// TXE
+			if( Ret != 0 )
+			{
+				Err = HW_I2C_ERR_TXE;
+				break;
+			}
 
-			Ret = Hw_I2C_HW_WaitForBitSet( Ch, (u32 *)&REG_I2C1_SR1, 1, 10000 );
-			if( Ret != 0 ) break;
 
-			Lb_printf("S2 %x\n", REG_I2C1_SR1);
-			Lb_printf("S2 %x\n", REG_I2C1_SR2);
+			for( i=0; i<len; i++ )
+			{
+				Ret = Hw_I2C_HW_WaitForBitSet( Ch, (u32 *)&REG_I2C1_SR1, 7, 10000 );	// TXE
+				if( Ret != 0 )
+				{
+					Err = HW_I2C_ERR_TXE;
+					break;
+				}
+
+				REG_I2C1_DR = pdata[i];						
+			}
 
 
-			REG_I2C1_DR = 0x00;		
-
-			Ret = Hw_I2C_HW_WaitForBitSet( Ch, (u32 *)&REG_I2C1_SR1, 7, 10000 );
-			if( Ret != 0 ) break;
-			Ret = Hw_I2C_HW_WaitForBitSet( Ch, (u32 *)&REG_I2C1_SR1, 2, 10000 );
-			if( Ret != 0 ) break;
-
-			Lb_printf("S2 %x\n", REG_I2C1_SR1);
-			Lb_printf("S2 %x\n", REG_I2C1_SR2);
+			//-- STOP
+			//
+			if( len > 0 )
+			{
+				Ret = Hw_I2C_HW_WaitForBitSet( Ch, (u32 *)&REG_I2C1_SR1, 2, 10000 );	// BTF
+				if( Ret != 0 ) 
+				{
+					Err = HW_I2C_ERR_STOP;
+					break;
+				}
+			}
 
 			SET_BIT( REG_I2C1_CR1, 9 );	// STOP
-
-			Lb_printf("S3 %x\n", REG_I2C1_SR1);
-			Lb_printf("S3 %x\n", REG_I2C1_SR2);
-
 
 			break;
 	}
 
+
+	if( Err == 0 )
+	{
+		Err = Hw_I2C_HW_GetErrStatus( Ch );
+	}
 	
 
 	/*
@@ -202,7 +240,7 @@ u16 Hw_I2C_HW_Write( u8 Ch, u16 i2c_addr, u8* pdata, u16 len )
 	
 	Hw_I2C_SW_EndTransmit(Ch);
 	*/
-    return Ret;
+    return Err;
 }
 
 
@@ -258,16 +296,20 @@ u16 Hw_I2C_HW_Read( u8 Ch, u16 i2c_addr, u8 *pdata, u16 len )
 u16 Hw_I2C_HW_WaitForBitSet( u8 Ch, u32 *reg_addr, u32 reg_bit, u32 time_out )
 {
 	u32 Ret = 0;
-
+	volatile u32 Reg;
 
 	switch( Ch )
 	{
 		case 0:
 
-			while( time_out-- )
+			while( time_out )
 			{
-				if( IS_SET_BIT( *reg_addr, reg_bit ) ) break;
-			};
+				Reg = *reg_addr;
+
+				if( IS_SET_BIT( Reg, reg_bit ) ) break;
+
+				time_out--;
+			}
 			
 			if( time_out == 0 ) 
 			{
@@ -280,6 +322,34 @@ u16 Hw_I2C_HW_WaitForBitSet( u8 Ch, u32 *reg_addr, u32 reg_bit, u32 time_out )
 }
 
 
+
+
+
+/*---------------------------------------------------------------------------
+     TITLE   : Hw_I2C_HW_GetErrStatus
+     WORK    : 
+     ARG     : void
+     RET     : void
+---------------------------------------------------------------------------*/
+u16 Hw_I2C_HW_GetErrStatus( u8 Ch )
+{
+	u16 Err = 0;
+
+	switch( Ch )
+	{
+		case 0:
+
+			if( IS_SET_BIT(REG_I2C1_SR1, 11) ) Err = 11;
+			if( IS_SET_BIT(REG_I2C1_SR1, 10) ) Err = 10;
+			if( IS_SET_BIT(REG_I2C1_SR1,  9) ) Err =  9;
+			if( IS_SET_BIT(REG_I2C1_SR1,  8) ) Err =  8;
+
+			break;
+	}
+
+
+	return Err;
+}
 
 
 #if 0

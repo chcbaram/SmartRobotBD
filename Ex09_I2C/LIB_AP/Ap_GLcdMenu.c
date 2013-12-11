@@ -215,7 +215,9 @@ u8 Ap_GLcdMenu_ExeCmd(void)
                break;  
 
            case '6':
-           		Hw_I2C_Write( 0, 0x68<<1, I2C_Data, 0 );
+           		I2C_Data[0] = 0x00;
+           		Ret = Hw_I2C_Write( 0, 0x68, I2C_Data, 1 );
+           		Lb_printf("I2C Write Ret : %d\n", Ret);
                break;  
 
            case '7':

@@ -32,6 +32,17 @@
 #define HW_I2C_USE_SW_I2C	0
 
 
+#define HW_I2C_ERR_NONE		0
+#define HW_I2C_ERR_TIMEOUT	1
+#define HW_I2C_ERR_START	2
+#define HW_I2C_ERR_ADDR		3
+#define HW_I2C_ERR_TXE		4
+#define HW_I2C_ERR_STOP		5
+
+
+
+
+
 
 EXT_HW_I2C_DEF void Hw_I2C_Init( void );
 

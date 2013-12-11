@@ -27,9 +27,6 @@
 #include "Hw.h"
 
 
-#define HW_I2C_ERR_NONE		0
-#define HW_I2C_ERR_TIMEOUT	1
-
 
 
 EXT_HW_I2C_HW_DEF void  Hw_I2C_HW_Init( void );
