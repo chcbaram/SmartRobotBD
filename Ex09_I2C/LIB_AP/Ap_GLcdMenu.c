@@ -115,8 +115,8 @@ void Ap_GLcdMenu_ShowMenu(void)
 	Lb_printf("* 3. Count --                                         *\n");
 	Lb_printf("* 4. Move Circle Start                                *\n");
 	Lb_printf("* 5. Move Circle End                                  *\n");
-	Lb_printf("* 6. I2C HW                                           *\n");
-	Lb_printf("* 7.                                                  *\n");
+	Lb_printf("* 6. I2C HW TX                                        *\n");
+	Lb_printf("* 7. I2C HW RX                                        *\n");
 	Lb_printf("* 8.                                                  *\n");
 	Lb_printf("* 9.                                                  *\n");
 	Lb_printf("* m.  Menu                                            *\n");
@@ -167,7 +167,8 @@ u8 Ap_GLcdMenu_ExeCmd(void)
 	u16 Ret;
 	static u8  Count    = 0;	
 	static s8  CircleX  = 0;	
-	u8 I2C_Data[10];		
+	u8 I2C_Data[20];	
+	s16 Temperature;	
 	
 	if( ExeFirst == TRUE )
 	{
@@ -216,17 +217,56 @@ u8 Ap_GLcdMenu_ExeCmd(void)
 
            case '6':
            		I2C_Data[0] = 0x00;
-           		Ret = Hw_I2C_Write( 0, 0x68, I2C_Data, 1 );
+           		Ret = Hw_I2C_IMU_MPU6050_WriteReg( 0x6B, 0x00 );
            		Lb_printf("I2C Write Ret : %d\n", Ret);
+
+           		for( int i=0; i<=0x75; i++ )
+           		{
+           			//if( i%10 == 0 ) Lb_printf("\n %03d: ", i);
+
+           			I2C_Data[0] = 0x00;
+           			Ret = Hw_I2C_IMU_MPU6050_WriteReg( i, 0x00 );
+           			//Lb_printf("%02x ", I2C_Data[0] );
+           		}
+
                break;  
 
            case '7':
+           		I2C_Data[0] = 0x00;
+           		Ret = Hw_I2C_IMU_MPU6050_ReadReg( 0x75, I2C_Data );
+           		Lb_printf("I2C Read Ret : %d 0x%x\n", Ret, I2C_Data[0] );
+
+           		I2C_Data[0] = 0x00;
+           		Ret = Hw_I2C_IMU_MPU6050_ReadReg( 0x1B, I2C_Data );
+           		Lb_printf("I2C Read Ret : %d 0x%x\n", Ret, I2C_Data[0] );
+
+
                break;  
 
-           case '8':           		
+           case '8':
+           		for( int i=0; i<=0x75; i++ )
+           		{
+           			if( i%10 == 0 ) Lb_printf("\n %03d: ", i);
+
+           			I2C_Data[0] = 0x00;
+           			Ret = Hw_I2C_IMU_MPU6050_ReadReg( i, I2C_Data );
+           			Lb_printf("%02x ", I2C_Data[0]);
+           		}
+
                break;
 
            case '9': 
+
+           		I2C_Data[0] = 0x00;
+           		Ret = Hw_I2C_IMU_MPU6050_ReadRegs( 0x3B, I2C_Data, 14 );
+           		Lb_printf("AX %d ", (I2C_Data[0] << 8) | (I2C_Data[1] << 0) );
+           		Lb_printf("AY %d ", (I2C_Data[2] << 8) | (I2C_Data[3] << 0) );
+           		Lb_printf("AZ %d ", (I2C_Data[4] << 8) | (I2C_Data[5] << 0) );
+
+           		Temperature = (s16)((I2C_Data[6] << 8) | (I2C_Data[7] << 0));
+           		Temperature = Temperature/340 + 36;
+           		Lb_printf("T %d ",  Temperature );
+
                break;
 
            case '0':

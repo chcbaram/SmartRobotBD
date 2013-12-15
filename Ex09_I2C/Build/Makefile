@@ -70,7 +70,8 @@ SRC_HW = 	../LIB_HW/$(STARTUP_C)	\
 			../LIB_HW/Hw_Si47xx.c	\
 			../LIB_HW/Hw_SPI.c		\
 			../LIB_HW/Hw_N5110G.c	\
-			../LIB_HW/Hw_DMA.c
+			../LIB_HW/Hw_DMA.c 		\
+			../LIB_HW/Hw_I2C_IMU.c 
 			
 
 SRC_USB =   ../LIB_USB/usb_desc.c	\

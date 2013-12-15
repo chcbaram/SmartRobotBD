@@ -11,1196 +11,1510 @@
   11              		.eabi_attribute 34, 1
   12              		.eabi_attribute 18, 4
   13              		.thumb
-  14              		.file	"Hw_I2C_HW.c"
+  14              		.file	"Ap_GLcdMenu.c"
   15              		.text
   16              	.Ltext0:
   17              		.cfi_sections	.debug_frame
-  18              		.section	.text.Hw_I2C_HW_IO_Setup,"ax",%progbits
+  18              		.section	.text.Ap_GCldMenu_MoveCircleTick_2nd,"ax",%progbits
   19              		.align	2
-  20              		.global	Hw_I2C_HW_IO_Setup
+  20              		.global	Ap_GCldMenu_MoveCircleTick_2nd
   21              		.thumb
   22              		.thumb_func
-  24              	Hw_I2C_HW_IO_Setup:
+  24              	Ap_GCldMenu_MoveCircleTick_2nd:
   25              	.LFB1:
-  26              		.file 1 "../LIB_HW/Hw_I2C_HW.c"
-   1:../LIB_HW/Hw_I2C_HW.c **** //----------------------------------------------------------------------------
-   2:../LIB_HW/Hw_I2C_HW.c **** //    프로그램명 	: I2C HW 관련 함수
-   3:../LIB_HW/Hw_I2C_HW.c **** //
-   4:../LIB_HW/Hw_I2C_HW.c **** //    만든이     	: 
-   5:../LIB_HW/Hw_I2C_HW.c **** //
-   6:../LIB_HW/Hw_I2C_HW.c **** //    날  짜     	: 
-   7:../LIB_HW/Hw_I2C_HW.c **** //    
-   8:../LIB_HW/Hw_I2C_HW.c **** //    최종 수정  	:
-   9:../LIB_HW/Hw_I2C_HW.c **** //
-  10:../LIB_HW/Hw_I2C_HW.c **** //    MPU_Type		:
-  11:../LIB_HW/Hw_I2C_HW.c **** //
-  12:../LIB_HW/Hw_I2C_HW.c **** //    파일명     	: Hw_I2C_GW.c
-  13:../LIB_HW/Hw_I2C_HW.c **** //----------------------------------------------------------------------------
-  14:../LIB_HW/Hw_I2C_HW.c **** 
-  15:../LIB_HW/Hw_I2C_HW.c **** 
-  16:../LIB_HW/Hw_I2C_HW.c **** //----- 헤더파일 열기
-  17:../LIB_HW/Hw_I2C_HW.c **** //
-  18:../LIB_HW/Hw_I2C_HW.c **** #define  HW_I2C_HW_LOCAL
-  19:../LIB_HW/Hw_I2C_HW.c **** 
-  20:../LIB_HW/Hw_I2C_HW.c **** 
-  21:../LIB_HW/Hw_I2C_HW.c **** #include "Hw_I2C_HW.h"
-  22:../LIB_HW/Hw_I2C_HW.c **** #include "Lb_Printf.h"
-  23:../LIB_HW/Hw_I2C_HW.c **** 
-  24:../LIB_HW/Hw_I2C_HW.c **** 
-  25:../LIB_HW/Hw_I2C_HW.c **** #define HW_I2C_HW_CH_MAX  			2
-  26:../LIB_HW/Hw_I2C_HW.c **** 
-  27:../LIB_HW/Hw_I2C_HW.c **** 
-  28:../LIB_HW/Hw_I2C_HW.c **** 
-  29:../LIB_HW/Hw_I2C_HW.c **** 
-  30:../LIB_HW/Hw_I2C_HW.c **** 
-  31:../LIB_HW/Hw_I2C_HW.c **** 
-  32:../LIB_HW/Hw_I2C_HW.c **** void Hw_I2C_HW_IO_Setup( void );
-  33:../LIB_HW/Hw_I2C_HW.c **** u16  Hw_I2C_HW_WaitForBitSet( u8 Ch, u32 *reg_addr, u32 reg_bit, u32 time_out );
-  34:../LIB_HW/Hw_I2C_HW.c **** u16  Hw_I2C_HW_GetErrStatus( u8 Ch );
-  35:../LIB_HW/Hw_I2C_HW.c **** 
-  36:../LIB_HW/Hw_I2C_HW.c **** /*
-  37:../LIB_HW/Hw_I2C_HW.c **** void Hw_I2C_SW_StartTransmit( u8 Ch );
-  38:../LIB_HW/Hw_I2C_HW.c **** void Hw_I2C_SW_EndTransmit  ( u8 Ch );
-  39:../LIB_HW/Hw_I2C_HW.c **** 
-  40:../LIB_HW/Hw_I2C_HW.c **** 
-  41:../LIB_HW/Hw_I2C_HW.c **** u8 Hw_I2C_SW_WriteByte_NoAck( u8 Ch, u8   Data );
-  42:../LIB_HW/Hw_I2C_HW.c **** u8 Hw_I2C_SW_WriteByte_Ack  ( u8 Ch, u8   Data );
-  43:../LIB_HW/Hw_I2C_HW.c **** u8 Hw_I2C_SW_ReadByte_NoAck ( u8 Ch, u8 *pData );
-  44:../LIB_HW/Hw_I2C_HW.c **** u8 Hw_I2C_SW_ReadByte_Ack   ( u8 Ch, u8 *pData );
-  45:../LIB_HW/Hw_I2C_HW.c **** */
-  46:../LIB_HW/Hw_I2C_HW.c **** 
-  47:../LIB_HW/Hw_I2C_HW.c **** 
-  48:../LIB_HW/Hw_I2C_HW.c **** 
-  49:../LIB_HW/Hw_I2C_HW.c **** 
-  50:../LIB_HW/Hw_I2C_HW.c **** 
-  51:../LIB_HW/Hw_I2C_HW.c **** /*---------------------------------------------------------------------------
-  52:../LIB_HW/Hw_I2C_HW.c ****      TITLE   : Hw_I2C_SW_Init
-  53:../LIB_HW/Hw_I2C_HW.c ****      WORK    : 
-  54:../LIB_HW/Hw_I2C_HW.c ****      ARG     : void
-  55:../LIB_HW/Hw_I2C_HW.c ****      RET     : void
-  56:../LIB_HW/Hw_I2C_HW.c **** ---------------------------------------------------------------------------*/
-  57:../LIB_HW/Hw_I2C_HW.c **** void Hw_I2C_HW_Init( void )
-  58:../LIB_HW/Hw_I2C_HW.c **** {
-  59:../LIB_HW/Hw_I2C_HW.c **** 	u32 SR;
-  60:../LIB_HW/Hw_I2C_HW.c **** 
-  61:../LIB_HW/Hw_I2C_HW.c **** 
-  62:../LIB_HW/Hw_I2C_HW.c **** 	//-- I/O 초기화
-  63:../LIB_HW/Hw_I2C_HW.c **** 	//
-  64:../LIB_HW/Hw_I2C_HW.c **** 	Hw_I2C_HW_IO_Setup();	
-  65:../LIB_HW/Hw_I2C_HW.c **** 
-  66:../LIB_HW/Hw_I2C_HW.c **** 
-  67:../LIB_HW/Hw_I2C_HW.c **** 	REG_I2C1_CR1 = 0;
-  68:../LIB_HW/Hw_I2C_HW.c **** 
-  69:../LIB_HW/Hw_I2C_HW.c **** 	//-- 1. I2C 클럭 입력 주파수 설정 
-  70:../LIB_HW/Hw_I2C_HW.c **** 	//
-  71:../LIB_HW/Hw_I2C_HW.c **** 	REG_I2C1_CR2 = 0 
-  72:../LIB_HW/Hw_I2C_HW.c **** 				| ( 36 << 0 );		// FREQ = 36Mhz
-  73:../LIB_HW/Hw_I2C_HW.c **** 
-  74:../LIB_HW/Hw_I2C_HW.c **** 	//-- 2. Clock Control 
-  75:../LIB_HW/Hw_I2C_HW.c **** 	//
-  76:../LIB_HW/Hw_I2C_HW.c **** 	REG_I2C1_CCR = 0 
-  77:../LIB_HW/Hw_I2C_HW.c **** 				| (  1 << 15 )		// Fast Mode I2C
-  78:../LIB_HW/Hw_I2C_HW.c **** 				| (  0 << 14 )		// Duty Tlow/Thig = 2
-  79:../LIB_HW/Hw_I2C_HW.c **** 				| ( 30 <<  0 );		// 30*27ns + 2*30*27ns = 400Khz
-  80:../LIB_HW/Hw_I2C_HW.c **** 
-  81:../LIB_HW/Hw_I2C_HW.c **** 	//-- 3. Maximum Rise Time  
-  82:../LIB_HW/Hw_I2C_HW.c **** 	//
-  83:../LIB_HW/Hw_I2C_HW.c **** 	REG_I2C1_TRISE = 4;				// 300ns / 100ns + 1 = 4 
-  84:../LIB_HW/Hw_I2C_HW.c **** 
-  85:../LIB_HW/Hw_I2C_HW.c **** 
-  86:../LIB_HW/Hw_I2C_HW.c **** 	//-- Clock Enable
-  87:../LIB_HW/Hw_I2C_HW.c **** 	//
-  88:../LIB_HW/Hw_I2C_HW.c **** 	REG_RCC_APB1ENR |= (1<<21);		// I2C1 Clock enable
-  89:../LIB_HW/Hw_I2C_HW.c **** 
-  90:../LIB_HW/Hw_I2C_HW.c **** 
-  91:../LIB_HW/Hw_I2C_HW.c **** 	CLR_BIT( REG_I2C1_CR1, 1 );		// I2C Mode		
-  92:../LIB_HW/Hw_I2C_HW.c **** 	SET_BIT( REG_I2C1_CR1, 0 );		// Peripheral enable	
-  93:../LIB_HW/Hw_I2C_HW.c **** 
-  94:../LIB_HW/Hw_I2C_HW.c **** 	SR = REG_I2C1_SR1;
-  95:../LIB_HW/Hw_I2C_HW.c **** 	SR = REG_I2C1_SR2;
-  96:../LIB_HW/Hw_I2C_HW.c **** }
-  97:../LIB_HW/Hw_I2C_HW.c **** 
-  98:../LIB_HW/Hw_I2C_HW.c **** 
-  99:../LIB_HW/Hw_I2C_HW.c **** 
- 100:../LIB_HW/Hw_I2C_HW.c **** 
- 101:../LIB_HW/Hw_I2C_HW.c **** 
- 102:../LIB_HW/Hw_I2C_HW.c **** /*---------------------------------------------------------------------------
- 103:../LIB_HW/Hw_I2C_HW.c ****      TITLE   : Hw_I2C_SW_IO_Setup
- 104:../LIB_HW/Hw_I2C_HW.c ****      WORK    : 
- 105:../LIB_HW/Hw_I2C_HW.c ****      ARG     : void
- 106:../LIB_HW/Hw_I2C_HW.c ****      RET     : void
- 107:../LIB_HW/Hw_I2C_HW.c **** ---------------------------------------------------------------------------*/
- 108:../LIB_HW/Hw_I2C_HW.c **** void Hw_I2C_HW_IO_Setup( void )
- 109:../LIB_HW/Hw_I2C_HW.c **** {
-  27              		.loc 1 109 0
+  26              		.file 1 "../LIB_AP/Ap_GLcdMenu.c"
+   1:../LIB_AP/Ap_GLcdMenu.c **** //----------------------------------------------------------------------------
+   2:../LIB_AP/Ap_GLcdMenu.c **** //    프로그램명 	: GLcd Menu 관련 함수
+   3:../LIB_AP/Ap_GLcdMenu.c **** //
+   4:../LIB_AP/Ap_GLcdMenu.c **** //    만든이     	: Cho Han Cheol
+   5:../LIB_AP/Ap_GLcdMenu.c **** //
+   6:../LIB_AP/Ap_GLcdMenu.c **** //    날  짜     	: 
+   7:../LIB_AP/Ap_GLcdMenu.c **** //    
+   8:../LIB_AP/Ap_GLcdMenu.c **** //    최종 수정  	: 
+   9:../LIB_AP/Ap_GLcdMenu.c **** //
+  10:../LIB_AP/Ap_GLcdMenu.c **** //    MPU_Type		:
+  11:../LIB_AP/Ap_GLcdMenu.c **** //
+  12:../LIB_AP/Ap_GLcdMenu.c **** //    파일명     	: Ap_GLcdMenu.h
+  13:../LIB_AP/Ap_GLcdMenu.c **** //----------------------------------------------------------------------------
+  14:../LIB_AP/Ap_GLcdMenu.c **** 
+  15:../LIB_AP/Ap_GLcdMenu.c **** 
+  16:../LIB_AP/Ap_GLcdMenu.c **** 
+  17:../LIB_AP/Ap_GLcdMenu.c **** //----- 헤더파일 열기
+  18:../LIB_AP/Ap_GLcdMenu.c **** //
+  19:../LIB_AP/Ap_GLcdMenu.c **** #define  AP_GLCDMENU_LOCAL
+  20:../LIB_AP/Ap_GLcdMenu.c **** 
+  21:../LIB_AP/Ap_GLcdMenu.c **** #include "Ap_GLcdMenu.h"
+  22:../LIB_AP/Ap_GLcdMenu.c **** 
+  23:../LIB_AP/Ap_GLcdMenu.c **** 
+  24:../LIB_AP/Ap_GLcdMenu.c **** 
+  25:../LIB_AP/Ap_GLcdMenu.c **** //-- 내부 선언
+  26:../LIB_AP/Ap_GLcdMenu.c **** //
+  27:../LIB_AP/Ap_GLcdMenu.c **** 
+  28:../LIB_AP/Ap_GLcdMenu.c **** 
+  29:../LIB_AP/Ap_GLcdMenu.c **** 
+  30:../LIB_AP/Ap_GLcdMenu.c **** //-- 내부 변수
+  31:../LIB_AP/Ap_GLcdMenu.c **** //
+  32:../LIB_AP/Ap_GLcdMenu.c **** 
+  33:../LIB_AP/Ap_GLcdMenu.c **** 
+  34:../LIB_AP/Ap_GLcdMenu.c **** 
+  35:../LIB_AP/Ap_GLcdMenu.c **** //-- 내부 함수
+  36:../LIB_AP/Ap_GLcdMenu.c **** //
+  37:../LIB_AP/Ap_GLcdMenu.c **** void Ap_GLcdMenu_ShowMenu(void);
+  38:../LIB_AP/Ap_GLcdMenu.c **** 
+  39:../LIB_AP/Ap_GLcdMenu.c **** 
+  40:../LIB_AP/Ap_GLcdMenu.c **** 
+  41:../LIB_AP/Ap_GLcdMenu.c **** 
+  42:../LIB_AP/Ap_GLcdMenu.c **** void Ap_GCldMenu_MoveCircleTick_1st( void )
+  43:../LIB_AP/Ap_GLcdMenu.c **** {
+  44:../LIB_AP/Ap_GLcdMenu.c **** 	static s8 x   = 0;
+  45:../LIB_AP/Ap_GLcdMenu.c **** 	static s8 dir = 1;
+  46:../LIB_AP/Ap_GLcdMenu.c **** 	static u8 cnt = 0;
+  47:../LIB_AP/Ap_GLcdMenu.c **** 	
+  48:../LIB_AP/Ap_GLcdMenu.c **** 	Hw_N5110G_DrawClearRect( 0, 25, HW_N5110G_WIDTH, 35 );           						
+  49:../LIB_AP/Ap_GLcdMenu.c **** 	Hw_N5110G_DrawCircle( 10 + x, 30, 5, 0 ); 								
+  50:../LIB_AP/Ap_GLcdMenu.c ****  	Hw_N5110G_DrawRequest();
+  51:../LIB_AP/Ap_GLcdMenu.c ****  	
+  52:../LIB_AP/Ap_GLcdMenu.c ****  	x += dir;
+  53:../LIB_AP/Ap_GLcdMenu.c ****  	
+  54:../LIB_AP/Ap_GLcdMenu.c ****  	if( x >= (HW_N5110G_WIDTH-15) ) 
+  55:../LIB_AP/Ap_GLcdMenu.c ****  	{
+  56:../LIB_AP/Ap_GLcdMenu.c ****  		dir = -1;
+  57:../LIB_AP/Ap_GLcdMenu.c ****  		x += dir;
+  58:../LIB_AP/Ap_GLcdMenu.c ****  	}
+  59:../LIB_AP/Ap_GLcdMenu.c **** 
+  60:../LIB_AP/Ap_GLcdMenu.c ****  	if( x < 0 ) 
+  61:../LIB_AP/Ap_GLcdMenu.c ****  	{
+  62:../LIB_AP/Ap_GLcdMenu.c ****  		dir = 1; 		
+  63:../LIB_AP/Ap_GLcdMenu.c ****  		x  += dir;
+  64:../LIB_AP/Ap_GLcdMenu.c ****  	}
+  65:../LIB_AP/Ap_GLcdMenu.c **** 
+  66:../LIB_AP/Ap_GLcdMenu.c **** 	cnt++;
+  67:../LIB_AP/Ap_GLcdMenu.c **** }
+  68:../LIB_AP/Ap_GLcdMenu.c **** 
+  69:../LIB_AP/Ap_GLcdMenu.c **** 
+  70:../LIB_AP/Ap_GLcdMenu.c **** void Ap_GCldMenu_MoveCircleTick_2nd( void )
+  71:../LIB_AP/Ap_GLcdMenu.c **** {
+  27              		.loc 1 71 0
   28              		.cfi_startproc
   29              		@ args = 0, pretend = 0, frame = 0
   30              		@ frame_needed = 0, uses_anonymous_args = 0
-  31              		@ link register save eliminated.
- 110:../LIB_HW/Hw_I2C_HW.c **** 
- 111:../LIB_HW/Hw_I2C_HW.c **** 	//-- I2C1 Remap
- 112:../LIB_HW/Hw_I2C_HW.c **** 	//
- 113:../LIB_HW/Hw_I2C_HW.c **** 	SET_BIT( REG_AFIO_MAPR, 1 );	// SCL/PB8, SDA/PB9)
-  32              		.loc 1 113 0
-  33 0000 0422     		movs	r2, #4
-  34 0002 C4F20102 		movt	r2, 16385
-  35 0006 1168     		ldr	r1, [r2, #0]
- 114:../LIB_HW/Hw_I2C_HW.c **** 
- 115:../LIB_HW/Hw_I2C_HW.c **** 
- 116:../LIB_HW/Hw_I2C_HW.c **** 	//-- SCL PB.8
- 117:../LIB_HW/Hw_I2C_HW.c **** 	//
- 118:../LIB_HW/Hw_I2C_HW.c **** 	REG_GPIOB_CRH &= ~(0x0F << ( 0));	// Clear
-  36              		.loc 1 118 0
-  37 0008 40F60443 		movw	r3, #3076
- 113:../LIB_HW/Hw_I2C_HW.c **** 	SET_BIT( REG_AFIO_MAPR, 1 );	// SCL/PB8, SDA/PB9)
-  38              		.loc 1 113 0
-  39 000c 41F00200 		orr	r0, r1, #2
-  40 0010 1060     		str	r0, [r2, #0]
-  41              		.loc 1 118 0
-  42 0012 C4F20103 		movt	r3, 16385
-  43 0016 1A68     		ldr	r2, [r3, #0]
-  44 0018 22F00F01 		bic	r1, r2, #15
-  45 001c 1960     		str	r1, [r3, #0]
- 119:../LIB_HW/Hw_I2C_HW.c **** 	REG_GPIOB_CRH |=  (0x03 << ( 0));	// MODE, PB.8 Output mode, max speed 50Mhz
-  46              		.loc 1 119 0
-  47 001e 1868     		ldr	r0, [r3, #0]
-  48 0020 40F00302 		orr	r2, r0, #3
-  49 0024 1A60     		str	r2, [r3, #0]
- 120:../LIB_HW/Hw_I2C_HW.c **** 	REG_GPIOB_CRH |=  (0x03 << ( 2));	// CNF,  PB.8 Alternate function output Open-drain	
-  50              		.loc 1 120 0
-  51 0026 1968     		ldr	r1, [r3, #0]
-  52 0028 41F00C00 		orr	r0, r1, #12
-  53 002c 1860     		str	r0, [r3, #0]
- 121:../LIB_HW/Hw_I2C_HW.c **** 
- 122:../LIB_HW/Hw_I2C_HW.c **** 
- 123:../LIB_HW/Hw_I2C_HW.c **** 	//-- SDA PB.9
- 124:../LIB_HW/Hw_I2C_HW.c **** 	//
- 125:../LIB_HW/Hw_I2C_HW.c **** 	REG_GPIOB_CRH &= ~(0x0F << ( 4));	// Clear
-  54              		.loc 1 125 0
-  55 002e 1A68     		ldr	r2, [r3, #0]
-  56 0030 22F0F001 		bic	r1, r2, #240
-  57 0034 1960     		str	r1, [r3, #0]
- 126:../LIB_HW/Hw_I2C_HW.c **** 	REG_GPIOB_CRH |=  (0x03 << ( 4));	// MODE, PB.9 Output mode, max speed 50Mhz
-  58              		.loc 1 126 0
-  59 0036 1868     		ldr	r0, [r3, #0]
-  60 0038 40F03002 		orr	r2, r0, #48
-  61 003c 1A60     		str	r2, [r3, #0]
- 127:../LIB_HW/Hw_I2C_HW.c **** 	REG_GPIOB_CRH |=  (0x03 << ( 6));	// CNF,  PB.9 Alternate function output Open-drain	
-  62              		.loc 1 127 0
-  63 003e 1968     		ldr	r1, [r3, #0]
-  64 0040 41F0C000 		orr	r0, r1, #192
-  65 0044 1860     		str	r0, [r3, #0]
-  66 0046 7047     		bx	lr
-  67              		.cfi_endproc
-  68              	.LFE1:
-  70              		.section	.text.Hw_I2C_HW_Init,"ax",%progbits
-  71              		.align	2
-  72              		.global	Hw_I2C_HW_Init
-  73              		.thumb
-  74              		.thumb_func
-  76              	Hw_I2C_HW_Init:
-  77              	.LFB0:
-  58:../LIB_HW/Hw_I2C_HW.c **** {
-  78              		.loc 1 58 0
-  79              		.cfi_startproc
-  80              		@ args = 0, pretend = 0, frame = 0
-  81              		@ frame_needed = 0, uses_anonymous_args = 0
-  82 0000 38B5     		push	{r3, r4, r5, lr}
-  83              	.LCFI0:
-  84              		.cfi_def_cfa_offset 16
-  85              		.cfi_offset 3, -16
-  86              		.cfi_offset 4, -12
-  87              		.cfi_offset 5, -8
-  88              		.cfi_offset 14, -4
-  64:../LIB_HW/Hw_I2C_HW.c **** 	Hw_I2C_HW_IO_Setup();	
-  89              		.loc 1 64 0
-  90 0002 40F20003 		movw	r3, #:lower16:Hw_I2C_HW_IO_Setup
-  91 0006 C0F20003 		movt	r3, #:upper16:Hw_I2C_HW_IO_Setup
-  92 000a 9847     		blx	r3
-  93              	.LVL0:
-  67:../LIB_HW/Hw_I2C_HW.c **** 	REG_I2C1_CR1 = 0;
-  94              		.loc 1 67 0
-  95 000c 4FF4A843 		mov	r3, #21504
-  96 0010 C4F20003 		movt	r3, 16384
-  97 0014 0025     		movs	r5, #0
-  71:../LIB_HW/Hw_I2C_HW.c **** 	REG_I2C1_CR2 = 0 
-  98              		.loc 1 71 0
-  99 0016 45F20444 		movw	r4, #21508
-  67:../LIB_HW/Hw_I2C_HW.c **** 	REG_I2C1_CR1 = 0;
- 100              		.loc 1 67 0
- 101 001a 1D60     		str	r5, [r3, #0]
-  71:../LIB_HW/Hw_I2C_HW.c **** 	REG_I2C1_CR2 = 0 
- 102              		.loc 1 71 0
- 103 001c C4F20004 		movt	r4, 16384
-  76:../LIB_HW/Hw_I2C_HW.c **** 	REG_I2C1_CCR = 0 
- 104              		.loc 1 76 0
- 105 0020 45F21C40 		movw	r0, #21532
-  71:../LIB_HW/Hw_I2C_HW.c **** 	REG_I2C1_CR2 = 0 
- 106              		.loc 1 71 0
- 107 0024 2425     		movs	r5, #36
- 108 0026 2560     		str	r5, [r4, #0]
-  76:../LIB_HW/Hw_I2C_HW.c **** 	REG_I2C1_CCR = 0 
- 109              		.loc 1 76 0
- 110 0028 C4F20000 		movt	r0, 16384
-  83:../LIB_HW/Hw_I2C_HW.c **** 	REG_I2C1_TRISE = 4;				// 300ns / 100ns + 1 = 4 
- 111              		.loc 1 83 0
- 112 002c 45F22041 		movw	r1, #21536
-  76:../LIB_HW/Hw_I2C_HW.c **** 	REG_I2C1_CCR = 0 
- 113              		.loc 1 76 0
- 114 0030 48F21E04 		movw	r4, #32798
- 115 0034 0460     		str	r4, [r0, #0]
-  83:../LIB_HW/Hw_I2C_HW.c **** 	REG_I2C1_TRISE = 4;				// 300ns / 100ns + 1 = 4 
- 116              		.loc 1 83 0
- 117 0036 C4F20001 		movt	r1, 16384
- 118 003a 0420     		movs	r0, #4
-  88:../LIB_HW/Hw_I2C_HW.c **** 	REG_RCC_APB1ENR |= (1<<21);		// I2C1 Clock enable
- 119              		.loc 1 88 0
- 120 003c 41F21C02 		movw	r2, #4124
-  83:../LIB_HW/Hw_I2C_HW.c **** 	REG_I2C1_TRISE = 4;				// 300ns / 100ns + 1 = 4 
- 121              		.loc 1 83 0
- 122 0040 0860     		str	r0, [r1, #0]
-  88:../LIB_HW/Hw_I2C_HW.c **** 	REG_RCC_APB1ENR |= (1<<21);		// I2C1 Clock enable
- 123              		.loc 1 88 0
- 124 0042 C4F20202 		movt	r2, 16386
- 125 0046 1068     		ldr	r0, [r2, #0]
-  94:../LIB_HW/Hw_I2C_HW.c **** 	SR = REG_I2C1_SR1;
- 126              		.loc 1 94 0
- 127 0048 45F21441 		movw	r1, #21524
-  88:../LIB_HW/Hw_I2C_HW.c **** 	REG_RCC_APB1ENR |= (1<<21);		// I2C1 Clock enable
- 128              		.loc 1 88 0
- 129 004c 40F40010 		orr	r0, r0, #2097152
- 130 0050 1060     		str	r0, [r2, #0]
-  91:../LIB_HW/Hw_I2C_HW.c **** 	CLR_BIT( REG_I2C1_CR1, 1 );		// I2C Mode		
- 131              		.loc 1 91 0
- 132 0052 1868     		ldr	r0, [r3, #0]
-  95:../LIB_HW/Hw_I2C_HW.c **** 	SR = REG_I2C1_SR2;
- 133              		.loc 1 95 0
- 134 0054 45F21842 		movw	r2, #21528
-  91:../LIB_HW/Hw_I2C_HW.c **** 	CLR_BIT( REG_I2C1_CR1, 1 );		// I2C Mode		
- 135              		.loc 1 91 0
- 136 0058 20F00200 		bic	r0, r0, #2
- 137 005c 1860     		str	r0, [r3, #0]
-  92:../LIB_HW/Hw_I2C_HW.c **** 	SET_BIT( REG_I2C1_CR1, 0 );		// Peripheral enable	
- 138              		.loc 1 92 0
- 139 005e 1868     		ldr	r0, [r3, #0]
-  94:../LIB_HW/Hw_I2C_HW.c **** 	SR = REG_I2C1_SR1;
- 140              		.loc 1 94 0
- 141 0060 C4F20001 		movt	r1, 16384
-  92:../LIB_HW/Hw_I2C_HW.c **** 	SET_BIT( REG_I2C1_CR1, 0 );		// Peripheral enable	
- 142              		.loc 1 92 0
- 143 0064 40F00100 		orr	r0, r0, #1
- 144 0068 1860     		str	r0, [r3, #0]
-  95:../LIB_HW/Hw_I2C_HW.c **** 	SR = REG_I2C1_SR2;
- 145              		.loc 1 95 0
- 146 006a C4F20002 		movt	r2, 16384
-  94:../LIB_HW/Hw_I2C_HW.c **** 	SR = REG_I2C1_SR1;
- 147              		.loc 1 94 0
- 148 006e 0B68     		ldr	r3, [r1, #0]
-  95:../LIB_HW/Hw_I2C_HW.c **** 	SR = REG_I2C1_SR2;
- 149              		.loc 1 95 0
- 150 0070 1368     		ldr	r3, [r2, #0]
- 151 0072 38BD     		pop	{r3, r4, r5, pc}
- 152              		.cfi_endproc
- 153              	.LFE0:
- 155              		.section	.text.Hw_I2C_HW_Read,"ax",%progbits
- 156              		.align	2
- 157              		.global	Hw_I2C_HW_Read
- 158              		.thumb
- 159              		.thumb_func
- 161              	Hw_I2C_HW_Read:
- 162              	.LFB3:
- 128:../LIB_HW/Hw_I2C_HW.c **** }
- 129:../LIB_HW/Hw_I2C_HW.c **** 
- 130:../LIB_HW/Hw_I2C_HW.c **** 
- 131:../LIB_HW/Hw_I2C_HW.c **** 
- 132:../LIB_HW/Hw_I2C_HW.c **** 
- 133:../LIB_HW/Hw_I2C_HW.c **** 
- 134:../LIB_HW/Hw_I2C_HW.c **** /*---------------------------------------------------------------------------
- 135:../LIB_HW/Hw_I2C_HW.c ****      TITLE   : Hw_I2C_SW_Write
- 136:../LIB_HW/Hw_I2C_HW.c ****      WORK    : 
- 137:../LIB_HW/Hw_I2C_HW.c ****      ARG     : void
- 138:../LIB_HW/Hw_I2C_HW.c ****      RET     : void
- 139:../LIB_HW/Hw_I2C_HW.c **** ---------------------------------------------------------------------------*/
- 140:../LIB_HW/Hw_I2C_HW.c **** u16 Hw_I2C_HW_Write( u8 Ch, u16 i2c_addr, u8* pdata, u16 len )
- 141:../LIB_HW/Hw_I2C_HW.c **** {
- 142:../LIB_HW/Hw_I2C_HW.c ****     u16 Ret = 0;
- 143:../LIB_HW/Hw_I2C_HW.c ****     u16 Err = 0;
- 144:../LIB_HW/Hw_I2C_HW.c **** 	u8  i;
- 145:../LIB_HW/Hw_I2C_HW.c **** 	u32 TimeOut;
- 146:../LIB_HW/Hw_I2C_HW.c **** 	u32 SR1;
- 147:../LIB_HW/Hw_I2C_HW.c **** 	u32 SR2;
- 148:../LIB_HW/Hw_I2C_HW.c **** 
- 149:../LIB_HW/Hw_I2C_HW.c **** 
- 150:../LIB_HW/Hw_I2C_HW.c **** 	switch( Ch )
- 151:../LIB_HW/Hw_I2C_HW.c **** 	{
- 152:../LIB_HW/Hw_I2C_HW.c **** 		case 0:
- 153:../LIB_HW/Hw_I2C_HW.c **** 
- 154:../LIB_HW/Hw_I2C_HW.c **** 			//-- START
- 155:../LIB_HW/Hw_I2C_HW.c **** 			//
- 156:../LIB_HW/Hw_I2C_HW.c **** 			SET_BIT( REG_I2C1_CR1, 8 );
- 157:../LIB_HW/Hw_I2C_HW.c **** 
- 158:../LIB_HW/Hw_I2C_HW.c **** 			Ret = Hw_I2C_HW_WaitForBitSet( Ch, (u32 *)&REG_I2C1_SR1, 0, 10000 );
- 159:../LIB_HW/Hw_I2C_HW.c **** 			if( Ret != 0 )
- 160:../LIB_HW/Hw_I2C_HW.c **** 			{
- 161:../LIB_HW/Hw_I2C_HW.c **** 				Err = HW_I2C_ERR_START;
- 162:../LIB_HW/Hw_I2C_HW.c **** 				break;
- 163:../LIB_HW/Hw_I2C_HW.c **** 			}
- 164:../LIB_HW/Hw_I2C_HW.c **** 
- 165:../LIB_HW/Hw_I2C_HW.c **** 			//Lb_printf("S1 %x\n", REG_I2C1_SR1);
- 166:../LIB_HW/Hw_I2C_HW.c **** 			//Lb_printf("S1 %x\n", REG_I2C1_SR2);
- 167:../LIB_HW/Hw_I2C_HW.c **** 
- 168:../LIB_HW/Hw_I2C_HW.c **** 			//-- ADDR
- 169:../LIB_HW/Hw_I2C_HW.c **** 			//
- 170:../LIB_HW/Hw_I2C_HW.c **** 			REG_I2C1_DR = i2c_addr<<1;	// ADDR Write 
- 171:../LIB_HW/Hw_I2C_HW.c **** 
- 172:../LIB_HW/Hw_I2C_HW.c **** 			Ret = Hw_I2C_HW_WaitForBitSet( Ch, (u32 *)&REG_I2C1_SR1, 1, 10000 );	// ADDR Sent
- 173:../LIB_HW/Hw_I2C_HW.c **** 			SR2 = REG_I2C1_SR2;
- 174:../LIB_HW/Hw_I2C_HW.c **** 
- 175:../LIB_HW/Hw_I2C_HW.c **** 			if( Ret != 0 ) 
- 176:../LIB_HW/Hw_I2C_HW.c **** 			{
- 177:../LIB_HW/Hw_I2C_HW.c **** 				Err = HW_I2C_ERR_ADDR;
- 178:../LIB_HW/Hw_I2C_HW.c **** 				break;
- 179:../LIB_HW/Hw_I2C_HW.c **** 			}
- 180:../LIB_HW/Hw_I2C_HW.c **** 
- 181:../LIB_HW/Hw_I2C_HW.c **** 
- 182:../LIB_HW/Hw_I2C_HW.c **** 			//Lb_printf("S2 %x\n", REG_I2C1_SR1);
- 183:../LIB_HW/Hw_I2C_HW.c **** 			//Lb_printf("S2 %x\n", REG_I2C1_SR2);
- 184:../LIB_HW/Hw_I2C_HW.c **** 				
- 185:../LIB_HW/Hw_I2C_HW.c **** 			Ret = Hw_I2C_HW_WaitForBitSet( Ch, (u32 *)&REG_I2C1_SR1, 7, 10000 );	// TXE
- 186:../LIB_HW/Hw_I2C_HW.c **** 			if( Ret != 0 )
- 187:../LIB_HW/Hw_I2C_HW.c **** 			{
- 188:../LIB_HW/Hw_I2C_HW.c **** 				Err = HW_I2C_ERR_TXE;
- 189:../LIB_HW/Hw_I2C_HW.c **** 				break;
- 190:../LIB_HW/Hw_I2C_HW.c **** 			}
- 191:../LIB_HW/Hw_I2C_HW.c **** 
- 192:../LIB_HW/Hw_I2C_HW.c **** 
- 193:../LIB_HW/Hw_I2C_HW.c **** 			for( i=0; i<len; i++ )
- 194:../LIB_HW/Hw_I2C_HW.c **** 			{
- 195:../LIB_HW/Hw_I2C_HW.c **** 				Ret = Hw_I2C_HW_WaitForBitSet( Ch, (u32 *)&REG_I2C1_SR1, 7, 10000 );	// TXE
- 196:../LIB_HW/Hw_I2C_HW.c **** 				if( Ret != 0 )
- 197:../LIB_HW/Hw_I2C_HW.c **** 				{
- 198:../LIB_HW/Hw_I2C_HW.c **** 					Err = HW_I2C_ERR_TXE;
- 199:../LIB_HW/Hw_I2C_HW.c **** 					break;
- 200:../LIB_HW/Hw_I2C_HW.c **** 				}
- 201:../LIB_HW/Hw_I2C_HW.c **** 
- 202:../LIB_HW/Hw_I2C_HW.c **** 				REG_I2C1_DR = pdata[i];						
- 203:../LIB_HW/Hw_I2C_HW.c **** 			}
- 204:../LIB_HW/Hw_I2C_HW.c **** 
- 205:../LIB_HW/Hw_I2C_HW.c **** 
- 206:../LIB_HW/Hw_I2C_HW.c **** 			//-- STOP
- 207:../LIB_HW/Hw_I2C_HW.c **** 			//
- 208:../LIB_HW/Hw_I2C_HW.c **** 			if( len > 0 )
- 209:../LIB_HW/Hw_I2C_HW.c **** 			{
- 210:../LIB_HW/Hw_I2C_HW.c **** 				Ret = Hw_I2C_HW_WaitForBitSet( Ch, (u32 *)&REG_I2C1_SR1, 2, 10000 );	// BTF
- 211:../LIB_HW/Hw_I2C_HW.c **** 				if( Ret != 0 ) 
- 212:../LIB_HW/Hw_I2C_HW.c **** 				{
- 213:../LIB_HW/Hw_I2C_HW.c **** 					Err = HW_I2C_ERR_STOP;
- 214:../LIB_HW/Hw_I2C_HW.c **** 					break;
- 215:../LIB_HW/Hw_I2C_HW.c **** 				}
- 216:../LIB_HW/Hw_I2C_HW.c **** 			}
- 217:../LIB_HW/Hw_I2C_HW.c **** 
- 218:../LIB_HW/Hw_I2C_HW.c **** 			SET_BIT( REG_I2C1_CR1, 9 );	// STOP
- 219:../LIB_HW/Hw_I2C_HW.c **** 
- 220:../LIB_HW/Hw_I2C_HW.c **** 			break;
- 221:../LIB_HW/Hw_I2C_HW.c **** 	}
- 222:../LIB_HW/Hw_I2C_HW.c **** 
- 223:../LIB_HW/Hw_I2C_HW.c **** 
- 224:../LIB_HW/Hw_I2C_HW.c **** 	if( Err == 0 )
- 225:../LIB_HW/Hw_I2C_HW.c **** 	{
- 226:../LIB_HW/Hw_I2C_HW.c **** 		Err = Hw_I2C_HW_GetErrStatus( Ch );
- 227:../LIB_HW/Hw_I2C_HW.c **** 	}
- 228:../LIB_HW/Hw_I2C_HW.c **** 	
- 229:../LIB_HW/Hw_I2C_HW.c **** 
- 230:../LIB_HW/Hw_I2C_HW.c **** 	/*
- 231:../LIB_HW/Hw_I2C_HW.c **** 	Hw_I2C_SW_StartTransmit(Ch);
- 232:../LIB_HW/Hw_I2C_HW.c **** 
- 233:../LIB_HW/Hw_I2C_HW.c **** 	Ret |= Hw_I2C_SW_WriteByte_Ack(Ch, (i2c_addr<<1) | (0<<0)); // Address
- 234:../LIB_HW/Hw_I2C_HW.c **** 
- 235:../LIB_HW/Hw_I2C_HW.c **** 
- 236:../LIB_HW/Hw_I2C_HW.c **** 	for( i=0; i<len; i++ )
- 237:../LIB_HW/Hw_I2C_HW.c **** 	{
- 238:../LIB_HW/Hw_I2C_HW.c **** 		Ret |= Hw_I2C_SW_WriteByte_Ack(Ch, pdata[i]);  			// Data	
- 239:../LIB_HW/Hw_I2C_HW.c **** 	}
- 240:../LIB_HW/Hw_I2C_HW.c **** 	
- 241:../LIB_HW/Hw_I2C_HW.c **** 	Hw_I2C_SW_EndTransmit(Ch);
- 242:../LIB_HW/Hw_I2C_HW.c **** 	*/
- 243:../LIB_HW/Hw_I2C_HW.c ****     return Err;
- 244:../LIB_HW/Hw_I2C_HW.c **** }
- 245:../LIB_HW/Hw_I2C_HW.c **** 
- 246:../LIB_HW/Hw_I2C_HW.c **** 
- 247:../LIB_HW/Hw_I2C_HW.c **** 
- 248:../LIB_HW/Hw_I2C_HW.c **** 
- 249:../LIB_HW/Hw_I2C_HW.c **** 
- 250:../LIB_HW/Hw_I2C_HW.c **** /*---------------------------------------------------------------------------
- 251:../LIB_HW/Hw_I2C_HW.c ****      TITLE   : Hw_I2C_HW_Read
- 252:../LIB_HW/Hw_I2C_HW.c ****      WORK    : 
- 253:../LIB_HW/Hw_I2C_HW.c ****      ARG     : void
- 254:../LIB_HW/Hw_I2C_HW.c ****      RET     : void
- 255:../LIB_HW/Hw_I2C_HW.c **** ---------------------------------------------------------------------------*/
- 256:../LIB_HW/Hw_I2C_HW.c **** u16 Hw_I2C_HW_Read( u8 Ch, u16 i2c_addr, u8 *pdata, u16 len )
- 257:../LIB_HW/Hw_I2C_HW.c **** {
- 163              		.loc 1 257 0
- 164              		.cfi_startproc
- 165              		@ args = 0, pretend = 0, frame = 0
- 166              		@ frame_needed = 0, uses_anonymous_args = 0
- 167              		@ link register save eliminated.
- 168              	.LVL1:
- 258:../LIB_HW/Hw_I2C_HW.c **** 	u16 Ret = 0;
- 259:../LIB_HW/Hw_I2C_HW.c **** 	u8  i;
- 260:../LIB_HW/Hw_I2C_HW.c **** 	u8  LastIndex = 0;
- 261:../LIB_HW/Hw_I2C_HW.c **** 
- 262:../LIB_HW/Hw_I2C_HW.c **** 	if( len > 0 ) LastIndex = len - 1;
- 263:../LIB_HW/Hw_I2C_HW.c **** 
- 264:../LIB_HW/Hw_I2C_HW.c **** 	/*
- 265:../LIB_HW/Hw_I2C_HW.c **** 	Hw_I2C_SW_StartTransmit(Ch);
- 266:../LIB_HW/Hw_I2C_HW.c **** 
- 267:../LIB_HW/Hw_I2C_HW.c **** 	Ret |= Hw_I2C_SW_WriteByte_Ack(Ch, (i2c_addr<<1) | (1<<0));  		// Address
- 268:../LIB_HW/Hw_I2C_HW.c **** 
- 269:../LIB_HW/Hw_I2C_HW.c **** 	for( i=0; i<len; i++ )
- 270:../LIB_HW/Hw_I2C_HW.c **** 	{
- 271:../LIB_HW/Hw_I2C_HW.c **** 		if( i < LastIndex )
- 272:../LIB_HW/Hw_I2C_HW.c **** 		{
- 273:../LIB_HW/Hw_I2C_HW.c **** 			Ret |= Hw_I2C_SW_ReadByte_Ack(Ch, &pdata[i] );				// Read Data
- 274:../LIB_HW/Hw_I2C_HW.c **** 		}
- 275:../LIB_HW/Hw_I2C_HW.c **** 		else
- 276:../LIB_HW/Hw_I2C_HW.c **** 		{
- 277:../LIB_HW/Hw_I2C_HW.c **** 			Ret |= Hw_I2C_SW_ReadByte_NoAck(Ch, &pdata[i] );			// Read Data 마지막 데이터는 NACK 처�
- 278:../LIB_HW/Hw_I2C_HW.c **** 		}
- 279:../LIB_HW/Hw_I2C_HW.c **** 	}
- 280:../LIB_HW/Hw_I2C_HW.c **** 	
- 281:../LIB_HW/Hw_I2C_HW.c **** 	Hw_I2C_SW_EndTransmit(Ch);
- 282:../LIB_HW/Hw_I2C_HW.c **** 	*/
- 283:../LIB_HW/Hw_I2C_HW.c **** 
- 284:../LIB_HW/Hw_I2C_HW.c ****     return Ret;
- 285:../LIB_HW/Hw_I2C_HW.c **** }
- 169              		.loc 1 285 0
- 170 0000 0020     		movs	r0, #0
- 171              	.LVL2:
- 172 0002 7047     		bx	lr
- 173              		.cfi_endproc
- 174              	.LFE3:
- 176              		.section	.text.Hw_I2C_HW_WaitForBitSet,"ax",%progbits
- 177              		.align	2
- 178              		.global	Hw_I2C_HW_WaitForBitSet
- 179              		.thumb
- 180              		.thumb_func
- 182              	Hw_I2C_HW_WaitForBitSet:
- 183              	.LFB4:
- 286:../LIB_HW/Hw_I2C_HW.c **** 
- 287:../LIB_HW/Hw_I2C_HW.c **** 
- 288:../LIB_HW/Hw_I2C_HW.c **** 
- 289:../LIB_HW/Hw_I2C_HW.c **** 
- 290:../LIB_HW/Hw_I2C_HW.c **** /*---------------------------------------------------------------------------
- 291:../LIB_HW/Hw_I2C_HW.c ****      TITLE   : Hw_I2C_HW_WaitForBitSet
- 292:../LIB_HW/Hw_I2C_HW.c ****      WORK    : 
- 293:../LIB_HW/Hw_I2C_HW.c ****      ARG     : void
- 294:../LIB_HW/Hw_I2C_HW.c ****      RET     : void
- 295:../LIB_HW/Hw_I2C_HW.c **** ---------------------------------------------------------------------------*/
- 296:../LIB_HW/Hw_I2C_HW.c **** u16 Hw_I2C_HW_WaitForBitSet( u8 Ch, u32 *reg_addr, u32 reg_bit, u32 time_out )
- 297:../LIB_HW/Hw_I2C_HW.c **** {
- 184              		.loc 1 297 0
- 185              		.cfi_startproc
- 186              		@ args = 0, pretend = 0, frame = 8
- 187              		@ frame_needed = 0, uses_anonymous_args = 0
- 188              		@ link register save eliminated.
- 189              	.LVL3:
- 190 0000 10B4     		push	{r4}
- 191              	.LCFI1:
- 192              		.cfi_def_cfa_offset 4
- 193              		.cfi_offset 4, -4
- 194 0002 83B0     		sub	sp, sp, #12
- 195              	.LCFI2:
- 196              		.cfi_def_cfa_offset 16
- 298:../LIB_HW/Hw_I2C_HW.c **** 	u32 Ret = 0;
- 299:../LIB_HW/Hw_I2C_HW.c **** 	volatile u32 Reg;
- 300:../LIB_HW/Hw_I2C_HW.c **** 
- 301:../LIB_HW/Hw_I2C_HW.c **** 	switch( Ch )
- 197              		.loc 1 301 0
- 198 0004 90B9     		cbnz	r0, .L22
- 302:../LIB_HW/Hw_I2C_HW.c **** 	{
- 303:../LIB_HW/Hw_I2C_HW.c **** 		case 0:
- 304:../LIB_HW/Hw_I2C_HW.c **** 
- 305:../LIB_HW/Hw_I2C_HW.c **** 			while( time_out )
- 199              		.loc 1 305 0 discriminator 1
- 200 0006 002B     		cmp	r3, #0
- 201 0008 20D0     		beq	.L12
- 306:../LIB_HW/Hw_I2C_HW.c **** 			{
- 307:../LIB_HW/Hw_I2C_HW.c **** 				Reg = *reg_addr;
- 308:../LIB_HW/Hw_I2C_HW.c **** 
- 309:../LIB_HW/Hw_I2C_HW.c **** 				if( IS_SET_BIT( Reg, reg_bit ) ) break;
- 202              		.loc 1 309 0
- 203 000a 0120     		movs	r0, #1
- 204              	.LVL4:
- 205 000c 00FA02F2 		lsl	r2, r0, r2
- 206              	.LVL5:
- 307:../LIB_HW/Hw_I2C_HW.c **** 				Reg = *reg_addr;
- 207              		.loc 1 307 0
- 208 0010 0968     		ldr	r1, [r1, #0]
- 209              	.LVL6:
- 210 0012 0191     		str	r1, [sp, #4]
- 211              	.LVL7:
- 212              		.loc 1 309 0
- 213 0014 0198     		ldr	r0, [sp, #4]
- 214 0016 0242     		tst	r2, r0
- 215 0018 08D1     		bne	.L22
- 216 001a 581E     		subs	r0, r3, #1
- 217 001c 10F0010F 		tst	r0, #1
- 218 0020 10D0     		beq	.L20
- 307:../LIB_HW/Hw_I2C_HW.c **** 				Reg = *reg_addr;
- 219              		.loc 1 307 0
- 220 0022 0191     		str	r1, [sp, #4]
- 221              		.loc 1 309 0
- 222 0024 019C     		ldr	r4, [sp, #4]
- 310:../LIB_HW/Hw_I2C_HW.c **** 
- 311:../LIB_HW/Hw_I2C_HW.c **** 				time_out--;
- 223              		.loc 1 311 0
- 224 0026 0346     		mov	r3, r0
- 225              	.LVL8:
- 309:../LIB_HW/Hw_I2C_HW.c **** 				if( IS_SET_BIT( Reg, reg_bit ) ) break;
- 226              		.loc 1 309 0
- 227 0028 2242     		tst	r2, r4
- 228 002a 0BD0     		beq	.L20
- 229              	.LVL9:
- 230              	.L22:
- 301:../LIB_HW/Hw_I2C_HW.c **** 	switch( Ch )
- 231              		.loc 1 301 0
- 232 002c 0020     		movs	r0, #0
- 233              	.L5:
- 234              	.LVL10:
- 312:../LIB_HW/Hw_I2C_HW.c **** 			}
- 313:../LIB_HW/Hw_I2C_HW.c **** 			
- 314:../LIB_HW/Hw_I2C_HW.c **** 			if( time_out == 0 ) 
- 315:../LIB_HW/Hw_I2C_HW.c **** 			{
- 316:../LIB_HW/Hw_I2C_HW.c **** 				Ret = HW_I2C_ERR_TIMEOUT;
- 317:../LIB_HW/Hw_I2C_HW.c **** 			}
- 318:../LIB_HW/Hw_I2C_HW.c **** 			break;
- 319:../LIB_HW/Hw_I2C_HW.c **** 
- 320:../LIB_HW/Hw_I2C_HW.c **** 	}
- 321:../LIB_HW/Hw_I2C_HW.c **** 	return Ret;
- 322:../LIB_HW/Hw_I2C_HW.c **** }
- 235              		.loc 1 322 0
- 236 002e 03B0     		add	sp, sp, #12
- 237 0030 10BC     		pop	{r4}
- 238 0032 7047     		bx	lr
- 239              	.LVL11:
- 240              	.L11:
- 307:../LIB_HW/Hw_I2C_HW.c **** 				Reg = *reg_addr;
- 241              		.loc 1 307 0
- 242 0034 0191     		str	r1, [sp, #4]
- 309:../LIB_HW/Hw_I2C_HW.c **** 				if( IS_SET_BIT( Reg, reg_bit ) ) break;
- 243              		.loc 1 309 0
- 244 0036 0198     		ldr	r0, [sp, #4]
- 245 0038 0242     		tst	r2, r0
- 246 003a F7D1     		bne	.L22
- 307:../LIB_HW/Hw_I2C_HW.c **** 				Reg = *reg_addr;
- 247              		.loc 1 307 0
- 248 003c 0191     		str	r1, [sp, #4]
- 309:../LIB_HW/Hw_I2C_HW.c **** 				if( IS_SET_BIT( Reg, reg_bit ) ) break;
- 249              		.loc 1 309 0
- 250 003e 0198     		ldr	r0, [sp, #4]
- 251 0040 0242     		tst	r2, r0
- 252 0042 F3D1     		bne	.L22
- 253              	.L20:
- 305:../LIB_HW/Hw_I2C_HW.c **** 			while( time_out )
- 254              		.loc 1 305 0
- 255 0044 013B     		subs	r3, r3, #1
- 256              	.LVL12:
- 311:../LIB_HW/Hw_I2C_HW.c **** 				time_out--;
- 257              		.loc 1 311 0
- 258 0046 03F1FF33 		add	r3, r3, #-1
- 259              	.LVL13:
- 305:../LIB_HW/Hw_I2C_HW.c **** 			while( time_out )
- 260              		.loc 1 305 0
- 261 004a F3D1     		bne	.L11
- 262              	.L12:
- 301:../LIB_HW/Hw_I2C_HW.c **** 	switch( Ch )
- 263              		.loc 1 301 0
- 264 004c 0120     		movs	r0, #1
- 265 004e EEE7     		b	.L5
- 266              		.cfi_endproc
- 267              	.LFE4:
- 269              		.section	.text.Hw_I2C_HW_GetErrStatus,"ax",%progbits
- 270              		.align	2
- 271              		.global	Hw_I2C_HW_GetErrStatus
- 272              		.thumb
- 273              		.thumb_func
- 275              	Hw_I2C_HW_GetErrStatus:
- 276              	.LFB5:
- 323:../LIB_HW/Hw_I2C_HW.c **** 
- 324:../LIB_HW/Hw_I2C_HW.c **** 
- 325:../LIB_HW/Hw_I2C_HW.c **** 
- 326:../LIB_HW/Hw_I2C_HW.c **** 
- 327:../LIB_HW/Hw_I2C_HW.c **** 
- 328:../LIB_HW/Hw_I2C_HW.c **** /*---------------------------------------------------------------------------
- 329:../LIB_HW/Hw_I2C_HW.c ****      TITLE   : Hw_I2C_HW_GetErrStatus
- 330:../LIB_HW/Hw_I2C_HW.c ****      WORK    : 
- 331:../LIB_HW/Hw_I2C_HW.c ****      ARG     : void
- 332:../LIB_HW/Hw_I2C_HW.c ****      RET     : void
- 333:../LIB_HW/Hw_I2C_HW.c **** ---------------------------------------------------------------------------*/
- 334:../LIB_HW/Hw_I2C_HW.c **** u16 Hw_I2C_HW_GetErrStatus( u8 Ch )
- 335:../LIB_HW/Hw_I2C_HW.c **** {
- 277              		.loc 1 335 0
- 278              		.cfi_startproc
- 279              		@ args = 0, pretend = 0, frame = 0
- 280              		@ frame_needed = 0, uses_anonymous_args = 0
- 281              		@ link register save eliminated.
- 282              	.LVL14:
- 336:../LIB_HW/Hw_I2C_HW.c **** 	u16 Err = 0;
- 337:../LIB_HW/Hw_I2C_HW.c **** 
- 338:../LIB_HW/Hw_I2C_HW.c **** 	switch( Ch )
- 283              		.loc 1 338 0
- 284 0000 08B1     		cbz	r0, .L38
- 336:../LIB_HW/Hw_I2C_HW.c **** 	u16 Err = 0;
- 285              		.loc 1 336 0
- 286 0002 0020     		movs	r0, #0
- 287              	.LVL15:
- 339:../LIB_HW/Hw_I2C_HW.c **** 	{
- 340:../LIB_HW/Hw_I2C_HW.c **** 		case 0:
- 341:../LIB_HW/Hw_I2C_HW.c **** 
- 342:../LIB_HW/Hw_I2C_HW.c **** 			if( IS_SET_BIT(REG_I2C1_SR1, 11) ) Err = 11;
- 343:../LIB_HW/Hw_I2C_HW.c **** 			if( IS_SET_BIT(REG_I2C1_SR1, 10) ) Err = 10;
- 344:../LIB_HW/Hw_I2C_HW.c **** 			if( IS_SET_BIT(REG_I2C1_SR1,  9) ) Err =  9;
- 345:../LIB_HW/Hw_I2C_HW.c **** 			if( IS_SET_BIT(REG_I2C1_SR1,  8) ) Err =  8;
- 346:../LIB_HW/Hw_I2C_HW.c **** 
- 347:../LIB_HW/Hw_I2C_HW.c **** 			break;
- 348:../LIB_HW/Hw_I2C_HW.c **** 	}
- 349:../LIB_HW/Hw_I2C_HW.c **** 
- 350:../LIB_HW/Hw_I2C_HW.c **** 
- 351:../LIB_HW/Hw_I2C_HW.c **** 	return Err;
- 352:../LIB_HW/Hw_I2C_HW.c **** }
- 288              		.loc 1 352 0
- 289 0004 7047     		bx	lr
+  31 0000 38B5     		push	{r3, r4, r5, lr}
+  32              	.LCFI0:
+  33              		.cfi_def_cfa_offset 16
+  34              		.cfi_offset 3, -16
+  35              		.cfi_offset 4, -12
+  36              		.cfi_offset 5, -8
+  37              		.cfi_offset 14, -4
+  72:../LIB_AP/Ap_GLcdMenu.c **** 	static s8 x   = 0;
+  73:../LIB_AP/Ap_GLcdMenu.c **** 	static s8 dir = 1;
+  74:../LIB_AP/Ap_GLcdMenu.c **** 	static u8 cnt = 0;
+  75:../LIB_AP/Ap_GLcdMenu.c **** 	
+  76:../LIB_AP/Ap_GLcdMenu.c **** 	Hw_N5110G_DrawClearRect( 0, 35, HW_N5110G_WIDTH, 45 );           						
+  77:../LIB_AP/Ap_GLcdMenu.c **** 	Hw_N5110G_DrawCircle( 10 + x, 40, 3, 0 ); 							
+  38              		.loc 1 77 0
+  39 0002 164C     		ldr	r4, .L5
+  76:../LIB_AP/Ap_GLcdMenu.c **** 	Hw_N5110G_DrawClearRect( 0, 35, HW_N5110G_WIDTH, 45 );           						
+  40              		.loc 1 76 0
+  41 0004 0020     		movs	r0, #0
+  42 0006 2321     		movs	r1, #35
+  43 0008 5422     		movs	r2, #84
+  44 000a 2D23     		movs	r3, #45
+  45 000c 144D     		ldr	r5, .L5+4
+  46 000e A847     		blx	r5
+  47              	.LVL0:
+  48              		.loc 1 77 0
+  49 0010 94F90000 		ldrsb	r0, [r4, #0]
+  50 0014 2821     		movs	r1, #40
+  51 0016 0A30     		adds	r0, r0, #10
+  52 0018 0322     		movs	r2, #3
+  53 001a 0023     		movs	r3, #0
+  54 001c 80B2     		uxth	r0, r0
+  55 001e 114D     		ldr	r5, .L5+8
+  56 0020 A847     		blx	r5
+  57              	.LVL1:
+  78:../LIB_AP/Ap_GLcdMenu.c ****  	Hw_N5110G_DrawRequest();
+  58              		.loc 1 78 0
+  59 0022 114B     		ldr	r3, .L5+12
+  60 0024 9847     		blx	r3
+  61              	.LVL2:
+  79:../LIB_AP/Ap_GLcdMenu.c ****  	
+  80:../LIB_AP/Ap_GLcdMenu.c ****  	x += dir;
+  62              		.loc 1 80 0
+  63 0026 1149     		ldr	r1, .L5+16
+  64 0028 2278     		ldrb	r2, [r4, #0]	@ zero_extendqisi2
+  65 002a 0878     		ldrb	r0, [r1, #0]	@ zero_extendqisi2
+  66 002c 8318     		adds	r3, r0, r2
+  67 002e D8B2     		uxtb	r0, r3
+  68 0030 C3B2     		uxtb	r3, r0
+  81:../LIB_AP/Ap_GLcdMenu.c ****  	
+  82:../LIB_AP/Ap_GLcdMenu.c ****  	if( x >= (HW_N5110G_WIDTH-15) ) 
+  69              		.loc 1 82 0
+  70 0032 5AB2     		sxtb	r2, r3
+  71 0034 442A     		cmp	r2, #68
+  80:../LIB_AP/Ap_GLcdMenu.c ****  	x += dir;
+  72              		.loc 1 80 0
+  73 0036 2370     		strb	r3, [r4, #0]
+  74              		.loc 1 82 0
+  75 0038 05DD     		ble	.L2
+  83:../LIB_AP/Ap_GLcdMenu.c ****  	{
+  84:../LIB_AP/Ap_GLcdMenu.c ****  		dir = -1;
+  85:../LIB_AP/Ap_GLcdMenu.c ****  		x += dir;
+  76              		.loc 1 85 0
+  77 003a 421E     		subs	r2, r0, #1
+  78 003c D3B2     		uxtb	r3, r2
+  84:../LIB_AP/Ap_GLcdMenu.c ****  		dir = -1;
+  79              		.loc 1 84 0
+  80 003e FF20     		movs	r0, #255
+  81 0040 0870     		strb	r0, [r1, #0]
+  82              		.loc 1 85 0
+  83 0042 2370     		strb	r3, [r4, #0]
+  84 0044 5AB2     		sxtb	r2, r3
+  85              	.L2:
+  86:../LIB_AP/Ap_GLcdMenu.c ****  	}
+  87:../LIB_AP/Ap_GLcdMenu.c **** 
+  88:../LIB_AP/Ap_GLcdMenu.c ****  	if( x < 0 ) 
+  86              		.loc 1 88 0
+  87 0046 002A     		cmp	r2, #0
+  88 0048 03DA     		bge	.L3
+  89:../LIB_AP/Ap_GLcdMenu.c ****  	{
+  90:../LIB_AP/Ap_GLcdMenu.c ****  		dir = 1; 		
+  91:../LIB_AP/Ap_GLcdMenu.c ****  		x  += dir;
+  89              		.loc 1 91 0
+  90 004a 0133     		adds	r3, r3, #1
+  90:../LIB_AP/Ap_GLcdMenu.c ****  		dir = 1; 		
+  91              		.loc 1 90 0
+  92 004c 0120     		movs	r0, #1
+  93 004e 0870     		strb	r0, [r1, #0]
+  94              		.loc 1 91 0
+  95 0050 2370     		strb	r3, [r4, #0]
+  96              	.L3:
+  92:../LIB_AP/Ap_GLcdMenu.c ****  	}
+  93:../LIB_AP/Ap_GLcdMenu.c **** 
+  94:../LIB_AP/Ap_GLcdMenu.c **** 	cnt++;
+  97              		.loc 1 94 0
+  98 0052 0749     		ldr	r1, .L5+20
+  99 0054 0A78     		ldrb	r2, [r1, #0]	@ zero_extendqisi2
+ 100 0056 531C     		adds	r3, r2, #1
+ 101 0058 0B70     		strb	r3, [r1, #0]
+ 102 005a 38BD     		pop	{r3, r4, r5, pc}
+ 103              	.L6:
+ 104              		.align	2
+ 105              	.L5:
+ 106 005c 00000000 		.word	.LANCHOR0
+ 107 0060 00000000 		.word	Hw_N5110G_DrawClearRect
+ 108 0064 00000000 		.word	Hw_N5110G_DrawCircle
+ 109 0068 00000000 		.word	Hw_N5110G_DrawRequest
+ 110 006c 00000000 		.word	.LANCHOR1
+ 111 0070 00000000 		.word	.LANCHOR2
+ 112              		.cfi_endproc
+ 113              	.LFE1:
+ 115              		.section	.text.Ap_GCldMenu_MoveCircleTick_1st,"ax",%progbits
+ 116              		.align	2
+ 117              		.global	Ap_GCldMenu_MoveCircleTick_1st
+ 118              		.thumb
+ 119              		.thumb_func
+ 121              	Ap_GCldMenu_MoveCircleTick_1st:
+ 122              	.LFB0:
+  43:../LIB_AP/Ap_GLcdMenu.c **** {
+ 123              		.loc 1 43 0
+ 124              		.cfi_startproc
+ 125              		@ args = 0, pretend = 0, frame = 0
+ 126              		@ frame_needed = 0, uses_anonymous_args = 0
+ 127 0000 38B5     		push	{r3, r4, r5, lr}
+ 128              	.LCFI1:
+ 129              		.cfi_def_cfa_offset 16
+ 130              		.cfi_offset 3, -16
+ 131              		.cfi_offset 4, -12
+ 132              		.cfi_offset 5, -8
+ 133              		.cfi_offset 14, -4
+  49:../LIB_AP/Ap_GLcdMenu.c **** 	Hw_N5110G_DrawCircle( 10 + x, 30, 5, 0 ); 								
+ 134              		.loc 1 49 0
+ 135 0002 164C     		ldr	r4, .L10
+  48:../LIB_AP/Ap_GLcdMenu.c **** 	Hw_N5110G_DrawClearRect( 0, 25, HW_N5110G_WIDTH, 35 );           						
+ 136              		.loc 1 48 0
+ 137 0004 0020     		movs	r0, #0
+ 138 0006 1921     		movs	r1, #25
+ 139 0008 5422     		movs	r2, #84
+ 140 000a 2323     		movs	r3, #35
+ 141 000c 144D     		ldr	r5, .L10+4
+ 142 000e A847     		blx	r5
+ 143              	.LVL3:
+  49:../LIB_AP/Ap_GLcdMenu.c **** 	Hw_N5110G_DrawCircle( 10 + x, 30, 5, 0 ); 								
+ 144              		.loc 1 49 0
+ 145 0010 94F90000 		ldrsb	r0, [r4, #0]
+ 146 0014 1E21     		movs	r1, #30
+ 147 0016 0A30     		adds	r0, r0, #10
+ 148 0018 0522     		movs	r2, #5
+ 149 001a 0023     		movs	r3, #0
+ 150 001c 80B2     		uxth	r0, r0
+ 151 001e 114D     		ldr	r5, .L10+8
+ 152 0020 A847     		blx	r5
+ 153              	.LVL4:
+  50:../LIB_AP/Ap_GLcdMenu.c ****  	Hw_N5110G_DrawRequest();
+ 154              		.loc 1 50 0
+ 155 0022 114B     		ldr	r3, .L10+12
+ 156 0024 9847     		blx	r3
+ 157              	.LVL5:
+  52:../LIB_AP/Ap_GLcdMenu.c ****  	x += dir;
+ 158              		.loc 1 52 0
+ 159 0026 1149     		ldr	r1, .L10+16
+ 160 0028 2278     		ldrb	r2, [r4, #0]	@ zero_extendqisi2
+ 161 002a 0878     		ldrb	r0, [r1, #0]	@ zero_extendqisi2
+ 162 002c 8318     		adds	r3, r0, r2
+ 163 002e D8B2     		uxtb	r0, r3
+ 164 0030 C3B2     		uxtb	r3, r0
+  54:../LIB_AP/Ap_GLcdMenu.c ****  	if( x >= (HW_N5110G_WIDTH-15) ) 
+ 165              		.loc 1 54 0
+ 166 0032 5AB2     		sxtb	r2, r3
+ 167 0034 442A     		cmp	r2, #68
+  52:../LIB_AP/Ap_GLcdMenu.c ****  	x += dir;
+ 168              		.loc 1 52 0
+ 169 0036 2370     		strb	r3, [r4, #0]
+  54:../LIB_AP/Ap_GLcdMenu.c ****  	if( x >= (HW_N5110G_WIDTH-15) ) 
+ 170              		.loc 1 54 0
+ 171 0038 05DD     		ble	.L8
+  57:../LIB_AP/Ap_GLcdMenu.c ****  		x += dir;
+ 172              		.loc 1 57 0
+ 173 003a 421E     		subs	r2, r0, #1
+ 174 003c D3B2     		uxtb	r3, r2
+  56:../LIB_AP/Ap_GLcdMenu.c ****  		dir = -1;
+ 175              		.loc 1 56 0
+ 176 003e FF20     		movs	r0, #255
+ 177 0040 0870     		strb	r0, [r1, #0]
+  57:../LIB_AP/Ap_GLcdMenu.c ****  		x += dir;
+ 178              		.loc 1 57 0
+ 179 0042 2370     		strb	r3, [r4, #0]
+ 180 0044 5AB2     		sxtb	r2, r3
+ 181              	.L8:
+  60:../LIB_AP/Ap_GLcdMenu.c ****  	if( x < 0 ) 
+ 182              		.loc 1 60 0
+ 183 0046 002A     		cmp	r2, #0
+ 184 0048 03DA     		bge	.L9
+  63:../LIB_AP/Ap_GLcdMenu.c ****  		x  += dir;
+ 185              		.loc 1 63 0
+ 186 004a 0133     		adds	r3, r3, #1
+  62:../LIB_AP/Ap_GLcdMenu.c ****  		dir = 1; 		
+ 187              		.loc 1 62 0
+ 188 004c 0120     		movs	r0, #1
+ 189 004e 0870     		strb	r0, [r1, #0]
+  63:../LIB_AP/Ap_GLcdMenu.c ****  		x  += dir;
+ 190              		.loc 1 63 0
+ 191 0050 2370     		strb	r3, [r4, #0]
+ 192              	.L9:
+  66:../LIB_AP/Ap_GLcdMenu.c **** 	cnt++;
+ 193              		.loc 1 66 0
+ 194 0052 0749     		ldr	r1, .L10+20
+ 195 0054 0A78     		ldrb	r2, [r1, #0]	@ zero_extendqisi2
+ 196 0056 531C     		adds	r3, r2, #1
+ 197 0058 0B70     		strb	r3, [r1, #0]
+ 198 005a 38BD     		pop	{r3, r4, r5, pc}
+ 199              	.L11:
+ 200              		.align	2
+ 201              	.L10:
+ 202 005c 00000000 		.word	.LANCHOR3
+ 203 0060 00000000 		.word	Hw_N5110G_DrawClearRect
+ 204 0064 00000000 		.word	Hw_N5110G_DrawCircle
+ 205 0068 00000000 		.word	Hw_N5110G_DrawRequest
+ 206 006c 00000000 		.word	.LANCHOR4
+ 207 0070 00000000 		.word	.LANCHOR5
+ 208              		.cfi_endproc
+ 209              	.LFE0:
+ 211              		.section	.text.Ap_GLcdMenu_ShowMenu,"ax",%progbits
+ 212              		.align	2
+ 213              		.global	Ap_GLcdMenu_ShowMenu
+ 214              		.thumb
+ 215              		.thumb_func
+ 217              	Ap_GLcdMenu_ShowMenu:
+ 218              	.LFB2:
+  95:../LIB_AP/Ap_GLcdMenu.c **** }
+  96:../LIB_AP/Ap_GLcdMenu.c **** 
+  97:../LIB_AP/Ap_GLcdMenu.c **** 
+  98:../LIB_AP/Ap_GLcdMenu.c **** 
+  99:../LIB_AP/Ap_GLcdMenu.c **** /*---------------------------------------------------------------------------
+ 100:../LIB_AP/Ap_GLcdMenu.c ****      TITLE   : Ap_GLcdMenu_ShowMenu
+ 101:../LIB_AP/Ap_GLcdMenu.c ****      WORK    : 
+ 102:../LIB_AP/Ap_GLcdMenu.c ****      ARG     : void
+ 103:../LIB_AP/Ap_GLcdMenu.c ****      RET     : void
+ 104:../LIB_AP/Ap_GLcdMenu.c **** ---------------------------------------------------------------------------*/
+ 105:../LIB_AP/Ap_GLcdMenu.c **** void Ap_GLcdMenu_ShowMenu(void)
+ 106:../LIB_AP/Ap_GLcdMenu.c **** {
+ 219              		.loc 1 106 0
+ 220              		.cfi_startproc
+ 221              		@ args = 0, pretend = 0, frame = 0
+ 222              		@ frame_needed = 0, uses_anonymous_args = 0
+ 223 0000 38B5     		push	{r3, r4, r5, lr}
+ 224              	.LCFI2:
+ 225              		.cfi_def_cfa_offset 16
+ 226              		.cfi_offset 3, -16
+ 227              		.cfi_offset 4, -12
+ 228              		.cfi_offset 5, -8
+ 229              		.cfi_offset 14, -4
+ 107:../LIB_AP/Ap_GLcdMenu.c **** 	u8 key;
+ 108:../LIB_AP/Ap_GLcdMenu.c **** 
+ 109:../LIB_AP/Ap_GLcdMenu.c **** 	Lb_printf("\n\n");
+ 230              		.loc 1 109 0
+ 231 0002 40F20000 		movw	r0, #:lower16:.LC0
+ 232 0006 40F20004 		movw	r4, #:lower16:Lb_printf
+ 110:../LIB_AP/Ap_GLcdMenu.c **** 	Lb_printf("*******************************************************\n");
+ 233              		.loc 1 110 0
+ 234 000a 40F20005 		movw	r5, #:lower16:.LC1
+ 109:../LIB_AP/Ap_GLcdMenu.c **** 	Lb_printf("\n\n");
+ 235              		.loc 1 109 0
+ 236 000e C0F20004 		movt	r4, #:upper16:Lb_printf
+ 237              		.loc 1 110 0
+ 238 0012 C0F20005 		movt	r5, #:upper16:.LC1
+ 109:../LIB_AP/Ap_GLcdMenu.c **** 	Lb_printf("\n\n");
+ 239              		.loc 1 109 0
+ 240 0016 C0F20000 		movt	r0, #:upper16:.LC0
+ 241 001a A047     		blx	r4
+ 242              	.LVL6:
+ 243              		.loc 1 110 0
+ 244 001c 2846     		mov	r0, r5
+ 245 001e A047     		blx	r4
+ 246              	.LVL7:
+ 111:../LIB_AP/Ap_GLcdMenu.c **** 	Lb_printf("                      GLcd V0.2                       \n");
+ 247              		.loc 1 111 0
+ 248 0020 40F20000 		movw	r0, #:lower16:.LC2
+ 249 0024 C0F20000 		movt	r0, #:upper16:.LC2
+ 250 0028 A047     		blx	r4
+ 251              	.LVL8:
+ 112:../LIB_AP/Ap_GLcdMenu.c **** 	Lb_printf("*******************************************************\n");
+ 252              		.loc 1 112 0
+ 253 002a 2846     		mov	r0, r5
+ 254 002c A047     		blx	r4
+ 255              	.LVL9:
+ 113:../LIB_AP/Ap_GLcdMenu.c **** 	Lb_printf("* 1. LCD Clear                                        *\n");
+ 256              		.loc 1 113 0
+ 257 002e 40F20000 		movw	r0, #:lower16:.LC3
+ 258 0032 C0F20000 		movt	r0, #:upper16:.LC3
+ 259 0036 A047     		blx	r4
+ 260              	.LVL10:
+ 114:../LIB_AP/Ap_GLcdMenu.c **** 	Lb_printf("* 2. Count ++                                         *\n");
+ 261              		.loc 1 114 0
+ 262 0038 40F20000 		movw	r0, #:lower16:.LC4
+ 263 003c C0F20000 		movt	r0, #:upper16:.LC4
+ 264 0040 A047     		blx	r4
+ 265              	.LVL11:
+ 115:../LIB_AP/Ap_GLcdMenu.c **** 	Lb_printf("* 3. Count --                                         *\n");
+ 266              		.loc 1 115 0
+ 267 0042 40F20000 		movw	r0, #:lower16:.LC5
+ 268 0046 C0F20000 		movt	r0, #:upper16:.LC5
+ 269 004a A047     		blx	r4
+ 270              	.LVL12:
+ 116:../LIB_AP/Ap_GLcdMenu.c **** 	Lb_printf("* 4. Move Circle Start                                *\n");
+ 271              		.loc 1 116 0
+ 272 004c 40F20000 		movw	r0, #:lower16:.LC6
+ 273 0050 C0F20000 		movt	r0, #:upper16:.LC6
+ 274 0054 A047     		blx	r4
+ 275              	.LVL13:
+ 117:../LIB_AP/Ap_GLcdMenu.c **** 	Lb_printf("* 5. Move Circle End                                  *\n");
+ 276              		.loc 1 117 0
+ 277 0056 40F20000 		movw	r0, #:lower16:.LC7
+ 278 005a C0F20000 		movt	r0, #:upper16:.LC7
+ 279 005e A047     		blx	r4
+ 280              	.LVL14:
+ 118:../LIB_AP/Ap_GLcdMenu.c **** 	Lb_printf("* 6. I2C HW TX                                        *\n");
+ 281              		.loc 1 118 0
+ 282 0060 40F20000 		movw	r0, #:lower16:.LC8
+ 283 0064 C0F20000 		movt	r0, #:upper16:.LC8
+ 284 0068 A047     		blx	r4
+ 285              	.LVL15:
+ 119:../LIB_AP/Ap_GLcdMenu.c **** 	Lb_printf("* 7. I2C HW RX                                        *\n");
+ 286              		.loc 1 119 0
+ 287 006a 40F20000 		movw	r0, #:lower16:.LC9
+ 288 006e C0F20000 		movt	r0, #:upper16:.LC9
+ 289 0072 A047     		blx	r4
  290              	.LVL16:
- 291              	.L38:
- 342:../LIB_HW/Hw_I2C_HW.c **** 			if( IS_SET_BIT(REG_I2C1_SR1, 11) ) Err = 11;
- 292              		.loc 1 342 0
- 293 0006 45F21443 		movw	r3, #21524
- 294 000a C4F20003 		movt	r3, 16384
- 295 000e 1A68     		ldr	r2, [r3, #0]
- 343:../LIB_HW/Hw_I2C_HW.c **** 			if( IS_SET_BIT(REG_I2C1_SR1, 10) ) Err = 10;
- 296              		.loc 1 343 0
- 297 0010 1968     		ldr	r1, [r3, #0]
- 336:../LIB_HW/Hw_I2C_HW.c **** 	u16 Err = 0;
- 298              		.loc 1 336 0
- 299 0012 12F4006F 		tst	r2, #2048
- 344:../LIB_HW/Hw_I2C_HW.c **** 			if( IS_SET_BIT(REG_I2C1_SR1,  9) ) Err =  9;
- 300              		.loc 1 344 0
- 301 0016 1A68     		ldr	r2, [r3, #0]
- 336:../LIB_HW/Hw_I2C_HW.c **** 	u16 Err = 0;
- 302              		.loc 1 336 0
- 303 0018 14BF     		ite	ne
- 304 001a 0B20     		movne	r0, #11
- 305 001c 0020     		moveq	r0, #0
- 306              	.LVL17:
- 345:../LIB_HW/Hw_I2C_HW.c **** 			if( IS_SET_BIT(REG_I2C1_SR1,  8) ) Err =  8;
- 307              		.loc 1 345 0
- 308 001e 1B68     		ldr	r3, [r3, #0]
- 343:../LIB_HW/Hw_I2C_HW.c **** 			if( IS_SET_BIT(REG_I2C1_SR1, 10) ) Err = 10;
- 309              		.loc 1 343 0
- 310 0020 11F4806F 		tst	r1, #1024
- 311 0024 18BF     		it	ne
- 312 0026 0A20     		movne	r0, #10
- 313              	.LVL18:
- 344:../LIB_HW/Hw_I2C_HW.c **** 			if( IS_SET_BIT(REG_I2C1_SR1,  9) ) Err =  9;
- 314              		.loc 1 344 0
- 315 0028 12F4007F 		tst	r2, #512
- 316 002c 18BF     		it	ne
- 317 002e 0920     		movne	r0, #9
- 345:../LIB_HW/Hw_I2C_HW.c **** 			if( IS_SET_BIT(REG_I2C1_SR1,  8) ) Err =  8;
- 318              		.loc 1 345 0
- 319 0030 13F4807F 		tst	r3, #256
- 320 0034 18BF     		it	ne
- 321 0036 0820     		movne	r0, #8
- 322 0038 7047     		bx	lr
- 323              		.cfi_endproc
- 324              	.LFE5:
- 326 003a 00BF     		.section	.text.Hw_I2C_HW_Write,"ax",%progbits
- 327              		.align	2
- 328              		.global	Hw_I2C_HW_Write
- 329              		.thumb
- 330              		.thumb_func
- 332              	Hw_I2C_HW_Write:
- 333              	.LFB2:
- 141:../LIB_HW/Hw_I2C_HW.c **** {
- 334              		.loc 1 141 0
- 335              		.cfi_startproc
- 336              		@ args = 0, pretend = 0, frame = 24
- 337              		@ frame_needed = 0, uses_anonymous_args = 0
- 338              	.LVL19:
- 339 0000 F0B5     		push	{r4, r5, r6, r7, lr}
- 340              	.LCFI3:
- 341              		.cfi_def_cfa_offset 20
- 342              		.cfi_offset 4, -20
- 343              		.cfi_offset 5, -16
- 344              		.cfi_offset 6, -12
- 345              		.cfi_offset 7, -8
- 346              		.cfi_offset 14, -4
- 150:../LIB_HW/Hw_I2C_HW.c **** 	switch( Ch )
- 347              		.loc 1 150 0
- 348 0002 0646     		mov	r6, r0
- 141:../LIB_HW/Hw_I2C_HW.c **** {
- 349              		.loc 1 141 0
- 350 0004 87B0     		sub	sp, sp, #28
- 351              	.LCFI4:
- 352              		.cfi_def_cfa_offset 48
- 150:../LIB_HW/Hw_I2C_HW.c **** 	switch( Ch )
- 353              		.loc 1 150 0
- 354 0006 20B1     		cbz	r0, .L83
- 355              	.LVL20:
- 356              	.L40:
- 226:../LIB_HW/Hw_I2C_HW.c **** 		Err = Hw_I2C_HW_GetErrStatus( Ch );
- 357              		.loc 1 226 0
- 358 0008 3046     		mov	r0, r6
- 359 000a 5949     		ldr	r1, .L94
- 360 000c 8847     		blx	r1
- 361              	.LVL21:
- 362              	.L59:
- 244:../LIB_HW/Hw_I2C_HW.c **** }
- 363              		.loc 1 244 0
- 364 000e 07B0     		add	sp, sp, #28
- 365 0010 F0BD     		pop	{r4, r5, r6, r7, pc}
- 366              	.LVL22:
- 367              	.L83:
- 156:../LIB_HW/Hw_I2C_HW.c **** 			SET_BIT( REG_I2C1_CR1, 8 );
- 368              		.loc 1 156 0
- 369 0012 4FF4A840 		mov	r0, #21504
- 370              	.LVL23:
- 371 0016 C4F20000 		movt	r0, 16384
- 372 001a 0468     		ldr	r4, [r0, #0]
- 373              	.LBB12:
- 374              	.LBB13:
- 307:../LIB_HW/Hw_I2C_HW.c **** 				Reg = *reg_addr;
- 375              		.loc 1 307 0
- 376 001c 45F21445 		movw	r5, #21524
- 377              	.LBE13:
- 378              	.LBE12:
- 156:../LIB_HW/Hw_I2C_HW.c **** 			SET_BIT( REG_I2C1_CR1, 8 );
- 379              		.loc 1 156 0
- 380 0020 44F48074 		orr	r4, r4, #256
- 381 0024 0460     		str	r4, [r0, #0]
- 382              	.LVL24:
- 383              	.LBB17:
- 384              	.LBB14:
- 307:../LIB_HW/Hw_I2C_HW.c **** 				Reg = *reg_addr;
- 385              		.loc 1 307 0
- 386 0026 C4F20005 		movt	r5, 16384
- 387              	.LBE14:
- 388              	.LBE17:
- 156:../LIB_HW/Hw_I2C_HW.c **** 			SET_BIT( REG_I2C1_CR1, 8 );
- 389              		.loc 1 156 0
- 390 002a 42F21074 		movw	r4, #10000
- 391 002e 07E0     		b	.L43
- 392              	.LVL25:
- 393              	.L85:
- 394              	.LBB18:
- 395              	.LBB15:
- 307:../LIB_HW/Hw_I2C_HW.c **** 				Reg = *reg_addr;
- 396              		.loc 1 307 0
- 397 0030 2868     		ldr	r0, [r5, #0]
- 398              	.LVL26:
- 399 0032 0190     		str	r0, [sp, #4]
- 400              	.LVL27:
- 309:../LIB_HW/Hw_I2C_HW.c **** 				if( IS_SET_BIT( Reg, reg_bit ) ) break;
- 401              		.loc 1 309 0
- 402 0034 0198     		ldr	r0, [sp, #4]
- 403              	.LVL28:
- 404 0036 C007     		lsls	r0, r0, #31
- 405 0038 08D4     		bmi	.L42
- 305:../LIB_HW/Hw_I2C_HW.c **** 			while( time_out )
- 406              		.loc 1 305 0
- 407 003a 013C     		subs	r4, r4, #1
- 408 003c 00F08980 		beq	.L84
- 409              	.L43:
- 307:../LIB_HW/Hw_I2C_HW.c **** 				Reg = *reg_addr;
- 410              		.loc 1 307 0
- 411 0040 2868     		ldr	r0, [r5, #0]
- 412              	.LVL29:
- 413 0042 013C     		subs	r4, r4, #1
- 414 0044 0190     		str	r0, [sp, #4]
- 415              	.LVL30:
- 309:../LIB_HW/Hw_I2C_HW.c **** 				if( IS_SET_BIT( Reg, reg_bit ) ) break;
- 416              		.loc 1 309 0
- 417 0046 0198     		ldr	r0, [sp, #4]
- 418              	.LVL31:
- 419 0048 C007     		lsls	r0, r0, #31
- 420 004a F1D5     		bpl	.L85
- 421              	.L42:
- 422              	.LVL32:
- 423              	.LBE15:
- 424              	.LBE18:
- 170:../LIB_HW/Hw_I2C_HW.c **** 			REG_I2C1_DR = i2c_addr<<1;	// ADDR Write 
- 425              		.loc 1 170 0
- 426 004c 45F21044 		movw	r4, #21520
- 427 0050 4900     		lsls	r1, r1, #1
- 428              	.LVL33:
- 429 0052 C4F20004 		movt	r4, 16384
- 430              	.LBB19:
- 431              	.LBB20:
- 307:../LIB_HW/Hw_I2C_HW.c **** 				Reg = *reg_addr;
- 432              		.loc 1 307 0
- 433 0056 45F21440 		movw	r0, #21524
- 434              	.LBE20:
- 435              	.LBE19:
- 170:../LIB_HW/Hw_I2C_HW.c **** 			REG_I2C1_DR = i2c_addr<<1;	// ADDR Write 
- 436              		.loc 1 170 0
- 437 005a 2160     		str	r1, [r4, #0]
- 438              	.LVL34:
- 439              	.LBB23:
- 440              	.LBB21:
- 307:../LIB_HW/Hw_I2C_HW.c **** 				Reg = *reg_addr;
- 441              		.loc 1 307 0
- 442 005c C4F20000 		movt	r0, 16384
- 443              	.LBE21:
- 444              	.LBE23:
- 170:../LIB_HW/Hw_I2C_HW.c **** 			REG_I2C1_DR = i2c_addr<<1;	// ADDR Write 
- 445              		.loc 1 170 0
- 446 0060 42F21071 		movw	r1, #10000
- 447 0064 07E0     		b	.L46
- 448              	.LVL35:
- 449              	.L87:
- 450              	.LBB24:
- 451              	.LBB22:
- 307:../LIB_HW/Hw_I2C_HW.c **** 				Reg = *reg_addr;
- 452              		.loc 1 307 0
- 453 0066 0468     		ldr	r4, [r0, #0]
- 454              	.LVL36:
- 455 0068 0294     		str	r4, [sp, #8]
- 456              	.LVL37:
- 309:../LIB_HW/Hw_I2C_HW.c **** 				if( IS_SET_BIT( Reg, reg_bit ) ) break;
- 457              		.loc 1 309 0
- 458 006a 029C     		ldr	r4, [sp, #8]
- 459              	.LVL38:
- 460 006c 14F0020F 		tst	r4, #2
- 461 0070 07D1     		bne	.L45
- 305:../LIB_HW/Hw_I2C_HW.c **** 			while( time_out )
- 462              		.loc 1 305 0
- 463 0072 0139     		subs	r1, r1, #1
- 464 0074 45D0     		beq	.L86
- 465              	.L46:
- 307:../LIB_HW/Hw_I2C_HW.c **** 				Reg = *reg_addr;
- 466              		.loc 1 307 0
- 467 0076 0468     		ldr	r4, [r0, #0]
- 468              	.LVL39:
- 469 0078 0139     		subs	r1, r1, #1
- 470 007a 0294     		str	r4, [sp, #8]
- 471              	.LVL40:
- 309:../LIB_HW/Hw_I2C_HW.c **** 				if( IS_SET_BIT( Reg, reg_bit ) ) break;
- 472              		.loc 1 309 0
- 473 007c 029C     		ldr	r4, [sp, #8]
- 474              	.LVL41:
- 475 007e A407     		lsls	r4, r4, #30
- 476 0080 F1D5     		bpl	.L87
- 477              	.L45:
- 478              	.LBE22:
- 479              	.LBE24:
- 173:../LIB_HW/Hw_I2C_HW.c **** 			SR2 = REG_I2C1_SR2;
- 480              		.loc 1 173 0
- 481 0082 45F21844 		movw	r4, #21528
- 482 0086 C4F20004 		movt	r4, 16384
- 483              	.LBB25:
- 484              	.LBB26:
- 307:../LIB_HW/Hw_I2C_HW.c **** 				Reg = *reg_addr;
- 485              		.loc 1 307 0
- 486 008a 45F21440 		movw	r0, #21524
- 487              	.LBE26:
- 488              	.LBE25:
- 173:../LIB_HW/Hw_I2C_HW.c **** 			SR2 = REG_I2C1_SR2;
- 489              		.loc 1 173 0
- 490 008e 2168     		ldr	r1, [r4, #0]
- 491              	.LVL42:
- 492              	.LBB30:
- 493              	.LBB27:
- 307:../LIB_HW/Hw_I2C_HW.c **** 				Reg = *reg_addr;
- 494              		.loc 1 307 0
- 495 0090 C4F20000 		movt	r0, 16384
- 496              	.LBE27:
- 497              	.LBE30:
- 173:../LIB_HW/Hw_I2C_HW.c **** 			SR2 = REG_I2C1_SR2;
- 498              		.loc 1 173 0
- 499 0094 42F21071 		movw	r1, #10000
- 500 0098 07E0     		b	.L51
- 501              	.LVL43:
- 502              	.L48:
- 503              	.LBB31:
- 504              	.LBB28:
- 307:../LIB_HW/Hw_I2C_HW.c **** 				Reg = *reg_addr;
- 505              		.loc 1 307 0
- 506 009a 0468     		ldr	r4, [r0, #0]
- 507              	.LVL44:
- 508 009c 0394     		str	r4, [sp, #12]
- 509              	.LVL45:
- 309:../LIB_HW/Hw_I2C_HW.c **** 				if( IS_SET_BIT( Reg, reg_bit ) ) break;
- 510              		.loc 1 309 0
- 511 009e 039C     		ldr	r4, [sp, #12]
- 512              	.LVL46:
- 513 00a0 14F0800F 		tst	r4, #128
- 514 00a4 08D1     		bne	.L75
- 305:../LIB_HW/Hw_I2C_HW.c **** 			while( time_out )
- 515              		.loc 1 305 0
- 516 00a6 0139     		subs	r1, r1, #1
- 517 00a8 5ED0     		beq	.L88
- 518              	.L51:
- 307:../LIB_HW/Hw_I2C_HW.c **** 				Reg = *reg_addr;
- 519              		.loc 1 307 0
- 520 00aa 0468     		ldr	r4, [r0, #0]
- 521              	.LVL47:
- 522 00ac 0139     		subs	r1, r1, #1
- 523 00ae 0394     		str	r4, [sp, #12]
- 524              	.LVL48:
- 309:../LIB_HW/Hw_I2C_HW.c **** 				if( IS_SET_BIT( Reg, reg_bit ) ) break;
- 525              		.loc 1 309 0
- 526 00b0 039C     		ldr	r4, [sp, #12]
- 527              	.LVL49:
- 528 00b2 14F0800F 		tst	r4, #128
- 529 00b6 F0D0     		beq	.L48
- 530              	.L75:
- 531              	.LVL50:
- 532              	.LBE28:
- 533              	.LBE31:
- 193:../LIB_HW/Hw_I2C_HW.c **** 			for( i=0; i<len; i++ )
- 534              		.loc 1 193 0 discriminator 1
- 535 00b8 002B     		cmp	r3, #0
- 536 00ba 4CD0     		beq	.L89
- 537              	.LBB32:
- 538              	.LBB33:
- 307:../LIB_HW/Hw_I2C_HW.c **** 				Reg = *reg_addr;
- 539              		.loc 1 307 0
- 540 00bc 45F21444 		movw	r4, #21524
- 541              	.LBE33:
- 542              	.LBE32:
- 202:../LIB_HW/Hw_I2C_HW.c **** 				REG_I2C1_DR = pdata[i];						
- 543              		.loc 1 202 0
- 544 00c0 45F21047 		movw	r7, #21520
- 193:../LIB_HW/Hw_I2C_HW.c **** 			for( i=0; i<len; i++ )
- 545              		.loc 1 193 0
- 546 00c4 0020     		movs	r0, #0
- 547              	.LBB37:
- 548              	.LBB34:
- 307:../LIB_HW/Hw_I2C_HW.c **** 				Reg = *reg_addr;
- 549              		.loc 1 307 0
- 550 00c6 C4F20004 		movt	r4, 16384
- 551              	.LBE34:
- 552              	.LBE37:
- 202:../LIB_HW/Hw_I2C_HW.c **** 				REG_I2C1_DR = pdata[i];						
- 553              		.loc 1 202 0
- 554 00ca C4F20007 		movt	r7, 16384
- 555              	.LVL51:
- 556              	.L49:
- 173:../LIB_HW/Hw_I2C_HW.c **** 			SR2 = REG_I2C1_SR2;
- 557              		.loc 1 173 0
- 558 00ce 42F21071 		movw	r1, #10000
- 559 00d2 07E0     		b	.L53
- 560              	.LVL52:
- 561              	.L91:
- 562              	.LBB38:
- 563              	.LBB35:
- 307:../LIB_HW/Hw_I2C_HW.c **** 				Reg = *reg_addr;
- 564              		.loc 1 307 0
- 565 00d4 2568     		ldr	r5, [r4, #0]
- 566              	.LVL53:
- 567 00d6 0495     		str	r5, [sp, #16]
- 568              	.LVL54:
- 309:../LIB_HW/Hw_I2C_HW.c **** 				if( IS_SET_BIT( Reg, reg_bit ) ) break;
- 569              		.loc 1 309 0
- 570 00d8 049D     		ldr	r5, [sp, #16]
- 571              	.LVL55:
- 572 00da 15F0800F 		tst	r5, #128
- 573 00de 08D1     		bne	.L52
- 305:../LIB_HW/Hw_I2C_HW.c **** 			while( time_out )
- 574              		.loc 1 305 0
- 575 00e0 0139     		subs	r1, r1, #1
- 576 00e2 15D0     		beq	.L90
- 577              	.L53:
- 307:../LIB_HW/Hw_I2C_HW.c **** 				Reg = *reg_addr;
- 578              		.loc 1 307 0
- 579 00e4 2568     		ldr	r5, [r4, #0]
- 580              	.LVL56:
- 581 00e6 0139     		subs	r1, r1, #1
- 582 00e8 0495     		str	r5, [sp, #16]
- 583              	.LVL57:
- 309:../LIB_HW/Hw_I2C_HW.c **** 				if( IS_SET_BIT( Reg, reg_bit ) ) break;
- 584              		.loc 1 309 0
- 585 00ea 049D     		ldr	r5, [sp, #16]
- 586              	.LVL58:
- 587 00ec 15F0800F 		tst	r5, #128
- 588 00f0 F0D0     		beq	.L91
- 589              	.L52:
- 590              	.LBE35:
- 591              	.LBE38:
- 202:../LIB_HW/Hw_I2C_HW.c **** 				REG_I2C1_DR = pdata[i];						
- 592              		.loc 1 202 0
- 593 00f2 115C     		ldrb	r1, [r2, r0]	@ zero_extendqisi2
- 193:../LIB_HW/Hw_I2C_HW.c **** 			for( i=0; i<len; i++ )
- 594              		.loc 1 193 0
- 595 00f4 0130     		adds	r0, r0, #1
- 596 00f6 C0B2     		uxtb	r0, r0
- 597              	.LVL59:
- 598 00f8 9842     		cmp	r0, r3
- 202:../LIB_HW/Hw_I2C_HW.c **** 				REG_I2C1_DR = pdata[i];						
- 599              		.loc 1 202 0
- 600 00fa 3960     		str	r1, [r7, #0]
- 193:../LIB_HW/Hw_I2C_HW.c **** 			for( i=0; i<len; i++ )
- 601              		.loc 1 193 0
- 602 00fc E7D3     		bcc	.L49
- 143:../LIB_HW/Hw_I2C_HW.c ****     u16 Err = 0;
- 603              		.loc 1 143 0
- 604 00fe 0020     		movs	r0, #0
- 605              	.LVL60:
- 606 0100 07E0     		b	.L57
- 607              	.LVL61:
- 608              	.L86:
- 173:../LIB_HW/Hw_I2C_HW.c **** 			SR2 = REG_I2C1_SR2;
- 609              		.loc 1 173 0
- 610 0102 45F21843 		movw	r3, #21528
- 611              	.LVL62:
- 612 0106 C4F20003 		movt	r3, 16384
- 613 010a 1B68     		ldr	r3, [r3, #0]
- 177:../LIB_HW/Hw_I2C_HW.c **** 				Err = HW_I2C_ERR_ADDR;
- 614              		.loc 1 177 0
- 615 010c 0320     		movs	r0, #3
- 616              	.LVL63:
- 617 010e 7EE7     		b	.L59
- 618              	.LVL64:
- 619              	.L90:
- 620              	.LBB39:
- 621              	.LBB36:
- 198:../LIB_HW/Hw_I2C_HW.c **** 					Err = HW_I2C_ERR_TXE;
- 622              		.loc 1 198 0
- 623 0110 0420     		movs	r0, #4
- 624              	.L57:
- 625              	.LVL65:
- 626              	.LBE36:
- 627              	.LBE39:
- 628              	.LBB40:
- 629              	.LBB41:
- 307:../LIB_HW/Hw_I2C_HW.c **** 				Reg = *reg_addr;
- 630              		.loc 1 307 0
- 631 0112 45F21442 		movw	r2, #21524
- 632              	.LVL66:
- 633              	.LBE41:
- 634              	.LBE40:
- 143:../LIB_HW/Hw_I2C_HW.c ****     u16 Err = 0;
- 635              		.loc 1 143 0
- 636 0116 42F21073 		movw	r3, #10000
- 637              	.LVL67:
- 638              	.LBB44:
- 639              	.LBB42:
- 307:../LIB_HW/Hw_I2C_HW.c **** 				Reg = *reg_addr;
- 640              		.loc 1 307 0
- 641 011a C4F20002 		movt	r2, 16384
- 642 011e 06E0     		b	.L55
- 643              	.LVL68:
- 644              	.L93:
- 645 0120 1168     		ldr	r1, [r2, #0]
- 646              	.LVL69:
- 647 0122 0591     		str	r1, [sp, #20]
- 648              	.LVL70:
- 309:../LIB_HW/Hw_I2C_HW.c **** 				if( IS_SET_BIT( Reg, reg_bit ) ) break;
- 649              		.loc 1 309 0
- 650 0124 0599     		ldr	r1, [sp, #20]
- 651              	.LVL71:
- 652 0126 4907     		lsls	r1, r1, #29
- 653 0128 07D4     		bmi	.L54
- 305:../LIB_HW/Hw_I2C_HW.c **** 			while( time_out )
- 654              		.loc 1 305 0
- 655 012a 013B     		subs	r3, r3, #1
- 656 012c 1ED0     		beq	.L92
- 657              	.L55:
- 307:../LIB_HW/Hw_I2C_HW.c **** 				Reg = *reg_addr;
- 658              		.loc 1 307 0
- 659 012e 1168     		ldr	r1, [r2, #0]
- 660              	.LVL72:
- 661 0130 013B     		subs	r3, r3, #1
- 662 0132 0591     		str	r1, [sp, #20]
- 663              	.LVL73:
- 309:../LIB_HW/Hw_I2C_HW.c **** 				if( IS_SET_BIT( Reg, reg_bit ) ) break;
- 664              		.loc 1 309 0
- 665 0134 0599     		ldr	r1, [sp, #20]
- 666              	.LVL74:
- 667 0136 4907     		lsls	r1, r1, #29
- 668 0138 F2D5     		bpl	.L93
- 669              	.L54:
- 670              	.LBE42:
- 671              	.LBE44:
- 218:../LIB_HW/Hw_I2C_HW.c **** 			SET_BIT( REG_I2C1_CR1, 9 );	// STOP
- 672              		.loc 1 218 0
- 673 013a 4FF4A841 		mov	r1, #21504
- 674 013e C4F20001 		movt	r1, 16384
- 675 0142 0A68     		ldr	r2, [r1, #0]
- 676 0144 42F40073 		orr	r3, r2, #512
- 677 0148 0B60     		str	r3, [r1, #0]
- 678              	.LVL75:
- 224:../LIB_HW/Hw_I2C_HW.c **** 	if( Err == 0 )
- 679              		.loc 1 224 0
- 680 014a 0028     		cmp	r0, #0
- 681 014c 7FF45FAF 		bne	.L59
- 682 0150 5AE7     		b	.L40
- 683              	.LVL76:
- 684              	.L84:
- 685              	.LBB45:
- 686              	.LBB16:
- 161:../LIB_HW/Hw_I2C_HW.c **** 				Err = HW_I2C_ERR_START;
- 687              		.loc 1 161 0
- 688 0152 0220     		movs	r0, #2
- 689 0154 5BE7     		b	.L59
- 690              	.LVL77:
- 691              	.L89:
- 692              	.LBE16:
- 693              	.LBE45:
- 218:../LIB_HW/Hw_I2C_HW.c **** 			SET_BIT( REG_I2C1_CR1, 9 );	// STOP
- 694              		.loc 1 218 0
- 695 0156 4FF4A843 		mov	r3, #21504
- 696              	.LVL78:
- 697 015a C4F20003 		movt	r3, 16384
- 698 015e 1A68     		ldr	r2, [r3, #0]
- 699              	.LVL79:
- 700 0160 42F40070 		orr	r0, r2, #512
- 701 0164 1860     		str	r0, [r3, #0]
- 702 0166 4FE7     		b	.L40
- 703              	.LVL80:
- 704              	.L88:
- 705              	.LBB46:
- 706              	.LBB29:
- 188:../LIB_HW/Hw_I2C_HW.c **** 				Err = HW_I2C_ERR_TXE;
- 707              		.loc 1 188 0
- 708 0168 0420     		movs	r0, #4
- 709 016a 50E7     		b	.L59
- 710              	.LVL81:
- 711              	.L92:
- 712              	.LBE29:
- 713              	.LBE46:
- 714              	.LBB47:
- 715              	.LBB43:
- 213:../LIB_HW/Hw_I2C_HW.c **** 					Err = HW_I2C_ERR_STOP;
- 716              		.loc 1 213 0
- 717 016c 0520     		movs	r0, #5
- 718 016e 4EE7     		b	.L59
- 719              	.L95:
- 720              		.align	2
- 721              	.L94:
- 722 0170 00000000 		.word	Hw_I2C_HW_GetErrStatus
- 723              	.LBE43:
- 724              	.LBE47:
- 725              		.cfi_endproc
- 726              	.LFE2:
- 728              		.text
- 729              	.Letext0:
- 730              		.file 2 "../LIB_HW/Hw_Define.h"
+ 120:../LIB_AP/Ap_GLcdMenu.c **** 	Lb_printf("* 8.                                                  *\n");
+ 291              		.loc 1 120 0
+ 292 0074 40F20000 		movw	r0, #:lower16:.LC10
+ 293 0078 C0F20000 		movt	r0, #:upper16:.LC10
+ 294 007c A047     		blx	r4
+ 295              	.LVL17:
+ 121:../LIB_AP/Ap_GLcdMenu.c **** 	Lb_printf("* 9.                                                  *\n");
+ 296              		.loc 1 121 0
+ 297 007e 40F20000 		movw	r0, #:lower16:.LC11
+ 298 0082 C0F20000 		movt	r0, #:upper16:.LC11
+ 299 0086 A047     		blx	r4
+ 300              	.LVL18:
+ 122:../LIB_AP/Ap_GLcdMenu.c **** 	Lb_printf("* m.  Menu                                            *\n");
+ 301              		.loc 1 122 0
+ 302 0088 40F20000 		movw	r0, #:lower16:.LC12
+ 303 008c C0F20000 		movt	r0, #:upper16:.LC12
+ 304 0090 A047     		blx	r4
+ 305              	.LVL19:
+ 123:../LIB_AP/Ap_GLcdMenu.c **** 	Lb_printf("*******************************************************\n");
+ 306              		.loc 1 123 0
+ 307 0092 2846     		mov	r0, r5
+ 308 0094 A047     		blx	r4
+ 309              	.LVL20:
+ 124:../LIB_AP/Ap_GLcdMenu.c **** 	Lb_printf("\n");
+ 310              		.loc 1 124 0
+ 311 0096 40F20000 		movw	r0, #:lower16:.LC13
+ 312 009a C0F20000 		movt	r0, #:upper16:.LC13
+ 313 009e A047     		blx	r4
+ 314              	.LVL21:
+ 315 00a0 38BD     		pop	{r3, r4, r5, pc}
+ 316              		.cfi_endproc
+ 317              	.LFE2:
+ 319 00a2 00BF     		.section	.text.Ap_GLcdMenu_GetCmd,"ax",%progbits
+ 320              		.align	2
+ 321              		.global	Ap_GLcdMenu_GetCmd
+ 322              		.thumb
+ 323              		.thumb_func
+ 325              	Ap_GLcdMenu_GetCmd:
+ 326              	.LFB3:
+ 125:../LIB_AP/Ap_GLcdMenu.c **** }
+ 126:../LIB_AP/Ap_GLcdMenu.c **** 
+ 127:../LIB_AP/Ap_GLcdMenu.c **** 
+ 128:../LIB_AP/Ap_GLcdMenu.c **** 
+ 129:../LIB_AP/Ap_GLcdMenu.c **** 
+ 130:../LIB_AP/Ap_GLcdMenu.c **** 
+ 131:../LIB_AP/Ap_GLcdMenu.c **** /*---------------------------------------------------------------------------
+ 132:../LIB_AP/Ap_GLcdMenu.c ****      TITLE   : Ap_GLcdMenu_GetCmd
+ 133:../LIB_AP/Ap_GLcdMenu.c ****      WORK    : 
+ 134:../LIB_AP/Ap_GLcdMenu.c ****      ARG     : void
+ 135:../LIB_AP/Ap_GLcdMenu.c ****      RET     : 
+ 136:../LIB_AP/Ap_GLcdMenu.c **** 				u8 : 눌려진 메뉴키 데이터 
+ 137:../LIB_AP/Ap_GLcdMenu.c **** ---------------------------------------------------------------------------*/
+ 138:../LIB_AP/Ap_GLcdMenu.c **** u8 Ap_GLcdMenu_GetCmd(void)
+ 139:../LIB_AP/Ap_GLcdMenu.c **** {
+ 327              		.loc 1 139 0
+ 328              		.cfi_startproc
+ 329              		@ args = 0, pretend = 0, frame = 0
+ 330              		@ frame_needed = 0, uses_anonymous_args = 0
+ 331 0000 38B5     		push	{r3, r4, r5, lr}
+ 332              	.LCFI3:
+ 333              		.cfi_def_cfa_offset 16
+ 334              		.cfi_offset 3, -16
+ 335              		.cfi_offset 4, -12
+ 336              		.cfi_offset 5, -8
+ 337              		.cfi_offset 14, -4
+ 140:../LIB_AP/Ap_GLcdMenu.c **** 	u8  key;
+ 141:../LIB_AP/Ap_GLcdMenu.c **** 	
+ 142:../LIB_AP/Ap_GLcdMenu.c **** 
+ 143:../LIB_AP/Ap_GLcdMenu.c **** 	Lb_printf(">> ");
+ 338              		.loc 1 143 0
+ 339 0002 40F20000 		movw	r0, #:lower16:.LC14
+ 340 0006 40F20004 		movw	r4, #:lower16:Lb_printf
+ 341 000a C0F20004 		movt	r4, #:upper16:Lb_printf
+ 342 000e C0F20000 		movt	r0, #:upper16:.LC14
+ 343 0012 A047     		blx	r4
+ 344              	.LVL22:
+ 144:../LIB_AP/Ap_GLcdMenu.c **** 
+ 145:../LIB_AP/Ap_GLcdMenu.c ****     key=get_byte();
+ 345              		.loc 1 145 0
+ 346 0014 40F20003 		movw	r3, #:lower16:get_byte
+ 347 0018 C0F20003 		movt	r3, #:upper16:get_byte
+ 348 001c 9847     		blx	r3
+ 349              	.LVL23:
+ 350 001e 0546     		mov	r5, r0
+ 351              	.LVL24:
+ 146:../LIB_AP/Ap_GLcdMenu.c **** 	
+ 147:../LIB_AP/Ap_GLcdMenu.c **** 	Lb_printf("\n");
+ 352              		.loc 1 147 0
+ 353 0020 40F20000 		movw	r0, #:lower16:.LC13
+ 354              	.LVL25:
+ 355 0024 C0F20000 		movt	r0, #:upper16:.LC13
+ 356 0028 A047     		blx	r4
+ 357              	.LVL26:
+ 148:../LIB_AP/Ap_GLcdMenu.c **** 	
+ 149:../LIB_AP/Ap_GLcdMenu.c ****     return key;
+ 150:../LIB_AP/Ap_GLcdMenu.c **** }
+ 358              		.loc 1 150 0
+ 359 002a 2846     		mov	r0, r5
+ 360 002c 38BD     		pop	{r3, r4, r5, pc}
+ 361              		.cfi_endproc
+ 362              	.LFE3:
+ 364 002e 00BF     		.section	.text.Ap_GLcdMenu_ExeCmd,"ax",%progbits
+ 365              		.align	2
+ 366              		.global	Ap_GLcdMenu_ExeCmd
+ 367              		.thumb
+ 368              		.thumb_func
+ 370              	Ap_GLcdMenu_ExeCmd:
+ 371              	.LFB4:
+ 151:../LIB_AP/Ap_GLcdMenu.c **** 
+ 152:../LIB_AP/Ap_GLcdMenu.c **** 
+ 153:../LIB_AP/Ap_GLcdMenu.c **** 
+ 154:../LIB_AP/Ap_GLcdMenu.c **** 
+ 155:../LIB_AP/Ap_GLcdMenu.c **** /*---------------------------------------------------------------------------
+ 156:../LIB_AP/Ap_GLcdMenu.c ****      TITLE   : Ap_GLcdMenu_ExeCmd
+ 157:../LIB_AP/Ap_GLcdMenu.c ****      WORK    : 
+ 158:../LIB_AP/Ap_GLcdMenu.c ****      ARG     : void
+ 159:../LIB_AP/Ap_GLcdMenu.c ****      RET     : 
+ 160:../LIB_AP/Ap_GLcdMenu.c **** 				u8 : 눌려진 메뉴키 데이터 
+ 161:../LIB_AP/Ap_GLcdMenu.c **** ---------------------------------------------------------------------------*/
+ 162:../LIB_AP/Ap_GLcdMenu.c **** u8 Ap_GLcdMenu_ExeCmd(void)
+ 163:../LIB_AP/Ap_GLcdMenu.c **** {
+ 372              		.loc 1 163 0
+ 373              		.cfi_startproc
+ 374              		@ args = 0, pretend = 0, frame = 24
+ 375              		@ frame_needed = 0, uses_anonymous_args = 0
+ 376 0000 2DE9F04F 		push	{r4, r5, r6, r7, r8, r9, sl, fp, lr}
+ 377              	.LCFI4:
+ 378              		.cfi_def_cfa_offset 36
+ 379              		.cfi_offset 4, -36
+ 380              		.cfi_offset 5, -32
+ 381              		.cfi_offset 6, -28
+ 382              		.cfi_offset 7, -24
+ 383              		.cfi_offset 8, -20
+ 384              		.cfi_offset 9, -16
+ 385              		.cfi_offset 10, -12
+ 386              		.cfi_offset 11, -8
+ 387              		.cfi_offset 14, -4
+ 164:../LIB_AP/Ap_GLcdMenu.c **** 	u8 key;
+ 165:../LIB_AP/Ap_GLcdMenu.c **** 	u8 Status;
+ 166:../LIB_AP/Ap_GLcdMenu.c **** 	static u8 ExeFirst = TRUE;
+ 167:../LIB_AP/Ap_GLcdMenu.c **** 	u16 Ret;
+ 168:../LIB_AP/Ap_GLcdMenu.c **** 	static u8  Count    = 0;	
+ 169:../LIB_AP/Ap_GLcdMenu.c **** 	static s8  CircleX  = 0;	
+ 170:../LIB_AP/Ap_GLcdMenu.c **** 	u8 I2C_Data[20];	
+ 171:../LIB_AP/Ap_GLcdMenu.c **** 	s16 Temperature;	
+ 172:../LIB_AP/Ap_GLcdMenu.c **** 	
+ 173:../LIB_AP/Ap_GLcdMenu.c **** 	if( ExeFirst == TRUE )
+ 174:../LIB_AP/Ap_GLcdMenu.c **** 	{
+ 175:../LIB_AP/Ap_GLcdMenu.c **** 		Ap_GLcdMenu_ShowMenu();	
+ 176:../LIB_AP/Ap_GLcdMenu.c **** 		
+ 177:../LIB_AP/Ap_GLcdMenu.c **** 		Hw_Timer_Set( HW_TIMER_CH_DEBUG1,  50, LOOP_TIME, Ap_GCldMenu_MoveCircleTick_1st, NULL );
+ 388              		.loc 1 177 0
+ 389 0004 0024     		movs	r4, #0
+ 163:../LIB_AP/Ap_GLcdMenu.c **** {
+ 390              		.loc 1 163 0
+ 391 0006 89B0     		sub	sp, sp, #36
+ 392              	.LCFI5:
+ 393              		.cfi_def_cfa_offset 72
+ 175:../LIB_AP/Ap_GLcdMenu.c **** 		Ap_GLcdMenu_ShowMenu();	
+ 394              		.loc 1 175 0
+ 395 0008 DFF858A3 		ldr	sl, .L46+100
+ 396 000c D047     		blx	sl
+ 397              	.LVL27:
+ 398              		.loc 1 177 0
+ 399 000e BC4D     		ldr	r5, .L46
+ 400 0010 0120     		movs	r0, #1
+ 401 0012 3221     		movs	r1, #50
+ 402 0014 0222     		movs	r2, #2
+ 403 0016 BB4B     		ldr	r3, .L46+4
+ 404 0018 0094     		str	r4, [sp, #0]
+ 405 001a A847     		blx	r5
+ 406              	.LVL28:
+ 178:../LIB_AP/Ap_GLcdMenu.c **** 		Hw_Timer_Set( HW_TIMER_CH_DEBUG2, 100, LOOP_TIME, Ap_GCldMenu_MoveCircleTick_2nd, NULL );		
+ 407              		.loc 1 178 0
+ 408 001c 0220     		movs	r0, #2
+ 409 001e 0094     		str	r4, [sp, #0]
+ 410 0020 6421     		movs	r1, #100
+ 411 0022 0246     		mov	r2, r0
+ 412 0024 B84B     		ldr	r3, .L46+8
+ 413 0026 A847     		blx	r5
+ 414              	.LVL29:
+ 415 0028 DFF83C93 		ldr	r9, .L46+104
+ 416              	.LBB2:
+ 179:../LIB_AP/Ap_GLcdMenu.c **** 	}
+ 180:../LIB_AP/Ap_GLcdMenu.c **** 
+ 181:../LIB_AP/Ap_GLcdMenu.c ****     while( (key = Ap_GLcdMenu_GetCmd()) != 0 )
+ 182:../LIB_AP/Ap_GLcdMenu.c ****     {
+ 183:../LIB_AP/Ap_GLcdMenu.c ****         switch(key)
+ 184:../LIB_AP/Ap_GLcdMenu.c ****         {
+ 185:../LIB_AP/Ap_GLcdMenu.c ****            case '1':
+ 186:../LIB_AP/Ap_GLcdMenu.c ****            		Lb_printf("LCD Clear \n");
+ 187:../LIB_AP/Ap_GLcdMenu.c ****            		Hw_N5110G_Clear();
+ 188:../LIB_AP/Ap_GLcdMenu.c ****                	break;
+ 189:../LIB_AP/Ap_GLcdMenu.c **** 
+ 190:../LIB_AP/Ap_GLcdMenu.c ****            case '2':
+ 191:../LIB_AP/Ap_GLcdMenu.c ****            		Lb_printf("Count ++ \n");
+ 192:../LIB_AP/Ap_GLcdMenu.c ****                      		
+ 193:../LIB_AP/Ap_GLcdMenu.c **** 				Hw_N5110G_DrawPrint(0,0,"Smartrobot BD");								
+ 194:../LIB_AP/Ap_GLcdMenu.c **** 				Hw_N5110G_DrawPrint(0,2,"Count : %4d", ++Count);						
+ 195:../LIB_AP/Ap_GLcdMenu.c ****            		Hw_N5110G_DrawRequest();
+ 196:../LIB_AP/Ap_GLcdMenu.c ****            		
+ 197:../LIB_AP/Ap_GLcdMenu.c **** 				break;
+ 198:../LIB_AP/Ap_GLcdMenu.c **** 
+ 199:../LIB_AP/Ap_GLcdMenu.c ****            case '3':
+ 200:../LIB_AP/Ap_GLcdMenu.c ****            		Lb_printf("Count -- \n");
+ 201:../LIB_AP/Ap_GLcdMenu.c ****               
+ 202:../LIB_AP/Ap_GLcdMenu.c **** 				Hw_N5110G_DrawPrint(0,0,"Smartrobot BD");								
+ 203:../LIB_AP/Ap_GLcdMenu.c **** 				Hw_N5110G_DrawPrint(0,2,"Count : %4d", --Count);						
+ 204:../LIB_AP/Ap_GLcdMenu.c **** 				Hw_N5110G_DrawRequest();
+ 205:../LIB_AP/Ap_GLcdMenu.c **** 						
+ 206:../LIB_AP/Ap_GLcdMenu.c ****                break; 
+ 207:../LIB_AP/Ap_GLcdMenu.c **** 
+ 208:../LIB_AP/Ap_GLcdMenu.c ****            case '4':
+ 209:../LIB_AP/Ap_GLcdMenu.c **** 				Hw_Timer_Start( HW_TIMER_CH_DEBUG1 );
+ 210:../LIB_AP/Ap_GLcdMenu.c **** 				Hw_Timer_Start( HW_TIMER_CH_DEBUG2 );
+ 211:../LIB_AP/Ap_GLcdMenu.c ****                break;  
+ 212:../LIB_AP/Ap_GLcdMenu.c **** 
+ 213:../LIB_AP/Ap_GLcdMenu.c ****            case '5':
+ 214:../LIB_AP/Ap_GLcdMenu.c **** 				Hw_Timer_Stop( HW_TIMER_CH_DEBUG1 );
+ 215:../LIB_AP/Ap_GLcdMenu.c **** 				Hw_Timer_Stop( HW_TIMER_CH_DEBUG2 );
+ 216:../LIB_AP/Ap_GLcdMenu.c ****                break;  
+ 217:../LIB_AP/Ap_GLcdMenu.c **** 
+ 218:../LIB_AP/Ap_GLcdMenu.c ****            case '6':
+ 219:../LIB_AP/Ap_GLcdMenu.c ****            		I2C_Data[0] = 0x00;
+ 220:../LIB_AP/Ap_GLcdMenu.c ****            		Ret = Hw_I2C_IMU_MPU6050_WriteReg( 0x6B, 0x00 );
+ 221:../LIB_AP/Ap_GLcdMenu.c ****            		Lb_printf("I2C Write Ret : %d\n", Ret);
+ 222:../LIB_AP/Ap_GLcdMenu.c **** 
+ 223:../LIB_AP/Ap_GLcdMenu.c ****            		for( int i=0; i<=0x75; i++ )
+ 224:../LIB_AP/Ap_GLcdMenu.c ****            		{
+ 225:../LIB_AP/Ap_GLcdMenu.c ****            			//if( i%10 == 0 ) Lb_printf("\n %03d: ", i);
+ 226:../LIB_AP/Ap_GLcdMenu.c **** 
+ 227:../LIB_AP/Ap_GLcdMenu.c ****            			I2C_Data[0] = 0x00;
+ 228:../LIB_AP/Ap_GLcdMenu.c ****            			Ret = Hw_I2C_IMU_MPU6050_WriteReg( i, 0x00 );
+ 229:../LIB_AP/Ap_GLcdMenu.c ****            			//Lb_printf("%02x ", I2C_Data[0] );
+ 230:../LIB_AP/Ap_GLcdMenu.c ****            		}
+ 231:../LIB_AP/Ap_GLcdMenu.c **** 
+ 232:../LIB_AP/Ap_GLcdMenu.c ****                break;  
+ 233:../LIB_AP/Ap_GLcdMenu.c **** 
+ 234:../LIB_AP/Ap_GLcdMenu.c ****            case '7':
+ 235:../LIB_AP/Ap_GLcdMenu.c ****            		I2C_Data[0] = 0x00;
+ 236:../LIB_AP/Ap_GLcdMenu.c ****            		Ret = Hw_I2C_IMU_MPU6050_ReadReg( 0x75, I2C_Data );
+ 237:../LIB_AP/Ap_GLcdMenu.c ****            		Lb_printf("I2C Read Ret : %d 0x%x\n", Ret, I2C_Data[0] );
+ 238:../LIB_AP/Ap_GLcdMenu.c **** 
+ 239:../LIB_AP/Ap_GLcdMenu.c ****            		I2C_Data[0] = 0x00;
+ 240:../LIB_AP/Ap_GLcdMenu.c ****            		Ret = Hw_I2C_IMU_MPU6050_ReadReg( 0x1B, I2C_Data );
+ 241:../LIB_AP/Ap_GLcdMenu.c ****            		Lb_printf("I2C Read Ret : %d 0x%x\n", Ret, I2C_Data[0] );
+ 242:../LIB_AP/Ap_GLcdMenu.c **** 
+ 243:../LIB_AP/Ap_GLcdMenu.c **** 
+ 244:../LIB_AP/Ap_GLcdMenu.c ****                break;  
+ 245:../LIB_AP/Ap_GLcdMenu.c **** 
+ 246:../LIB_AP/Ap_GLcdMenu.c ****            case '8':
+ 247:../LIB_AP/Ap_GLcdMenu.c ****            		for( int i=0; i<=0x75; i++ )
+ 248:../LIB_AP/Ap_GLcdMenu.c ****            		{
+ 249:../LIB_AP/Ap_GLcdMenu.c ****            			if( i%10 == 0 ) Lb_printf("\n %03d: ", i);
+ 250:../LIB_AP/Ap_GLcdMenu.c **** 
+ 251:../LIB_AP/Ap_GLcdMenu.c ****            			I2C_Data[0] = 0x00;
+ 252:../LIB_AP/Ap_GLcdMenu.c ****            			Ret = Hw_I2C_IMU_MPU6050_ReadReg( i, I2C_Data );
+ 253:../LIB_AP/Ap_GLcdMenu.c ****            			Lb_printf("%02x ", I2C_Data[0]);
+ 254:../LIB_AP/Ap_GLcdMenu.c ****            		}
+ 255:../LIB_AP/Ap_GLcdMenu.c **** 
+ 256:../LIB_AP/Ap_GLcdMenu.c ****                break;
+ 257:../LIB_AP/Ap_GLcdMenu.c **** 
+ 258:../LIB_AP/Ap_GLcdMenu.c ****            case '9': 
+ 259:../LIB_AP/Ap_GLcdMenu.c **** 
+ 260:../LIB_AP/Ap_GLcdMenu.c ****            		I2C_Data[0] = 0x00;
+ 261:../LIB_AP/Ap_GLcdMenu.c ****            		Ret = Hw_I2C_IMU_MPU6050_ReadRegs( 0x3B, I2C_Data, 14 );
+ 262:../LIB_AP/Ap_GLcdMenu.c ****            		Lb_printf("AX %d ", (I2C_Data[0] << 8) | (I2C_Data[1] << 0) );
+ 417              		.loc 1 262 0
+ 418 002c B74D     		ldr	r5, .L46+12
+ 419              	.L41:
+ 420              	.LBE2:
+ 181:../LIB_AP/Ap_GLcdMenu.c ****     while( (key = Ap_GLcdMenu_GetCmd()) != 0 )
+ 421              		.loc 1 181 0 discriminator 1
+ 422 002e C847     		blx	r9
+ 423              	.LVL30:
+ 424 0030 0346     		mov	r3, r0
+ 425 0032 0028     		cmp	r0, #0
+ 426 0034 00F0BE80 		beq	.L44
+ 427              	.L32:
+ 183:../LIB_AP/Ap_GLcdMenu.c ****         switch(key)
+ 428              		.loc 1 183 0
+ 429 0038 A3F13100 		sub	r0, r3, #49
+ 430              	.LVL31:
+ 431 003c 3C28     		cmp	r0, #60
+ 432 003e F6D8     		bhi	.L41
+ 433 0040 01A1     		adr	r1, .L27
+ 434 0042 51F820F0 		ldr	pc, [r1, r0, lsl #2]
+ 435 0046 00BF     		.align	2
+ 436              	.L27:
+ 437 0048 F3020000 		.word	.L17+1
+ 438 004c D9020000 		.word	.L18+1
+ 439 0050 B1020000 		.word	.L19+1
+ 440 0054 A5020000 		.word	.L20+1
+ 441 0058 99020000 		.word	.L21+1
+ 442 005c 65020000 		.word	.L22+1
+ 443 0060 35020000 		.word	.L23+1
+ 444 0064 BB010000 		.word	.L33+1
+ 445 0068 3D010000 		.word	.L25+1
+ 446 006c 2F000000 		.word	.L41+1
+ 447 0070 2F000000 		.word	.L41+1
+ 448 0074 2F000000 		.word	.L41+1
+ 449 0078 2F000000 		.word	.L41+1
+ 450 007c 2F000000 		.word	.L41+1
+ 451 0080 2F000000 		.word	.L41+1
+ 452 0084 2F000000 		.word	.L41+1
+ 453 0088 2F000000 		.word	.L41+1
+ 454 008c 2F000000 		.word	.L41+1
+ 455 0090 2F000000 		.word	.L41+1
+ 456 0094 2F000000 		.word	.L41+1
+ 457 0098 2F000000 		.word	.L41+1
+ 458 009c 2F000000 		.word	.L41+1
+ 459 00a0 2F000000 		.word	.L41+1
+ 460 00a4 2F000000 		.word	.L41+1
+ 461 00a8 2F000000 		.word	.L41+1
+ 462 00ac 2F000000 		.word	.L41+1
+ 463 00b0 2F000000 		.word	.L41+1
+ 464 00b4 2F000000 		.word	.L41+1
+ 465 00b8 FD020000 		.word	.L26+1
+ 466 00bc 2F000000 		.word	.L41+1
+ 467 00c0 2F000000 		.word	.L41+1
+ 468 00c4 2F000000 		.word	.L41+1
+ 469 00c8 2F000000 		.word	.L41+1
+ 470 00cc 2F000000 		.word	.L41+1
+ 471 00d0 2F000000 		.word	.L41+1
+ 472 00d4 2F000000 		.word	.L41+1
+ 473 00d8 2F000000 		.word	.L41+1
+ 474 00dc 2F000000 		.word	.L41+1
+ 475 00e0 2F000000 		.word	.L41+1
+ 476 00e4 2F000000 		.word	.L41+1
+ 477 00e8 2F000000 		.word	.L41+1
+ 478 00ec 2F000000 		.word	.L41+1
+ 479 00f0 2F000000 		.word	.L41+1
+ 480 00f4 2F000000 		.word	.L41+1
+ 481 00f8 2F000000 		.word	.L41+1
+ 482 00fc 2F000000 		.word	.L41+1
+ 483 0100 2F000000 		.word	.L41+1
+ 484 0104 2F000000 		.word	.L41+1
+ 485 0108 2F000000 		.word	.L41+1
+ 486 010c 2F000000 		.word	.L41+1
+ 487 0110 2F000000 		.word	.L41+1
+ 488 0114 2F000000 		.word	.L41+1
+ 489 0118 2F000000 		.word	.L41+1
+ 490 011c 2F000000 		.word	.L41+1
+ 491 0120 2F000000 		.word	.L41+1
+ 492 0124 2F000000 		.word	.L41+1
+ 493 0128 2F000000 		.word	.L41+1
+ 494 012c 2F000000 		.word	.L41+1
+ 495 0130 2F000000 		.word	.L41+1
+ 496 0134 2F000000 		.word	.L41+1
+ 497 0138 FD020000 		.word	.L26+1
+ 498              	.L25:
+ 499              	.LBB6:
+ 260:../LIB_AP/Ap_GLcdMenu.c ****            		I2C_Data[0] = 0x00;
+ 500              		.loc 1 260 0
+ 501 013c 08A9     		add	r1, sp, #32
+ 502 013e 0022     		movs	r2, #0
+ 261:../LIB_AP/Ap_GLcdMenu.c ****            		Ret = Hw_I2C_IMU_MPU6050_ReadRegs( 0x3B, I2C_Data, 14 );
+ 503              		.loc 1 261 0
+ 504 0140 40F20003 		movw	r3, #:lower16:Hw_I2C_IMU_MPU6050_ReadRegs
+ 260:../LIB_AP/Ap_GLcdMenu.c ****            		I2C_Data[0] = 0x00;
+ 505              		.loc 1 260 0
+ 506 0144 01F8142D 		strb	r2, [r1, #-20]!
+ 261:../LIB_AP/Ap_GLcdMenu.c ****            		Ret = Hw_I2C_IMU_MPU6050_ReadRegs( 0x3B, I2C_Data, 14 );
+ 507              		.loc 1 261 0
+ 508 0148 C0F20003 		movt	r3, #:upper16:Hw_I2C_IMU_MPU6050_ReadRegs
+ 509 014c 0E22     		movs	r2, #14
+ 510 014e 3B20     		movs	r0, #59
+ 511 0150 9847     		blx	r3
+ 512              	.LVL32:
+ 513              		.loc 1 262 0
+ 514 0152 9DF80D20 		ldrb	r2, [sp, #13]	@ zero_extendqisi2
+ 515 0156 9DF80C10 		ldrb	r1, [sp, #12]	@ zero_extendqisi2
+ 516 015a 6D48     		ldr	r0, .L46+16
+ 517 015c 42EA0121 		orr	r1, r2, r1, lsl #8
+ 518 0160 A847     		blx	r5
+ 519              	.LVL33:
+ 263:../LIB_AP/Ap_GLcdMenu.c ****            		Lb_printf("AY %d ", (I2C_Data[2] << 8) | (I2C_Data[3] << 0) );
+ 520              		.loc 1 263 0
+ 521 0162 9DF80F30 		ldrb	r3, [sp, #15]	@ zero_extendqisi2
+ 522 0166 9DF80E10 		ldrb	r1, [sp, #14]	@ zero_extendqisi2
+ 523 016a 6A48     		ldr	r0, .L46+20
+ 524 016c 43EA0121 		orr	r1, r3, r1, lsl #8
+ 525 0170 A847     		blx	r5
+ 526              	.LVL34:
+ 264:../LIB_AP/Ap_GLcdMenu.c ****            		Lb_printf("AZ %d ", (I2C_Data[4] << 8) | (I2C_Data[5] << 0) );
+ 527              		.loc 1 264 0
+ 528 0172 9DF81020 		ldrb	r2, [sp, #16]	@ zero_extendqisi2
+ 529 0176 9DF81110 		ldrb	r1, [sp, #17]	@ zero_extendqisi2
+ 530 017a 6748     		ldr	r0, .L46+24
+ 531 017c 41EA0221 		orr	r1, r1, r2, lsl #8
+ 532 0180 A847     		blx	r5
+ 533              	.LVL35:
+ 265:../LIB_AP/Ap_GLcdMenu.c **** 
+ 266:../LIB_AP/Ap_GLcdMenu.c ****            		Temperature = (s16)((I2C_Data[6] << 8) | (I2C_Data[7] << 0));
+ 534              		.loc 1 266 0
+ 535 0182 9DF81200 		ldrb	r0, [sp, #18]	@ zero_extendqisi2
+ 536 0186 9DF81330 		ldrb	r3, [sp, #19]	@ zero_extendqisi2
+ 267:../LIB_AP/Ap_GLcdMenu.c ****            		Temperature = Temperature/340 + 36;
+ 537              		.loc 1 267 0
+ 538 018a 46F26102 		movw	r2, #24673
+ 266:../LIB_AP/Ap_GLcdMenu.c ****            		Temperature = (s16)((I2C_Data[6] << 8) | (I2C_Data[7] << 0));
+ 539              		.loc 1 266 0
+ 540 018e 43EA0021 		orr	r1, r3, r0, lsl #8
+ 541              		.loc 1 267 0
+ 542 0192 08B2     		sxth	r0, r1
+ 543 0194 C6F26002 		movt	r2, 24672
+ 544 0198 82FB0012 		smull	r1, r2, r2, r0
+ 545 019c C317     		asrs	r3, r0, #31
+ 546 019e C3EBE211 		rsb	r1, r3, r2, asr #7
+ 547 01a2 2431     		adds	r1, r1, #36
+ 548              	.LVL36:
+ 268:../LIB_AP/Ap_GLcdMenu.c ****            		Lb_printf("T %d ",  Temperature );
+ 549              		.loc 1 268 0
+ 550 01a4 5D48     		ldr	r0, .L46+28
+ 551 01a6 09B2     		sxth	r1, r1
+ 552              	.LVL37:
+ 553 01a8 A847     		blx	r5
+ 554              	.LVL38:
+ 555              	.LBE6:
+ 181:../LIB_AP/Ap_GLcdMenu.c ****     while( (key = Ap_GLcdMenu_GetCmd()) != 0 )
+ 556              		.loc 1 181 0
+ 557 01aa C847     		blx	r9
+ 558              	.LVL39:
+ 559 01ac 0346     		mov	r3, r0
+ 560 01ae 0028     		cmp	r0, #0
+ 561 01b0 7FF442AF 		bne	.L32
+ 562              	.L44:
+ 269:../LIB_AP/Ap_GLcdMenu.c **** 
+ 270:../LIB_AP/Ap_GLcdMenu.c ****                break;
+ 271:../LIB_AP/Ap_GLcdMenu.c **** 
+ 272:../LIB_AP/Ap_GLcdMenu.c ****            case '0':
+ 273:../LIB_AP/Ap_GLcdMenu.c ****                break;
+ 274:../LIB_AP/Ap_GLcdMenu.c **** 
+ 275:../LIB_AP/Ap_GLcdMenu.c **** 			case 'm':
+ 276:../LIB_AP/Ap_GLcdMenu.c **** 			case 'M':
+ 277:../LIB_AP/Ap_GLcdMenu.c **** 				Ap_GLcdMenu_ShowMenu();
+ 278:../LIB_AP/Ap_GLcdMenu.c **** 				break;
+ 279:../LIB_AP/Ap_GLcdMenu.c **** 				
+ 280:../LIB_AP/Ap_GLcdMenu.c ****            default :
+ 281:../LIB_AP/Ap_GLcdMenu.c ****                break;
+ 282:../LIB_AP/Ap_GLcdMenu.c ****         }
+ 283:../LIB_AP/Ap_GLcdMenu.c ****     }
+ 284:../LIB_AP/Ap_GLcdMenu.c ****     
+ 285:../LIB_AP/Ap_GLcdMenu.c ****     return key;
+ 286:../LIB_AP/Ap_GLcdMenu.c **** }
+ 563              		.loc 1 286 0
+ 564 01b4 09B0     		add	sp, sp, #36
+ 565 01b6 BDE8F08F 		pop	{r4, r5, r6, r7, r8, r9, sl, fp, pc}
+ 566              	.LVL40:
+ 567              	.L33:
+ 183:../LIB_AP/Ap_GLcdMenu.c ****         switch(key)
+ 568              		.loc 1 183 0
+ 569 01ba 0024     		movs	r4, #0
+ 570              	.LBB7:
+ 571              	.LBB3:
+ 249:../LIB_AP/Ap_GLcdMenu.c ****            			if( i%10 == 0 ) Lb_printf("\n %03d: ", i);
+ 572              		.loc 1 249 0
+ 573 01bc 46F26766 		movw	r6, #26215
+ 574 01c0 DFF86481 		ldr	r8, .L46+40
+ 575 01c4 C6F26666 		movt	r6, 26214
+ 251:../LIB_AP/Ap_GLcdMenu.c ****            			I2C_Data[0] = 0x00;
+ 576              		.loc 1 251 0
+ 577 01c8 2746     		mov	r7, r4
+ 578 01ca 23E0     		b	.L24
+ 579              	.L30:
+ 252:../LIB_AP/Ap_GLcdMenu.c ****            			Ret = Hw_I2C_IMU_MPU6050_ReadReg( i, I2C_Data );
+ 580              		.loc 1 252 0
+ 581 01cc E0B2     		uxtb	r0, r4
+ 249:../LIB_AP/Ap_GLcdMenu.c ****            			if( i%10 == 0 ) Lb_printf("\n %03d: ", i);
+ 582              		.loc 1 249 0
+ 583 01ce 86FB0B34 		smull	r3, r4, r6, fp
+ 252:../LIB_AP/Ap_GLcdMenu.c ****            			Ret = Hw_I2C_IMU_MPU6050_ReadReg( i, I2C_Data );
+ 584              		.loc 1 252 0
+ 585 01d2 03A9     		add	r1, sp, #12
+ 251:../LIB_AP/Ap_GLcdMenu.c ****            			I2C_Data[0] = 0x00;
+ 586              		.loc 1 251 0
+ 587 01d4 8DF80C70 		strb	r7, [sp, #12]
+ 252:../LIB_AP/Ap_GLcdMenu.c ****            			Ret = Hw_I2C_IMU_MPU6050_ReadReg( i, I2C_Data );
+ 588              		.loc 1 252 0
+ 589 01d8 C047     		blx	r8
+ 590              	.LVL41:
+ 253:../LIB_AP/Ap_GLcdMenu.c ****            			Lb_printf("%02x ", I2C_Data[0]);
+ 591              		.loc 1 253 0
+ 592 01da 5148     		ldr	r0, .L46+32
+ 593 01dc 9DF80C10 		ldrb	r1, [sp, #12]	@ zero_extendqisi2
+ 594 01e0 A847     		blx	r5
+ 595              	.LVL42:
+ 249:../LIB_AP/Ap_GLcdMenu.c ****            			if( i%10 == 0 ) Lb_printf("\n %03d: ", i);
+ 596              		.loc 1 249 0
+ 597 01e2 4FEAEB70 		asr	r0, fp, #31
+ 598 01e6 C0EBA402 		rsb	r2, r0, r4, asr #2
+ 599 01ea 02EB8203 		add	r3, r2, r2, lsl #2
+ 600 01ee BBEB430F 		cmp	fp, r3, lsl #1
+ 601 01f2 00F0BB80 		beq	.L45
+ 602              	.L38:
+ 252:../LIB_AP/Ap_GLcdMenu.c ****            			Ret = Hw_I2C_IMU_MPU6050_ReadReg( i, I2C_Data );
+ 603              		.loc 1 252 0
+ 604 01f6 03A9     		add	r1, sp, #12
+ 605 01f8 5FFA8BF0 		uxtb	r0, fp
+ 251:../LIB_AP/Ap_GLcdMenu.c ****            			I2C_Data[0] = 0x00;
+ 606              		.loc 1 251 0
+ 607 01fc 8DF80C70 		strb	r7, [sp, #12]
+ 247:../LIB_AP/Ap_GLcdMenu.c ****            		for( int i=0; i<=0x75; i++ )
+ 608              		.loc 1 247 0
+ 609 0200 0BF10104 		add	r4, fp, #1
+ 252:../LIB_AP/Ap_GLcdMenu.c ****            			Ret = Hw_I2C_IMU_MPU6050_ReadReg( i, I2C_Data );
+ 610              		.loc 1 252 0
+ 611 0204 C047     		blx	r8
+ 612              	.LVL43:
+ 253:../LIB_AP/Ap_GLcdMenu.c ****            			Lb_printf("%02x ", I2C_Data[0]);
+ 613              		.loc 1 253 0
+ 614 0206 4648     		ldr	r0, .L46+32
+ 615 0208 9DF80C10 		ldrb	r1, [sp, #12]	@ zero_extendqisi2
+ 616 020c A847     		blx	r5
+ 617              	.LVL44:
+ 247:../LIB_AP/Ap_GLcdMenu.c ****            		for( int i=0; i<=0x75; i++ )
+ 618              		.loc 1 247 0
+ 619 020e 762C     		cmp	r4, #118
+ 620 0210 3FF40DAF 		beq	.L41
+ 621              	.LVL45:
+ 622              	.L24:
+ 249:../LIB_AP/Ap_GLcdMenu.c ****            			if( i%10 == 0 ) Lb_printf("\n %03d: ", i);
+ 623              		.loc 1 249 0
+ 624 0214 86FB0430 		smull	r3, r0, r6, r4
+ 625 0218 E217     		asrs	r2, r4, #31
+ 626 021a C2EBA003 		rsb	r3, r2, r0, asr #2
+ 627 021e 03EB8301 		add	r1, r3, r3, lsl #2
+ 628 0222 B4EB410F 		cmp	r4, r1, lsl #1
+ 247:../LIB_AP/Ap_GLcdMenu.c ****            		for( int i=0; i<=0x75; i++ )
+ 629              		.loc 1 247 0
+ 630 0226 04F1010B 		add	fp, r4, #1
+ 249:../LIB_AP/Ap_GLcdMenu.c ****            			if( i%10 == 0 ) Lb_printf("\n %03d: ", i);
+ 631              		.loc 1 249 0
+ 632 022a CFD1     		bne	.L30
+ 249:../LIB_AP/Ap_GLcdMenu.c ****            			if( i%10 == 0 ) Lb_printf("\n %03d: ", i);
+ 633              		.loc 1 249 0 is_stmt 0 discriminator 1
+ 634 022c 2146     		mov	r1, r4
+ 635 022e 3D48     		ldr	r0, .L46+36
+ 636 0230 A847     		blx	r5
+ 637              	.LVL46:
+ 638 0232 CBE7     		b	.L30
+ 639              	.L23:
+ 640              	.LBE3:
+ 235:../LIB_AP/Ap_GLcdMenu.c ****            		I2C_Data[0] = 0x00;
+ 641              		.loc 1 235 0 is_stmt 1
+ 642 0234 08AC     		add	r4, sp, #32
+ 643 0236 0027     		movs	r7, #0
+ 644 0238 04F8147D 		strb	r7, [r4, #-20]!
+ 236:../LIB_AP/Ap_GLcdMenu.c ****            		Ret = Hw_I2C_IMU_MPU6050_ReadReg( 0x75, I2C_Data );
+ 645              		.loc 1 236 0
+ 646 023c 2146     		mov	r1, r4
+ 647 023e 3A4E     		ldr	r6, .L46+40
+ 648 0240 7520     		movs	r0, #117
+ 649 0242 B047     		blx	r6
+ 650              	.LVL47:
+ 237:../LIB_AP/Ap_GLcdMenu.c ****            		Lb_printf("I2C Read Ret : %d 0x%x\n", Ret, I2C_Data[0] );
+ 651              		.loc 1 237 0
+ 652 0244 9DF80C20 		ldrb	r2, [sp, #12]	@ zero_extendqisi2
+ 236:../LIB_AP/Ap_GLcdMenu.c ****            		Ret = Hw_I2C_IMU_MPU6050_ReadReg( 0x75, I2C_Data );
+ 653              		.loc 1 236 0
+ 654 0248 0146     		mov	r1, r0
+ 655              	.LVL48:
+ 237:../LIB_AP/Ap_GLcdMenu.c ****            		Lb_printf("I2C Read Ret : %d 0x%x\n", Ret, I2C_Data[0] );
+ 656              		.loc 1 237 0
+ 657 024a 3848     		ldr	r0, .L46+44
+ 658              	.LVL49:
+ 659 024c A847     		blx	r5
+ 660              	.LVL50:
+ 240:../LIB_AP/Ap_GLcdMenu.c ****            		Ret = Hw_I2C_IMU_MPU6050_ReadReg( 0x1B, I2C_Data );
+ 661              		.loc 1 240 0
+ 662 024e 2146     		mov	r1, r4
+ 663 0250 1B20     		movs	r0, #27
+ 239:../LIB_AP/Ap_GLcdMenu.c ****            		I2C_Data[0] = 0x00;
+ 664              		.loc 1 239 0
+ 665 0252 8DF80C70 		strb	r7, [sp, #12]
+ 240:../LIB_AP/Ap_GLcdMenu.c ****            		Ret = Hw_I2C_IMU_MPU6050_ReadReg( 0x1B, I2C_Data );
+ 666              		.loc 1 240 0
+ 667 0256 B047     		blx	r6
+ 668              	.LVL51:
+ 241:../LIB_AP/Ap_GLcdMenu.c ****            		Lb_printf("I2C Read Ret : %d 0x%x\n", Ret, I2C_Data[0] );
+ 669              		.loc 1 241 0
+ 670 0258 9DF80C20 		ldrb	r2, [sp, #12]	@ zero_extendqisi2
+ 240:../LIB_AP/Ap_GLcdMenu.c ****            		Ret = Hw_I2C_IMU_MPU6050_ReadReg( 0x1B, I2C_Data );
+ 671              		.loc 1 240 0
+ 672 025c 0146     		mov	r1, r0
+ 673              	.LVL52:
+ 241:../LIB_AP/Ap_GLcdMenu.c ****            		Lb_printf("I2C Read Ret : %d 0x%x\n", Ret, I2C_Data[0] );
+ 674              		.loc 1 241 0
+ 675 025e 3348     		ldr	r0, .L46+44
+ 676              	.LVL53:
+ 677 0260 A847     		blx	r5
+ 678              	.LVL54:
+ 244:../LIB_AP/Ap_GLcdMenu.c ****                break;  
+ 679              		.loc 1 244 0
+ 680 0262 E4E6     		b	.L41
+ 681              	.L22:
+ 219:../LIB_AP/Ap_GLcdMenu.c ****            		I2C_Data[0] = 0x00;
+ 682              		.loc 1 219 0
+ 683 0264 0024     		movs	r4, #0
+ 220:../LIB_AP/Ap_GLcdMenu.c ****            		Ret = Hw_I2C_IMU_MPU6050_WriteReg( 0x6B, 0x00 );
+ 684              		.loc 1 220 0
+ 685 0266 2146     		mov	r1, r4
+ 686 0268 6B20     		movs	r0, #107
+ 687 026a 314F     		ldr	r7, .L46+48
+ 219:../LIB_AP/Ap_GLcdMenu.c ****            		I2C_Data[0] = 0x00;
+ 688              		.loc 1 219 0
+ 689 026c 8DF80C40 		strb	r4, [sp, #12]
+ 220:../LIB_AP/Ap_GLcdMenu.c ****            		Ret = Hw_I2C_IMU_MPU6050_WriteReg( 0x6B, 0x00 );
+ 690              		.loc 1 220 0
+ 691 0270 B847     		blx	r7
+ 692              	.LVL55:
+ 693 0272 0146     		mov	r1, r0
+ 694              	.LVL56:
+ 221:../LIB_AP/Ap_GLcdMenu.c ****            		Lb_printf("I2C Write Ret : %d\n", Ret);
+ 695              		.loc 1 221 0
+ 696 0274 2F48     		ldr	r0, .L46+52
+ 697              	.LVL57:
+ 698 0276 A847     		blx	r5
+ 699              	.LVL58:
+ 700              	.LBB4:
+ 227:../LIB_AP/Ap_GLcdMenu.c ****            			I2C_Data[0] = 0x00;
+ 701              		.loc 1 227 0
+ 702 0278 A046     		mov	r8, r4
+ 703              	.LVL59:
+ 704              	.L29:
+ 228:../LIB_AP/Ap_GLcdMenu.c ****            			Ret = Hw_I2C_IMU_MPU6050_WriteReg( i, 0x00 );
+ 705              		.loc 1 228 0 discriminator 2
+ 706 027a 0021     		movs	r1, #0
+ 223:../LIB_AP/Ap_GLcdMenu.c ****            		for( int i=0; i<=0x75; i++ )
+ 707              		.loc 1 223 0 discriminator 2
+ 708 027c 661C     		adds	r6, r4, #1
+ 228:../LIB_AP/Ap_GLcdMenu.c ****            			Ret = Hw_I2C_IMU_MPU6050_WriteReg( i, 0x00 );
+ 709              		.loc 1 228 0 discriminator 2
+ 710 027e E0B2     		uxtb	r0, r4
+ 227:../LIB_AP/Ap_GLcdMenu.c ****            			I2C_Data[0] = 0x00;
+ 711              		.loc 1 227 0 discriminator 2
+ 712 0280 8DF80C80 		strb	r8, [sp, #12]
+ 223:../LIB_AP/Ap_GLcdMenu.c ****            		for( int i=0; i<=0x75; i++ )
+ 713              		.loc 1 223 0 discriminator 2
+ 714 0284 0234     		adds	r4, r4, #2
+ 228:../LIB_AP/Ap_GLcdMenu.c ****            			Ret = Hw_I2C_IMU_MPU6050_WriteReg( i, 0x00 );
+ 715              		.loc 1 228 0 discriminator 2
+ 716 0286 B847     		blx	r7
+ 717              	.LVL60:
+ 718 0288 0021     		movs	r1, #0
+ 719 028a F0B2     		uxtb	r0, r6
+ 227:../LIB_AP/Ap_GLcdMenu.c ****            			I2C_Data[0] = 0x00;
+ 720              		.loc 1 227 0 discriminator 2
+ 721 028c 8DF80C80 		strb	r8, [sp, #12]
+ 228:../LIB_AP/Ap_GLcdMenu.c ****            			Ret = Hw_I2C_IMU_MPU6050_WriteReg( i, 0x00 );
+ 722              		.loc 1 228 0 discriminator 2
+ 723 0290 B847     		blx	r7
+ 724              	.LVL61:
+ 223:../LIB_AP/Ap_GLcdMenu.c ****            		for( int i=0; i<=0x75; i++ )
+ 725              		.loc 1 223 0 discriminator 2
+ 726 0292 762C     		cmp	r4, #118
+ 727 0294 F1D1     		bne	.L29
+ 728 0296 CAE6     		b	.L41
+ 729              	.LVL62:
+ 730              	.L21:
+ 731              	.LBE4:
+ 214:../LIB_AP/Ap_GLcdMenu.c **** 				Hw_Timer_Stop( HW_TIMER_CH_DEBUG1 );
+ 732              		.loc 1 214 0
+ 733 0298 0120     		movs	r0, #1
+ 734 029a 274C     		ldr	r4, .L46+56
+ 735 029c A047     		blx	r4
+ 736              	.LVL63:
+ 215:../LIB_AP/Ap_GLcdMenu.c **** 				Hw_Timer_Stop( HW_TIMER_CH_DEBUG2 );
+ 737              		.loc 1 215 0
+ 738 029e 0220     		movs	r0, #2
+ 739 02a0 A047     		blx	r4
+ 740              	.LVL64:
+ 216:../LIB_AP/Ap_GLcdMenu.c ****                break;  
+ 741              		.loc 1 216 0
+ 742 02a2 C4E6     		b	.L41
+ 743              	.L20:
+ 209:../LIB_AP/Ap_GLcdMenu.c **** 				Hw_Timer_Start( HW_TIMER_CH_DEBUG1 );
+ 744              		.loc 1 209 0
+ 745 02a4 0120     		movs	r0, #1
+ 746 02a6 254C     		ldr	r4, .L46+60
+ 747 02a8 A047     		blx	r4
+ 748              	.LVL65:
+ 210:../LIB_AP/Ap_GLcdMenu.c **** 				Hw_Timer_Start( HW_TIMER_CH_DEBUG2 );
+ 749              		.loc 1 210 0
+ 750 02aa 0220     		movs	r0, #2
+ 751 02ac A047     		blx	r4
+ 752              	.LVL66:
+ 211:../LIB_AP/Ap_GLcdMenu.c ****                break;  
+ 753              		.loc 1 211 0
+ 754 02ae BEE6     		b	.L41
+ 755              	.L19:
+ 200:../LIB_AP/Ap_GLcdMenu.c ****            		Lb_printf("Count -- \n");
+ 756              		.loc 1 200 0
+ 757 02b0 2348     		ldr	r0, .L46+64
+ 758 02b2 A847     		blx	r5
+ 759              	.LVL67:
+ 203:../LIB_AP/Ap_GLcdMenu.c **** 				Hw_N5110G_DrawPrint(0,2,"Count : %4d", --Count);						
+ 760              		.loc 1 203 0
+ 761 02b4 234E     		ldr	r6, .L46+68
+ 202:../LIB_AP/Ap_GLcdMenu.c **** 				Hw_N5110G_DrawPrint(0,0,"Smartrobot BD");								
+ 762              		.loc 1 202 0
+ 763 02b6 0020     		movs	r0, #0
+ 764 02b8 0146     		mov	r1, r0
+ 765 02ba 234A     		ldr	r2, .L46+72
+ 766 02bc 234C     		ldr	r4, .L46+76
+ 767 02be A047     		blx	r4
+ 768              	.LVL68:
+ 203:../LIB_AP/Ap_GLcdMenu.c **** 				Hw_N5110G_DrawPrint(0,2,"Count : %4d", --Count);						
+ 769              		.loc 1 203 0
+ 770 02c0 3778     		ldrb	r7, [r6, #0]	@ zero_extendqisi2
+ 771 02c2 234A     		ldr	r2, .L46+80
+ 772 02c4 0221     		movs	r1, #2
+ 773 02c6 781E     		subs	r0, r7, #1
+ 774              	.L43:
+ 775 02c8 C7B2     		uxtb	r7, r0
+ 776 02ca 3B46     		mov	r3, r7
+ 777 02cc 0020     		movs	r0, #0
+ 778 02ce 3770     		strb	r7, [r6, #0]
+ 779 02d0 A047     		blx	r4
+ 780              	.LVL69:
+ 204:../LIB_AP/Ap_GLcdMenu.c **** 				Hw_N5110G_DrawRequest();
+ 781              		.loc 1 204 0
+ 782 02d2 2049     		ldr	r1, .L46+84
+ 783 02d4 8847     		blx	r1
+ 784              	.LVL70:
+ 206:../LIB_AP/Ap_GLcdMenu.c ****                break; 
+ 785              		.loc 1 206 0
+ 786 02d6 AAE6     		b	.L41
+ 787              	.L18:
+ 191:../LIB_AP/Ap_GLcdMenu.c ****            		Lb_printf("Count ++ \n");
+ 788              		.loc 1 191 0
+ 789 02d8 1F48     		ldr	r0, .L46+88
+ 790 02da A847     		blx	r5
+ 791              	.LVL71:
+ 194:../LIB_AP/Ap_GLcdMenu.c **** 				Hw_N5110G_DrawPrint(0,2,"Count : %4d", ++Count);						
+ 792              		.loc 1 194 0
+ 793 02dc 194E     		ldr	r6, .L46+68
+ 193:../LIB_AP/Ap_GLcdMenu.c **** 				Hw_N5110G_DrawPrint(0,0,"Smartrobot BD");								
+ 794              		.loc 1 193 0
+ 795 02de 0020     		movs	r0, #0
+ 796 02e0 0146     		mov	r1, r0
+ 797 02e2 194A     		ldr	r2, .L46+72
+ 798 02e4 194C     		ldr	r4, .L46+76
+ 799 02e6 A047     		blx	r4
+ 800              	.LVL72:
+ 194:../LIB_AP/Ap_GLcdMenu.c **** 				Hw_N5110G_DrawPrint(0,2,"Count : %4d", ++Count);						
+ 801              		.loc 1 194 0
+ 802 02e8 3378     		ldrb	r3, [r6, #0]	@ zero_extendqisi2
+ 803 02ea 0221     		movs	r1, #2
+ 804 02ec 184A     		ldr	r2, .L46+80
+ 805 02ee 581C     		adds	r0, r3, #1
+ 806 02f0 EAE7     		b	.L43
+ 807              	.L17:
+ 186:../LIB_AP/Ap_GLcdMenu.c ****            		Lb_printf("LCD Clear \n");
+ 808              		.loc 1 186 0
+ 809 02f2 1A48     		ldr	r0, .L46+92
+ 810 02f4 A847     		blx	r5
+ 811              	.LVL73:
+ 187:../LIB_AP/Ap_GLcdMenu.c ****            		Hw_N5110G_Clear();
+ 812              		.loc 1 187 0
+ 813 02f6 1A4A     		ldr	r2, .L46+96
+ 814 02f8 9047     		blx	r2
+ 815              	.LVL74:
+ 188:../LIB_AP/Ap_GLcdMenu.c ****                	break;
+ 816              		.loc 1 188 0
+ 817 02fa 98E6     		b	.L41
+ 818              	.L26:
+ 277:../LIB_AP/Ap_GLcdMenu.c **** 				Ap_GLcdMenu_ShowMenu();
+ 819              		.loc 1 277 0
+ 820 02fc D047     		blx	sl
+ 821              	.LVL75:
+ 278:../LIB_AP/Ap_GLcdMenu.c **** 				break;
+ 822              		.loc 1 278 0
+ 823 02fe 96E6     		b	.L41
+ 824              	.L47:
+ 825              		.align	2
+ 826              	.L46:
+ 827 0300 00000000 		.word	Hw_Timer_Set
+ 828 0304 00000000 		.word	Ap_GCldMenu_MoveCircleTick_1st
+ 829 0308 00000000 		.word	Ap_GCldMenu_MoveCircleTick_2nd
+ 830 030c 00000000 		.word	Lb_printf
+ 831 0310 58030000 		.word	.LC24
+ 832 0314 60030000 		.word	.LC25
+ 833 0318 68030000 		.word	.LC26
+ 834 031c 70030000 		.word	.LC27
+ 835 0320 50030000 		.word	.LC23
+ 836 0324 44030000 		.word	.LC22
+ 837 0328 00000000 		.word	Hw_I2C_IMU_MPU6050_ReadReg
+ 838 032c 2C030000 		.word	.LC21
+ 839 0330 00000000 		.word	Hw_I2C_IMU_MPU6050_WriteReg
+ 840 0334 18030000 		.word	.LC20
+ 841 0338 00000000 		.word	Hw_Timer_Stop
+ 842 033c 00000000 		.word	Hw_Timer_Start
+ 843 0340 0C030000 		.word	.LC19
+ 844 0344 00000000 		.word	.LANCHOR6
+ 845 0348 F0020000 		.word	.LC17
+ 846 034c 00000000 		.word	Hw_N5110G_DrawPrint
+ 847 0350 00030000 		.word	.LC18
+ 848 0354 00000000 		.word	Hw_N5110G_DrawRequest
+ 849 0358 E4020000 		.word	.LC16
+ 850 035c D8020000 		.word	.LC15
+ 851 0360 00000000 		.word	Hw_N5110G_Clear
+ 852 0364 00000000 		.word	Ap_GLcdMenu_ShowMenu
+ 853 0368 00000000 		.word	Ap_GLcdMenu_GetCmd
+ 854              	.LVL76:
+ 855              	.L45:
+ 856              	.LBB5:
+ 249:../LIB_AP/Ap_GLcdMenu.c ****            			if( i%10 == 0 ) Lb_printf("\n %03d: ", i);
+ 857              		.loc 1 249 0
+ 858 036c 0148     		ldr	r0, .L48
+ 859 036e 5946     		mov	r1, fp
+ 860 0370 A847     		blx	r5
+ 861              	.LVL77:
+ 862 0372 40E7     		b	.L38
+ 863              	.L49:
+ 864              		.align	2
+ 865              	.L48:
+ 866 0374 44030000 		.word	.LC22
+ 867              	.LBE5:
+ 868              	.LBE7:
+ 869              		.cfi_endproc
+ 870              	.LFE4:
+ 872              		.section	.bss.cnt.4399,"aw",%nobits
+ 873              		.set	.LANCHOR2,. + 0
+ 876              	cnt.4399:
+ 877 0000 00       		.space	1
+ 878              		.section	.bss.x.4397,"aw",%nobits
+ 879              		.set	.LANCHOR0,. + 0
+ 882              	x.4397:
+ 883 0000 00       		.space	1
+ 884              		.section	.data.dir.4398,"aw",%progbits
+ 885              		.set	.LANCHOR1,. + 0
+ 888              	dir.4398:
+ 889 0000 01       		.byte	1
+ 890              		.section	.bss.Count.4416,"aw",%nobits
+ 891              		.set	.LANCHOR6,. + 0
+ 894              	Count.4416:
+ 895 0000 00       		.space	1
+ 896              		.section	.bss.cnt.4391,"aw",%nobits
+ 897              		.set	.LANCHOR5,. + 0
+ 900              	cnt.4391:
+ 901 0000 00       		.space	1
+ 902              		.section	.rodata.str1.4,"aMS",%progbits,1
+ 903              		.align	2
+ 904              	.LC0:
+ 905 0000 0A0A00   		.ascii	"\012\012\000"
+ 906 0003 00       		.space	1
+ 907              	.LC1:
+ 908 0004 2A2A2A2A 		.ascii	"***************************************************"
+ 908      2A2A2A2A 
+ 908      2A2A2A2A 
+ 908      2A2A2A2A 
+ 908      2A2A2A2A 
+ 909 0037 2A2A2A2A 		.ascii	"****\012\000"
+ 909      0A00
+ 910 003d 000000   		.space	3
+ 911              	.LC2:
+ 912 0040 20202020 		.ascii	"                      GLcd V0.2                    "
+ 912      20202020 
+ 912      20202020 
+ 912      20202020 
+ 912      20202020 
+ 913 0073 2020200A 		.ascii	"   \012\000"
+ 913      00
+ 914              	.LC3:
+ 915 0078 2A20312E 		.ascii	"* 1. LCD Clear                                     "
+ 915      204C4344 
+ 915      20436C65 
+ 915      61722020 
+ 915      20202020 
+ 916 00ab 2020202A 		.ascii	"   *\012\000"
+ 916      0A00
+ 917 00b1 000000   		.space	3
+ 918              	.LC4:
+ 919 00b4 2A20322E 		.ascii	"* 2. Count ++                                      "
+ 919      20436F75 
+ 919      6E74202B 
+ 919      2B202020 
+ 919      20202020 
+ 920 00e7 2020202A 		.ascii	"   *\012\000"
+ 920      0A00
+ 921 00ed 000000   		.space	3
+ 922              	.LC5:
+ 923 00f0 2A20332E 		.ascii	"* 3. Count --                                      "
+ 923      20436F75 
+ 923      6E74202D 
+ 923      2D202020 
+ 923      20202020 
+ 924 0123 2020202A 		.ascii	"   *\012\000"
+ 924      0A00
+ 925 0129 000000   		.space	3
+ 926              	.LC6:
+ 927 012c 2A20342E 		.ascii	"* 4. Move Circle Start                             "
+ 927      204D6F76 
+ 927      65204369 
+ 927      72636C65 
+ 927      20537461 
+ 928 015f 2020202A 		.ascii	"   *\012\000"
+ 928      0A00
+ 929 0165 000000   		.space	3
+ 930              	.LC7:
+ 931 0168 2A20352E 		.ascii	"* 5. Move Circle End                               "
+ 931      204D6F76 
+ 931      65204369 
+ 931      72636C65 
+ 931      20456E64 
+ 932 019b 2020202A 		.ascii	"   *\012\000"
+ 932      0A00
+ 933 01a1 000000   		.space	3
+ 934              	.LC8:
+ 935 01a4 2A20362E 		.ascii	"* 6. I2C HW TX                                     "
+ 935      20493243 
+ 935      20485720 
+ 935      54582020 
+ 935      20202020 
+ 936 01d7 2020202A 		.ascii	"   *\012\000"
+ 936      0A00
+ 937 01dd 000000   		.space	3
+ 938              	.LC9:
+ 939 01e0 2A20372E 		.ascii	"* 7. I2C HW RX                                     "
+ 939      20493243 
+ 939      20485720 
+ 939      52582020 
+ 939      20202020 
+ 940 0213 2020202A 		.ascii	"   *\012\000"
+ 940      0A00
+ 941 0219 000000   		.space	3
+ 942              	.LC10:
+ 943 021c 2A20382E 		.ascii	"* 8.                                               "
+ 943      20202020 
+ 943      20202020 
+ 943      20202020 
+ 943      20202020 
+ 944 024f 2020202A 		.ascii	"   *\012\000"
+ 944      0A00
+ 945 0255 000000   		.space	3
+ 946              	.LC11:
+ 947 0258 2A20392E 		.ascii	"* 9.                                               "
+ 947      20202020 
+ 947      20202020 
+ 947      20202020 
+ 947      20202020 
+ 948 028b 2020202A 		.ascii	"   *\012\000"
+ 948      0A00
+ 949 0291 000000   		.space	3
+ 950              	.LC12:
+ 951 0294 2A206D2E 		.ascii	"* m.  Menu                                         "
+ 951      20204D65 
+ 951      6E752020 
+ 951      20202020 
+ 951      20202020 
+ 952 02c7 2020202A 		.ascii	"   *\012\000"
+ 952      0A00
+ 953 02cd 000000   		.space	3
+ 954              	.LC13:
+ 955 02d0 0A00     		.ascii	"\012\000"
+ 956 02d2 0000     		.space	2
+ 957              	.LC14:
+ 958 02d4 3E3E2000 		.ascii	">> \000"
+ 959              	.LC15:
+ 960 02d8 4C434420 		.ascii	"LCD Clear \012\000"
+ 960      436C6561 
+ 960      72200A00 
+ 961              	.LC16:
+ 962 02e4 436F756E 		.ascii	"Count ++ \012\000"
+ 962      74202B2B 
+ 962      200A00
+ 963 02ef 00       		.space	1
+ 964              	.LC17:
+ 965 02f0 536D6172 		.ascii	"Smartrobot BD\000"
+ 965      74726F62 
+ 965      6F742042 
+ 965      4400
+ 966 02fe 0000     		.space	2
+ 967              	.LC18:
+ 968 0300 436F756E 		.ascii	"Count : %4d\000"
+ 968      74203A20 
+ 968      25346400 
+ 969              	.LC19:
+ 970 030c 436F756E 		.ascii	"Count -- \012\000"
+ 970      74202D2D 
+ 970      200A00
+ 971 0317 00       		.space	1
+ 972              	.LC20:
+ 973 0318 49324320 		.ascii	"I2C Write Ret : %d\012\000"
+ 973      57726974 
+ 973      65205265 
+ 973      74203A20 
+ 973      25640A00 
+ 974              	.LC21:
+ 975 032c 49324320 		.ascii	"I2C Read Ret : %d 0x%x\012\000"
+ 975      52656164 
+ 975      20526574 
+ 975      203A2025 
+ 975      64203078 
+ 976              	.LC22:
+ 977 0344 0A202530 		.ascii	"\012 %03d: \000"
+ 977      33643A20 
+ 977      00
+ 978 034d 000000   		.space	3
+ 979              	.LC23:
+ 980 0350 25303278 		.ascii	"%02x \000"
+ 980      2000
+ 981 0356 0000     		.space	2
+ 982              	.LC24:
+ 983 0358 41582025 		.ascii	"AX %d \000"
+ 983      642000
+ 984 035f 00       		.space	1
+ 985              	.LC25:
+ 986 0360 41592025 		.ascii	"AY %d \000"
+ 986      642000
+ 987 0367 00       		.space	1
+ 988              	.LC26:
+ 989 0368 415A2025 		.ascii	"AZ %d \000"
+ 989      642000
+ 990 036f 00       		.space	1
+ 991              	.LC27:
+ 992 0370 54202564 		.ascii	"T %d \000"
+ 992      2000
+ 993 0376 0000     		.section	.bss.x.4389,"aw",%nobits
+ 994              		.set	.LANCHOR3,. + 0
+ 997              	x.4389:
+ 998 0000 00       		.space	1
+ 999              		.section	.data.dir.4390,"aw",%progbits
+ 1000              		.set	.LANCHOR4,. + 0
+ 1003              	dir.4390:
+ 1004 0000 01       		.byte	1
+ 1005              		.text
+ 1006              	.Letext0:
+ 1007              		.file 2 "../LIB_HW/Hw_Define.h"
 DEFINED SYMBOLS
-                            *ABS*:0000000000000000 Hw_I2C_HW.c
-/var/folders/bz/nn5481rn5xq59rb0mbj7x0880000gn/T//ccvSDkkF.s:19     .text.Hw_I2C_HW_IO_Setup:0000000000000000 $t
-/var/folders/bz/nn5481rn5xq59rb0mbj7x0880000gn/T//ccvSDkkF.s:24     .text.Hw_I2C_HW_IO_Setup:0000000000000000 Hw_I2C_HW_IO_Setup
-/var/folders/bz/nn5481rn5xq59rb0mbj7x0880000gn/T//ccvSDkkF.s:71     .text.Hw_I2C_HW_Init:0000000000000000 $t
-/var/folders/bz/nn5481rn5xq59rb0mbj7x0880000gn/T//ccvSDkkF.s:76     .text.Hw_I2C_HW_Init:0000000000000000 Hw_I2C_HW_Init
-/var/folders/bz/nn5481rn5xq59rb0mbj7x0880000gn/T//ccvSDkkF.s:156    .text.Hw_I2C_HW_Read:0000000000000000 $t
-/var/folders/bz/nn5481rn5xq59rb0mbj7x0880000gn/T//ccvSDkkF.s:161    .text.Hw_I2C_HW_Read:0000000000000000 Hw_I2C_HW_Read
-/var/folders/bz/nn5481rn5xq59rb0mbj7x0880000gn/T//ccvSDkkF.s:177    .text.Hw_I2C_HW_WaitForBitSet:0000000000000000 $t
-/var/folders/bz/nn5481rn5xq59rb0mbj7x0880000gn/T//ccvSDkkF.s:182    .text.Hw_I2C_HW_WaitForBitSet:0000000000000000 Hw_I2C_HW_WaitForBitSet
-/var/folders/bz/nn5481rn5xq59rb0mbj7x0880000gn/T//ccvSDkkF.s:270    .text.Hw_I2C_HW_GetErrStatus:0000000000000000 $t
-/var/folders/bz/nn5481rn5xq59rb0mbj7x0880000gn/T//ccvSDkkF.s:275    .text.Hw_I2C_HW_GetErrStatus:0000000000000000 Hw_I2C_HW_GetErrStatus
-/var/folders/bz/nn5481rn5xq59rb0mbj7x0880000gn/T//ccvSDkkF.s:327    .text.Hw_I2C_HW_Write:0000000000000000 $t
-/var/folders/bz/nn5481rn5xq59rb0mbj7x0880000gn/T//ccvSDkkF.s:332    .text.Hw_I2C_HW_Write:0000000000000000 Hw_I2C_HW_Write
-/var/folders/bz/nn5481rn5xq59rb0mbj7x0880000gn/T//ccvSDkkF.s:722    .text.Hw_I2C_HW_Write:0000000000000170 $d
+                            *ABS*:0000000000000000 Ap_GLcdMenu.c
+/var/folders/bz/nn5481rn5xq59rb0mbj7x0880000gn/T//ccESzxtX.s:19     .text.Ap_GCldMenu_MoveCircleTick_2nd:0000000000000000 $t
+/var/folders/bz/nn5481rn5xq59rb0mbj7x0880000gn/T//ccESzxtX.s:24     .text.Ap_GCldMenu_MoveCircleTick_2nd:0000000000000000 Ap_GCldMenu_MoveCircleTick_2nd
+/var/folders/bz/nn5481rn5xq59rb0mbj7x0880000gn/T//ccESzxtX.s:106    .text.Ap_GCldMenu_MoveCircleTick_2nd:000000000000005c $d
+/var/folders/bz/nn5481rn5xq59rb0mbj7x0880000gn/T//ccESzxtX.s:116    .text.Ap_GCldMenu_MoveCircleTick_1st:0000000000000000 $t
+/var/folders/bz/nn5481rn5xq59rb0mbj7x0880000gn/T//ccESzxtX.s:121    .text.Ap_GCldMenu_MoveCircleTick_1st:0000000000000000 Ap_GCldMenu_MoveCircleTick_1st
+/var/folders/bz/nn5481rn5xq59rb0mbj7x0880000gn/T//ccESzxtX.s:202    .text.Ap_GCldMenu_MoveCircleTick_1st:000000000000005c $d
+/var/folders/bz/nn5481rn5xq59rb0mbj7x0880000gn/T//ccESzxtX.s:212    .text.Ap_GLcdMenu_ShowMenu:0000000000000000 $t
+/var/folders/bz/nn5481rn5xq59rb0mbj7x0880000gn/T//ccESzxtX.s:217    .text.Ap_GLcdMenu_ShowMenu:0000000000000000 Ap_GLcdMenu_ShowMenu
+/var/folders/bz/nn5481rn5xq59rb0mbj7x0880000gn/T//ccESzxtX.s:904    .rodata.str1.4:0000000000000000 .LC0
+/var/folders/bz/nn5481rn5xq59rb0mbj7x0880000gn/T//ccESzxtX.s:907    .rodata.str1.4:0000000000000004 .LC1
+/var/folders/bz/nn5481rn5xq59rb0mbj7x0880000gn/T//ccESzxtX.s:911    .rodata.str1.4:0000000000000040 .LC2
+/var/folders/bz/nn5481rn5xq59rb0mbj7x0880000gn/T//ccESzxtX.s:914    .rodata.str1.4:0000000000000078 .LC3
+/var/folders/bz/nn5481rn5xq59rb0mbj7x0880000gn/T//ccESzxtX.s:918    .rodata.str1.4:00000000000000b4 .LC4
+/var/folders/bz/nn5481rn5xq59rb0mbj7x0880000gn/T//ccESzxtX.s:922    .rodata.str1.4:00000000000000f0 .LC5
+/var/folders/bz/nn5481rn5xq59rb0mbj7x0880000gn/T//ccESzxtX.s:926    .rodata.str1.4:000000000000012c .LC6
+/var/folders/bz/nn5481rn5xq59rb0mbj7x0880000gn/T//ccESzxtX.s:930    .rodata.str1.4:0000000000000168 .LC7
+/var/folders/bz/nn5481rn5xq59rb0mbj7x0880000gn/T//ccESzxtX.s:934    .rodata.str1.4:00000000000001a4 .LC8
+/var/folders/bz/nn5481rn5xq59rb0mbj7x0880000gn/T//ccESzxtX.s:938    .rodata.str1.4:00000000000001e0 .LC9
+/var/folders/bz/nn5481rn5xq59rb0mbj7x0880000gn/T//ccESzxtX.s:942    .rodata.str1.4:000000000000021c .LC10
+/var/folders/bz/nn5481rn5xq59rb0mbj7x0880000gn/T//ccESzxtX.s:946    .rodata.str1.4:0000000000000258 .LC11
+/var/folders/bz/nn5481rn5xq59rb0mbj7x0880000gn/T//ccESzxtX.s:950    .rodata.str1.4:0000000000000294 .LC12
+/var/folders/bz/nn5481rn5xq59rb0mbj7x0880000gn/T//ccESzxtX.s:954    .rodata.str1.4:00000000000002d0 .LC13
+/var/folders/bz/nn5481rn5xq59rb0mbj7x0880000gn/T//ccESzxtX.s:320    .text.Ap_GLcdMenu_GetCmd:0000000000000000 $t
+/var/folders/bz/nn5481rn5xq59rb0mbj7x0880000gn/T//ccESzxtX.s:325    .text.Ap_GLcdMenu_GetCmd:0000000000000000 Ap_GLcdMenu_GetCmd
+/var/folders/bz/nn5481rn5xq59rb0mbj7x0880000gn/T//ccESzxtX.s:957    .rodata.str1.4:00000000000002d4 .LC14
+/var/folders/bz/nn5481rn5xq59rb0mbj7x0880000gn/T//ccESzxtX.s:365    .text.Ap_GLcdMenu_ExeCmd:0000000000000000 $t
+/var/folders/bz/nn5481rn5xq59rb0mbj7x0880000gn/T//ccESzxtX.s:370    .text.Ap_GLcdMenu_ExeCmd:0000000000000000 Ap_GLcdMenu_ExeCmd
+/var/folders/bz/nn5481rn5xq59rb0mbj7x0880000gn/T//ccESzxtX.s:437    .text.Ap_GLcdMenu_ExeCmd:0000000000000048 $d
+/var/folders/bz/nn5481rn5xq59rb0mbj7x0880000gn/T//ccESzxtX.s:501    .text.Ap_GLcdMenu_ExeCmd:000000000000013c $t
+/var/folders/bz/nn5481rn5xq59rb0mbj7x0880000gn/T//ccESzxtX.s:827    .text.Ap_GLcdMenu_ExeCmd:0000000000000300 $d
+/var/folders/bz/nn5481rn5xq59rb0mbj7x0880000gn/T//ccESzxtX.s:858    .text.Ap_GLcdMenu_ExeCmd:000000000000036c $t
+/var/folders/bz/nn5481rn5xq59rb0mbj7x0880000gn/T//ccESzxtX.s:866    .text.Ap_GLcdMenu_ExeCmd:0000000000000374 $d
+/var/folders/bz/nn5481rn5xq59rb0mbj7x0880000gn/T//ccESzxtX.s:876    .bss.cnt.4399:0000000000000000 cnt.4399
+/var/folders/bz/nn5481rn5xq59rb0mbj7x0880000gn/T//ccESzxtX.s:877    .bss.cnt.4399:0000000000000000 $d
+/var/folders/bz/nn5481rn5xq59rb0mbj7x0880000gn/T//ccESzxtX.s:882    .bss.x.4397:0000000000000000 x.4397
+/var/folders/bz/nn5481rn5xq59rb0mbj7x0880000gn/T//ccESzxtX.s:883    .bss.x.4397:0000000000000000 $d
+/var/folders/bz/nn5481rn5xq59rb0mbj7x0880000gn/T//ccESzxtX.s:888    .data.dir.4398:0000000000000000 dir.4398
+/var/folders/bz/nn5481rn5xq59rb0mbj7x0880000gn/T//ccESzxtX.s:894    .bss.Count.4416:0000000000000000 Count.4416
+/var/folders/bz/nn5481rn5xq59rb0mbj7x0880000gn/T//ccESzxtX.s:895    .bss.Count.4416:0000000000000000 $d
+/var/folders/bz/nn5481rn5xq59rb0mbj7x0880000gn/T//ccESzxtX.s:900    .bss.cnt.4391:0000000000000000 cnt.4391
+/var/folders/bz/nn5481rn5xq59rb0mbj7x0880000gn/T//ccESzxtX.s:901    .bss.cnt.4391:0000000000000000 $d
+/var/folders/bz/nn5481rn5xq59rb0mbj7x0880000gn/T//ccESzxtX.s:903    .rodata.str1.4:0000000000000000 $d
+/var/folders/bz/nn5481rn5xq59rb0mbj7x0880000gn/T//ccESzxtX.s:997    .bss.x.4389:0000000000000000 x.4389
+/var/folders/bz/nn5481rn5xq59rb0mbj7x0880000gn/T//ccESzxtX.s:998    .bss.x.4389:0000000000000000 $d
+/var/folders/bz/nn5481rn5xq59rb0mbj7x0880000gn/T//ccESzxtX.s:1003   .data.dir.4390:0000000000000000 dir.4390
                      .debug_frame:0000000000000010 $d
 
-NO UNDEFINED SYMBOLS
+UNDEFINED SYMBOLS
+Hw_N5110G_DrawClearRect
+Hw_N5110G_DrawCircle
+Hw_N5110G_DrawRequest
+Lb_printf
+get_byte
+Hw_I2C_IMU_MPU6050_ReadRegs
+Hw_Timer_Set
+Hw_I2C_IMU_MPU6050_ReadReg
+Hw_I2C_IMU_MPU6050_WriteReg
+Hw_Timer_Stop
+Hw_Timer_Start
+Hw_N5110G_DrawPrint
+Hw_N5110G_Clear

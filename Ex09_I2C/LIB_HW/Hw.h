@@ -53,6 +53,7 @@
 #include "Hw_Si47xx.h"
 #include "Hw_SPI.h"
 #include "Hw_N5110G.h"
+#include "Hw_I2C_IMU.h"
 
 #include "Hw_VCom.h"
 
