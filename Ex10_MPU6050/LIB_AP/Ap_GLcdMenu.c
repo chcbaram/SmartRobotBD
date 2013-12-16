@@ -39,61 +39,6 @@ void Ap_GLcdMenu_ShowMenu(void);
 
   
 
-void Ap_GCldMenu_MoveCircleTick_1st( void )
-{
-	static s8 x   = 0;
-	static s8 dir = 1;
-	static u8 cnt = 0;
-	
-	Hw_N5110G_DrawClearRect( 0, 25, HW_N5110G_WIDTH, 35 );           						
-	Hw_N5110G_DrawCircle( 10 + x, 30, 5, 0 ); 								
- 	Hw_N5110G_DrawRequest();
- 	
- 	x += dir;
- 	
- 	if( x >= (HW_N5110G_WIDTH-15) ) 
- 	{
- 		dir = -1;
- 		x += dir;
- 	}
-
- 	if( x < 0 ) 
- 	{
- 		dir = 1; 		
- 		x  += dir;
- 	}
-
-	cnt++;
-}
-
-    
-void Ap_GCldMenu_MoveCircleTick_2nd( void )
-{
-	static s8 x   = 0;
-	static s8 dir = 1;
-	static u8 cnt = 0;
-	
-	Hw_N5110G_DrawClearRect( 0, 35, HW_N5110G_WIDTH, 45 );           						
-	Hw_N5110G_DrawCircle( 10 + x, 40, 3, 0 ); 							
- 	Hw_N5110G_DrawRequest();
- 	
- 	x += dir;
- 	
- 	if( x >= (HW_N5110G_WIDTH-15) ) 
- 	{
- 		dir = -1;
- 		x += dir;
- 	}
-
- 	if( x < 0 ) 
- 	{
- 		dir = 1; 		
- 		x  += dir;
- 	}
-
-	cnt++;
-}
-
 
 
 /*---------------------------------------------------------------------------
@@ -112,7 +57,7 @@ void Ap_GLcdMenu_ShowMenu(void)
 	Lb_printf("*******************************************************\n");
 	Lb_printf("* 1. LCD Clear                                        *\n");
 	Lb_printf("* 2. Show Acc                                         *\n");
-	Lb_printf("* 3.                                                  *\n");
+	Lb_printf("* 3. Show MPU6050 Regs                                *\n");
 	Lb_printf("* 4.                                                  *\n");
 	Lb_printf("* 5.                                                  *\n");
 	Lb_printf("* 6.                                                  *\n");
@@ -171,16 +116,17 @@ u8 Ap_GLcdMenu_ExeCmd(void)
 	s16 Temperature;	
 	s16 x;
     s16 y;
+    u16 i;
 
     HW_MPU6050_DATA_OBJ MPU6050_Data;
 
 
 	if( ExeFirst == TRUE )
 	{
-		Ap_GLcdMenu_ShowMenu();	
-		
-		Hw_Timer_Set( HW_TIMER_CH_DEBUG1,  50, LOOP_TIME, Ap_GCldMenu_MoveCircleTick_1st, NULL );
-		Hw_Timer_Set( HW_TIMER_CH_DEBUG2, 100, LOOP_TIME, Ap_GCldMenu_MoveCircleTick_2nd, NULL );		
+		Ap_GLcdMenu_ShowMenu();		
+
+		Hw_N5110G_Print( 0, 0, "SmartRobot BD");
+		Hw_N5110G_DrawRequest();
 	}
 
     while( (key = Ap_GLcdMenu_GetCmd()) != 0 )
@@ -219,7 +165,15 @@ u8 Ap_GLcdMenu_ExeCmd(void)
            		
 				break;
 
-           case '3':						
+           case '3':
+           		for( i=0; i<=0x75; i++ )
+           		{
+           			if( i%10 == 0 ) Lb_printf("\n 0x%02x: ", i);
+
+           			I2C_Data[0] = 0x00;
+           			Ret = Hw_I2C_IMU_MPU6050_ReadReg( i, I2C_Data );
+           			Lb_printf("%02x ", I2C_Data[0]);
+           		}           						
                break; 
 
            case '4':
@@ -235,14 +189,6 @@ u8 Ap_GLcdMenu_ExeCmd(void)
                break;  
 
            case '8':
-           		for( int i=0; i<=0x75; i++ )
-           		{
-           			if( i%10 == 0 ) Lb_printf("\n %03d: ", i);
-
-           			I2C_Data[0] = 0x00;
-           			Ret = Hw_I2C_IMU_MPU6050_ReadReg( i, I2C_Data );
-           			Lb_printf("%02x ", I2C_Data[0]);
-           		}
                break;
 
            case '9': 

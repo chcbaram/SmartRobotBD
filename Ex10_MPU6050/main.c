@@ -16,7 +16,8 @@
 		- 초기 프로젝트 작업 시작
 	130823 
 		- Uart 인터럽트 구현
-		
+	131216
+		- MPU6050 구현 	
 */
 
 
@@ -71,8 +72,7 @@ int main(void)
 	Main_Init();
 
 	//-- 명령어 처리
-	//
-	//Ap_RadioMenu_ExeCmd();    
+	//  
 	Ap_GLcdMenu_ExeCmd();    
 
 

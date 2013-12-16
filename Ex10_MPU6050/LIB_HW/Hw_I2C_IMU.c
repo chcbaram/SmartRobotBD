@@ -70,7 +70,7 @@ void Hw_I2C_IMU_Init( void )
 
 	//-- 3. Maximum Rise Time  
 	//
-	REG_I2C1_TRISE = 4;				// 300ns / 100ns + 1 = 4 
+	REG_I2C1_TRISE = 11;			// 300ns / 28ns + 1 = 11 
 
 
 	//-- Clock Enable

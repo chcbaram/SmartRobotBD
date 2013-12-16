@@ -95,7 +95,7 @@
   70:../LIB_HW/Hw_I2C_IMU.c **** 
   71:../LIB_HW/Hw_I2C_IMU.c **** 	//-- 3. Maximum Rise Time  
   72:../LIB_HW/Hw_I2C_IMU.c **** 	//
-  73:../LIB_HW/Hw_I2C_IMU.c **** 	REG_I2C1_TRISE = 4;				// 300ns / 100ns + 1 = 4 
+  73:../LIB_HW/Hw_I2C_IMU.c **** 	REG_I2C1_TRISE = 11;			// 300ns / 28ns + 1 = 11 
   74:../LIB_HW/Hw_I2C_IMU.c **** 
   75:../LIB_HW/Hw_I2C_IMU.c **** 
   76:../LIB_HW/Hw_I2C_IMU.c **** 	//-- Clock Enable
@@ -240,21 +240,21 @@
   66:../LIB_HW/Hw_I2C_IMU.c **** 	REG_I2C1_CCR = 0 
  113              		.loc 1 66 0
  114 002a C4F20000 		movt	r0, 16384
-  73:../LIB_HW/Hw_I2C_IMU.c **** 	REG_I2C1_TRISE = 4;				// 300ns / 100ns + 1 = 4 
+  73:../LIB_HW/Hw_I2C_IMU.c **** 	REG_I2C1_TRISE = 11;			// 300ns / 28ns + 1 = 11 
  115              		.loc 1 73 0
  116 002e 45F22041 		movw	r1, #21536
   66:../LIB_HW/Hw_I2C_IMU.c **** 	REG_I2C1_CCR = 0 
  117              		.loc 1 66 0
  118 0032 48F21E05 		movw	r5, #32798
  119 0036 0560     		str	r5, [r0, #0]
-  73:../LIB_HW/Hw_I2C_IMU.c **** 	REG_I2C1_TRISE = 4;				// 300ns / 100ns + 1 = 4 
+  73:../LIB_HW/Hw_I2C_IMU.c **** 	REG_I2C1_TRISE = 11;			// 300ns / 28ns + 1 = 11 
  120              		.loc 1 73 0
  121 0038 C4F20001 		movt	r1, 16384
- 122 003c 0420     		movs	r0, #4
+ 122 003c 0B20     		movs	r0, #11
   78:../LIB_HW/Hw_I2C_IMU.c **** 	REG_RCC_APB1ENR |= (1<<21);		// I2C1 Clock enable
  123              		.loc 1 78 0
  124 003e 41F21C02 		movw	r2, #4124
-  73:../LIB_HW/Hw_I2C_IMU.c **** 	REG_I2C1_TRISE = 4;				// 300ns / 100ns + 1 = 4 
+  73:../LIB_HW/Hw_I2C_IMU.c **** 	REG_I2C1_TRISE = 11;			// 300ns / 28ns + 1 = 11 
  125              		.loc 1 73 0
  126 0042 0860     		str	r0, [r1, #0]
   78:../LIB_HW/Hw_I2C_IMU.c **** 	REG_RCC_APB1ENR |= (1<<21);		// I2C1 Clock enable
@@ -2295,31 +2295,31 @@
  1546              		.file 2 "../LIB_HW/Hw_Define.h"
 DEFINED SYMBOLS
                             *ABS*:0000000000000000 Hw_I2C_IMU.c
-/var/folders/bz/nn5481rn5xq59rb0mbj7x0880000gn/T//ccx1hMZC.s:19     .text.Hw_I2C_IMU_IO_Setup:0000000000000000 $t
-/var/folders/bz/nn5481rn5xq59rb0mbj7x0880000gn/T//ccx1hMZC.s:24     .text.Hw_I2C_IMU_IO_Setup:0000000000000000 Hw_I2C_IMU_IO_Setup
-/var/folders/bz/nn5481rn5xq59rb0mbj7x0880000gn/T//ccx1hMZC.s:71     .text.Hw_I2C_IMU_Init:0000000000000000 $t
-/var/folders/bz/nn5481rn5xq59rb0mbj7x0880000gn/T//ccx1hMZC.s:76     .text.Hw_I2C_IMU_Init:0000000000000000 Hw_I2C_IMU_Init
-/var/folders/bz/nn5481rn5xq59rb0mbj7x0880000gn/T//ccx1hMZC.s:163    .text.Hw_I2C_IMU_Init:000000000000007c $d
-/var/folders/bz/nn5481rn5xq59rb0mbj7x0880000gn/T//ccx1hMZC.s:169    .text.Hw_I2C_IMU_WaitForBitSet:0000000000000000 $t
-/var/folders/bz/nn5481rn5xq59rb0mbj7x0880000gn/T//ccx1hMZC.s:174    .text.Hw_I2C_IMU_WaitForBitSet:0000000000000000 Hw_I2C_IMU_WaitForBitSet
-/var/folders/bz/nn5481rn5xq59rb0mbj7x0880000gn/T//ccx1hMZC.s:258    .text.Hw_I2C_IMU_GetErrStatus:0000000000000000 $t
-/var/folders/bz/nn5481rn5xq59rb0mbj7x0880000gn/T//ccx1hMZC.s:263    .text.Hw_I2C_IMU_GetErrStatus:0000000000000000 Hw_I2C_IMU_GetErrStatus
-/var/folders/bz/nn5481rn5xq59rb0mbj7x0880000gn/T//ccx1hMZC.s:307    .text.Hw_I2C_IMU_ReadRegs:0000000000000000 $t
-/var/folders/bz/nn5481rn5xq59rb0mbj7x0880000gn/T//ccx1hMZC.s:312    .text.Hw_I2C_IMU_ReadRegs:0000000000000000 Hw_I2C_IMU_ReadRegs
-/var/folders/bz/nn5481rn5xq59rb0mbj7x0880000gn/T//ccx1hMZC.s:924    .text.Hw_I2C_IMU_ReadRegs:0000000000000270 $d
-/var/folders/bz/nn5481rn5xq59rb0mbj7x0880000gn/T//ccx1hMZC.s:931    .text.Hw_I2C_IMU_MPU6050_ReadRegs:0000000000000000 $t
-/var/folders/bz/nn5481rn5xq59rb0mbj7x0880000gn/T//ccx1hMZC.s:936    .text.Hw_I2C_IMU_MPU6050_ReadRegs:0000000000000000 Hw_I2C_IMU_MPU6050_ReadRegs
-/var/folders/bz/nn5481rn5xq59rb0mbj7x0880000gn/T//ccx1hMZC.s:973    .text.Hw_I2C_IMU_MPU6050_ReadReg:0000000000000000 $t
-/var/folders/bz/nn5481rn5xq59rb0mbj7x0880000gn/T//ccx1hMZC.s:978    .text.Hw_I2C_IMU_MPU6050_ReadReg:0000000000000000 Hw_I2C_IMU_MPU6050_ReadReg
-/var/folders/bz/nn5481rn5xq59rb0mbj7x0880000gn/T//ccx1hMZC.s:1010   .text.Hw_I2C_IMU_WriteRegs:0000000000000000 $t
-/var/folders/bz/nn5481rn5xq59rb0mbj7x0880000gn/T//ccx1hMZC.s:1015   .text.Hw_I2C_IMU_WriteRegs:0000000000000000 Hw_I2C_IMU_WriteRegs
-/var/folders/bz/nn5481rn5xq59rb0mbj7x0880000gn/T//ccx1hMZC.s:1447   .text.Hw_I2C_IMU_WriteRegs:0000000000000190 $d
-/var/folders/bz/nn5481rn5xq59rb0mbj7x0880000gn/T//ccx1hMZC.s:1454   .text.Hw_I2C_IMU_MPU6050_WriteRegs:0000000000000000 $t
-/var/folders/bz/nn5481rn5xq59rb0mbj7x0880000gn/T//ccx1hMZC.s:1459   .text.Hw_I2C_IMU_MPU6050_WriteRegs:0000000000000000 Hw_I2C_IMU_MPU6050_WriteRegs
-/var/folders/bz/nn5481rn5xq59rb0mbj7x0880000gn/T//ccx1hMZC.s:1496   .text.Hw_I2C_IMU_MPU6050_WriteReg:0000000000000000 $t
-/var/folders/bz/nn5481rn5xq59rb0mbj7x0880000gn/T//ccx1hMZC.s:1501   .text.Hw_I2C_IMU_MPU6050_WriteReg:0000000000000000 Hw_I2C_IMU_MPU6050_WriteReg
-/var/folders/bz/nn5481rn5xq59rb0mbj7x0880000gn/T//ccx1hMZC.s:1542   .bss.power_on.4364:0000000000000000 power_on.4364
-/var/folders/bz/nn5481rn5xq59rb0mbj7x0880000gn/T//ccx1hMZC.s:1543   .bss.power_on.4364:0000000000000000 $d
+/var/folders/bz/nn5481rn5xq59rb0mbj7x0880000gn/T//cczcb85b.s:19     .text.Hw_I2C_IMU_IO_Setup:0000000000000000 $t
+/var/folders/bz/nn5481rn5xq59rb0mbj7x0880000gn/T//cczcb85b.s:24     .text.Hw_I2C_IMU_IO_Setup:0000000000000000 Hw_I2C_IMU_IO_Setup
+/var/folders/bz/nn5481rn5xq59rb0mbj7x0880000gn/T//cczcb85b.s:71     .text.Hw_I2C_IMU_Init:0000000000000000 $t
+/var/folders/bz/nn5481rn5xq59rb0mbj7x0880000gn/T//cczcb85b.s:76     .text.Hw_I2C_IMU_Init:0000000000000000 Hw_I2C_IMU_Init
+/var/folders/bz/nn5481rn5xq59rb0mbj7x0880000gn/T//cczcb85b.s:163    .text.Hw_I2C_IMU_Init:000000000000007c $d
+/var/folders/bz/nn5481rn5xq59rb0mbj7x0880000gn/T//cczcb85b.s:169    .text.Hw_I2C_IMU_WaitForBitSet:0000000000000000 $t
+/var/folders/bz/nn5481rn5xq59rb0mbj7x0880000gn/T//cczcb85b.s:174    .text.Hw_I2C_IMU_WaitForBitSet:0000000000000000 Hw_I2C_IMU_WaitForBitSet
+/var/folders/bz/nn5481rn5xq59rb0mbj7x0880000gn/T//cczcb85b.s:258    .text.Hw_I2C_IMU_GetErrStatus:0000000000000000 $t
+/var/folders/bz/nn5481rn5xq59rb0mbj7x0880000gn/T//cczcb85b.s:263    .text.Hw_I2C_IMU_GetErrStatus:0000000000000000 Hw_I2C_IMU_GetErrStatus
+/var/folders/bz/nn5481rn5xq59rb0mbj7x0880000gn/T//cczcb85b.s:307    .text.Hw_I2C_IMU_ReadRegs:0000000000000000 $t
+/var/folders/bz/nn5481rn5xq59rb0mbj7x0880000gn/T//cczcb85b.s:312    .text.Hw_I2C_IMU_ReadRegs:0000000000000000 Hw_I2C_IMU_ReadRegs
+/var/folders/bz/nn5481rn5xq59rb0mbj7x0880000gn/T//cczcb85b.s:924    .text.Hw_I2C_IMU_ReadRegs:0000000000000270 $d
+/var/folders/bz/nn5481rn5xq59rb0mbj7x0880000gn/T//cczcb85b.s:931    .text.Hw_I2C_IMU_MPU6050_ReadRegs:0000000000000000 $t
+/var/folders/bz/nn5481rn5xq59rb0mbj7x0880000gn/T//cczcb85b.s:936    .text.Hw_I2C_IMU_MPU6050_ReadRegs:0000000000000000 Hw_I2C_IMU_MPU6050_ReadRegs
+/var/folders/bz/nn5481rn5xq59rb0mbj7x0880000gn/T//cczcb85b.s:973    .text.Hw_I2C_IMU_MPU6050_ReadReg:0000000000000000 $t
+/var/folders/bz/nn5481rn5xq59rb0mbj7x0880000gn/T//cczcb85b.s:978    .text.Hw_I2C_IMU_MPU6050_ReadReg:0000000000000000 Hw_I2C_IMU_MPU6050_ReadReg
+/var/folders/bz/nn5481rn5xq59rb0mbj7x0880000gn/T//cczcb85b.s:1010   .text.Hw_I2C_IMU_WriteRegs:0000000000000000 $t
+/var/folders/bz/nn5481rn5xq59rb0mbj7x0880000gn/T//cczcb85b.s:1015   .text.Hw_I2C_IMU_WriteRegs:0000000000000000 Hw_I2C_IMU_WriteRegs
+/var/folders/bz/nn5481rn5xq59rb0mbj7x0880000gn/T//cczcb85b.s:1447   .text.Hw_I2C_IMU_WriteRegs:0000000000000190 $d
+/var/folders/bz/nn5481rn5xq59rb0mbj7x0880000gn/T//cczcb85b.s:1454   .text.Hw_I2C_IMU_MPU6050_WriteRegs:0000000000000000 $t
+/var/folders/bz/nn5481rn5xq59rb0mbj7x0880000gn/T//cczcb85b.s:1459   .text.Hw_I2C_IMU_MPU6050_WriteRegs:0000000000000000 Hw_I2C_IMU_MPU6050_WriteRegs
+/var/folders/bz/nn5481rn5xq59rb0mbj7x0880000gn/T//cczcb85b.s:1496   .text.Hw_I2C_IMU_MPU6050_WriteReg:0000000000000000 $t
+/var/folders/bz/nn5481rn5xq59rb0mbj7x0880000gn/T//cczcb85b.s:1501   .text.Hw_I2C_IMU_MPU6050_WriteReg:0000000000000000 Hw_I2C_IMU_MPU6050_WriteReg
+/var/folders/bz/nn5481rn5xq59rb0mbj7x0880000gn/T//cczcb85b.s:1542   .bss.power_on.4364:0000000000000000 power_on.4364
+/var/folders/bz/nn5481rn5xq59rb0mbj7x0880000gn/T//cczcb85b.s:1543   .bss.power_on.4364:0000000000000000 $d
                      .debug_frame:0000000000000010 $d
 
 NO UNDEFINED SYMBOLS
