@@ -1,0 +1,2530 @@
+Archive member included because of file (symbol)
+
+/Users/imac/Develop/stm32f4/arm_gcc/gcc-arm-none-eabi-4_7-2013q3/bin/../lib/gcc/arm-none-eabi/4.7.4/../../../../arm-none-eabi/lib/armv7-m/libc.a(lib_a-errno.o)
+                              Lb_Util.o (__errno)
+/Users/imac/Develop/stm32f4/arm_gcc/gcc-arm-none-eabi-4_7-2013q3/bin/../lib/gcc/arm-none-eabi/4.7.4/../../../../arm-none-eabi/lib/armv7-m/libc.a(lib_a-impure.o)
+                              /Users/imac/Develop/stm32f4/arm_gcc/gcc-arm-none-eabi-4_7-2013q3/bin/../lib/gcc/arm-none-eabi/4.7.4/../../../../arm-none-eabi/lib/armv7-m/libc.a(lib_a-errno.o) (_impure_ptr)
+/Users/imac/Develop/stm32f4/arm_gcc/gcc-arm-none-eabi-4_7-2013q3/bin/../lib/gcc/arm-none-eabi/4.7.4/../../../../arm-none-eabi/lib/armv7-m/libc.a(lib_a-strtok.o)
+                              Lb_Util.o (strtok)
+/Users/imac/Develop/stm32f4/arm_gcc/gcc-arm-none-eabi-4_7-2013q3/bin/../lib/gcc/arm-none-eabi/4.7.4/../../../../arm-none-eabi/lib/armv7-m/libc.a(lib_a-strtok_r.o)
+                              /Users/imac/Develop/stm32f4/arm_gcc/gcc-arm-none-eabi-4_7-2013q3/bin/../lib/gcc/arm-none-eabi/4.7.4/../../../../arm-none-eabi/lib/armv7-m/libc.a(lib_a-strtok.o) (__strtok_r)
+
+Allocating common symbols
+Common symbol       size              file
+
+SaveRState          0x2               usb_int.o
+Hw_Si47xx_LastResp  0x10              Hw_Si47xx.o
+Hw_N5110G_TxFrameBuf
+                    0x1f8             Hw_N5110G.o
+SaveState           0x2               usb_init.o
+Hw_ISR_VectorTable  0x190             Hw_ISR.o
+Hw_Uart_Q_Buffer    0xe7              Hw_Uart_Q.o
+Hw_N5110G_Frame_Index
+                    0x2               Hw_N5110G.o
+wIstr               0x2               usb_istr.o
+pProperty           0x4               usb_init.o
+EPindex             0x1               usb_init.o
+Hw_Sonic_Log        0x14              Hw_Sonic.o
+Hw_Uart_Ch          0x3c              Hw_Uart.o
+SaveTState          0x2               usb_int.o
+Device_Info         0x1c              usb_init.o
+pUser_Standard_Requests
+                    0x4               usb_init.o
+USB_Rx_Buffer       0x40              usb_endp.o
+USART_Rx_Buffer     0x800             hw_config.o
+StatusInfo          0x2               usb_core.o
+pInformation        0x4               usb_init.o
+ResumeS             0x2               usb_pwr.o
+Hw_Uart_Q_Size      0xe               Hw_Uart_Q.o
+Ap_Radio_Log        0x16              Ap_Radio.o
+Hw_N5110G_Frame_DrawReq
+                    0x4               Hw_N5110G.o
+pStrPrintBuf        0x4               Lb_Printf.o
+Hw_Uart_Q_End       0xe               Hw_Uart_Q.o
+EP                  0x20              usb_pwr.o
+Hw_N5110G_RxFrameBuf
+                    0x1f8             Hw_N5110G.o
+wInterrupt_Mask     0x2               usb_init.o
+Hw_Uart_Q_Start     0xe               Hw_Uart_Q.o
+
+Discarded input sections
+
+ .text          0x0000000000000000        0x0 main.o
+ .data          0x0000000000000000        0x0 main.o
+ .bss           0x0000000000000000        0x0 main.o
+ .text          0x0000000000000000        0x0 Ap.o
+ .data          0x0000000000000000        0x0 Ap.o
+ .bss           0x0000000000000000        0x0 Ap.o
+ .text          0x0000000000000000        0x0 Ap_RadioMenu.o
+ .data          0x0000000000000000        0x0 Ap_RadioMenu.o
+ .bss           0x0000000000000000        0x0 Ap_RadioMenu.o
+ .text.TimerDebug_Tick
+                0x0000000000000000       0x18 Ap_RadioMenu.o
+ .text.Ap_RadioMenu_ShowMenu
+                0x0000000000000000       0xa4 Ap_RadioMenu.o
+ .text.Ap_RadioMenu_GetCmd
+                0x0000000000000000       0xb4 Ap_RadioMenu.o
+ .text.Ap_RadioMenu_ExeCmd
+                0x0000000000000000      0x394 Ap_RadioMenu.o
+ .bss.AM_Freq_Index.4500
+                0x0000000000000000        0x2 Ap_RadioMenu.o
+ .rodata.str1.4
+                0x0000000000000000      0x400 Ap_RadioMenu.o
+ .bss.FM_Freq_Index.4498
+                0x0000000000000000        0x2 Ap_RadioMenu.o
+ .bss.Band_Mode.4497
+                0x0000000000000000        0x1 Ap_RadioMenu.o
+ .rodata.AM_Freq.4501
+                0x0000000000000000       0x14 Ap_RadioMenu.o
+ .rodata.FM_Freq.4499
+                0x0000000000000000       0x38 Ap_RadioMenu.o
+ .debug_info    0x0000000000000000      0x5e2 Ap_RadioMenu.o
+ .debug_abbrev  0x0000000000000000      0x158 Ap_RadioMenu.o
+ .debug_loc     0x0000000000000000      0x25e Ap_RadioMenu.o
+ .debug_aranges
+                0x0000000000000000       0x38 Ap_RadioMenu.o
+ .debug_ranges  0x0000000000000000       0x28 Ap_RadioMenu.o
+ .debug_line    0x0000000000000000      0x150 Ap_RadioMenu.o
+ .debug_str     0x0000000000000000      0x1ac Ap_RadioMenu.o
+ .comment       0x0000000000000000       0x71 Ap_RadioMenu.o
+ .ARM.attributes
+                0x0000000000000000       0x33 Ap_RadioMenu.o
+ .debug_frame   0x0000000000000000       0xa0 Ap_RadioMenu.o
+ .text          0x0000000000000000        0x0 Ap_Radio.o
+ .data          0x0000000000000000        0x0 Ap_Radio.o
+ .bss           0x0000000000000000        0x0 Ap_Radio.o
+ .text.Ap_Radio_ApiStart
+                0x0000000000000000       0x10 Ap_Radio.o
+ .text.Ap_Radio_BandSetFM
+                0x0000000000000000       0x24 Ap_Radio.o
+ .text.Ap_Radio_BandSetAM
+                0x0000000000000000       0x24 Ap_Radio.o
+ .text.Ap_Radio_BandGet
+                0x0000000000000000       0x10 Ap_Radio.o
+ .text.Ap_Radio_VolumeSet
+                0x0000000000000000       0x34 Ap_Radio.o
+ .text.Ap_Radio_VolumeGet
+                0x0000000000000000       0x50 Ap_Radio.o
+ .text.Ap_Radio_VolumeSetDown
+                0x0000000000000000       0x38 Ap_Radio.o
+ .text.Ap_Radio_VolumeSetUp
+                0x0000000000000000       0x3c Ap_Radio.o
+ .text.Ap_Radio_FM_ChannelSet
+                0x0000000000000000       0x4c Ap_Radio.o
+ .text.Ap_Radio_AM_ChannelSet
+                0x0000000000000000       0x4c Ap_Radio.o
+ .text.Ap_Radio_ChannelSet
+                0x0000000000000000       0x2c Ap_Radio.o
+ .text.Ap_Radio_FM_ChannelGet
+                0x0000000000000000       0x38 Ap_Radio.o
+ .text.Ap_Radio_AM_ChannelGet
+                0x0000000000000000       0x38 Ap_Radio.o
+ .text.Ap_Radio_ChannelGet
+                0x0000000000000000       0x48 Ap_Radio.o
+ .text.Ap_Radio_ChannelSetFirst
+                0x0000000000000000       0x30 Ap_Radio.o
+ .text.Ap_Radio_Init
+                0x0000000000000000       0x4c Ap_Radio.o
+ .text.Ap_Radio_ChannelSetLast
+                0x0000000000000000       0x30 Ap_Radio.o
+ .text.Ap_Radio_ChannelSetNext
+                0x0000000000000000       0x28 Ap_Radio.o
+ .text.Ap_Radio_ChannelSetPrev
+                0x0000000000000000       0x28 Ap_Radio.o
+ .text.Ap_Radio_MuteSetOn
+                0x0000000000000000       0x24 Ap_Radio.o
+ .text.Ap_Radio_MuteSetOff
+                0x0000000000000000       0x24 Ap_Radio.o
+ .text.Ap_Radio_SeekToFirst
+                0x0000000000000000       0x8c Ap_Radio.o
+ .text.Ap_Radio_SeekToLast
+                0x0000000000000000       0x90 Ap_Radio.o
+ .text.Ap_Radio_SeekFromFirst
+                0x0000000000000000       0x54 Ap_Radio.o
+ .text.Ap_Radio_SeekFromLast
+                0x0000000000000000       0x54 Ap_Radio.o
+ .debug_info    0x0000000000000000      0xb87 Ap_Radio.o
+ .debug_abbrev  0x0000000000000000      0x262 Ap_Radio.o
+ .debug_loc     0x0000000000000000      0xbee Ap_Radio.o
+ .debug_aranges
+                0x0000000000000000       0xe0 Ap_Radio.o
+ .debug_ranges  0x0000000000000000      0x230 Ap_Radio.o
+ .debug_line    0x0000000000000000      0x3f8 Ap_Radio.o
+ .debug_str     0x0000000000000000      0x3ec Ap_Radio.o
+ .comment       0x0000000000000000       0x71 Ap_Radio.o
+ .ARM.attributes
+                0x0000000000000000       0x33 Ap_Radio.o
+ .debug_frame   0x0000000000000000      0x2dc Ap_Radio.o
+ COMMON         0x0000000000000000       0x16 Ap_Radio.o
+ .text          0x0000000000000000        0x0 Ap_GLcdMenu.o
+ .data          0x0000000000000000        0x0 Ap_GLcdMenu.o
+ .bss           0x0000000000000000        0x0 Ap_GLcdMenu.o
+ .text          0x0000000000000000        0x0 Lb_Util.o
+ .data          0x0000000000000000        0x0 Lb_Util.o
+ .bss           0x0000000000000000        0x0 Lb_Util.o
+ .text.delay    0x0000000000000000       0x14 Lb_Util.o
+ .text.delay_second
+                0x0000000000000000       0x14 Lb_Util.o
+ .text.Lb_Util_PaseArgs
+                0x0000000000000000       0x34 Lb_Util.o
+ .text.Lb_Util_atoi
+                0x0000000000000000       0x4c Lb_Util.o
+ .text.__get_MSP
+                0x0000000000000000        0x8 Lb_Util.o
+ .text._sbrk    0x0000000000000000       0x40 Lb_Util.o
+ .bss.heap_end.4977
+                0x0000000000000000        0x4 Lb_Util.o
+ .rodata.str1.4
+                0x0000000000000000        0x8 Lb_Util.o
+ .debug_info    0x0000000000000000      0x2e1 Lb_Util.o
+ .debug_abbrev  0x0000000000000000      0x1c4 Lb_Util.o
+ .debug_loc     0x0000000000000000      0x293 Lb_Util.o
+ .debug_aranges
+                0x0000000000000000       0x48 Lb_Util.o
+ .debug_ranges  0x0000000000000000       0x70 Lb_Util.o
+ .debug_line    0x0000000000000000      0x12b Lb_Util.o
+ .debug_str     0x0000000000000000      0x1cb Lb_Util.o
+ .comment       0x0000000000000000       0x71 Lb_Util.o
+ .ARM.attributes
+                0x0000000000000000       0x33 Lb_Util.o
+ .debug_frame   0x0000000000000000       0x9c Lb_Util.o
+ .text          0x0000000000000000        0x0 Lb_Printf.o
+ .data          0x0000000000000000        0x0 Lb_Printf.o
+ .bss           0x0000000000000000        0x0 Lb_Printf.o
+ .text.StrNCmp  0x0000000000000000       0x58 Lb_Printf.o
+ .text.StrCmp   0x0000000000000000       0x3c Lb_Printf.o
+ .text.Lb_sprintf
+                0x0000000000000000      0x2e8 Lb_Printf.o
+ .text          0x0000000000000000        0x0 Hw_StartUp.o
+ .data          0x0000000000000000        0x0 Hw_StartUp.o
+ .bss           0x0000000000000000        0x0 Hw_StartUp.o
+ .text          0x0000000000000000        0x0 Hw.o
+ .data          0x0000000000000000        0x0 Hw.o
+ .bss           0x0000000000000000        0x0 Hw.o
+ .text.Hw_Wait_Usec
+                0x0000000000000000       0x24 Hw.o
+ .text.Hw_Wait_us
+                0x0000000000000000       0x24 Hw.o
+ .text          0x0000000000000000        0x0 Hw_Uart.o
+ .data          0x0000000000000000        0x0 Hw_Uart.o
+ .bss           0x0000000000000000        0x0 Hw_Uart.o
+ .text.Hw_Uart_Open
+                0x0000000000000000       0x14 Hw_Uart.o
+ .text.Hw_Uart_Putch
+                0x0000000000000000       0x1c Hw_Uart.o
+ .text.Hw_Uart_PrintEx
+                0x0000000000000000       0x2c Hw_Uart.o
+ .text.Hw_Uart_Print
+                0x0000000000000000       0x44 Hw_Uart.o
+ .text.Hw_Uart_GetchNoWait
+                0x0000000000000000       0x20 Hw_Uart.o
+ .text          0x0000000000000000        0x0 Hw_PLL.o
+ .data          0x0000000000000000        0x0 Hw_PLL.o
+ .bss           0x0000000000000000        0x0 Hw_PLL.o
+ .text          0x0000000000000000        0x0 Hw_Led.o
+ .data          0x0000000000000000        0x0 Hw_Led.o
+ .bss           0x0000000000000000        0x0 Hw_Led.o
+ .text.Hw_Led_On
+                0x0000000000000000       0x14 Hw_Led.o
+ .text.Hw_Led_Off
+                0x0000000000000000       0x14 Hw_Led.o
+ .text.Hw_Led_Wait
+                0x0000000000000000       0x1c Hw_Led.o
+ .text          0x0000000000000000        0x0 Hw_Uart_Q.o
+ .data          0x0000000000000000        0x0 Hw_Uart_Q.o
+ .bss           0x0000000000000000        0x0 Hw_Uart_Q.o
+ .text.HW_UART_Q_SIZE
+                0x0000000000000000       0x30 Hw_Uart_Q.o
+ .text.Hw_Uart_Q_PushReady
+                0x0000000000000000       0x18 Hw_Uart_Q.o
+ .text          0x0000000000000000        0x0 Hw_ISR.o
+ .data          0x0000000000000000        0x0 Hw_ISR.o
+ .bss           0x0000000000000000        0x0 Hw_ISR.o
+ .text          0x0000000000000000        0x0 Hw_Timer.o
+ .data          0x0000000000000000        0x0 Hw_Timer.o
+ .bss           0x0000000000000000        0x0 Hw_Timer.o
+ .text.Hw_Timer_Setup
+                0x0000000000000000       0x40 Hw_Timer.o
+ .text.Hw_Timer_MeasureSetup
+                0x0000000000000000       0x68 Hw_Timer.o
+ .text.Hw_Timer_Stop
+                0x0000000000000000       0x14 Hw_Timer.o
+ .text.Hw_Timer_Reset
+                0x0000000000000000       0x1c Hw_Timer.o
+ .text.Hw_Timer_Get_Handle
+                0x0000000000000000       0x18 Hw_Timer.o
+ .text.Hw_Timer_Get_CountValue
+                0x0000000000000000        0xc Hw_Timer.o
+ .bss.Tmr_HandleIndex
+                0x0000000000000000        0x2 Hw_Timer.o
+ .text          0x0000000000000000        0x0 Hw_VCom.o
+ .data          0x0000000000000000        0x0 Hw_VCom.o
+ .bss           0x0000000000000000        0x0 Hw_VCom.o
+ .text.Hw_VCom_Getch
+                0x0000000000000000       0x30 Hw_VCom.o
+ .text.Hw_VCom_Putch
+                0x0000000000000000       0x10 Hw_VCom.o
+ .text          0x0000000000000000        0x0 Hw_I2C.o
+ .data          0x0000000000000000        0x0 Hw_I2C.o
+ .bss           0x0000000000000000        0x0 Hw_I2C.o
+ .text.Hw_I2C_Write
+                0x0000000000000000       0x10 Hw_I2C.o
+ .text.Hw_I2C_Read
+                0x0000000000000000        0x4 Hw_I2C.o
+ .text          0x0000000000000000        0x0 Hw_I2C_SW.o
+ .data          0x0000000000000000        0x0 Hw_I2C_SW.o
+ .bss           0x0000000000000000        0x0 Hw_I2C_SW.o
+ .text.Hw_I2C_SW_SCL_HIGH
+                0x0000000000000000       0x28 Hw_I2C_SW.o
+ .text.Hw_I2C_SW_SCL_LOW
+                0x0000000000000000       0x28 Hw_I2C_SW.o
+ .text.Hw_I2C_SW_SDA_HIGH
+                0x0000000000000000       0x14 Hw_I2C_SW.o
+ .text.Hw_I2C_SW_IO_Setup
+                0x0000000000000000       0x54 Hw_I2C_SW.o
+ .text.Hw_I2C_SW_Init
+                0x0000000000000000       0x10 Hw_I2C_SW.o
+ .text.Hw_I2C_SW_SDA_LOW
+                0x0000000000000000       0x14 Hw_I2C_SW.o
+ .text.Hw_I2C_SW_WriteByte_NoAck
+                0x0000000000000000       0xdc Hw_I2C_SW.o
+ .text.Hw_I2C_SW_EndTransmit
+                0x0000000000000000       0x38 Hw_I2C_SW.o
+ .text.Hw_I2C_SW_StartTransmit
+                0x0000000000000000       0x38 Hw_I2C_SW.o
+ .text.Hw_I2C_SW_SDA
+                0x0000000000000000       0x18 Hw_I2C_SW.o
+ .text.Hw_I2C_SW_SetDir_SDA_Input
+                0x0000000000000000       0x30 Hw_I2C_SW.o
+ .text.Hw_I2C_SW_SetDir_SDA_Output
+                0x0000000000000000       0x20 Hw_I2C_SW.o
+ .text.Hw_I2C_SW_ReadByte_Ack
+                0x0000000000000000      0x128 Hw_I2C_SW.o
+ .text.Hw_I2C_SW_ReadByte_NoAck
+                0x0000000000000000      0x128 Hw_I2C_SW.o
+ .text.Hw_I2C_SW_WriteByte_Ack
+                0x0000000000000000      0x100 Hw_I2C_SW.o
+ .text.Hw_I2C_SW_Read
+                0x0000000000000000      0x104 Hw_I2C_SW.o
+ .text.Hw_I2C_SW_Write
+                0x0000000000000000       0x94 Hw_I2C_SW.o
+ .debug_info    0x0000000000000000     0x1062 Hw_I2C_SW.o
+ .debug_abbrev  0x0000000000000000      0x236 Hw_I2C_SW.o
+ .debug_loc     0x0000000000000000      0xb70 Hw_I2C_SW.o
+ .debug_aranges
+                0x0000000000000000       0xa0 Hw_I2C_SW.o
+ .debug_ranges  0x0000000000000000       0x90 Hw_I2C_SW.o
+ .debug_line    0x0000000000000000      0x390 Hw_I2C_SW.o
+ .debug_str     0x0000000000000000      0x26c Hw_I2C_SW.o
+ .comment       0x0000000000000000       0x71 Hw_I2C_SW.o
+ .ARM.attributes
+                0x0000000000000000       0x33 Hw_I2C_SW.o
+ .debug_frame   0x0000000000000000      0x224 Hw_I2C_SW.o
+ .text          0x0000000000000000        0x0 Hw_I2C_HW.o
+ .data          0x0000000000000000        0x0 Hw_I2C_HW.o
+ .bss           0x0000000000000000        0x0 Hw_I2C_HW.o
+ .text.Hw_I2C_HW_WaitForBitSet
+                0x0000000000000000       0x50 Hw_I2C_HW.o
+ .text.Hw_I2C_HW_GetErrStatus
+                0x0000000000000000       0x3c Hw_I2C_HW.o
+ .text.Hw_I2C_HW_Read
+                0x0000000000000000      0x2d4 Hw_I2C_HW.o
+ .text.Hw_I2C_HW_Write
+                0x0000000000000000      0x1cc Hw_I2C_HW.o
+ .rodata.str1.4
+                0x0000000000000000       0x18 Hw_I2C_HW.o
+ .text          0x0000000000000000        0x0 Hw_Si47xx.o
+ .data          0x0000000000000000        0x0 Hw_Si47xx.o
+ .bss           0x0000000000000000        0x0 Hw_Si47xx.o
+ .text.Hw_Si47xx_ReadResp
+                0x0000000000000000       0x14 Hw_Si47xx.o
+ .text.Hw_Si47xx_SendCommand
+                0x0000000000000000       0x18 Hw_Si47xx.o
+ .text.Hw_Si47xx_ReceiveResponse
+                0x0000000000000000       0x84 Hw_Si47xx.o
+ .text.Hw_Si47xx_POWER_UP
+                0x0000000000000000       0x4c Hw_Si47xx.o
+ .text.Hw_Si47xx_WaitForCTS
+                0x0000000000000000       0x1c Hw_Si47xx.o
+ .text.Hw_Si47xx_CommandResp
+                0x0000000000000000       0x50 Hw_Si47xx.o
+ .text.Hw_Si47xx_AM_TUNE_STATUS
+                0x0000000000000000       0x2c Hw_Si47xx.o
+ .text.Hw_Si47xx_FM_TUNE_STATUS
+                0x0000000000000000       0x2c Hw_Si47xx.o
+ .text.Hw_Si47xx_GET_INT_STATUS
+                0x0000000000000000       0x30 Hw_Si47xx.o
+ .text.Hw_Si47xx_WaitForSTC
+                0x0000000000000000       0x34 Hw_Si47xx.o
+ .text.Hw_Si47xx_AM_SEEK_START
+                0x0000000000000000       0x30 Hw_Si47xx.o
+ .text.Hw_Si47xx_FM_SEEK_START
+                0x0000000000000000       0x30 Hw_Si47xx.o
+ .text.Hw_Si47xx_AM_TUNE_FREQ
+                0x0000000000000000       0x44 Hw_Si47xx.o
+ .text.Hw_Si47xx_FM_TUNE_FREQ
+                0x0000000000000000       0x40 Hw_Si47xx.o
+ .text.Hw_Si47xx_GET_PROPERTY
+                0x0000000000000000       0x48 Hw_Si47xx.o
+ .text.Hw_Si47xx_SET_PROPERTY
+                0x0000000000000000       0x50 Hw_Si47xx.o
+ .text.Hw_Si47xx_AM_Config
+                0x0000000000000000       0xa4 Hw_Si47xx.o
+ .text.Hw_Si47xx_FM_Config
+                0x0000000000000000       0xa4 Hw_Si47xx.o
+ COMMON         0x0000000000000000       0x10 Hw_Si47xx.o
+ .text          0x0000000000000000        0x0 Hw_SPI.o
+ .data          0x0000000000000000        0x0 Hw_SPI.o
+ .bss           0x0000000000000000        0x0 Hw_SPI.o
+ .text.Hw_SPI_Ch1_Init
+                0x0000000000000000        0x4 Hw_SPI.o
+ .text.Hw_SPI_Enable
+                0x0000000000000000       0x18 Hw_SPI.o
+ .text.Hw_SPI_StopDMA
+                0x0000000000000000       0x20 Hw_SPI.o
+ .text.Hw_SPI_Disable
+                0x0000000000000000        0x4 Hw_SPI.o
+ .text.Hw_SPI_Write16Bit
+                0x0000000000000000       0x70 Hw_SPI.o
+ .text          0x0000000000000000        0x0 Hw_N5110G.o
+ .data          0x0000000000000000        0x0 Hw_N5110G.o
+ .bss           0x0000000000000000        0x0 Hw_N5110G.o
+ .text.Hw_N5110G_WriteByte
+                0x0000000000000000       0x3c Hw_N5110G.o
+ .text.Hw_N5110G_WriteChar
+                0x0000000000000000      0x114 Hw_N5110G.o
+ .text.Hw_N5110G_SetPixel
+                0x0000000000000000       0x24 Hw_N5110G.o
+ .text.Hw_N5110G_ClrPixel
+                0x0000000000000000       0x24 Hw_N5110G.o
+ .text.Hw_N5110G_XorPixel
+                0x0000000000000000       0x24 Hw_N5110G.o
+ .text.Hw_N5110G_GetPixel
+                0x0000000000000000       0x20 Hw_N5110G.o
+ .text.Hw_N5110G_DrawClear
+                0x0000000000000000       0x1c Hw_N5110G.o
+ .text.Hw_N5110G_DrawClearRect
+                0x0000000000000000       0xb4 Hw_N5110G.o
+ .text.Hw_N5110G_DrawPrint
+                0x0000000000000000       0x50 Hw_N5110G.o
+ .text          0x0000000000000000        0x0 Hw_DMA.o
+ .data          0x0000000000000000        0x0 Hw_DMA.o
+ .bss           0x0000000000000000        0x0 Hw_DMA.o
+ .text          0x0000000000000000        0x0 Hw_I2C_IMU.o
+ .data          0x0000000000000000        0x0 Hw_I2C_IMU.o
+ .bss           0x0000000000000000        0x0 Hw_I2C_IMU.o
+ .text.Hw_I2C_IMU_WaitForBitSet
+                0x0000000000000000       0x4c Hw_I2C_IMU.o
+ .text.Hw_I2C_IMU_WaitForBitClr
+                0x0000000000000000       0x4c Hw_I2C_IMU.o
+ .text.Hw_I2C_IMU_Read
+                0x0000000000000000      0x160 Hw_I2C_IMU.o
+ .text.Hw_I2C_IMU_Write
+                0x0000000000000000      0x184 Hw_I2C_IMU.o
+ .text.Hw_I2C_IMU_HMC5883_WriteReg
+                0x0000000000000000       0x20 Hw_I2C_IMU.o
+ .text.Hw_I2C_IMU_MPU6050_WriteRegs
+                0x0000000000000000       0x1c Hw_I2C_IMU.o
+ .text          0x0000000000000000        0x0 Hw_MPU6050.o
+ .data          0x0000000000000000        0x0 Hw_MPU6050.o
+ .bss           0x0000000000000000        0x0 Hw_MPU6050.o
+ .text.Hw_MPU6050_I2CAuxMasterEnable
+                0x0000000000000000       0x30 Hw_MPU6050.o
+ .text.Hw_MPU6050_GetEnable
+                0x0000000000000000        0xc Hw_MPU6050.o
+ .text          0x0000000000000000        0x0 Hw_Sonic.o
+ .data          0x0000000000000000        0x0 Hw_Sonic.o
+ .bss           0x0000000000000000        0x0 Hw_Sonic.o
+ .text.Hw_Sonic_ISR
+                0x0000000000000000       0xe0 Hw_Sonic.o
+ .text.Hw_Sonic_ExIntEnable.part.1
+                0x0000000000000000       0x24 Hw_Sonic.o
+ .text.Hw_Sonic_ExIntEnable
+                0x0000000000000000       0x38 Hw_Sonic.o
+ .text.Hw_Sonic_ExIntDisable
+                0x0000000000000000       0x4c Hw_Sonic.o
+ .text.Hw_Sonic_SetPortDirIN
+                0x0000000000000000       0x64 Hw_Sonic.o
+ .text.Hw_Sonic_SetPortDirOUT
+                0x0000000000000000       0x44 Hw_Sonic.o
+ .text.Hw_Sonic_SetPortHIGH
+                0x0000000000000000       0x2c Hw_Sonic.o
+ .text.Hw_Sonic_SetPortLOW
+                0x0000000000000000       0x2c Hw_Sonic.o
+ .text.Hw_Sonic_Init
+                0x0000000000000000       0xf4 Hw_Sonic.o
+ .text.Hw_Sonic_Tick
+                0x0000000000000000       0xdc Hw_Sonic.o
+ .text.Hw_Sonic_GetPort
+                0x0000000000000000       0x2c Hw_Sonic.o
+ .text.Hw_Sonic_GetDistanceTime
+                0x0000000000000000       0x14 Hw_Sonic.o
+ .bss.Cnt.4430  0x0000000000000000        0x1 Hw_Sonic.o
+ .text          0x0000000000000000        0x0 Hw_HMC5883.o
+ .data          0x0000000000000000        0x0 Hw_HMC5883.o
+ .bss           0x0000000000000000        0x0 Hw_HMC5883.o
+ .text          0x0000000000000000        0x0 Hw_IMU.o
+ .data          0x0000000000000000        0x0 Hw_IMU.o
+ .bss           0x0000000000000000        0x0 Hw_IMU.o
+ .text          0x0000000000000000        0x0 usb_desc.o
+ .data          0x0000000000000000        0x0 usb_desc.o
+ .bss           0x0000000000000000        0x0 usb_desc.o
+ .text          0x0000000000000000        0x0 usb_endp.o
+ .data          0x0000000000000000        0x0 usb_endp.o
+ .bss           0x0000000000000000        0x0 usb_endp.o
+ .text          0x0000000000000000        0x0 usb_istr.o
+ .data          0x0000000000000000        0x0 usb_istr.o
+ .bss           0x0000000000000000        0x0 usb_istr.o
+ .text          0x0000000000000000        0x0 usb_prop.o
+ .data          0x0000000000000000        0x0 usb_prop.o
+ .bss           0x0000000000000000        0x0 usb_prop.o
+ .text          0x0000000000000000        0x0 usb_pwr.o
+ .data          0x0000000000000000        0x0 usb_pwr.o
+ .bss           0x0000000000000000        0x0 usb_pwr.o
+ .text.PowerOff
+                0x0000000000000000       0x30 usb_pwr.o
+ .text          0x0000000000000000        0x0 hw_config.o
+ .data          0x0000000000000000        0x0 hw_config.o
+ .bss           0x0000000000000000        0x0 hw_config.o
+ .text.Enter_LowPowerMode
+                0x0000000000000000       0x10 hw_config.o
+ .text.USART_To_USB_Send_Data
+                0x0000000000000000        0x4 hw_config.o
+ .text.USB_Send_Data
+                0x0000000000000000       0x38 hw_config.o
+ .text          0x0000000000000000        0x0 usb_core.o
+ .data          0x0000000000000000        0x0 usb_core.o
+ .bss           0x0000000000000000        0x0 usb_core.o
+ .text.Standard_SetDeviceFeature
+                0x0000000000000000       0x28 usb_core.o
+ .text          0x0000000000000000        0x0 usb_init.o
+ .data          0x0000000000000000        0x0 usb_init.o
+ .bss           0x0000000000000000        0x0 usb_init.o
+ .text          0x0000000000000000        0x0 usb_mem.o
+ .data          0x0000000000000000        0x0 usb_mem.o
+ .bss           0x0000000000000000        0x0 usb_mem.o
+ .text          0x0000000000000000        0x0 usb_regs.o
+ .data          0x0000000000000000        0x0 usb_regs.o
+ .bss           0x0000000000000000        0x0 usb_regs.o
+ .text.SetCNTR  0x0000000000000000        0xc usb_regs.o
+ .text.GetCNTR  0x0000000000000000       0x10 usb_regs.o
+ .text.SetISTR  0x0000000000000000        0xc usb_regs.o
+ .text.GetISTR  0x0000000000000000       0x10 usb_regs.o
+ .text.GetFNR   0x0000000000000000       0x10 usb_regs.o
+ .text.SetDADDR
+                0x0000000000000000        0xc usb_regs.o
+ .text.GetDADDR
+                0x0000000000000000       0x10 usb_regs.o
+ .text.GetBTABLE
+                0x0000000000000000       0x10 usb_regs.o
+ .text.SetENDPOINT
+                0x0000000000000000       0x10 usb_regs.o
+ .text.GetENDPOINT
+                0x0000000000000000       0x10 usb_regs.o
+ .text.GetEPType
+                0x0000000000000000       0x14 usb_regs.o
+ .text.SetDouBleBuffEPStall
+                0x0000000000000000       0x2c usb_regs.o
+ .text.GetEPTxStatus
+                0x0000000000000000       0x14 usb_regs.o
+ .text.GetEPRxStatus
+                0x0000000000000000       0x14 usb_regs.o
+ .text.SetEP_KIND
+                0x0000000000000000       0x20 usb_regs.o
+ .text.ClearEP_KIND
+                0x0000000000000000       0x20 usb_regs.o
+ .text.Set_Status_Out
+                0x0000000000000000       0x20 usb_regs.o
+ .text.SetEPDoubleBuff
+                0x0000000000000000       0x20 usb_regs.o
+ .text.ClearEPDoubleBuff
+                0x0000000000000000       0x20 usb_regs.o
+ .text.GetTxStallStatus
+                0x0000000000000000       0x1c usb_regs.o
+ .text.GetRxStallStatus
+                0x0000000000000000       0x1c usb_regs.o
+ .text.ClearEP_CTR_RX
+                0x0000000000000000       0x18 usb_regs.o
+ .text.ClearEP_CTR_TX
+                0x0000000000000000       0x18 usb_regs.o
+ .text.ToggleDTOG_RX
+                0x0000000000000000       0x20 usb_regs.o
+ .text.ToggleDTOG_TX
+                0x0000000000000000       0x20 usb_regs.o
+ .text.SetEPAddress
+                0x0000000000000000       0x20 usb_regs.o
+ .text.GetEPAddress
+                0x0000000000000000       0x14 usb_regs.o
+ .text.SetEPCountRxReg
+                0x0000000000000000       0x28 usb_regs.o
+ .text.GetEPTxCount
+                0x0000000000000000       0x24 usb_regs.o
+ .text.SetEPDblBuffAddr
+                0x0000000000000000       0x44 usb_regs.o
+ .text.SetEPDblBuf0Addr
+                0x0000000000000000       0x24 usb_regs.o
+ .text.SetEPDblBuf1Addr
+                0x0000000000000000       0x28 usb_regs.o
+ .text.GetEPDblBuf0Addr
+                0x0000000000000000       0x20 usb_regs.o
+ .text.GetEPDblBuf1Addr
+                0x0000000000000000       0x20 usb_regs.o
+ .text.SetEPDblBuffCount
+                0x0000000000000000       0xb4 usb_regs.o
+ .text.SetEPDblBuf0Count
+                0x0000000000000000       0x6c usb_regs.o
+ .text.SetEPDblBuf1Count
+                0x0000000000000000       0x6c usb_regs.o
+ .text.GetEPDblBuf0Count
+                0x0000000000000000       0x24 usb_regs.o
+ .text.GetEPDblBuf1Count
+                0x0000000000000000       0x24 usb_regs.o
+ .text.GetEPDblBufDir
+                0x0000000000000000       0x4c usb_regs.o
+ .text.FreeUserBuffer
+                0x0000000000000000       0x48 usb_regs.o
+ .text.ToWord   0x0000000000000000        0x8 usb_regs.o
+ .text          0x0000000000000000        0x0 usb_sil.o
+ .data          0x0000000000000000        0x0 usb_sil.o
+ .bss           0x0000000000000000        0x0 usb_sil.o
+ .text.USB_SIL_Write
+                0x0000000000000000       0x38 usb_sil.o
+ .text          0x0000000000000000        0x0 usb_int.o
+ .data          0x0000000000000000        0x0 usb_int.o
+ .bss           0x0000000000000000        0x0 usb_int.o
+ .text.CTR_HP   0x0000000000000000       0x88 usb_int.o
+ .text          0x0000000000000000        0x0 /Users/imac/Develop/stm32f4/arm_gcc/gcc-arm-none-eabi-4_7-2013q3/bin/../lib/gcc/arm-none-eabi/4.7.4/../../../../arm-none-eabi/lib/armv7-m/libc.a(lib_a-errno.o)
+ .data          0x0000000000000000        0x0 /Users/imac/Develop/stm32f4/arm_gcc/gcc-arm-none-eabi-4_7-2013q3/bin/../lib/gcc/arm-none-eabi/4.7.4/../../../../arm-none-eabi/lib/armv7-m/libc.a(lib_a-errno.o)
+ .bss           0x0000000000000000        0x0 /Users/imac/Develop/stm32f4/arm_gcc/gcc-arm-none-eabi-4_7-2013q3/bin/../lib/gcc/arm-none-eabi/4.7.4/../../../../arm-none-eabi/lib/armv7-m/libc.a(lib_a-errno.o)
+ .text.__errno  0x0000000000000000        0xc /Users/imac/Develop/stm32f4/arm_gcc/gcc-arm-none-eabi-4_7-2013q3/bin/../lib/gcc/arm-none-eabi/4.7.4/../../../../arm-none-eabi/lib/armv7-m/libc.a(lib_a-errno.o)
+ .ARM.attributes
+                0x0000000000000000       0x2d /Users/imac/Develop/stm32f4/arm_gcc/gcc-arm-none-eabi-4_7-2013q3/bin/../lib/gcc/arm-none-eabi/4.7.4/../../../../arm-none-eabi/lib/armv7-m/libc.a(lib_a-errno.o)
+ .debug_frame   0x0000000000000000       0x20 /Users/imac/Develop/stm32f4/arm_gcc/gcc-arm-none-eabi-4_7-2013q3/bin/../lib/gcc/arm-none-eabi/4.7.4/../../../../arm-none-eabi/lib/armv7-m/libc.a(lib_a-errno.o)
+ .text          0x0000000000000000        0x0 /Users/imac/Develop/stm32f4/arm_gcc/gcc-arm-none-eabi-4_7-2013q3/bin/../lib/gcc/arm-none-eabi/4.7.4/../../../../arm-none-eabi/lib/armv7-m/libc.a(lib_a-impure.o)
+ .data          0x0000000000000000        0x0 /Users/imac/Develop/stm32f4/arm_gcc/gcc-arm-none-eabi-4_7-2013q3/bin/../lib/gcc/arm-none-eabi/4.7.4/../../../../arm-none-eabi/lib/armv7-m/libc.a(lib_a-impure.o)
+ .bss           0x0000000000000000        0x0 /Users/imac/Develop/stm32f4/arm_gcc/gcc-arm-none-eabi-4_7-2013q3/bin/../lib/gcc/arm-none-eabi/4.7.4/../../../../arm-none-eabi/lib/armv7-m/libc.a(lib_a-impure.o)
+ .data.impure_data
+                0x0000000000000000      0x428 /Users/imac/Develop/stm32f4/arm_gcc/gcc-arm-none-eabi-4_7-2013q3/bin/../lib/gcc/arm-none-eabi/4.7.4/../../../../arm-none-eabi/lib/armv7-m/libc.a(lib_a-impure.o)
+ .data._impure_ptr
+                0x0000000000000000        0x4 /Users/imac/Develop/stm32f4/arm_gcc/gcc-arm-none-eabi-4_7-2013q3/bin/../lib/gcc/arm-none-eabi/4.7.4/../../../../arm-none-eabi/lib/armv7-m/libc.a(lib_a-impure.o)
+ .rodata.str1.4
+                0x0000000000000000        0x4 /Users/imac/Develop/stm32f4/arm_gcc/gcc-arm-none-eabi-4_7-2013q3/bin/../lib/gcc/arm-none-eabi/4.7.4/../../../../arm-none-eabi/lib/armv7-m/libc.a(lib_a-impure.o)
+ .rodata._global_impure_ptr
+                0x0000000000000000        0x4 /Users/imac/Develop/stm32f4/arm_gcc/gcc-arm-none-eabi-4_7-2013q3/bin/../lib/gcc/arm-none-eabi/4.7.4/../../../../arm-none-eabi/lib/armv7-m/libc.a(lib_a-impure.o)
+ .ARM.attributes
+                0x0000000000000000       0x2d /Users/imac/Develop/stm32f4/arm_gcc/gcc-arm-none-eabi-4_7-2013q3/bin/../lib/gcc/arm-none-eabi/4.7.4/../../../../arm-none-eabi/lib/armv7-m/libc.a(lib_a-impure.o)
+ .text          0x0000000000000000        0x0 /Users/imac/Develop/stm32f4/arm_gcc/gcc-arm-none-eabi-4_7-2013q3/bin/../lib/gcc/arm-none-eabi/4.7.4/../../../../arm-none-eabi/lib/armv7-m/libc.a(lib_a-strtok.o)
+ .data          0x0000000000000000        0x0 /Users/imac/Develop/stm32f4/arm_gcc/gcc-arm-none-eabi-4_7-2013q3/bin/../lib/gcc/arm-none-eabi/4.7.4/../../../../arm-none-eabi/lib/armv7-m/libc.a(lib_a-strtok.o)
+ .bss           0x0000000000000000        0x0 /Users/imac/Develop/stm32f4/arm_gcc/gcc-arm-none-eabi-4_7-2013q3/bin/../lib/gcc/arm-none-eabi/4.7.4/../../../../arm-none-eabi/lib/armv7-m/libc.a(lib_a-strtok.o)
+ .text.strtok   0x0000000000000000       0x14 /Users/imac/Develop/stm32f4/arm_gcc/gcc-arm-none-eabi-4_7-2013q3/bin/../lib/gcc/arm-none-eabi/4.7.4/../../../../arm-none-eabi/lib/armv7-m/libc.a(lib_a-strtok.o)
+ .ARM.attributes
+                0x0000000000000000       0x2d /Users/imac/Develop/stm32f4/arm_gcc/gcc-arm-none-eabi-4_7-2013q3/bin/../lib/gcc/arm-none-eabi/4.7.4/../../../../arm-none-eabi/lib/armv7-m/libc.a(lib_a-strtok.o)
+ .debug_frame   0x0000000000000000       0x20 /Users/imac/Develop/stm32f4/arm_gcc/gcc-arm-none-eabi-4_7-2013q3/bin/../lib/gcc/arm-none-eabi/4.7.4/../../../../arm-none-eabi/lib/armv7-m/libc.a(lib_a-strtok.o)
+ .text          0x0000000000000000        0x0 /Users/imac/Develop/stm32f4/arm_gcc/gcc-arm-none-eabi-4_7-2013q3/bin/../lib/gcc/arm-none-eabi/4.7.4/../../../../arm-none-eabi/lib/armv7-m/libc.a(lib_a-strtok_r.o)
+ .data          0x0000000000000000        0x0 /Users/imac/Develop/stm32f4/arm_gcc/gcc-arm-none-eabi-4_7-2013q3/bin/../lib/gcc/arm-none-eabi/4.7.4/../../../../arm-none-eabi/lib/armv7-m/libc.a(lib_a-strtok_r.o)
+ .bss           0x0000000000000000        0x0 /Users/imac/Develop/stm32f4/arm_gcc/gcc-arm-none-eabi-4_7-2013q3/bin/../lib/gcc/arm-none-eabi/4.7.4/../../../../arm-none-eabi/lib/armv7-m/libc.a(lib_a-strtok_r.o)
+ .text.__strtok_r
+                0x0000000000000000       0x60 /Users/imac/Develop/stm32f4/arm_gcc/gcc-arm-none-eabi-4_7-2013q3/bin/../lib/gcc/arm-none-eabi/4.7.4/../../../../arm-none-eabi/lib/armv7-m/libc.a(lib_a-strtok_r.o)
+ .text.strtok_r
+                0x0000000000000000        0x8 /Users/imac/Develop/stm32f4/arm_gcc/gcc-arm-none-eabi-4_7-2013q3/bin/../lib/gcc/arm-none-eabi/4.7.4/../../../../arm-none-eabi/lib/armv7-m/libc.a(lib_a-strtok_r.o)
+ .ARM.attributes
+                0x0000000000000000       0x2d /Users/imac/Develop/stm32f4/arm_gcc/gcc-arm-none-eabi-4_7-2013q3/bin/../lib/gcc/arm-none-eabi/4.7.4/../../../../arm-none-eabi/lib/armv7-m/libc.a(lib_a-strtok_r.o)
+ .debug_frame   0x0000000000000000       0x3c /Users/imac/Develop/stm32f4/arm_gcc/gcc-arm-none-eabi-4_7-2013q3/bin/../lib/gcc/arm-none-eabi/4.7.4/../../../../arm-none-eabi/lib/armv7-m/libc.a(lib_a-strtok_r.o)
+
+Memory Configuration
+
+Name             Origin             Length             Attributes
+RAM              0x0000000020000000 0x0000000000005000 xrw
+EXTSRAM          0x0000000068000000 0x0000000000000000 xrw
+FLASH            0x0000000008000000 0x000000000001f800 xr
+EEMUL            0x000000000801f800 0x0000000000000800 xrw
+*default*        0x0000000000000000 0xffffffffffffffff
+
+Linker script and memory map
+
+LOAD main.o
+LOAD Ap.o
+LOAD Ap_RadioMenu.o
+LOAD Ap_Radio.o
+LOAD Ap_GLcdMenu.o
+LOAD Lb_Util.o
+LOAD Lb_Printf.o
+LOAD Hw_StartUp.o
+LOAD Hw.o
+LOAD Hw_Uart.o
+LOAD Hw_PLL.o
+LOAD Hw_Led.o
+LOAD Hw_Uart_Q.o
+LOAD Hw_ISR.o
+LOAD Hw_Timer.o
+LOAD Hw_VCom.o
+LOAD Hw_I2C.o
+LOAD Hw_I2C_SW.o
+LOAD Hw_I2C_HW.o
+LOAD Hw_Si47xx.o
+LOAD Hw_SPI.o
+LOAD Hw_N5110G.o
+LOAD Hw_DMA.o
+LOAD Hw_I2C_IMU.o
+LOAD Hw_MPU6050.o
+LOAD Hw_Sonic.o
+LOAD Hw_HMC5883.o
+LOAD Hw_IMU.o
+LOAD usb_desc.o
+LOAD usb_endp.o
+LOAD usb_istr.o
+LOAD usb_prop.o
+LOAD usb_pwr.o
+LOAD hw_config.o
+LOAD usb_core.o
+LOAD usb_init.o
+LOAD usb_mem.o
+LOAD usb_regs.o
+LOAD usb_sil.o
+LOAD usb_int.o
+LOAD /Users/imac/Develop/stm32f4/arm_gcc/gcc-arm-none-eabi-4_7-2013q3/bin/../lib/gcc/arm-none-eabi/4.7.4/../../../../arm-none-eabi/lib/armv7-m/libc.a
+LOAD /Users/imac/Develop/stm32f4/arm_gcc/gcc-arm-none-eabi-4_7-2013q3/bin/../lib/gcc/arm-none-eabi/4.7.4/../../../../arm-none-eabi/lib/armv7-m/libm.a
+LOAD /Users/imac/Develop/stm32f4/arm_gcc/gcc-arm-none-eabi-4_7-2013q3/bin/../lib/gcc/arm-none-eabi/4.7.4/../../../../arm-none-eabi/lib/armv7-m/libc.a
+LOAD /Users/imac/Develop/stm32f4/arm_gcc/gcc-arm-none-eabi-4_7-2013q3/bin/../lib/gcc/arm-none-eabi/4.7.4/armv7-m/libgcc.a
+                0x0000000020005000                _estack = (ORIGIN (RAM) + 0x5000)
+                0x000000000801f800                _seemul = ORIGIN (EEMUL)
+                0x0000000000000100                _Minimum_Stack_Size = 0x100
+                0x0000000000000001                ASSERT ((ORIGIN (FLASH) == ALIGN (ORIGIN (FLASH), 0x80)), Start of memory region flash not aligned for startup vector table)
+
+.text           0x0000000008000000     0x5188
+                0x0000000008000000                . = ALIGN (0x80)
+                0x0000000000000000                _isr_vectorsflash_offs = (. - 0x8000000)
+ *(.isr_vectorsflash)
+ .isr_vectorsflash
+                0x0000000008000000        0x8 Hw_StartUp.o
+                0x0000000008000000                g_pfnVectors
+                0x0000000008000008                . = ALIGN (0x4)
+ *(.text)
+ *(.text.*)
+ .text.LED_Tick
+                0x0000000008000008       0x10 main.o
+                0x0000000008000008                LED_Tick
+ .text.startup.main
+                0x0000000008000018       0x44 main.o
+                0x0000000008000018                main
+ .text.Ap_Init  0x000000000800005c        0x4 Ap.o
+                0x000000000800005c                Ap_Init
+ .text.Ap_GLcdMenu_ShowMenu
+                0x0000000008000060       0xa4 Ap_GLcdMenu.o
+                0x0000000008000060                Ap_GLcdMenu_ShowMenu
+ .text.Ap_GLcdMenu_GetCmd
+                0x0000000008000104       0x30 Ap_GLcdMenu.o
+                0x0000000008000104                Ap_GLcdMenu_GetCmd
+ .text.Ap_GLcdMenu_ExeCmd
+                0x0000000008000134      0x508 Ap_GLcdMenu.o
+                0x0000000008000134                Ap_GLcdMenu_ExeCmd
+ .text.print_byte_out
+                0x000000000800063c       0x38 Lb_Printf.o
+                0x000000000800063c                print_byte_out
+ .text.PrintString
+                0x0000000008000674       0x20 Lb_Printf.o
+ .text.DecToLong
+                0x0000000008000694       0x44 Lb_Printf.o
+                0x0000000008000694                DecToLong
+ .text.PrintDec
+                0x00000000080006d8      0x3cc Lb_Printf.o
+ .text.PrintHex
+                0x0000000008000aa4      0x3b4 Lb_Printf.o
+ .text.Lb_printf
+                0x0000000008000e58      0x2d4 Lb_Printf.o
+                0x0000000008000e58                Lb_printf
+ .text.Lb_vsprintf
+                0x000000000800112c      0x2d0 Lb_Printf.o
+                0x000000000800112c                Lb_vsprintf
+ .text.Hw_StartUp_Init
+                0x00000000080013fc       0xcc Hw_StartUp.o
+                0x00000000080013fc                Hw_StartUp_Init
+ .text.Hw_Init  0x00000000080014c8       0xbc Hw.o
+                0x00000000080014c8                Hw_Init
+ .text.Hw_Wait  0x0000000008001584       0x1c Hw.o
+                0x0000000008001584                Hw_Wait
+ .text.Hw_Wait_ms
+                0x00000000080015a0       0x24 Hw.o
+                0x00000000080015a0                Hw_Wait_ms
+ .text.Hw_ISR_UART1_Handler
+                0x00000000080015c4       0x24 Hw_Uart.o
+                0x00000000080015c4                Hw_ISR_UART1_Handler
+ .text.Hw_Uart_Open_COM1
+                0x00000000080015e8       0x90 Hw_Uart.o
+                0x00000000080015e8                Hw_Uart_Open_COM1
+ .text.Hw_Uart_Init
+                0x0000000008001678       0x3c Hw_Uart.o
+                0x0000000008001678                Hw_Uart_Init
+ .text.Hw_Uart_Getch
+                0x00000000080016b4       0x30 Hw_Uart.o
+                0x00000000080016b4                Hw_Uart_Getch
+ .text.print_byte
+                0x00000000080016e4       0x3c Hw_Uart.o
+                0x00000000080016e4                print_byte
+ .text.get_byte
+                0x0000000008001720       0x10 Hw_Uart.o
+                0x0000000008001720                get_byte
+ .text.get_byte_check
+                0x0000000008001730       0x18 Hw_Uart.o
+                0x0000000008001730                get_byte_check
+ .text.Hw_PLL_Init
+                0x0000000008001748       0x94 Hw_PLL.o
+                0x0000000008001748                Hw_PLL_Init
+ .text.Hw_Led_Init
+                0x00000000080017dc       0x44 Hw_Led.o
+                0x00000000080017dc                Hw_Led_Init
+ .text.Hw_Led_Toggle
+                0x0000000008001820       0x14 Hw_Led.o
+                0x0000000008001820                Hw_Led_Toggle
+ .text.Hw_Uart_Q_Init
+                0x0000000008001834       0x30 Hw_Uart_Q.o
+                0x0000000008001834                Hw_Uart_Q_Init
+ .text.HW_UART_Q_VAILD
+                0x0000000008001864       0x30 Hw_Uart_Q.o
+                0x0000000008001864                HW_UART_Q_VAILD
+ .text.Hw_Uart_Q_Push
+                0x0000000008001894       0x78 Hw_Uart_Q.o
+                0x0000000008001894                Hw_Uart_Q_Push
+ .text.Hw_Uart_Q_Pop
+                0x000000000800190c       0x78 Hw_Uart_Q.o
+                0x000000000800190c                Hw_Uart_Q_Pop
+ .text.Hw_ISR_Init
+                0x0000000008001984       0x14 Hw_ISR.o
+                0x0000000008001984                Hw_ISR_Init
+ .text.Hw_ISR_SetIRQFunc
+                0x0000000008001998       0x10 Hw_ISR.o
+                0x0000000008001998                Hw_ISR_SetIRQFunc
+ .text.Hw_ISR_SetIRQFuncByAddr
+                0x00000000080019a8       0x10 Hw_ISR.o
+                0x00000000080019a8                Hw_ISR_SetIRQFuncByAddr
+ .text.Hw_Timer_SetupISR
+                0x00000000080019b8       0x1c Hw_Timer.o
+                0x00000000080019b8                Hw_Timer_SetupISR
+ .text.Hw_Timer_Init
+                0x00000000080019d4      0x114 Hw_Timer.o
+                0x00000000080019d4                Hw_Timer_Init
+ .text.Hw_Timer_Tick
+                0x0000000008001ae8      0x1a8 Hw_Timer.o
+                0x0000000008001ae8                Hw_Timer_Tick
+ .text.Hw_Timer_ISR
+                0x0000000008001c90       0x10 Hw_Timer.o
+                0x0000000008001c90                Hw_Timer_ISR
+ .text.Hw_Timer_Set
+                0x0000000008001ca0       0x20 Hw_Timer.o
+                0x0000000008001ca0                Hw_Timer_Set
+ .text.Hw_Timer_Start
+                0x0000000008001cc0       0x14 Hw_Timer.o
+                0x0000000008001cc0                Hw_Timer_Start
+ .text.Hw_Timer_Delay_ms
+                0x0000000008001cd4       0x14 Hw_Timer.o
+                0x0000000008001cd4                Hw_Timer_Delay_ms
+ .text.Hw_Timer_Get_u16Count_Usec
+                0x0000000008001ce8       0x10 Hw_Timer.o
+                0x0000000008001ce8                Hw_Timer_Get_u16Count_Usec
+ .text.Hw_VCom_Init
+                0x0000000008001cf8       0x2c Hw_VCom.o
+                0x0000000008001cf8                Hw_VCom_Init
+ .text.Hw_I2C_Init
+                0x0000000008001d24       0x10 Hw_I2C.o
+                0x0000000008001d24                Hw_I2C_Init
+ .text.Hw_I2C_HW_IO_Setup
+                0x0000000008001d34       0x48 Hw_I2C_HW.o
+                0x0000000008001d34                Hw_I2C_HW_IO_Setup
+ .text.Hw_I2C_HW_Init
+                0x0000000008001d7c       0x74 Hw_I2C_HW.o
+                0x0000000008001d7c                Hw_I2C_HW_Init
+ .text.Hw_Si47xx_Reset
+                0x0000000008001df0       0x40 Hw_Si47xx.o
+                0x0000000008001df0                Hw_Si47xx_Reset
+ .text.Hw_Si47xx_Init
+                0x0000000008001e30       0x34 Hw_Si47xx.o
+                0x0000000008001e30                Hw_Si47xx_Init
+ .text.Hw_SPI_Ch2_Init
+                0x0000000008001e64       0x74 Hw_SPI.o
+                0x0000000008001e64                Hw_SPI_Ch2_Init
+ .text.Hw_SPI_Init
+                0x0000000008001ed8       0x2c Hw_SPI.o
+                0x0000000008001ed8                Hw_SPI_Init
+ .text.Hw_SPI_StartDMA
+                0x0000000008001f04       0x20 Hw_SPI.o
+                0x0000000008001f04                Hw_SPI_StartDMA
+ .text.Hw_SPI_Write8Bit
+                0x0000000008001f24       0x70 Hw_SPI.o
+                0x0000000008001f24                Hw_SPI_Write8Bit
+ .text.Hw_N5100G_FrameTick
+                0x0000000008001f94       0x50 Hw_N5110G.o
+                0x0000000008001f94                Hw_N5100G_FrameTick
+ .text.Hw_N5110G_Reset
+                0x0000000008001fe4       0x28 Hw_N5110G.o
+                0x0000000008001fe4                Hw_N5110G_Reset
+ .text.Hw_N5110G_WriteCmd
+                0x000000000800200c       0x2c Hw_N5110G.o
+                0x000000000800200c                Hw_N5110G_WriteCmd
+ .text.Hw_N5110G_Goto
+                0x0000000008002038       0x20 Hw_N5110G.o
+                0x0000000008002038                Hw_N5110G_Goto
+ .text.Hw_N5110G_Init
+                0x0000000008002058       0xe4 Hw_N5110G.o
+                0x0000000008002058                Hw_N5110G_Init
+ .text.Hw_N5110G_Clear
+                0x000000000800213c       0x28 Hw_N5110G.o
+                0x000000000800213c                Hw_N5110G_Clear
+ .text.Hw_N5110G_WriteStr
+                0x0000000008002164      0x128 Hw_N5110G.o
+                0x0000000008002164                Hw_N5110G_WriteStr
+ .text.Hw_N5110G_Print
+                0x000000000800228c       0x60 Hw_N5110G.o
+                0x000000000800228c                Hw_N5110G_Print
+ .text.Hw_N5110G_DrawRequest
+                0x00000000080022ec       0x10 Hw_N5110G.o
+                0x00000000080022ec                Hw_N5110G_DrawRequest
+ .text.Hw_N5110G_DrawCircle
+                0x00000000080022fc      0x3a4 Hw_N5110G.o
+                0x00000000080022fc                Hw_N5110G_DrawCircle
+ .text.Hw_DMA_Init
+                0x00000000080026a0       0x24 Hw_DMA.o
+                0x00000000080026a0                Hw_DMA_Init
+ .text.Hw_DMA_SPI2_Setup
+                0x00000000080026c4       0x78 Hw_DMA.o
+                0x00000000080026c4                Hw_DMA_SPI2_Setup
+ .text.Hw_DMA_SPI2_IsTransFinished
+                0x000000000800273c       0x28 Hw_DMA.o
+                0x000000000800273c                Hw_DMA_SPI2_IsTransFinished
+ .text.Hw_I2C_IMU_IO_Setup
+                0x0000000008002764       0x48 Hw_I2C_IMU.o
+                0x0000000008002764                Hw_I2C_IMU_IO_Setup
+ .text.Hw_I2C_IMU_Init
+                0x00000000080027ac       0x84 Hw_I2C_IMU.o
+                0x00000000080027ac                Hw_I2C_IMU_Init
+ .text.Hw_I2C_IMU_GetErrStatus
+                0x0000000008002830       0x74 Hw_I2C_IMU.o
+                0x0000000008002830                Hw_I2C_IMU_GetErrStatus
+ .text.Hw_I2C_IMU_ReadRegs
+                0x00000000080028a4      0x2a4 Hw_I2C_IMU.o
+                0x00000000080028a4                Hw_I2C_IMU_ReadRegs
+ .text.Hw_I2C_IMU_HMC5883_ReadRegs
+                0x0000000008002b48       0x1c Hw_I2C_IMU.o
+                0x0000000008002b48                Hw_I2C_IMU_HMC5883_ReadRegs
+ .text.Hw_I2C_IMU_HMC5883_ReadReg
+                0x0000000008002b64       0x18 Hw_I2C_IMU.o
+                0x0000000008002b64                Hw_I2C_IMU_HMC5883_ReadReg
+ .text.Hw_I2C_IMU_MPU6050_ReadRegs
+                0x0000000008002b7c       0x1c Hw_I2C_IMU.o
+                0x0000000008002b7c                Hw_I2C_IMU_MPU6050_ReadRegs
+ .text.Hw_I2C_IMU_MPU6050_ReadReg
+                0x0000000008002b98       0x18 Hw_I2C_IMU.o
+                0x0000000008002b98                Hw_I2C_IMU_MPU6050_ReadReg
+ .text.Hw_I2C_IMU_WriteRegs
+                0x0000000008002bb0      0x1b4 Hw_I2C_IMU.o
+                0x0000000008002bb0                Hw_I2C_IMU_WriteRegs
+ .text.Hw_I2C_IMU_HMC5883_WriteRegs
+                0x0000000008002d64       0x1c Hw_I2C_IMU.o
+                0x0000000008002d64                Hw_I2C_IMU_HMC5883_WriteRegs
+ .text.Hw_I2C_IMU_HMC5883_WriteAddr
+                0x0000000008002d80       0x1c Hw_I2C_IMU.o
+                0x0000000008002d80                Hw_I2C_IMU_HMC5883_WriteAddr
+ .text.Hw_I2C_IMU_MPU6050_WriteReg
+                0x0000000008002d9c       0x20 Hw_I2C_IMU.o
+                0x0000000008002d9c                Hw_I2C_IMU_MPU6050_WriteReg
+ .text.Hw_MPU6050_GetData
+                0x0000000008002dbc       0xac Hw_MPU6050.o
+                0x0000000008002dbc                Hw_MPU6050_GetData
+ .text.Hw_MPU6050_I2CAuxMasterDisable
+                0x0000000008002e68       0x30 Hw_MPU6050.o
+                0x0000000008002e68                Hw_MPU6050_I2CAuxMasterDisable
+ .text.Hw_MPU6050_Init
+                0x0000000008002e98       0x90 Hw_MPU6050.o
+                0x0000000008002e98                Hw_MPU6050_Init
+ .text.Hw_Sonic_GetDistanceMM
+                0x0000000008002f28       0x14 Hw_Sonic.o
+                0x0000000008002f28                Hw_Sonic_GetDistanceMM
+ .text.Hw_HMC5883_CheckID
+                0x0000000008002f3c       0x3c Hw_HMC5883.o
+                0x0000000008002f3c                Hw_HMC5883_CheckID
+ .text.Hw_HMC5883_Init
+                0x0000000008002f78       0xb0 Hw_HMC5883.o
+                0x0000000008002f78                Hw_HMC5883_Init
+ .text.Hw_HMC5883_GetData
+                0x0000000008003028       0x50 Hw_HMC5883.o
+                0x0000000008003028                Hw_HMC5883_GetData
+ .text.Hw_HMC5883_GetEnable
+                0x0000000008003078        0xc Hw_HMC5883.o
+                0x0000000008003078                Hw_HMC5883_GetEnable
+ .text.Hw_IMU_Init
+                0x0000000008003084       0x44 Hw_IMU.o
+                0x0000000008003084                Hw_IMU_Init
+ .text.Hw_IMU_GetData
+                0x00000000080030c8       0x94 Hw_IMU.o
+                0x00000000080030c8                Hw_IMU_GetData
+ .text.EP1_IN_Callback
+                0x000000000800315c       0x74 usb_endp.o
+                0x000000000800315c                EP1_IN_Callback
+ .text.EP3_OUT_Callback
+                0x00000000080031d0       0x34 usb_endp.o
+                0x00000000080031d0                EP3_OUT_Callback
+ .text.SOF_Callback
+                0x0000000008003204       0x30 usb_endp.o
+                0x0000000008003204                SOF_Callback
+ .text.USB_Istr
+                0x0000000008003234      0x278 usb_istr.o
+                0x0000000008003234                USB_Istr
+ .text.Virtual_Com_Port_SetConfiguration
+                0x00000000080034ac       0x18 usb_prop.o
+                0x00000000080034ac                Virtual_Com_Port_SetConfiguration
+ .text.Virtual_Com_Port_SetDeviceAddress
+                0x00000000080034c4       0x10 usb_prop.o
+                0x00000000080034c4                Virtual_Com_Port_SetDeviceAddress
+ .text.Virtual_Com_Port_Status_In
+                0x00000000080034d4       0x14 usb_prop.o
+                0x00000000080034d4                Virtual_Com_Port_Status_In
+ .text.Virtual_Com_Port_Status_Out
+                0x00000000080034e8        0x4 usb_prop.o
+                0x00000000080034e8                Virtual_Com_Port_Status_Out
+ .text.Virtual_Com_Port_Data_Setup
+                0x00000000080034ec       0x60 usb_prop.o
+                0x00000000080034ec                Virtual_Com_Port_Data_Setup
+ .text.Virtual_Com_Port_NoData_Setup
+                0x000000000800354c       0x24 usb_prop.o
+                0x000000000800354c                Virtual_Com_Port_NoData_Setup
+ .text.Virtual_Com_Port_Get_Interface_Setting
+                0x0000000008003570       0x10 usb_prop.o
+                0x0000000008003570                Virtual_Com_Port_Get_Interface_Setting
+ .text.Virtual_Com_Port_GetLineCoding
+                0x0000000008003580       0x18 usb_prop.o
+                0x0000000008003580                Virtual_Com_Port_GetLineCoding
+ .text.Virtual_Com_Port_SetLineCoding
+                0x0000000008003598       0x18 usb_prop.o
+                0x0000000008003598                Virtual_Com_Port_SetLineCoding
+ .text.Virtual_Com_Port_GetStringDescriptor
+                0x00000000080035b0       0x28 usb_prop.o
+                0x00000000080035b0                Virtual_Com_Port_GetStringDescriptor
+ .text.Virtual_Com_Port_GetConfigDescriptor
+                0x00000000080035d8       0x18 usb_prop.o
+                0x00000000080035d8                Virtual_Com_Port_GetConfigDescriptor
+ .text.Virtual_Com_Port_GetDeviceDescriptor
+                0x00000000080035f0       0x18 usb_prop.o
+                0x00000000080035f0                Virtual_Com_Port_GetDeviceDescriptor
+ .text.Virtual_Com_Port_Reset
+                0x0000000008003608      0x110 usb_prop.o
+                0x0000000008003608                Virtual_Com_Port_Reset
+ .text.Virtual_Com_Port_init
+                0x0000000008003718       0x3c usb_prop.o
+                0x0000000008003718                Virtual_Com_Port_init
+ .text.PowerOn  0x0000000008003754       0x3c usb_pwr.o
+                0x0000000008003754                PowerOn
+ .text.Suspend  0x0000000008003790      0x1a8 usb_pwr.o
+                0x0000000008003790                Suspend
+ .text.Resume_Init
+                0x0000000008003938       0x28 usb_pwr.o
+                0x0000000008003938                Resume_Init
+ .text.Resume   0x0000000008003960       0xbc usb_pwr.o
+                0x0000000008003960                Resume
+ .text.USBWakeUp_IRQHandler
+                0x0000000008003a1c       0x10 hw_config.o
+                0x0000000008003a1c                USBWakeUp_IRQHandler
+ .text.IntToUnicode
+                0x0000000008003a2c       0x78 hw_config.o
+ .text.USB_LP_IRQHandler
+                0x0000000008003aa4       0x10 hw_config.o
+                0x0000000008003aa4                USB_LP_IRQHandler
+ .text.Set_System
+                0x0000000008003ab4       0x20 hw_config.o
+                0x0000000008003ab4                Set_System
+ .text.Set_USBClock
+                0x0000000008003ad4       0x24 hw_config.o
+                0x0000000008003ad4                Set_USBClock
+ .text.Leave_LowPowerMode
+                0x0000000008003af8       0x20 hw_config.o
+                0x0000000008003af8                Leave_LowPowerMode
+ .text.USB_Interrupts_Config
+                0x0000000008003b18       0xb0 hw_config.o
+                0x0000000008003b18                USB_Interrupts_Config
+ .text.USB_Cable_Config
+                0x0000000008003bc8       0x1c hw_config.o
+                0x0000000008003bc8                USB_Cable_Config
+ .text.USB_To_USART_Send_Data
+                0x0000000008003be4       0x70 hw_config.o
+                0x0000000008003be4                USB_To_USART_Send_Data
+ .text.Handle_USBAsynchXfer
+                0x0000000008003c54       0xa4 hw_config.o
+                0x0000000008003c54                Handle_USBAsynchXfer
+ .text.Get_SerialNum
+                0x0000000008003cf8       0x44 hw_config.o
+                0x0000000008003cf8                Get_SerialNum
+ .text.__WFI    0x0000000008003d3c        0x4 hw_config.o
+                0x0000000008003d3c                __WFI
+ .text.Standard_GetConfiguration
+                0x0000000008003d40       0x28 usb_core.o
+                0x0000000008003d40                Standard_GetConfiguration
+ .text.Standard_GetInterface
+                0x0000000008003d68       0x28 usb_core.o
+                0x0000000008003d68                Standard_GetInterface
+ .text.Standard_GetStatus
+                0x0000000008003d90       0xa0 usb_core.o
+                0x0000000008003d90                Standard_GetStatus
+ .text.DataStageIn
+                0x0000000008003e30       0xc0 usb_core.o
+ .text.Standard_SetConfiguration
+                0x0000000008003ef0       0x3c usb_core.o
+                0x0000000008003ef0                Standard_SetConfiguration
+ .text.Standard_SetInterface
+                0x0000000008003f2c       0x50 usb_core.o
+                0x0000000008003f2c                Standard_SetInterface
+ .text.Standard_ClearFeature
+                0x0000000008003f7c       0xf8 usb_core.o
+                0x0000000008003f7c                Standard_ClearFeature
+ .text.Standard_SetEndPointFeature
+                0x0000000008004074       0x98 usb_core.o
+                0x0000000008004074                Standard_SetEndPointFeature
+ .text.Standard_GetDescriptorData
+                0x000000000800410c       0x1c usb_core.o
+                0x000000000800410c                Standard_GetDescriptorData
+ .text.Post0_Process
+                0x0000000008004128       0x48 usb_core.o
+                0x0000000008004128                Post0_Process
+ .text.Out0_Process
+                0x0000000008004170       0xf0 usb_core.o
+                0x0000000008004170                Out0_Process
+ .text.Setup0_Process
+                0x0000000008004260      0x388 usb_core.o
+                0x0000000008004260                Setup0_Process
+ .text.SetDeviceAddress
+                0x00000000080045e8       0xa8 usb_core.o
+                0x00000000080045e8                SetDeviceAddress
+ .text.In0_Process
+                0x0000000008004690       0x6c usb_core.o
+                0x0000000008004690                In0_Process
+ .text.NOP_Process
+                0x00000000080046fc        0x4 usb_core.o
+                0x00000000080046fc                NOP_Process
+ .text.USB_Init
+                0x0000000008004700       0x44 usb_init.o
+                0x0000000008004700                USB_Init
+ .text.UserToPMABufferCopy
+                0x0000000008004744       0x78 usb_mem.o
+                0x0000000008004744                UserToPMABufferCopy
+ .text.PMAToUserBufferCopy
+                0x00000000080047bc       0x50 usb_mem.o
+                0x00000000080047bc                PMAToUserBufferCopy
+ .text.SetBTABLE
+                0x000000000800480c       0x14 usb_regs.o
+                0x000000000800480c                SetBTABLE
+ .text.SetEPType
+                0x0000000008004820       0x18 usb_regs.o
+                0x0000000008004820                SetEPType
+ .text.SetEPTxStatus
+                0x0000000008004838       0x40 usb_regs.o
+                0x0000000008004838                SetEPTxStatus
+ .text.SetEPRxStatus
+                0x0000000008004878       0x40 usb_regs.o
+                0x0000000008004878                SetEPRxStatus
+ .text.SetEPTxValid
+                0x00000000080048b8       0x24 usb_regs.o
+                0x00000000080048b8                SetEPTxValid
+ .text.SetEPRxValid
+                0x00000000080048dc       0x24 usb_regs.o
+                0x00000000080048dc                SetEPRxValid
+ .text.Clear_Status_Out
+                0x0000000008004900       0x20 usb_regs.o
+                0x0000000008004900                Clear_Status_Out
+ .text.ClearDTOG_RX
+                0x0000000008004920       0x24 usb_regs.o
+                0x0000000008004920                ClearDTOG_RX
+ .text.ClearDTOG_TX
+                0x0000000008004944       0x24 usb_regs.o
+                0x0000000008004944                ClearDTOG_TX
+ .text.SetEPTxAddr
+                0x0000000008004968       0x24 usb_regs.o
+                0x0000000008004968                SetEPTxAddr
+ .text.SetEPRxAddr
+                0x000000000800498c       0x28 usb_regs.o
+                0x000000000800498c                SetEPRxAddr
+ .text.GetEPTxAddr
+                0x00000000080049b4       0x20 usb_regs.o
+                0x00000000080049b4                GetEPTxAddr
+ .text.GetEPRxAddr
+                0x00000000080049d4       0x20 usb_regs.o
+                0x00000000080049d4                GetEPRxAddr
+ .text.SetEPTxCount
+                0x00000000080049f4       0x20 usb_regs.o
+                0x00000000080049f4                SetEPTxCount
+ .text.SetEPRxCount
+                0x0000000008004a14       0x44 usb_regs.o
+                0x0000000008004a14                SetEPRxCount
+ .text.GetEPRxCount
+                0x0000000008004a58       0x24 usb_regs.o
+                0x0000000008004a58                GetEPRxCount
+ .text.ByteSwap
+                0x0000000008004a7c        0xc usb_regs.o
+                0x0000000008004a7c                ByteSwap
+ .text.USB_SIL_Init
+                0x0000000008004a88       0x2c usb_sil.o
+                0x0000000008004a88                USB_SIL_Init
+ .text.USB_SIL_Read
+                0x0000000008004ab4       0x38 usb_sil.o
+                0x0000000008004ab4                USB_SIL_Read
+ .text.CTR_LP   0x0000000008004aec      0x1bc usb_int.o
+                0x0000000008004aec                CTR_LP
+ *(.stub .gnu.linkonce.t.*)
+ *(.rodata .rodata.* .gnu.linkonce.r.*)
+ .rodata.str1.4
+                0x0000000008004ca8      0x393 Ap_GLcdMenu.o
+                                        0x398 (size before relaxing)
+ *fill*         0x000000000800503b        0x1 00
+ .rodata.str1.4
+                0x000000000800503c       0x3e Hw_MPU6050.o
+                                         0x40 (size before relaxing)
+ *fill*         0x000000000800507a        0x2 00
+ .rodata.str1.4
+                0x000000000800507c       0x1a Hw_HMC5883.o
+                                         0x1c (size before relaxing)
+ *fill*         0x0000000008005096        0x2 00
+ .rodata.str1.4
+                0x0000000008005098       0x38 Hw_IMU.o
+ .rodata.Virtual_Com_Port_StringVendor
+                0x00000000080050d0       0x28 usb_desc.o
+                0x00000000080050d0                Virtual_Com_Port_StringVendor
+ .rodata.Virtual_Com_Port_DeviceDescriptor
+                0x00000000080050f8       0x14 usb_desc.o
+                0x00000000080050f8                Virtual_Com_Port_DeviceDescriptor
+ .rodata.Virtual_Com_Port_StringLangID
+                0x000000000800510c        0x4 usb_desc.o
+                0x000000000800510c                Virtual_Com_Port_StringLangID
+ .rodata.Virtual_Com_Port_StringProduct
+                0x0000000008005110       0x34 usb_desc.o
+                0x0000000008005110                Virtual_Com_Port_StringProduct
+ .rodata.Virtual_Com_Port_ConfigDescriptor
+                0x0000000008005144       0x44 usb_desc.o
+                0x0000000008005144                Virtual_Com_Port_ConfigDescriptor
+ *(.glue_7 .glue_7t)
+ .glue_7        0x0000000000000000        0x0 linker stubs
+ .glue_7t       0x0000000000000000        0x0 linker stubs
+                0x0000000008005188                . = ALIGN (0x4)
+
+.vfp11_veneer   0x0000000008005188        0x0
+ .vfp11_veneer  0x0000000000000000        0x0 linker stubs
+
+.v4_bx          0x0000000008005188        0x0
+ .v4_bx         0x0000000000000000        0x0 linker stubs
+
+.iplt           0x0000000008005188        0x0
+ .iplt          0x0000000000000000        0x0 main.o
+
+.rel.dyn        0x0000000008005188        0x0
+ .rel.iplt      0x0000000000000000        0x0 main.o
+
+.ARM.extab
+ *(.ARM.extab* .gnu.linkonce.armextab.*)
+
+.ARM            0x0000000008005188        0x0
+                0x0000000008005188                __exidx_start = .
+ *(.ARM.exidx*)
+                0x0000000008005188                __exidx_end = .
+                0x0000000008005188                _etext = .
+                0x0000000008005188                _sidata = _etext
+
+.data           0x0000000020000000      0x30c load address 0x0000000008005188
+                0x0000000020000000                . = .
+                0x0000000020000000                . = ALIGN (0x4)
+                0x0000000020000000                _sdata = .
+                0x0000000020000000                . = ALIGN (0x80)
+                0x0000000000000000                _isr_vectorsram_offs = (. - 0x20000000)
+ *(.isr_vectorsram)
+                0x0000000020000000                . = ALIGN (0x4)
+ *(.ramfunc*)
+                0x0000000020000000                . = ALIGN (0x4)
+ *(.data .data.* .gnu.linkonce.d.*)
+ .data.Hw_N5110G_Font6_8
+                0x0000000020000000      0x228 Hw_N5110G.o
+                0x0000000020000000                Hw_N5110G_Font6_8
+ .data.Virtual_Com_Port_StringSerial
+                0x0000000020000228       0x1c usb_desc.o
+                0x0000000020000228                Virtual_Com_Port_StringSerial
+ .data.pEpInt_IN
+                0x0000000020000244       0x1c usb_istr.o
+                0x0000000020000244                pEpInt_IN
+ .data.pEpInt_OUT
+                0x0000000020000260       0x1c usb_istr.o
+                0x0000000020000260                pEpInt_OUT
+ .data.Config_Descriptor
+                0x000000002000027c        0x8 usb_prop.o
+                0x000000002000027c                Config_Descriptor
+ .data.Device_Property
+                0x0000000020000284       0x30 usb_prop.o
+                0x0000000020000284                Device_Property
+ .data.User_Standard_Requests
+                0x00000000200002b4       0x24 usb_prop.o
+                0x00000000200002b4                User_Standard_Requests
+ .data.Device_Descriptor
+                0x00000000200002d8        0x8 usb_prop.o
+                0x00000000200002d8                Device_Descriptor
+ .data.String_Descriptor
+                0x00000000200002e0       0x20 usb_prop.o
+                0x00000000200002e0                String_Descriptor
+ .data.linecoding
+                0x0000000020000300        0x8 usb_prop.o
+                0x0000000020000300                linecoding
+ .data.Device_Table
+                0x0000000020000308        0x4 usb_prop.o
+                0x0000000020000308                Device_Table
+                0x000000002000030c                . = ALIGN (0x4)
+                0x000000002000030c                _edata = .
+
+.igot.plt       0x000000002000030c        0x0 load address 0x0000000008005494
+ .igot.plt      0x0000000000000000        0x0 main.o
+
+.bss            0x0000000020000400     0x1240 load address 0x0000000008005600
+                0x0000000020000400                . = ALIGN (0x4)
+                0x0000000020000400                _sbss = .
+ *(.bss .bss.*)
+ .bss.StrPrintBufIndex
+                0x0000000020000400        0x4 Lb_Printf.o
+                0x0000000020000400                StrPrintBufIndex
+ .bss.StrPrintMode
+                0x0000000020000404        0x1 Lb_Printf.o
+                0x0000000020000404                StrPrintMode
+ *fill*         0x0000000020000405        0x3 00
+ .bss.Timer_Tbl
+                0x0000000020000408       0x70 Hw_Timer.o
+ .bss.Excute.4438
+                0x0000000020000478        0x1 Hw_Timer.o
+ *fill*         0x0000000020000479        0x3 00
+ .bss.Hw_Timer_Counter
+                0x000000002000047c        0x4 Hw_Timer.o
+ .bss.Tmr_Ctn   0x0000000020000480        0x2 Hw_Timer.o
+ .bss.Called.4428
+                0x0000000020000482        0x1 Hw_SPI.o
+ .bss.Called.4424
+                0x0000000020000483        0x1 Hw_DMA.o
+ .bss.power_on.4440
+                0x0000000020000484        0x1 Hw_I2C_IMU.o
+ .bss.power_on.4447
+                0x0000000020000485        0x1 Hw_MPU6050.o
+ .bss.Hw_MPU6050_EnableFlag
+                0x0000000020000486        0x1 Hw_MPU6050.o
+                0x0000000020000486                Hw_MPU6050_EnableFlag
+ .bss.power_on.4439
+                0x0000000020000487        0x1 Hw_HMC5883.o
+ .bss.Hw_HMC5883_EnableFlag
+                0x0000000020000488        0x1 Hw_HMC5883.o
+                0x0000000020000488                Hw_HMC5883_EnableFlag
+ *fill*         0x0000000020000489        0x3 00
+ .bss.FrameCount.4884
+                0x000000002000048c        0x4 usb_endp.o
+ .bss.wCNTR     0x0000000020000490        0x4 usb_istr.o
+                0x0000000020000490                wCNTR
+ .bss.bIntPackSOF
+                0x0000000020000494        0x1 usb_istr.o
+                0x0000000020000494                bIntPackSOF
+ *fill*         0x0000000020000495        0x3 00
+ .bss.esof_counter
+                0x0000000020000498        0x4 usb_istr.o
+                0x0000000020000498                esof_counter
+ .bss.Request   0x000000002000049c        0x1 usb_prop.o
+                0x000000002000049c                Request
+ *fill*         0x000000002000049d        0x3 00
+ .bss.bDeviceState
+                0x00000000200004a0        0x4 usb_pwr.o
+                0x00000000200004a0                bDeviceState
+ .bss.fSuspendEnabled
+                0x00000000200004a4        0x1 usb_pwr.o
+                0x00000000200004a4                fSuspendEnabled
+ *fill*         0x00000000200004a5        0x3 00
+ .bss.remotewakeupon
+                0x00000000200004a8        0x4 usb_pwr.o
+                0x00000000200004a8                remotewakeupon
+ .bss.USB_Tx_State
+                0x00000000200004ac        0x1 hw_config.o
+                0x00000000200004ac                USB_Tx_State
+ *fill*         0x00000000200004ad        0x3 00
+ .bss.USART_Rx_ptr_in
+                0x00000000200004b0        0x4 hw_config.o
+                0x00000000200004b0                USART_Rx_ptr_in
+ .bss.USART_Rx_ptr_out
+                0x00000000200004b4        0x4 hw_config.o
+                0x00000000200004b4                USART_Rx_ptr_out
+ .bss.USART_Rx_length
+                0x00000000200004b8        0x4 hw_config.o
+                0x00000000200004b8                USART_Rx_length
+ .bss.Data_Mul_MaxPacketSize
+                0x00000000200004bc        0x1 usb_core.o
+                0x00000000200004bc                Data_Mul_MaxPacketSize
+ *(COMMON)
+ *fill*         0x00000000200004bd        0x3 00
+ COMMON         0x00000000200004c0        0x4 Lb_Printf.o
+                0x00000000200004c0                pStrPrintBuf
+ COMMON         0x00000000200004c4       0x3c Hw_Uart.o
+                0x00000000200004c4                Hw_Uart_Ch
+ COMMON         0x0000000020000500      0x116 Hw_Uart_Q.o
+                0x0000000020000500                Hw_Uart_Q_Buffer
+                0x00000000200005e8                Hw_Uart_Q_Size
+                0x00000000200005f8                Hw_Uart_Q_End
+                0x0000000020000608                Hw_Uart_Q_Start
+ *fill*         0x0000000020000616      0x1ea 00
+ COMMON         0x0000000020000800      0x190 Hw_ISR.o
+                0x0000000020000800                Hw_ISR_VectorTable
+ COMMON         0x0000000020000990      0x3f8 Hw_N5110G.o
+                0x0000000020000990                Hw_N5110G_TxFrameBuf
+                0x0000000020000b88                Hw_N5110G_Frame_Index
+                0x0000000020000b8c                Hw_N5110G_Frame_DrawReq
+                0x0000000020000b90                Hw_N5110G_RxFrameBuf
+ COMMON         0x0000000020000d88       0x14 Hw_Sonic.o
+                0x0000000020000d88                Hw_Sonic_Log
+ COMMON         0x0000000020000d9c       0x40 usb_endp.o
+                0x0000000020000d9c                USB_Rx_Buffer
+ COMMON         0x0000000020000ddc        0x2 usb_istr.o
+                0x0000000020000ddc                wIstr
+ *fill*         0x0000000020000dde        0x2 00
+ COMMON         0x0000000020000de0       0x24 usb_pwr.o
+                0x0000000020000de0                ResumeS
+                0x0000000020000de4                EP
+ COMMON         0x0000000020000e04      0x800 hw_config.o
+                0x0000000020000e04                USART_Rx_Buffer
+ COMMON         0x0000000020001604        0x2 usb_core.o
+                0x0000000020001604                StatusInfo
+ *fill*         0x0000000020001606        0x2 00
+ COMMON         0x0000000020001608       0x32 usb_init.o
+                0x0000000020001608                SaveState
+                0x000000002000160c                pProperty
+                0x0000000020001610                EPindex
+                0x0000000020001614                Device_Info
+                0x0000000020001630                pUser_Standard_Requests
+                0x0000000020001634                pInformation
+                0x0000000020001638                wInterrupt_Mask
+ COMMON         0x000000002000163a        0x4 usb_int.o
+                0x000000002000163a                SaveRState
+                0x000000002000163c                SaveTState
+                0x0000000020001640                . = ALIGN (0x4)
+ *fill*         0x000000002000163e        0x2 00
+                0x0000000020001640                _ebss = .
+                0x0000000020001640                PROVIDE (end, _ebss)
+                0x0000000020001640                PROVIDE (_end, _ebss)
+                0x0000000020001640                . = ALIGN (0x4)
+                0x0000000020001700                . = ALIGN (0x100)
+
+._usrstack      0x0000000020001640      0x100 load address 0x0000000008006840
+                0x0000000020001640                . = ALIGN (0x4)
+                0x0000000020001640                _susrstack = .
+                0x0000000020001740                . = (. + _Minimum_Stack_Size)
+ *fill*         0x0000000020001640      0x100 00
+                0x0000000020001740                . = ALIGN (0x4)
+                0x0000000020001740                _eusrstack = .
+
+.ARM.attributes
+                0x0000000000000000       0x33
+ *(.ARM.attributes)
+ .ARM.attributes
+                0x0000000000000000       0x33 main.o
+ .ARM.attributes
+                0x0000000000000033       0x33 Ap.o
+ .ARM.attributes
+                0x0000000000000066       0x33 Ap_GLcdMenu.o
+ .ARM.attributes
+                0x0000000000000099       0x33 Lb_Printf.o
+ .ARM.attributes
+                0x00000000000000cc       0x33 Hw_StartUp.o
+ .ARM.attributes
+                0x00000000000000ff       0x33 Hw.o
+ .ARM.attributes
+                0x0000000000000132       0x33 Hw_Uart.o
+ .ARM.attributes
+                0x0000000000000165       0x33 Hw_PLL.o
+ .ARM.attributes
+                0x0000000000000198       0x33 Hw_Led.o
+ .ARM.attributes
+                0x00000000000001cb       0x33 Hw_Uart_Q.o
+ .ARM.attributes
+                0x00000000000001fe       0x33 Hw_ISR.o
+ .ARM.attributes
+                0x0000000000000231       0x33 Hw_Timer.o
+ .ARM.attributes
+                0x0000000000000264       0x33 Hw_VCom.o
+ .ARM.attributes
+                0x0000000000000297       0x33 Hw_I2C.o
+ .ARM.attributes
+                0x00000000000002ca       0x33 Hw_I2C_HW.o
+ .ARM.attributes
+                0x00000000000002fd       0x33 Hw_Si47xx.o
+ .ARM.attributes
+                0x0000000000000330       0x33 Hw_SPI.o
+ .ARM.attributes
+                0x0000000000000363       0x33 Hw_N5110G.o
+ .ARM.attributes
+                0x0000000000000396       0x33 Hw_DMA.o
+ .ARM.attributes
+                0x00000000000003c9       0x33 Hw_I2C_IMU.o
+ .ARM.attributes
+                0x00000000000003fc       0x33 Hw_MPU6050.o
+ .ARM.attributes
+                0x000000000000042f       0x33 Hw_Sonic.o
+ .ARM.attributes
+                0x0000000000000462       0x33 Hw_HMC5883.o
+ .ARM.attributes
+                0x0000000000000495       0x33 Hw_IMU.o
+ .ARM.attributes
+                0x00000000000004c8       0x33 usb_desc.o
+ .ARM.attributes
+                0x00000000000004fb       0x33 usb_endp.o
+ .ARM.attributes
+                0x000000000000052e       0x33 usb_istr.o
+ .ARM.attributes
+                0x0000000000000561       0x33 usb_prop.o
+ .ARM.attributes
+                0x0000000000000594       0x33 usb_pwr.o
+ .ARM.attributes
+                0x00000000000005c7       0x33 hw_config.o
+ .ARM.attributes
+                0x00000000000005fa       0x33 usb_core.o
+ .ARM.attributes
+                0x000000000000062d       0x33 usb_init.o
+ .ARM.attributes
+                0x0000000000000660       0x33 usb_mem.o
+ .ARM.attributes
+                0x0000000000000693       0x33 usb_regs.o
+ .ARM.attributes
+                0x00000000000006c6       0x33 usb_sil.o
+ .ARM.attributes
+                0x00000000000006f9       0x33 usb_int.o
+                0x0000000000000400                __Stack_Size = 0x400
+                0x0000000000000400                PROVIDE (_Stack_Size, __Stack_Size)
+                0x0000000020004c00                __Stack_Init = (_estack - __Stack_Size)
+                0x0000000020004c00                PROVIDE (_Stack_Init, __Stack_Init)
+OUTPUT(main.elf elf32-littlearm)
+
+.debug_info     0x0000000000000000     0xb9c7
+ .debug_info    0x0000000000000000      0x13d main.o
+ .debug_info    0x000000000000013d       0x7e Ap.o
+ .debug_info    0x00000000000001bb      0xa9a Ap_GLcdMenu.o
+ .debug_info    0x0000000000000c55      0x9b8 Lb_Printf.o
+ .debug_info    0x000000000000160d      0x14a Hw_StartUp.o
+ .debug_info    0x0000000000001757      0x243 Hw.o
+ .debug_info    0x000000000000199a      0x570 Hw_Uart.o
+ .debug_info    0x0000000000001f0a       0x7e Hw_PLL.o
+ .debug_info    0x0000000000001f88      0x17c Hw_Led.o
+ .debug_info    0x0000000000002104      0x282 Hw_Uart_Q.o
+ .debug_info    0x0000000000002386      0x160 Hw_ISR.o
+ .debug_info    0x00000000000024e6      0x3fa Hw_Timer.o
+ .debug_info    0x00000000000028e0      0x14a Hw_VCom.o
+ .debug_info    0x0000000000002a2a      0x175 Hw_I2C.o
+ .debug_info    0x0000000000002b9f      0x8f6 Hw_I2C_HW.o
+ .debug_info    0x0000000000003495      0xf03 Hw_Si47xx.o
+ .debug_info    0x0000000000004398      0x278 Hw_SPI.o
+ .debug_info    0x0000000000004610     0x1257 Hw_N5110G.o
+ .debug_info    0x0000000000005867      0x11a Hw_DMA.o
+ .debug_info    0x0000000000005981      0xfe8 Hw_I2C_IMU.o
+ .debug_info    0x0000000000006969      0x419 Hw_MPU6050.o
+ .debug_info    0x0000000000006d82      0x5fd Hw_Sonic.o
+ .debug_info    0x000000000000737f      0x30b Hw_HMC5883.o
+ .debug_info    0x000000000000768a      0x301 Hw_IMU.o
+ .debug_info    0x000000000000798b      0x154 usb_desc.o
+ .debug_info    0x0000000000007adf      0x22f usb_endp.o
+ .debug_info    0x0000000000007d0e      0x372 usb_istr.o
+ .debug_info    0x0000000000008080      0xad9 usb_prop.o
+ .debug_info    0x0000000000008b59      0x34a usb_pwr.o
+ .debug_info    0x0000000000008ea3      0x664 hw_config.o
+ .debug_info    0x0000000000009507      0xddb usb_core.o
+ .debug_info    0x000000000000a2e2      0x46d usb_init.o
+ .debug_info    0x000000000000a74f      0x194 usb_mem.o
+ .debug_info    0x000000000000a8e3      0xd92 usb_regs.o
+ .debug_info    0x000000000000b675      0x1b9 usb_sil.o
+ .debug_info    0x000000000000b82e      0x199 usb_int.o
+
+.debug_abbrev   0x0000000000000000     0x35e5
+ .debug_abbrev  0x0000000000000000       0xd3 main.o
+ .debug_abbrev  0x00000000000000d3       0x44 Ap.o
+ .debug_abbrev  0x0000000000000117      0x193 Ap_GLcdMenu.o
+ .debug_abbrev  0x00000000000002aa      0x32c Lb_Printf.o
+ .debug_abbrev  0x00000000000005d6       0xd0 Hw_StartUp.o
+ .debug_abbrev  0x00000000000006a6      0x109 Hw.o
+ .debug_abbrev  0x00000000000007af      0x2b6 Hw_Uart.o
+ .debug_abbrev  0x0000000000000a65       0x44 Hw_PLL.o
+ .debug_abbrev  0x0000000000000aa9      0x103 Hw_Led.o
+ .debug_abbrev  0x0000000000000bac      0x130 Hw_Uart_Q.o
+ .debug_abbrev  0x0000000000000cdc       0xd1 Hw_ISR.o
+ .debug_abbrev  0x0000000000000dad      0x1ef Hw_Timer.o
+ .debug_abbrev  0x0000000000000f9c       0xe6 Hw_VCom.o
+ .debug_abbrev  0x0000000000001082      0x10b Hw_I2C.o
+ .debug_abbrev  0x000000000000118d      0x20c Hw_I2C_HW.o
+ .debug_abbrev  0x0000000000001399      0x2a1 Hw_Si47xx.o
+ .debug_abbrev  0x000000000000163a      0x1b3 Hw_SPI.o
+ .debug_abbrev  0x00000000000017ed      0x3ae Hw_N5110G.o
+ .debug_abbrev  0x0000000000001b9b       0xb4 Hw_DMA.o
+ .debug_abbrev  0x0000000000001c4f      0x220 Hw_I2C_IMU.o
+ .debug_abbrev  0x0000000000001e6f      0x152 Hw_MPU6050.o
+ .debug_abbrev  0x0000000000001fc1      0x22a Hw_Sonic.o
+ .debug_abbrev  0x00000000000021eb      0x133 Hw_HMC5883.o
+ .debug_abbrev  0x000000000000231e      0x113 Hw_IMU.o
+ .debug_abbrev  0x0000000000002431       0x5d usb_desc.o
+ .debug_abbrev  0x000000000000248e       0xf2 usb_endp.o
+ .debug_abbrev  0x0000000000002580      0x138 usb_istr.o
+ .debug_abbrev  0x00000000000026b8      0x214 usb_prop.o
+ .debug_abbrev  0x00000000000028cc      0x18b usb_pwr.o
+ .debug_abbrev  0x0000000000002a57      0x29f hw_config.o
+ .debug_abbrev  0x0000000000002cf6      0x383 usb_core.o
+ .debug_abbrev  0x0000000000003079      0x10a usb_init.o
+ .debug_abbrev  0x0000000000003183       0x96 usb_mem.o
+ .debug_abbrev  0x0000000000003219      0x227 usb_regs.o
+ .debug_abbrev  0x0000000000003440       0xc7 usb_sil.o
+ .debug_abbrev  0x0000000000003507       0xde usb_int.o
+
+.debug_loc      0x0000000000000000     0xbea3
+ .debug_loc     0x0000000000000000       0x4c main.o
+ .debug_loc     0x000000000000004c      0x360 Ap_GLcdMenu.o
+ .debug_loc     0x00000000000003ac     0x174a Lb_Printf.o
+ .debug_loc     0x0000000000001af6       0x6a Hw_StartUp.o
+ .debug_loc     0x0000000000001b60      0x1aa Hw.o
+ .debug_loc     0x0000000000001d0a      0x3c7 Hw_Uart.o
+ .debug_loc     0x00000000000020d1       0xa2 Hw_Led.o
+ .debug_loc     0x0000000000002173      0x26e Hw_Uart_Q.o
+ .debug_loc     0x00000000000023e1       0x42 Hw_ISR.o
+ .debug_loc     0x0000000000002423      0x305 Hw_Timer.o
+ .debug_loc     0x0000000000002728       0x8d Hw_VCom.o
+ .debug_loc     0x00000000000027b5       0xe5 Hw_I2C.o
+ .debug_loc     0x000000000000289a     0x11db Hw_I2C_HW.o
+ .debug_loc     0x0000000000003a75      0x9c2 Hw_Si47xx.o
+ .debug_loc     0x0000000000004437      0x1f7 Hw_SPI.o
+ .debug_loc     0x000000000000462e     0x2aa4 Hw_N5110G.o
+ .debug_loc     0x00000000000070d2       0xb6 Hw_DMA.o
+ .debug_loc     0x0000000000007188     0x1f9c Hw_I2C_IMU.o
+ .debug_loc     0x0000000000009124      0x16b Hw_MPU6050.o
+ .debug_loc     0x000000000000928f      0x388 Hw_Sonic.o
+ .debug_loc     0x0000000000009617      0x1aa Hw_HMC5883.o
+ .debug_loc     0x00000000000097c1       0xeb Hw_IMU.o
+ .debug_loc     0x00000000000098ac       0xc7 usb_endp.o
+ .debug_loc     0x0000000000009973      0x118 usb_istr.o
+ .debug_loc     0x0000000000009a8b      0x2ab usb_prop.o
+ .debug_loc     0x0000000000009d36      0x368 usb_pwr.o
+ .debug_loc     0x000000000000a09e      0x278 hw_config.o
+ .debug_loc     0x000000000000a316      0xa9f usb_core.o
+ .debug_loc     0x000000000000adb5       0x20 usb_init.o
+ .debug_loc     0x000000000000add5      0x241 usb_mem.o
+ .debug_loc     0x000000000000b016      0xc1f usb_regs.o
+ .debug_loc     0x000000000000bc35      0x135 usb_sil.o
+ .debug_loc     0x000000000000bd6a      0x139 usb_int.o
+
+.debug_aranges  0x0000000000000000      0xc68
+ .debug_aranges
+                0x0000000000000000       0x28 main.o
+ .debug_aranges
+                0x0000000000000028       0x20 Ap.o
+ .debug_aranges
+                0x0000000000000048       0x30 Ap_GLcdMenu.o
+ .debug_aranges
+                0x0000000000000078       0x68 Lb_Printf.o
+ .debug_aranges
+                0x00000000000000e0       0x20 Hw_StartUp.o
+ .debug_aranges
+                0x0000000000000100       0x40 Hw.o
+ .debug_aranges
+                0x0000000000000140       0x78 Hw_Uart.o
+ .debug_aranges
+                0x00000000000001b8       0x20 Hw_PLL.o
+ .debug_aranges
+                0x00000000000001d8       0x40 Hw_Led.o
+ .debug_aranges
+                0x0000000000000218       0x48 Hw_Uart_Q.o
+ .debug_aranges
+                0x0000000000000260       0x30 Hw_ISR.o
+ .debug_aranges
+                0x0000000000000290       0x88 Hw_Timer.o
+ .debug_aranges
+                0x0000000000000318       0x30 Hw_VCom.o
+ .debug_aranges
+                0x0000000000000348       0x30 Hw_I2C.o
+ .debug_aranges
+                0x0000000000000378       0x48 Hw_I2C_HW.o
+ .debug_aranges
+                0x00000000000003c0       0xb8 Hw_Si47xx.o
+ .debug_aranges
+                0x0000000000000478       0x60 Hw_SPI.o
+ .debug_aranges
+                0x00000000000004d8       0xb0 Hw_N5110G.o
+ .debug_aranges
+                0x0000000000000588       0x30 Hw_DMA.o
+ .debug_aranges
+                0x00000000000005b8       0xa8 Hw_I2C_IMU.o
+ .debug_aranges
+                0x0000000000000660       0x40 Hw_MPU6050.o
+ .debug_aranges
+                0x00000000000006a0       0x80 Hw_Sonic.o
+ .debug_aranges
+                0x0000000000000720       0x38 Hw_HMC5883.o
+ .debug_aranges
+                0x0000000000000758       0x28 Hw_IMU.o
+ .debug_aranges
+                0x0000000000000780       0x18 usb_desc.o
+ .debug_aranges
+                0x0000000000000798       0x30 usb_endp.o
+ .debug_aranges
+                0x00000000000007c8       0x20 usb_istr.o
+ .debug_aranges
+                0x00000000000007e8       0x88 usb_prop.o
+ .debug_aranges
+                0x0000000000000870       0x40 usb_pwr.o
+ .debug_aranges
+                0x00000000000008b0       0x90 hw_config.o
+ .debug_aranges
+                0x0000000000000940       0x98 usb_core.o
+ .debug_aranges
+                0x00000000000009d8       0x20 usb_init.o
+ .debug_aranges
+                0x00000000000009f8       0x28 usb_mem.o
+ .debug_aranges
+                0x0000000000000a20      0x1f0 usb_regs.o
+ .debug_aranges
+                0x0000000000000c10       0x30 usb_sil.o
+ .debug_aranges
+                0x0000000000000c40       0x28 usb_int.o
+
+.debug_ranges   0x0000000000000000     0x26c0
+ .debug_ranges  0x0000000000000000       0x30 main.o
+ .debug_ranges  0x0000000000000030       0x10 Ap.o
+ .debug_ranges  0x0000000000000040       0x50 Ap_GLcdMenu.o
+ .debug_ranges  0x0000000000000090      0x198 Lb_Printf.o
+ .debug_ranges  0x0000000000000228       0x10 Hw_StartUp.o
+ .debug_ranges  0x0000000000000238       0xf8 Hw.o
+ .debug_ranges  0x0000000000000330       0xb0 Hw_Uart.o
+ .debug_ranges  0x00000000000003e0       0x10 Hw_PLL.o
+ .debug_ranges  0x00000000000003f0       0x50 Hw_Led.o
+ .debug_ranges  0x0000000000000440       0x90 Hw_Uart_Q.o
+ .debug_ranges  0x00000000000004d0       0x20 Hw_ISR.o
+ .debug_ranges  0x00000000000004f0       0xc8 Hw_Timer.o
+ .debug_ranges  0x00000000000005b8       0x20 Hw_VCom.o
+ .debug_ranges  0x00000000000005d8       0x20 Hw_I2C.o
+ .debug_ranges  0x00000000000005f8      0x3a8 Hw_I2C_HW.o
+ .debug_ranges  0x00000000000009a0       0xc0 Hw_Si47xx.o
+ .debug_ranges  0x0000000000000a60       0x50 Hw_SPI.o
+ .debug_ranges  0x0000000000000ab0      0xbb0 Hw_N5110G.o
+ .debug_ranges  0x0000000000001660       0x20 Hw_DMA.o
+ .debug_ranges  0x0000000000001680      0x7f8 Hw_I2C_IMU.o
+ .debug_ranges  0x0000000000001e78       0x30 Hw_MPU6050.o
+ .debug_ranges  0x0000000000001ea8       0xb8 Hw_Sonic.o
+ .debug_ranges  0x0000000000001f60       0x28 Hw_HMC5883.o
+ .debug_ranges  0x0000000000001f88       0x18 Hw_IMU.o
+ .debug_ranges  0x0000000000001fa0       0x20 usb_endp.o
+ .debug_ranges  0x0000000000001fc0       0x10 usb_istr.o
+ .debug_ranges  0x0000000000001fd0       0x78 usb_prop.o
+ .debug_ranges  0x0000000000002048       0x30 usb_pwr.o
+ .debug_ranges  0x0000000000002078       0xc0 hw_config.o
+ .debug_ranges  0x0000000000002138      0x270 usb_core.o
+ .debug_ranges  0x00000000000023a8       0x10 usb_init.o
+ .debug_ranges  0x00000000000023b8       0x18 usb_mem.o
+ .debug_ranges  0x00000000000023d0      0x2a0 usb_regs.o
+ .debug_ranges  0x0000000000002670       0x20 usb_sil.o
+ .debug_ranges  0x0000000000002690       0x30 usb_int.o
+
+.debug_line     0x0000000000000000     0x3ef1
+ .debug_line    0x0000000000000000       0x73 main.o
+ .debug_line    0x0000000000000073       0x3e Ap.o
+ .debug_line    0x00000000000000b1      0x1ab Ap_GLcdMenu.o
+ .debug_line    0x000000000000025c      0x664 Lb_Printf.o
+ .debug_line    0x00000000000008c0       0x89 Hw_StartUp.o
+ .debug_line    0x0000000000000949       0xe4 Hw.o
+ .debug_line    0x0000000000000a2d      0x1ac Hw_Uart.o
+ .debug_line    0x0000000000000bd9       0x65 Hw_PLL.o
+ .debug_line    0x0000000000000c3e       0xb0 Hw_Led.o
+ .debug_line    0x0000000000000cee      0x101 Hw_Uart_Q.o
+ .debug_line    0x0000000000000def       0x75 Hw_ISR.o
+ .debug_line    0x0000000000000e64      0x22e Hw_Timer.o
+ .debug_line    0x0000000000001092       0x7d Hw_VCom.o
+ .debug_line    0x000000000000110f       0x78 Hw_I2C.o
+ .debug_line    0x0000000000001187      0x2db Hw_I2C_HW.o
+ .debug_line    0x0000000000001462      0x2f5 Hw_Si47xx.o
+ .debug_line    0x0000000000001757      0x191 Hw_SPI.o
+ .debug_line    0x00000000000018e8      0x4e6 Hw_N5110G.o
+ .debug_line    0x0000000000001dce       0xa2 Hw_DMA.o
+ .debug_line    0x0000000000001e70      0x54e Hw_I2C_IMU.o
+ .debug_line    0x00000000000023be      0x10b Hw_MPU6050.o
+ .debug_line    0x00000000000024c9      0x229 Hw_Sonic.o
+ .debug_line    0x00000000000026f2       0xe5 Hw_HMC5883.o
+ .debug_line    0x00000000000027d7       0xd1 Hw_IMU.o
+ .debug_line    0x00000000000028a8       0x4f usb_desc.o
+ .debug_line    0x00000000000028f7       0xae usb_endp.o
+ .debug_line    0x00000000000029a5       0xfc usb_istr.o
+ .debug_line    0x0000000000002aa1      0x20f usb_prop.o
+ .debug_line    0x0000000000002cb0      0x18d usb_pwr.o
+ .debug_line    0x0000000000002e3d      0x29d hw_config.o
+ .debug_line    0x00000000000030da      0x47f usb_core.o
+ .debug_line    0x0000000000003559       0x7a usb_init.o
+ .debug_line    0x00000000000035d3       0xc4 usb_mem.o
+ .debug_line    0x0000000000003697      0x674 usb_regs.o
+ .debug_line    0x0000000000003d0b       0xa6 usb_sil.o
+ .debug_line    0x0000000000003db1      0x140 usb_int.o
+
+.debug_str      0x0000000000000000     0x2939
+ .debug_str     0x0000000000000000       0xe3 main.o
+                                        0x106 (size before relaxing)
+ .debug_str     0x00000000000000e3       0x17 Ap.o
+                                         0xe9 (size before relaxing)
+ .debug_str     0x00000000000000fa      0x16a Ap_GLcdMenu.o
+                                        0x258 (size before relaxing)
+ .debug_str     0x0000000000000264      0x134 Lb_Printf.o
+                                        0x220 (size before relaxing)
+ .debug_str     0x0000000000000398       0x90 Hw_StartUp.o
+                                        0x16b (size before relaxing)
+ .debug_str     0x0000000000000428       0x52 Hw.o
+                                        0x124 (size before relaxing)
+ .debug_str     0x000000000000047a      0x130 Hw_Uart.o
+                                        0x217 (size before relaxing)
+ .debug_str     0x00000000000005aa       0x1f Hw_PLL.o
+                                         0xf1 (size before relaxing)
+ .debug_str     0x00000000000005c9       0x55 Hw_Led.o
+                                        0x12d (size before relaxing)
+ .debug_str     0x000000000000061e       0xc2 Hw_Uart_Q.o
+                                        0x19d (size before relaxing)
+ .debug_str     0x00000000000006e0       0x96 Hw_ISR.o
+                                        0x171 (size before relaxing)
+ .debug_str     0x0000000000000776      0x19c Hw_Timer.o
+                                        0x287 (size before relaxing)
+ .debug_str     0x0000000000000912       0x3d Hw_VCom.o
+                                        0x147 (size before relaxing)
+ .debug_str     0x000000000000094f       0x47 Hw_I2C.o
+                                        0x119 (size before relaxing)
+ .debug_str     0x0000000000000996       0xb2 Hw_I2C_HW.o
+                                        0x193 (size before relaxing)
+ .debug_str     0x0000000000000a48      0x232 Hw_Si47xx.o
+                                        0x353 (size before relaxing)
+ .debug_str     0x0000000000000c7a       0xb8 Hw_SPI.o
+                                        0x192 (size before relaxing)
+ .debug_str     0x0000000000000d32      0x225 Hw_N5110G.o
+                                        0x341 (size before relaxing)
+ .debug_str     0x0000000000000f57       0x6e Hw_DMA.o
+                                        0x147 (size before relaxing)
+ .debug_str     0x0000000000000fc5      0x1ef Hw_I2C_IMU.o
+                                        0x2f6 (size before relaxing)
+ .debug_str     0x00000000000011b4      0x13f Hw_MPU6050.o
+                                        0x26c (size before relaxing)
+ .debug_str     0x00000000000012f3      0x15d Hw_Sonic.o
+                                        0x255 (size before relaxing)
+ .debug_str     0x0000000000001450       0xd8 Hw_HMC5883.o
+                                        0x208 (size before relaxing)
+ .debug_str     0x0000000000001528       0x2e Hw_IMU.o
+                                        0x1d7 (size before relaxing)
+ .debug_str     0x0000000000001556       0xd3 usb_desc.o
+                                        0x1b6 (size before relaxing)
+ .debug_str     0x0000000000001629      0x128 usb_endp.o
+                                        0x20b (size before relaxing)
+ .debug_str     0x0000000000001751      0x1b6 usb_istr.o
+                                        0x323 (size before relaxing)
+ .debug_str     0x0000000000001907      0x4f1 usb_prop.o
+                                        0x8c0 (size before relaxing)
+ .debug_str     0x0000000000001df8       0x81 usb_pwr.o
+                                        0x2d5 (size before relaxing)
+ .debug_str     0x0000000000001e79      0x176 hw_config.o
+                                        0x489 (size before relaxing)
+ .debug_str     0x0000000000001fef      0x42a usb_core.o
+                                        0x9c9 (size before relaxing)
+ .debug_str     0x0000000000002419       0x35 usb_init.o
+                                        0x4a8 (size before relaxing)
+ .debug_str     0x000000000000244e       0x71 usb_mem.o
+                                        0x15d (size before relaxing)
+ .debug_str     0x00000000000024bf      0x3dd usb_regs.o
+                                        0x4e5 (size before relaxing)
+ .debug_str     0x000000000000289c       0x6f usb_sil.o
+                                        0x16b (size before relaxing)
+ .debug_str     0x000000000000290b       0x2e usb_int.o
+                                        0x165 (size before relaxing)
+
+.comment        0x0000000000000000       0x70
+ .comment       0x0000000000000000       0x70 main.o
+                                         0x71 (size before relaxing)
+ .comment       0x0000000000000000       0x71 Ap.o
+ .comment       0x0000000000000000       0x71 Ap_GLcdMenu.o
+ .comment       0x0000000000000000       0x71 Lb_Printf.o
+ .comment       0x0000000000000000       0x71 Hw_StartUp.o
+ .comment       0x0000000000000000       0x71 Hw.o
+ .comment       0x0000000000000000       0x71 Hw_Uart.o
+ .comment       0x0000000000000000       0x71 Hw_PLL.o
+ .comment       0x0000000000000000       0x71 Hw_Led.o
+ .comment       0x0000000000000000       0x71 Hw_Uart_Q.o
+ .comment       0x0000000000000000       0x71 Hw_ISR.o
+ .comment       0x0000000000000000       0x71 Hw_Timer.o
+ .comment       0x0000000000000000       0x71 Hw_VCom.o
+ .comment       0x0000000000000000       0x71 Hw_I2C.o
+ .comment       0x0000000000000000       0x71 Hw_I2C_HW.o
+ .comment       0x0000000000000000       0x71 Hw_Si47xx.o
+ .comment       0x0000000000000000       0x71 Hw_SPI.o
+ .comment       0x0000000000000000       0x71 Hw_N5110G.o
+ .comment       0x0000000000000000       0x71 Hw_DMA.o
+ .comment       0x0000000000000000       0x71 Hw_I2C_IMU.o
+ .comment       0x0000000000000000       0x71 Hw_MPU6050.o
+ .comment       0x0000000000000000       0x71 Hw_Sonic.o
+ .comment       0x0000000000000000       0x71 Hw_HMC5883.o
+ .comment       0x0000000000000000       0x71 Hw_IMU.o
+ .comment       0x0000000000000000       0x71 usb_desc.o
+ .comment       0x0000000000000000       0x71 usb_endp.o
+ .comment       0x0000000000000000       0x71 usb_istr.o
+ .comment       0x0000000000000000       0x71 usb_prop.o
+ .comment       0x0000000000000000       0x71 usb_pwr.o
+ .comment       0x0000000000000000       0x71 hw_config.o
+ .comment       0x0000000000000000       0x71 usb_core.o
+ .comment       0x0000000000000000       0x71 usb_init.o
+ .comment       0x0000000000000000       0x71 usb_mem.o
+ .comment       0x0000000000000000       0x71 usb_regs.o
+ .comment       0x0000000000000000       0x71 usb_sil.o
+ .comment       0x0000000000000000       0x71 usb_int.o
+
+.debug_frame    0x0000000000000000     0x1ed0
+ .debug_frame   0x0000000000000000       0x48 main.o
+ .debug_frame   0x0000000000000048       0x20 Ap.o
+ .debug_frame   0x0000000000000068       0x84 Ap_GLcdMenu.o
+ .debug_frame   0x00000000000000ec      0x19c Lb_Printf.o
+ .debug_frame   0x0000000000000288       0x3c Hw_StartUp.o
+ .debug_frame   0x00000000000002c4       0x88 Hw.o
+ .debug_frame   0x000000000000034c      0x168 Hw_Uart.o
+ .debug_frame   0x00000000000004b4       0x20 Hw_PLL.o
+ .debug_frame   0x00000000000004d4       0x64 Hw_Led.o
+ .debug_frame   0x0000000000000538       0x8c Hw_Uart_Q.o
+ .debug_frame   0x00000000000005c4       0x40 Hw_ISR.o
+ .debug_frame   0x0000000000000604      0x14c Hw_Timer.o
+ .debug_frame   0x0000000000000750       0x64 Hw_VCom.o
+ .debug_frame   0x00000000000007b4       0x58 Hw_I2C.o
+ .debug_frame   0x000000000000080c       0xcc Hw_I2C_HW.o
+ .debug_frame   0x00000000000008d8      0x2b4 Hw_Si47xx.o
+ .debug_frame   0x0000000000000b8c       0xac Hw_SPI.o
+ .debug_frame   0x0000000000000c38      0x24c Hw_N5110G.o
+ .debug_frame   0x0000000000000e84       0x54 Hw_DMA.o
+ .debug_frame   0x0000000000000ed8      0x234 Hw_I2C_IMU.o
+ .debug_frame   0x000000000000110c       0xac Hw_MPU6050.o
+ .debug_frame   0x00000000000011b8      0x130 Hw_Sonic.o
+ .debug_frame   0x00000000000012e8       0x80 Hw_HMC5883.o
+ .debug_frame   0x0000000000001368       0x54 Hw_IMU.o
+ .debug_frame   0x00000000000013bc       0x68 usb_endp.o
+ .debug_frame   0x0000000000001424       0x30 usb_istr.o
+ .debug_frame   0x0000000000001454      0x148 usb_prop.o
+ .debug_frame   0x000000000000159c       0xb0 usb_pwr.o
+ .debug_frame   0x000000000000164c      0x168 hw_config.o
+ .debug_frame   0x00000000000017b4      0x1ec usb_core.o
+ .debug_frame   0x00000000000019a0       0x2c usb_init.o
+ .debug_frame   0x00000000000019cc       0x48 usb_mem.o
+ .debug_frame   0x0000000000001a14      0x3e4 usb_regs.o
+ .debug_frame   0x0000000000001df8       0x68 usb_sil.o
+ .debug_frame   0x0000000000001e60       0x70 usb_int.o
+
+Cross Reference Table
+
+Symbol                                            File
+Ap_GLcdMenu_ExeCmd                                Ap_GLcdMenu.o
+                                                  main.o
+Ap_GLcdMenu_GetCmd                                Ap_GLcdMenu.o
+Ap_GLcdMenu_ShowMenu                              Ap_GLcdMenu.o
+Ap_Init                                           Ap.o
+                                                  main.o
+Ap_RadioMenu_ExeCmd                               Ap_RadioMenu.o
+Ap_RadioMenu_GetCmd                               Ap_RadioMenu.o
+Ap_RadioMenu_ShowMenu                             Ap_RadioMenu.o
+Ap_Radio_AM_ChannelGet                            Ap_Radio.o
+Ap_Radio_AM_ChannelSet                            Ap_Radio.o
+Ap_Radio_ApiStart                                 Ap_Radio.o
+Ap_Radio_BandGet                                  Ap_Radio.o
+                                                  Ap_RadioMenu.o
+Ap_Radio_BandSetAM                                Ap_Radio.o
+                                                  Ap_RadioMenu.o
+Ap_Radio_BandSetFM                                Ap_Radio.o
+                                                  Ap_RadioMenu.o
+Ap_Radio_ChannelGet                               Ap_Radio.o
+                                                  Ap_RadioMenu.o
+Ap_Radio_ChannelSet                               Ap_Radio.o
+                                                  Ap_RadioMenu.o
+Ap_Radio_ChannelSetFirst                          Ap_Radio.o
+                                                  Ap_RadioMenu.o
+Ap_Radio_ChannelSetLast                           Ap_Radio.o
+Ap_Radio_ChannelSetNext                           Ap_Radio.o
+                                                  Ap_RadioMenu.o
+Ap_Radio_ChannelSetPrev                           Ap_Radio.o
+                                                  Ap_RadioMenu.o
+Ap_Radio_FM_ChannelGet                            Ap_Radio.o
+Ap_Radio_FM_ChannelSet                            Ap_Radio.o
+Ap_Radio_Init                                     Ap_Radio.o
+Ap_Radio_Log                                      Ap_Radio.o
+Ap_Radio_MuteSetOff                               Ap_Radio.o
+Ap_Radio_MuteSetOn                                Ap_Radio.o
+Ap_Radio_SeekFromFirst                            Ap_Radio.o
+Ap_Radio_SeekFromLast                             Ap_Radio.o
+Ap_Radio_SeekToFirst                              Ap_Radio.o
+                                                  Ap_RadioMenu.o
+Ap_Radio_SeekToLast                               Ap_Radio.o
+                                                  Ap_RadioMenu.o
+Ap_Radio_VolumeGet                                Ap_Radio.o
+                                                  Ap_RadioMenu.o
+Ap_Radio_VolumeSet                                Ap_Radio.o
+Ap_Radio_VolumeSetDown                            Ap_Radio.o
+                                                  Ap_RadioMenu.o
+Ap_Radio_VolumeSetUp                              Ap_Radio.o
+                                                  Ap_RadioMenu.o
+ByteSwap                                          usb_regs.o
+                                                  usb_core.o
+CTR_HP                                            usb_int.o
+CTR_LP                                            usb_int.o
+                                                  usb_istr.o
+ClearDTOG_RX                                      usb_regs.o
+                                                  usb_core.o
+ClearDTOG_TX                                      usb_regs.o
+                                                  usb_core.o
+ClearEPDoubleBuff                                 usb_regs.o
+ClearEP_CTR_RX                                    usb_regs.o
+ClearEP_CTR_TX                                    usb_regs.o
+ClearEP_KIND                                      usb_regs.o
+Clear_Status_Out                                  usb_regs.o
+                                                  usb_prop.o
+Config_Descriptor                                 usb_prop.o
+Data_Mul_MaxPacketSize                            usb_core.o
+DecToLong                                         Lb_Printf.o
+Device_Descriptor                                 usb_prop.o
+Device_Info                                       usb_init.o
+                                                  hw_config.o
+                                                  usb_prop.o
+Device_Property                                   usb_prop.o
+                                                  usb_init.o
+                                                  usb_core.o
+                                                  usb_istr.o
+Device_Table                                      usb_prop.o
+                                                  usb_core.o
+EP                                                usb_pwr.o
+EP1_IN_Callback                                   usb_endp.o
+                                                  usb_istr.o
+EP3_OUT_Callback                                  usb_endp.o
+                                                  usb_istr.o
+EPindex                                           usb_int.o
+                                                  usb_init.o
+Enter_LowPowerMode                                hw_config.o
+FreeUserBuffer                                    usb_regs.o
+GetBTABLE                                         usb_regs.o
+GetCNTR                                           usb_regs.o
+GetDADDR                                          usb_regs.o
+GetENDPOINT                                       usb_regs.o
+GetEPAddress                                      usb_regs.o
+GetEPDblBuf0Addr                                  usb_regs.o
+GetEPDblBuf0Count                                 usb_regs.o
+GetEPDblBuf1Addr                                  usb_regs.o
+GetEPDblBuf1Count                                 usb_regs.o
+GetEPDblBufDir                                    usb_regs.o
+GetEPRxAddr                                       usb_regs.o
+                                                  usb_sil.o
+                                                  usb_core.o
+GetEPRxCount                                      usb_regs.o
+                                                  usb_sil.o
+GetEPRxStatus                                     usb_regs.o
+GetEPTxAddr                                       usb_regs.o
+                                                  usb_sil.o
+                                                  usb_core.o
+GetEPTxCount                                      usb_regs.o
+GetEPTxStatus                                     usb_regs.o
+GetEPType                                         usb_regs.o
+GetFNR                                            usb_regs.o
+GetISTR                                           usb_regs.o
+GetRxStallStatus                                  usb_regs.o
+GetTxStallStatus                                  usb_regs.o
+Get_SerialNum                                     hw_config.o
+                                                  usb_prop.o
+HW_UART_Q_SIZE                                    Hw_Uart_Q.o
+HW_UART_Q_VAILD                                   Hw_Uart_Q.o
+                                                  Hw_VCom.o
+                                                  Hw_Uart.o
+Handle_USBAsynchXfer                              hw_config.o
+                                                  usb_endp.o
+Hw_DMA_Init                                       Hw_DMA.o
+                                                  Hw.o
+Hw_DMA_SPI2_IsTransFinished                       Hw_DMA.o
+                                                  Hw_N5110G.o
+Hw_DMA_SPI2_Setup                                 Hw_DMA.o
+                                                  Hw_N5110G.o
+Hw_HMC5883_CheckID                                Hw_HMC5883.o
+Hw_HMC5883_EnableFlag                             Hw_HMC5883.o
+Hw_HMC5883_GetData                                Hw_HMC5883.o
+                                                  Hw_IMU.o
+                                                  Ap_GLcdMenu.o
+Hw_HMC5883_GetEnable                              Hw_HMC5883.o
+                                                  Hw_IMU.o
+Hw_HMC5883_Init                                   Hw_HMC5883.o
+                                                  Hw_IMU.o
+Hw_I2C_HW_GetErrStatus                            Hw_I2C_HW.o
+Hw_I2C_HW_IO_Setup                                Hw_I2C_HW.o
+Hw_I2C_HW_Init                                    Hw_I2C_HW.o
+                                                  Hw_I2C.o
+Hw_I2C_HW_Read                                    Hw_I2C_HW.o
+Hw_I2C_HW_WaitForBitSet                           Hw_I2C_HW.o
+Hw_I2C_HW_Write                                   Hw_I2C_HW.o
+                                                  Hw_I2C.o
+Hw_I2C_IMU_GetErrStatus                           Hw_I2C_IMU.o
+Hw_I2C_IMU_HMC5883_ReadReg                        Hw_I2C_IMU.o
+                                                  Ap_GLcdMenu.o
+Hw_I2C_IMU_HMC5883_ReadRegs                       Hw_I2C_IMU.o
+                                                  Hw_HMC5883.o
+Hw_I2C_IMU_HMC5883_WriteAddr                      Hw_I2C_IMU.o
+                                                  Hw_HMC5883.o
+Hw_I2C_IMU_HMC5883_WriteReg                       Hw_I2C_IMU.o
+Hw_I2C_IMU_HMC5883_WriteRegs                      Hw_I2C_IMU.o
+                                                  Hw_HMC5883.o
+Hw_I2C_IMU_IO_Setup                               Hw_I2C_IMU.o
+Hw_I2C_IMU_Init                                   Hw_I2C_IMU.o
+                                                  Hw_HMC5883.o
+                                                  Hw_MPU6050.o
+Hw_I2C_IMU_MPU6050_ReadReg                        Hw_I2C_IMU.o
+                                                  Hw_MPU6050.o
+                                                  Ap_GLcdMenu.o
+Hw_I2C_IMU_MPU6050_ReadRegs                       Hw_I2C_IMU.o
+                                                  Hw_MPU6050.o
+Hw_I2C_IMU_MPU6050_WriteReg                       Hw_I2C_IMU.o
+                                                  Hw_MPU6050.o
+Hw_I2C_IMU_MPU6050_WriteRegs                      Hw_I2C_IMU.o
+Hw_I2C_IMU_Read                                   Hw_I2C_IMU.o
+Hw_I2C_IMU_ReadRegs                               Hw_I2C_IMU.o
+Hw_I2C_IMU_WaitForBitClr                          Hw_I2C_IMU.o
+Hw_I2C_IMU_WaitForBitSet                          Hw_I2C_IMU.o
+Hw_I2C_IMU_Write                                  Hw_I2C_IMU.o
+Hw_I2C_IMU_WriteRegs                              Hw_I2C_IMU.o
+Hw_I2C_Init                                       Hw_I2C.o
+                                                  Hw_Si47xx.o
+                                                  Hw.o
+Hw_I2C_Read                                       Hw_I2C.o
+                                                  Hw_Si47xx.o
+Hw_I2C_SW_EndTransmit                             Hw_I2C_SW.o
+Hw_I2C_SW_IO_Setup                                Hw_I2C_SW.o
+Hw_I2C_SW_Init                                    Hw_I2C_SW.o
+Hw_I2C_SW_Read                                    Hw_I2C_SW.o
+Hw_I2C_SW_ReadByte_Ack                            Hw_I2C_SW.o
+Hw_I2C_SW_ReadByte_NoAck                          Hw_I2C_SW.o
+Hw_I2C_SW_SCL_HIGH                                Hw_I2C_SW.o
+Hw_I2C_SW_SCL_LOW                                 Hw_I2C_SW.o
+Hw_I2C_SW_SDA                                     Hw_I2C_SW.o
+Hw_I2C_SW_SDA_HIGH                                Hw_I2C_SW.o
+Hw_I2C_SW_SDA_LOW                                 Hw_I2C_SW.o
+Hw_I2C_SW_SetDir_SDA_Input                        Hw_I2C_SW.o
+Hw_I2C_SW_SetDir_SDA_Output                       Hw_I2C_SW.o
+Hw_I2C_SW_StartTransmit                           Hw_I2C_SW.o
+Hw_I2C_SW_Write                                   Hw_I2C_SW.o
+Hw_I2C_SW_WriteByte_Ack                           Hw_I2C_SW.o
+Hw_I2C_SW_WriteByte_NoAck                         Hw_I2C_SW.o
+Hw_I2C_Write                                      Hw_I2C.o
+                                                  Hw_Si47xx.o
+Hw_IMU_GetData                                    Hw_IMU.o
+                                                  Ap_GLcdMenu.o
+Hw_IMU_Init                                       Hw_IMU.o
+                                                  Hw.o
+Hw_ISR_Init                                       Hw_ISR.o
+                                                  Hw.o
+Hw_ISR_SetIRQFunc                                 Hw_ISR.o
+                                                  Hw_Sonic.o
+                                                  Hw_Uart.o
+Hw_ISR_SetIRQFuncByAddr                           Hw_ISR.o
+                                                  hw_config.o
+                                                  Hw_Timer.o
+Hw_ISR_UART1_Handler                              Hw_Uart.o
+Hw_ISR_VectorTable                                Hw_ISR.o
+Hw_Init                                           Hw.o
+                                                  main.o
+Hw_Led_Init                                       Hw_Led.o
+                                                  Hw.o
+Hw_Led_Off                                        Hw_Led.o
+Hw_Led_On                                         Hw_Led.o
+Hw_Led_Toggle                                     Hw_Led.o
+                                                  main.o
+Hw_Led_Wait                                       Hw_Led.o
+Hw_MPU6050_EnableFlag                             Hw_MPU6050.o
+Hw_MPU6050_GetData                                Hw_MPU6050.o
+                                                  Hw_IMU.o
+                                                  Ap_GLcdMenu.o
+Hw_MPU6050_GetEnable                              Hw_MPU6050.o
+Hw_MPU6050_I2CAuxMasterDisable                    Hw_MPU6050.o
+Hw_MPU6050_I2CAuxMasterEnable                     Hw_MPU6050.o
+Hw_MPU6050_Init                                   Hw_MPU6050.o
+                                                  Hw_IMU.o
+Hw_N5100G_FrameTick                               Hw_N5110G.o
+Hw_N5110G_Clear                                   Hw_N5110G.o
+                                                  Ap_GLcdMenu.o
+Hw_N5110G_ClrPixel                                Hw_N5110G.o
+Hw_N5110G_DrawCircle                              Hw_N5110G.o
+                                                  Ap_GLcdMenu.o
+Hw_N5110G_DrawClear                               Hw_N5110G.o
+Hw_N5110G_DrawClearRect                           Hw_N5110G.o
+Hw_N5110G_DrawPrint                               Hw_N5110G.o
+Hw_N5110G_DrawRequest                             Hw_N5110G.o
+                                                  Ap_GLcdMenu.o
+Hw_N5110G_Font6_8                                 Hw_N5110G.o
+Hw_N5110G_Frame_DrawReq                           Hw_N5110G.o
+Hw_N5110G_Frame_Index                             Hw_N5110G.o
+Hw_N5110G_GetPixel                                Hw_N5110G.o
+Hw_N5110G_Goto                                    Hw_N5110G.o
+Hw_N5110G_Init                                    Hw_N5110G.o
+                                                  Hw.o
+Hw_N5110G_Print                                   Hw_N5110G.o
+                                                  Ap_GLcdMenu.o
+Hw_N5110G_Reset                                   Hw_N5110G.o
+Hw_N5110G_RxFrameBuf                              Hw_N5110G.o
+Hw_N5110G_SetPixel                                Hw_N5110G.o
+Hw_N5110G_TxFrameBuf                              Hw_N5110G.o
+Hw_N5110G_WriteByte                               Hw_N5110G.o
+Hw_N5110G_WriteChar                               Hw_N5110G.o
+Hw_N5110G_WriteCmd                                Hw_N5110G.o
+Hw_N5110G_WriteStr                                Hw_N5110G.o
+Hw_N5110G_XorPixel                                Hw_N5110G.o
+Hw_PLL_Init                                       Hw_PLL.o
+                                                  Hw.o
+Hw_SPI_Ch1_Init                                   Hw_SPI.o
+Hw_SPI_Ch2_Init                                   Hw_SPI.o
+Hw_SPI_Disable                                    Hw_SPI.o
+Hw_SPI_Enable                                     Hw_SPI.o
+Hw_SPI_Init                                       Hw_SPI.o
+                                                  Hw_N5110G.o
+Hw_SPI_StartDMA                                   Hw_SPI.o
+                                                  Hw_N5110G.o
+Hw_SPI_StopDMA                                    Hw_SPI.o
+Hw_SPI_Write16Bit                                 Hw_SPI.o
+Hw_SPI_Write8Bit                                  Hw_SPI.o
+                                                  Hw_N5110G.o
+Hw_Si47xx_AM_Config                               Hw_Si47xx.o
+                                                  Ap_Radio.o
+Hw_Si47xx_AM_SEEK_START                           Hw_Si47xx.o
+                                                  Ap_Radio.o
+Hw_Si47xx_AM_TUNE_FREQ                            Hw_Si47xx.o
+                                                  Ap_Radio.o
+Hw_Si47xx_AM_TUNE_STATUS                          Hw_Si47xx.o
+                                                  Ap_Radio.o
+Hw_Si47xx_CommandResp                             Hw_Si47xx.o
+Hw_Si47xx_FM_Config                               Hw_Si47xx.o
+                                                  Ap_Radio.o
+Hw_Si47xx_FM_SEEK_START                           Hw_Si47xx.o
+                                                  Ap_Radio.o
+Hw_Si47xx_FM_TUNE_FREQ                            Hw_Si47xx.o
+                                                  Ap_Radio.o
+Hw_Si47xx_FM_TUNE_STATUS                          Hw_Si47xx.o
+                                                  Ap_Radio.o
+Hw_Si47xx_GET_INT_STATUS                          Hw_Si47xx.o
+Hw_Si47xx_GET_PROPERTY                            Hw_Si47xx.o
+                                                  Ap_Radio.o
+Hw_Si47xx_Init                                    Hw_Si47xx.o
+                                                  Hw.o
+                                                  Ap_Radio.o
+Hw_Si47xx_LastResp                                Hw_Si47xx.o
+Hw_Si47xx_POWER_UP                                Hw_Si47xx.o
+Hw_Si47xx_ReadResp                                Hw_Si47xx.o
+                                                  Ap_Radio.o
+Hw_Si47xx_ReceiveResponse                         Hw_Si47xx.o
+Hw_Si47xx_Reset                                   Hw_Si47xx.o
+Hw_Si47xx_SET_PROPERTY                            Hw_Si47xx.o
+                                                  Ap_Radio.o
+Hw_Si47xx_SendCommand                             Hw_Si47xx.o
+Hw_Si47xx_WaitForCTS                              Hw_Si47xx.o
+Hw_Si47xx_WaitForSTC                              Hw_Si47xx.o
+                                                  Ap_Radio.o
+Hw_Sonic_ExIntDisable                             Hw_Sonic.o
+Hw_Sonic_ExIntEnable                              Hw_Sonic.o
+Hw_Sonic_GetDistanceMM                            Hw_Sonic.o
+                                                  Ap_GLcdMenu.o
+Hw_Sonic_GetDistanceTime                          Hw_Sonic.o
+Hw_Sonic_GetPort                                  Hw_Sonic.o
+Hw_Sonic_ISR                                      Hw_Sonic.o
+Hw_Sonic_Init                                     Hw_Sonic.o
+Hw_Sonic_Log                                      Hw_Sonic.o
+Hw_Sonic_SetPortDirIN                             Hw_Sonic.o
+Hw_Sonic_SetPortDirOUT                            Hw_Sonic.o
+Hw_Sonic_SetPortHIGH                              Hw_Sonic.o
+Hw_Sonic_SetPortLOW                               Hw_Sonic.o
+Hw_Sonic_Tick                                     Hw_Sonic.o
+Hw_StartUp_Init                                   Hw_StartUp.o
+Hw_Timer_Delay_ms                                 Hw_Timer.o
+                                                  Hw_N5110G.o
+                                                  Hw_Si47xx.o
+Hw_Timer_Get_CountValue                           Hw_Timer.o
+                                                  Hw_Si47xx.o
+Hw_Timer_Get_Handle                               Hw_Timer.o
+Hw_Timer_Get_u16Count_Usec                        Hw_Timer.o
+                                                  Hw_Sonic.o
+                                                  Ap_GLcdMenu.o
+Hw_Timer_ISR                                      Hw_Timer.o
+Hw_Timer_Init                                     Hw_Timer.o
+                                                  Hw.o
+Hw_Timer_MeasureSetup                             Hw_Timer.o
+Hw_Timer_Reset                                    Hw_Timer.o
+Hw_Timer_Set                                      Hw_Timer.o
+                                                  Hw_Sonic.o
+                                                  Hw_N5110G.o
+                                                  main.o
+Hw_Timer_Setup                                    Hw_Timer.o
+Hw_Timer_SetupISR                                 Hw_Timer.o
+Hw_Timer_Start                                    Hw_Timer.o
+                                                  Hw_Sonic.o
+                                                  Hw_N5110G.o
+                                                  main.o
+Hw_Timer_Stop                                     Hw_Timer.o
+Hw_Timer_Tick                                     Hw_Timer.o
+Hw_Uart_Ch                                        Hw_Uart.o
+Hw_Uart_Getch                                     Hw_Uart.o
+Hw_Uart_GetchNoWait                               Hw_Uart.o
+Hw_Uart_Init                                      Hw_Uart.o
+                                                  Hw.o
+Hw_Uart_Open                                      Hw_Uart.o
+Hw_Uart_Open_COM1                                 Hw_Uart.o
+Hw_Uart_Print                                     Hw_Uart.o
+Hw_Uart_PrintEx                                   Hw_Uart.o
+Hw_Uart_Putch                                     Hw_Uart.o
+Hw_Uart_Q_Buffer                                  Hw_Uart_Q.o
+Hw_Uart_Q_End                                     Hw_Uart_Q.o
+Hw_Uart_Q_Init                                    Hw_Uart_Q.o
+                                                  Hw_Uart.o
+Hw_Uart_Q_Pop                                     Hw_Uart_Q.o
+                                                  Hw_VCom.o
+                                                  Hw_Uart.o
+Hw_Uart_Q_Push                                    Hw_Uart_Q.o
+                                                  hw_config.o
+                                                  Hw_Uart.o
+Hw_Uart_Q_PushReady                               Hw_Uart_Q.o
+Hw_Uart_Q_Size                                    Hw_Uart_Q.o
+Hw_Uart_Q_Start                                   Hw_Uart_Q.o
+Hw_VCom_Getch                                     Hw_VCom.o
+Hw_VCom_Init                                      Hw_VCom.o
+                                                  Hw.o
+Hw_VCom_Putch                                     Hw_VCom.o
+Hw_Wait                                           Hw.o
+                                                  Hw_Si47xx.o
+Hw_Wait_Usec                                      Hw.o
+                                                  Hw_I2C_SW.o
+Hw_Wait_ms                                        Hw.o
+                                                  Hw_HMC5883.o
+                                                  Hw_MPU6050.o
+                                                  Ap_GLcdMenu.o
+Hw_Wait_us                                        Hw.o
+In0_Process                                       usb_core.o
+                                                  usb_int.o
+LED_Tick                                          main.o
+Lb_Util_PaseArgs                                  Lb_Util.o
+Lb_Util_atoi                                      Lb_Util.o
+Lb_printf                                         Lb_Printf.o
+                                                  Hw_IMU.o
+                                                  Hw_HMC5883.o
+                                                  Hw_MPU6050.o
+                                                  Hw_I2C_HW.o
+                                                  Ap_GLcdMenu.o
+                                                  Ap_RadioMenu.o
+Lb_sprintf                                        Lb_Printf.o
+                                                  Hw_Uart.o
+Lb_vsprintf                                       Lb_Printf.o
+                                                  Hw_N5110G.o
+Leave_LowPowerMode                                hw_config.o
+                                                  usb_pwr.o
+NOP_Process                                       usb_core.o
+                                                  usb_prop.o
+                                                  usb_istr.o
+Out0_Process                                      usb_core.o
+                                                  usb_int.o
+PMAToUserBufferCopy                               usb_mem.o
+                                                  usb_sil.o
+                                                  usb_core.o
+Post0_Process                                     usb_core.o
+PowerOff                                          usb_pwr.o
+PowerOn                                           usb_pwr.o
+                                                  usb_prop.o
+Request                                           usb_prop.o
+Resume                                            usb_pwr.o
+                                                  usb_istr.o
+ResumeS                                           usb_pwr.o
+Resume_Init                                       usb_pwr.o
+SOF_Callback                                      usb_endp.o
+                                                  usb_istr.o
+SaveRState                                        usb_int.o
+                                                  usb_core.o
+SaveState                                         usb_init.o
+SaveTState                                        usb_int.o
+                                                  usb_core.o
+SetBTABLE                                         usb_regs.o
+                                                  usb_prop.o
+SetCNTR                                           usb_regs.o
+SetDADDR                                          usb_regs.o
+SetDeviceAddress                                  usb_core.o
+                                                  usb_prop.o
+SetDouBleBuffEPStall                              usb_regs.o
+SetENDPOINT                                       usb_regs.o
+SetEPAddress                                      usb_regs.o
+SetEPCountRxReg                                   usb_regs.o
+SetEPDblBuf0Addr                                  usb_regs.o
+SetEPDblBuf0Count                                 usb_regs.o
+SetEPDblBuf1Addr                                  usb_regs.o
+SetEPDblBuf1Count                                 usb_regs.o
+SetEPDblBuffAddr                                  usb_regs.o
+SetEPDblBuffCount                                 usb_regs.o
+SetEPDoubleBuff                                   usb_regs.o
+SetEPRxAddr                                       usb_regs.o
+                                                  usb_prop.o
+SetEPRxCount                                      usb_regs.o
+                                                  usb_core.o
+                                                  usb_prop.o
+SetEPRxStatus                                     usb_regs.o
+                                                  usb_prop.o
+SetEPRxValid                                      usb_regs.o
+                                                  usb_prop.o
+                                                  usb_endp.o
+SetEPTxAddr                                       usb_regs.o
+                                                  usb_prop.o
+SetEPTxCount                                      usb_regs.o
+                                                  usb_sil.o
+                                                  usb_core.o
+                                                  hw_config.o
+                                                  usb_endp.o
+SetEPTxStatus                                     usb_regs.o
+                                                  usb_core.o
+                                                  usb_prop.o
+SetEPTxValid                                      usb_regs.o
+                                                  hw_config.o
+                                                  usb_endp.o
+SetEPType                                         usb_regs.o
+                                                  usb_prop.o
+SetEP_KIND                                        usb_regs.o
+SetISTR                                           usb_regs.o
+Set_Status_Out                                    usb_regs.o
+Set_System                                        hw_config.o
+                                                  Hw_VCom.o
+Set_USBClock                                      hw_config.o
+                                                  Hw_VCom.o
+Setup0_Process                                    usb_core.o
+                                                  usb_int.o
+Standard_ClearFeature                             usb_core.o
+Standard_GetConfiguration                         usb_core.o
+Standard_GetDescriptorData                        usb_core.o
+                                                  usb_prop.o
+Standard_GetInterface                             usb_core.o
+Standard_GetStatus                                usb_core.o
+Standard_SetConfiguration                         usb_core.o
+Standard_SetDeviceFeature                         usb_core.o
+Standard_SetEndPointFeature                       usb_core.o
+Standard_SetInterface                             usb_core.o
+StatusInfo                                        usb_core.o
+StrCmp                                            Lb_Printf.o
+StrNCmp                                           Lb_Printf.o
+StrPrintBufIndex                                  Lb_Printf.o
+StrPrintMode                                      Lb_Printf.o
+String_Descriptor                                 usb_prop.o
+Suspend                                           usb_pwr.o
+                                                  usb_istr.o
+TimerDebug_Tick                                   Ap_RadioMenu.o
+ToWord                                            usb_regs.o
+ToggleDTOG_RX                                     usb_regs.o
+ToggleDTOG_TX                                     usb_regs.o
+USART_Rx_Buffer                                   hw_config.o
+                                                  usb_endp.o
+USART_Rx_length                                   hw_config.o
+                                                  usb_endp.o
+USART_Rx_ptr_in                                   hw_config.o
+USART_Rx_ptr_out                                  hw_config.o
+                                                  usb_endp.o
+USART_To_USB_Send_Data                            hw_config.o
+USBWakeUp_IRQHandler                              hw_config.o
+USB_Cable_Config                                  hw_config.o
+                                                  usb_pwr.o
+USB_Init                                          usb_init.o
+                                                  Hw_VCom.o
+USB_Interrupts_Config                             hw_config.o
+                                                  Hw_VCom.o
+USB_Istr                                          usb_istr.o
+                                                  hw_config.o
+USB_LP_IRQHandler                                 hw_config.o
+USB_Rx_Buffer                                     usb_endp.o
+USB_SIL_Init                                      usb_sil.o
+                                                  usb_prop.o
+USB_SIL_Read                                      usb_sil.o
+                                                  usb_endp.o
+USB_SIL_Write                                     usb_sil.o
+USB_Send_Data                                     hw_config.o
+                                                  Hw_VCom.o
+USB_To_USART_Send_Data                            hw_config.o
+                                                  usb_endp.o
+USB_Tx_State                                      hw_config.o
+                                                  usb_endp.o
+UserToPMABufferCopy                               usb_mem.o
+                                                  usb_sil.o
+                                                  usb_core.o
+                                                  hw_config.o
+                                                  usb_endp.o
+User_Standard_Requests                            usb_prop.o
+                                                  usb_init.o
+Virtual_Com_Port_ConfigDescriptor                 usb_desc.o
+                                                  usb_prop.o
+Virtual_Com_Port_Data_Setup                       usb_prop.o
+Virtual_Com_Port_DeviceDescriptor                 usb_desc.o
+                                                  usb_prop.o
+Virtual_Com_Port_GetConfigDescriptor              usb_prop.o
+Virtual_Com_Port_GetDeviceDescriptor              usb_prop.o
+Virtual_Com_Port_GetLineCoding                    usb_prop.o
+Virtual_Com_Port_GetStringDescriptor              usb_prop.o
+Virtual_Com_Port_Get_Interface_Setting            usb_prop.o
+Virtual_Com_Port_NoData_Setup                     usb_prop.o
+Virtual_Com_Port_Reset                            usb_prop.o
+Virtual_Com_Port_SetConfiguration                 usb_prop.o
+Virtual_Com_Port_SetDeviceAddress                 usb_prop.o
+Virtual_Com_Port_SetLineCoding                    usb_prop.o
+Virtual_Com_Port_Status_In                        usb_prop.o
+Virtual_Com_Port_Status_Out                       usb_prop.o
+Virtual_Com_Port_StringLangID                     usb_desc.o
+                                                  usb_prop.o
+Virtual_Com_Port_StringProduct                    usb_desc.o
+                                                  usb_prop.o
+Virtual_Com_Port_StringSerial                     usb_desc.o
+                                                  hw_config.o
+                                                  usb_prop.o
+Virtual_Com_Port_StringVendor                     usb_desc.o
+                                                  usb_prop.o
+Virtual_Com_Port_init                             usb_prop.o
+__WFI                                             hw_config.o
+                                                  usb_pwr.o
+__errno                                           /Users/imac/Develop/stm32f4/arm_gcc/gcc-arm-none-eabi-4_7-2013q3/bin/../lib/gcc/arm-none-eabi/4.7.4/../../../../arm-none-eabi/lib/armv7-m/libc.a(lib_a-errno.o)
+                                                  Lb_Util.o
+__get_MSP                                         Lb_Util.o
+__strtok_r                                        /Users/imac/Develop/stm32f4/arm_gcc/gcc-arm-none-eabi-4_7-2013q3/bin/../lib/gcc/arm-none-eabi/4.7.4/../../../../arm-none-eabi/lib/armv7-m/libc.a(lib_a-strtok_r.o)
+                                                  /Users/imac/Develop/stm32f4/arm_gcc/gcc-arm-none-eabi-4_7-2013q3/bin/../lib/gcc/arm-none-eabi/4.7.4/../../../../arm-none-eabi/lib/armv7-m/libc.a(lib_a-strtok.o)
+_ebss                                             Hw_StartUp.o
+                                                  Lb_Util.o
+_edata                                            Hw_StartUp.o
+_estack                                           Hw_StartUp.o
+_global_impure_ptr                                /Users/imac/Develop/stm32f4/arm_gcc/gcc-arm-none-eabi-4_7-2013q3/bin/../lib/gcc/arm-none-eabi/4.7.4/../../../../arm-none-eabi/lib/armv7-m/libc.a(lib_a-impure.o)
+_impure_ptr                                       /Users/imac/Develop/stm32f4/arm_gcc/gcc-arm-none-eabi-4_7-2013q3/bin/../lib/gcc/arm-none-eabi/4.7.4/../../../../arm-none-eabi/lib/armv7-m/libc.a(lib_a-impure.o)
+                                                  /Users/imac/Develop/stm32f4/arm_gcc/gcc-arm-none-eabi-4_7-2013q3/bin/../lib/gcc/arm-none-eabi/4.7.4/../../../../arm-none-eabi/lib/armv7-m/libc.a(lib_a-strtok.o)
+                                                  /Users/imac/Develop/stm32f4/arm_gcc/gcc-arm-none-eabi-4_7-2013q3/bin/../lib/gcc/arm-none-eabi/4.7.4/../../../../arm-none-eabi/lib/armv7-m/libc.a(lib_a-errno.o)
+_sbrk                                             Lb_Util.o
+_sbss                                             Hw_StartUp.o
+_sdata                                            Hw_StartUp.o
+_sidata                                           Hw_StartUp.o
+bDeviceState                                      usb_pwr.o
+                                                  hw_config.o
+                                                  usb_prop.o
+                                                  usb_endp.o
+bIntPackSOF                                       usb_istr.o
+delay                                             Lb_Util.o
+delay_second                                      Lb_Util.o
+esof_counter                                      usb_istr.o
+fSuspendEnabled                                   usb_pwr.o
+                                                  usb_istr.o
+g_pfnVectors                                      Hw_StartUp.o
+get_byte                                          Hw_Uart.o
+                                                  Ap_GLcdMenu.o
+                                                  Ap_RadioMenu.o
+get_byte_check                                    Hw_Uart.o
+                                                  Ap_GLcdMenu.o
+linecoding                                        usb_prop.o
+main                                              main.o
+                                                  Hw_StartUp.o
+pEpInt_IN                                         usb_istr.o
+                                                  usb_int.o
+pEpInt_OUT                                        usb_istr.o
+                                                  usb_int.o
+pInformation                                      usb_init.o
+                                                  usb_core.o
+                                                  usb_prop.o
+pProperty                                         usb_init.o
+                                                  usb_core.o
+pStrPrintBuf                                      Lb_Printf.o
+pUser_Standard_Requests                           usb_init.o
+                                                  usb_core.o
+print_byte                                        Hw_Uart.o
+                                                  Lb_Printf.o
+print_byte_out                                    Lb_Printf.o
+remotewakeupon                                    usb_pwr.o
+strtok                                            /Users/imac/Develop/stm32f4/arm_gcc/gcc-arm-none-eabi-4_7-2013q3/bin/../lib/gcc/arm-none-eabi/4.7.4/../../../../arm-none-eabi/lib/armv7-m/libc.a(lib_a-strtok.o)
+                                                  Lb_Util.o
+strtok_r                                          /Users/imac/Develop/stm32f4/arm_gcc/gcc-arm-none-eabi-4_7-2013q3/bin/../lib/gcc/arm-none-eabi/4.7.4/../../../../arm-none-eabi/lib/armv7-m/libc.a(lib_a-strtok_r.o)
+wCNTR                                             usb_istr.o
+wInterrupt_Mask                                   usb_sil.o
+                                                  usb_init.o
+                                                  usb_pwr.o
+                                                  usb_istr.o
+wIstr                                             usb_int.o
+                                                  usb_istr.o
