@@ -20,7 +20,7 @@
 
 #include "Hw_IMU.h"
 #include "Lb_Printf.h"
-
+#include "math.h"
 
 
 
@@ -59,6 +59,20 @@ u16 Hw_IMU_Init( void )
 
 
 	return Ret;
+}
+
+
+
+
+/*---------------------------------------------------------------------------
+     TITLE   : Hw_IMU_Reset
+     WORK    : 
+     ARG     : void
+     RET     : void
+---------------------------------------------------------------------------*/
+void Hw_IMU_Reset( HW_IMU_DATA_OBJ *ptr_data )
+{
+
 }
 
 
@@ -103,7 +117,11 @@ u16 Hw_IMU_GetData( HW_IMU_DATA_OBJ *ptr_data )
 
 			ptr_data->Enable_Acc     = TRUE;
 			ptr_data->Enable_Temp    = TRUE;
-			ptr_data->Enable_Gyro    = TRUE;				
+			ptr_data->Enable_Gyro    = TRUE;	
+
+			// 각도 계산 
+			ptr_data->X_AccAngle = (atan2(MPU6050_Data.Y_Acc, MPU6050_Data.Z_Acc)+M_PI)*RAD_TO_DEG;
+			ptr_data->Y_AccAngle = (atan2(MPU6050_Data.X_Acc, MPU6050_Data.Z_Acc)+M_PI)*RAD_TO_DEG;
 		}
 	}
 

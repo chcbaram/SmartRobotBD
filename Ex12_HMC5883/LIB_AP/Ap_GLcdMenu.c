@@ -246,6 +246,20 @@ u8 Ap_GLcdMenu_ExeCmd(void)
 			   break;  
 
 		   case '8':
+				while( get_byte_check() == 0 )
+				{
+					TimeStart = Hw_Timer_Get_u16Count_Usec();
+
+					Ret = Hw_IMU_GetData( &IMU_Data );
+
+					Lb_printf("Time %d ", Hw_Timer_Get_u16Count_Usec() - TimeStart );
+
+					Lb_printf("AngX %d ", (s16)IMU_Data.X_AccAngle );
+					Lb_printf("AngY %d \n", (s16)IMU_Data.Y_AccAngle );
+
+
+					Hw_Wait_ms(100);
+				}			   
 			   break;
 
 		   case '9': 

@@ -11,519 +11,534 @@
   11              		.eabi_attribute 34, 1
   12              		.eabi_attribute 18, 4
   13              		.thumb
-  14              		.file	"Hw.c"
+  14              		.file	"Hw_IMU.c"
   15              		.text
   16              	.Ltext0:
   17              		.cfi_sections	.debug_frame
-  18              		.section	.text.Hw_Init,"ax",%progbits
+  18              		.section	.text.Hw_IMU_Init,"ax",%progbits
   19              		.align	2
-  20              		.global	Hw_Init
+  20              		.global	Hw_IMU_Init
   21              		.thumb
   22              		.thumb_func
-  24              	Hw_Init:
+  24              	Hw_IMU_Init:
   25              	.LFB0:
-  26              		.file 1 "../LIB_HW/Hw.c"
-   1:../LIB_HW/Hw.c **** //----------------------------------------------------------------------------
-   2:../LIB_HW/Hw.c **** //    프로그램명 	: Hw 관련 함수
-   3:../LIB_HW/Hw.c **** //
-   4:../LIB_HW/Hw.c **** //    만든이     	: 
-   5:../LIB_HW/Hw.c **** //
-   6:../LIB_HW/Hw.c **** //    날  짜     	: 
-   7:../LIB_HW/Hw.c **** //    
-   8:../LIB_HW/Hw.c **** //    최종 수정  	:
-   9:../LIB_HW/Hw.c **** //
-  10:../LIB_HW/Hw.c **** //    MPU_Type		:
-  11:../LIB_HW/Hw.c **** //
-  12:../LIB_HW/Hw.c **** //    파일명     	: Hw.c
-  13:../LIB_HW/Hw.c **** //----------------------------------------------------------------------------
-  14:../LIB_HW/Hw.c **** 
-  15:../LIB_HW/Hw.c **** 
-  16:../LIB_HW/Hw.c **** //----- 헤더파일 열기
-  17:../LIB_HW/Hw.c **** //
-  18:../LIB_HW/Hw.c **** #define  HW_LOCAL  
-  19:../LIB_HW/Hw.c **** 
-  20:../LIB_HW/Hw.c **** #include "Hw.h"
-  21:../LIB_HW/Hw.c **** 
-  22:../LIB_HW/Hw.c **** 
-  23:../LIB_HW/Hw.c **** 
-  24:../LIB_HW/Hw.c **** 
-  25:../LIB_HW/Hw.c **** 
-  26:../LIB_HW/Hw.c **** 
-  27:../LIB_HW/Hw.c **** /*---------------------------------------------------------------------------
-  28:../LIB_HW/Hw.c ****      TITLE   : Hw_Init
-  29:../LIB_HW/Hw.c ****      WORK    : 
-  30:../LIB_HW/Hw.c ****      ARG     : void
-  31:../LIB_HW/Hw.c ****      RET     : void
-  32:../LIB_HW/Hw.c **** ---------------------------------------------------------------------------*/
-  33:../LIB_HW/Hw.c **** void Hw_Init( void )
-  34:../LIB_HW/Hw.c **** {
-  27              		.loc 1 34 0
+  26              		.file 1 "../LIB_HW/Hw_IMU.c"
+   1:../LIB_HW/Hw_IMU.c **** //----------------------------------------------------------------------------
+   2:../LIB_HW/Hw_IMU.c **** //    프로그램명 	: IMU 센서 관련 함수
+   3:../LIB_HW/Hw_IMU.c **** //
+   4:../LIB_HW/Hw_IMU.c **** //    만든이     	: Cho Han Cheol(Baram)
+   5:../LIB_HW/Hw_IMU.c **** //
+   6:../LIB_HW/Hw_IMU.c **** //    날  짜     	: 
+   7:../LIB_HW/Hw_IMU.c **** //    
+   8:../LIB_HW/Hw_IMU.c **** //    최종 수정  	:
+   9:../LIB_HW/Hw_IMU.c **** //
+  10:../LIB_HW/Hw_IMU.c **** //    MPU_Type	:
+  11:../LIB_HW/Hw_IMU.c **** //
+  12:../LIB_HW/Hw_IMU.c **** //    파일명     	: Hw_IMU.c
+  13:../LIB_HW/Hw_IMU.c **** //----------------------------------------------------------------------------
+  14:../LIB_HW/Hw_IMU.c **** 
+  15:../LIB_HW/Hw_IMU.c **** 
+  16:../LIB_HW/Hw_IMU.c **** //----- 헤더파일 열기
+  17:../LIB_HW/Hw_IMU.c **** //
+  18:../LIB_HW/Hw_IMU.c **** #define  HW_HMC5883_LOCAL
+  19:../LIB_HW/Hw_IMU.c **** 
+  20:../LIB_HW/Hw_IMU.c **** 
+  21:../LIB_HW/Hw_IMU.c **** #include "Hw_IMU.h"
+  22:../LIB_HW/Hw_IMU.c **** #include "Lb_Printf.h"
+  23:../LIB_HW/Hw_IMU.c **** #include "math.h"
+  24:../LIB_HW/Hw_IMU.c **** 
+  25:../LIB_HW/Hw_IMU.c **** 
+  26:../LIB_HW/Hw_IMU.c **** 
+  27:../LIB_HW/Hw_IMU.c **** 
+  28:../LIB_HW/Hw_IMU.c **** 
+  29:../LIB_HW/Hw_IMU.c **** 
+  30:../LIB_HW/Hw_IMU.c **** 
+  31:../LIB_HW/Hw_IMU.c **** 
+  32:../LIB_HW/Hw_IMU.c **** /*---------------------------------------------------------------------------
+  33:../LIB_HW/Hw_IMU.c ****      TITLE   : Hw_IMU_Init
+  34:../LIB_HW/Hw_IMU.c ****      WORK    : 
+  35:../LIB_HW/Hw_IMU.c ****      ARG     : void
+  36:../LIB_HW/Hw_IMU.c ****      RET     : void
+  37:../LIB_HW/Hw_IMU.c **** ---------------------------------------------------------------------------*/
+  38:../LIB_HW/Hw_IMU.c **** u16 Hw_IMU_Init( void )
+  39:../LIB_HW/Hw_IMU.c **** {
+  27              		.loc 1 39 0
   28              		.cfi_startproc
   29              		@ args = 0, pretend = 0, frame = 0
   30              		@ frame_needed = 0, uses_anonymous_args = 0
-  31 0000 F8B5     		push	{r3, r4, r5, r6, r7, lr}
-  32              	.LCFI0:
-  33              		.cfi_def_cfa_offset 24
-  34              		.cfi_offset 3, -24
-  35              		.cfi_offset 4, -20
-  36              		.cfi_offset 5, -16
-  37              		.cfi_offset 6, -12
-  38              		.cfi_offset 7, -8
-  39              		.cfi_offset 14, -4
-  35:../LIB_HW/Hw.c **** 	//-- PLL 설정
-  36:../LIB_HW/Hw.c **** 	//
-  37:../LIB_HW/Hw.c **** 	Hw_PLL_Init();
-  40              		.loc 1 37 0
-  41 0002 40F20003 		movw	r3, #:lower16:Hw_PLL_Init
-  42 0006 C0F20003 		movt	r3, #:upper16:Hw_PLL_Init
-  43 000a 9847     		blx	r3
-  44              	.LVL0:
-  38:../LIB_HW/Hw.c **** 	
-  39:../LIB_HW/Hw.c **** 	
-  40:../LIB_HW/Hw.c **** 	//-- 인터럽트 관련 초기화
-  41:../LIB_HW/Hw.c **** 	//
-  42:../LIB_HW/Hw.c **** 	Hw_ISR_Init();
-  45              		.loc 1 42 0
-  46 000c 40F20000 		movw	r0, #:lower16:Hw_ISR_Init
-  47 0010 C0F20000 		movt	r0, #:upper16:Hw_ISR_Init
-  48 0014 8047     		blx	r0
-  49              	.LVL1:
-  43:../LIB_HW/Hw.c **** 	
-  44:../LIB_HW/Hw.c **** 		
-  45:../LIB_HW/Hw.c **** 	//-- GPIO 기본값 설정
-  46:../LIB_HW/Hw.c **** 	//
-  47:../LIB_HW/Hw.c **** 	REG_GPIOA_CRL = 0x33333333;	// PA0 - 7
-  48:../LIB_HW/Hw.c **** 	REG_GPIOA_CRH = 0x333334B3;	// PA8 - 15    //PA9,10,11,12는 가각 UART, USB에 할당됨
-  50              		.loc 1 48 0
-  51 0016 40F60406 		movw	r6, #2052
-  47:../LIB_HW/Hw.c **** 	REG_GPIOA_CRL = 0x33333333;	// PA0 - 7
-  52              		.loc 1 47 0
-  53 001a 4FF4006E 		mov	lr, #2048
-  54              		.loc 1 48 0
-  55 001e 43F2B347 		movw	r7, #13491
-  49:../LIB_HW/Hw.c **** 	REG_GPIOB_CRL = 0x33333333;	// PB0 - 7
-  56              		.loc 1 49 0
-  57 0022 4FF44065 		mov	r5, #3072
-  50:../LIB_HW/Hw.c **** 	REG_GPIOB_CRH = 0x33333333;	// PB8 - 15
-  58              		.loc 1 50 0
-  59 0026 40F60444 		movw	r4, #3076
-  51:../LIB_HW/Hw.c **** 	REG_GPIOC_CRH = 0x33444444;	// PC14, 15
-  60              		.loc 1 51 0
-  61 002a 41F20401 		movw	r1, #4100
-  62 002e 44F24440 		movw	r0, #17476
-  47:../LIB_HW/Hw.c **** 	REG_GPIOA_CRL = 0x33333333;	// PA0 - 7
-  63              		.loc 1 47 0
-  64 0032 C4F2010E 		movt	lr, 16385
-  65 0036 4FF03332 		mov	r2, #858993459
-  66              		.loc 1 51 0
-  67 003a C3F24430 		movt	r0, 13124
-  68 003e C4F20101 		movt	r1, 16385
-  48:../LIB_HW/Hw.c **** 	REG_GPIOA_CRH = 0x333334B3;	// PA8 - 15    //PA9,10,11,12는 가각 UART, USB에 할당됨
-  69              		.loc 1 48 0
-  70 0042 C4F20106 		movt	r6, 16385
-  71 0046 C3F23337 		movt	r7, 13107
-  49:../LIB_HW/Hw.c **** 	REG_GPIOB_CRL = 0x33333333;	// PB0 - 7
-  72              		.loc 1 49 0
-  73 004a C4F20105 		movt	r5, 16385
-  50:../LIB_HW/Hw.c **** 	REG_GPIOB_CRH = 0x33333333;	// PB8 - 15
-  74              		.loc 1 50 0
-  75 004e C4F20104 		movt	r4, 16385
-  52:../LIB_HW/Hw.c **** 	
-  53:../LIB_HW/Hw.c **** 	Hw_DMA_Init();
-  76              		.loc 1 53 0
-  77 0052 40F20003 		movw	r3, #:lower16:Hw_DMA_Init
-  47:../LIB_HW/Hw.c **** 	REG_GPIOA_CRL = 0x33333333;	// PA0 - 7
-  78              		.loc 1 47 0
-  79 0056 CEF80020 		str	r2, [lr, #0]
-  80              		.loc 1 53 0
-  81 005a C0F20003 		movt	r3, #:upper16:Hw_DMA_Init
-  48:../LIB_HW/Hw.c **** 	REG_GPIOA_CRH = 0x333334B3;	// PA8 - 15    //PA9,10,11,12는 가각 UART, USB에 할당됨
-  82              		.loc 1 48 0
-  83 005e 3760     		str	r7, [r6, #0]
-  49:../LIB_HW/Hw.c **** 	REG_GPIOB_CRL = 0x33333333;	// PB0 - 7
-  84              		.loc 1 49 0
-  85 0060 2A60     		str	r2, [r5, #0]
-  50:../LIB_HW/Hw.c **** 	REG_GPIOB_CRH = 0x33333333;	// PB8 - 15
-  86              		.loc 1 50 0
-  87 0062 2260     		str	r2, [r4, #0]
-  51:../LIB_HW/Hw.c **** 	REG_GPIOC_CRH = 0x33444444;	// PC14, 15
-  88              		.loc 1 51 0
-  89 0064 0860     		str	r0, [r1, #0]
-  90              		.loc 1 53 0
-  91 0066 9847     		blx	r3
-  92              	.LVL2:
-  54:../LIB_HW/Hw.c **** 	Hw_Uart_Init();
-  93              		.loc 1 54 0
-  94 0068 40F20001 		movw	r1, #:lower16:Hw_Uart_Init
-  95 006c C0F20001 		movt	r1, #:upper16:Hw_Uart_Init
-  96 0070 8847     		blx	r1
-  97              	.LVL3:
-  55:../LIB_HW/Hw.c **** 	Hw_Led_Init();
-  98              		.loc 1 55 0
-  99 0072 40F20000 		movw	r0, #:lower16:Hw_Led_Init
- 100 0076 C0F20000 		movt	r0, #:upper16:Hw_Led_Init
- 101 007a 8047     		blx	r0
- 102              	.LVL4:
-  56:../LIB_HW/Hw.c **** 	Hw_Timer_Init();
- 103              		.loc 1 56 0
- 104 007c 40F20002 		movw	r2, #:lower16:Hw_Timer_Init
- 105 0080 C0F20002 		movt	r2, #:upper16:Hw_Timer_Init
- 106 0084 9047     		blx	r2
- 107              	.LVL5:
-  57:../LIB_HW/Hw.c **** 	Hw_Si47xx_Init();
- 108              		.loc 1 57 0
- 109 0086 40F20003 		movw	r3, #:lower16:Hw_Si47xx_Init
- 110 008a C0F20003 		movt	r3, #:upper16:Hw_Si47xx_Init
- 111 008e 9847     		blx	r3
- 112              	.LVL6:
-  58:../LIB_HW/Hw.c **** 	Hw_N5110G_Init();
- 113              		.loc 1 58 0
- 114 0090 40F20001 		movw	r1, #:lower16:Hw_N5110G_Init
- 115 0094 C0F20001 		movt	r1, #:upper16:Hw_N5110G_Init
- 116 0098 8847     		blx	r1
- 117              	.LVL7:
-  59:../LIB_HW/Hw.c **** 	Hw_I2C_Init();
- 118              		.loc 1 59 0
- 119 009a 40F20000 		movw	r0, #:lower16:Hw_I2C_Init
- 120 009e C0F20000 		movt	r0, #:upper16:Hw_I2C_Init
- 121 00a2 8047     		blx	r0
- 122              	.LVL8:
-  60:../LIB_HW/Hw.c **** 	
-  61:../LIB_HW/Hw.c **** 	Hw_VCom_Init();
- 123              		.loc 1 61 0
- 124 00a4 40F20002 		movw	r2, #:lower16:Hw_VCom_Init
- 125 00a8 C0F20002 		movt	r2, #:upper16:Hw_VCom_Init
- 126 00ac 9047     		blx	r2
- 127              	.LVL9:
-  62:../LIB_HW/Hw.c **** 
-  63:../LIB_HW/Hw.c **** 	Hw_IMU_Init();
- 128              		.loc 1 63 0
- 129 00ae 40F20003 		movw	r3, #:lower16:Hw_IMU_Init
- 130 00b2 C0F20003 		movt	r3, #:upper16:Hw_IMU_Init
- 131 00b6 9847     		blx	r3
- 132              	.LVL10:
- 133 00b8 F8BD     		pop	{r3, r4, r5, r6, r7, pc}
- 134              		.cfi_endproc
- 135              	.LFE0:
- 137 00ba 00BF     		.section	.text.Hw_Wait,"ax",%progbits
- 138              		.align	2
- 139              		.global	Hw_Wait
- 140              		.thumb
- 141              		.thumb_func
- 143              	Hw_Wait:
- 144              	.LFB1:
-  64:../LIB_HW/Hw.c **** 	//Hw_Sonic_Init();
-  65:../LIB_HW/Hw.c **** }
-  66:../LIB_HW/Hw.c **** 
-  67:../LIB_HW/Hw.c **** 
-  68:../LIB_HW/Hw.c **** 
-  69:../LIB_HW/Hw.c **** 
-  70:../LIB_HW/Hw.c **** /*---------------------------------------------------------------------------
-  71:../LIB_HW/Hw.c ****      TITLE   : Hw_Wait
-  72:../LIB_HW/Hw.c ****      WORK    : 
-  73:../LIB_HW/Hw.c ****      ARG     : void
-  74:../LIB_HW/Hw.c ****      RET     : void
-  75:../LIB_HW/Hw.c **** ---------------------------------------------------------------------------*/
-  76:../LIB_HW/Hw.c **** void Hw_Wait( u32 delay )
-  77:../LIB_HW/Hw.c **** {
- 145              		.loc 1 77 0
- 146              		.cfi_startproc
- 147              		@ args = 0, pretend = 0, frame = 8
- 148              		@ frame_needed = 0, uses_anonymous_args = 0
- 149              		@ link register save eliminated.
- 150              	.LVL11:
- 151 0000 82B0     		sub	sp, sp, #8
- 152              	.LCFI1:
- 153              		.cfi_def_cfa_offset 8
-  78:../LIB_HW/Hw.c ****     volatile u32 i;
-  79:../LIB_HW/Hw.c ****     for ( i = 0 ; i < delay ; i++ ){ };
- 154              		.loc 1 79 0
- 155 0002 0023     		movs	r3, #0
- 156 0004 0193     		str	r3, [sp, #4]
- 157              	.LVL12:
- 158 0006 0199     		ldr	r1, [sp, #4]
- 159 0008 8842     		cmp	r0, r1
- 160 000a 05D9     		bls	.L2
- 161              	.L5:
- 162 000c 019A     		ldr	r2, [sp, #4]
- 163 000e 531C     		adds	r3, r2, #1
- 164              	.LVL13:
- 165 0010 0193     		str	r3, [sp, #4]
- 166              	.LVL14:
- 167 0012 0199     		ldr	r1, [sp, #4]
- 168 0014 8142     		cmp	r1, r0
- 169 0016 F9D3     		bcc	.L5
- 170              	.L2:
-  80:../LIB_HW/Hw.c **** }
- 171              		.loc 1 80 0
- 172 0018 02B0     		add	sp, sp, #8
- 173 001a 7047     		bx	lr
- 174              		.cfi_endproc
- 175              	.LFE1:
- 177              		.section	.text.Hw_Wait_Usec,"ax",%progbits
- 178              		.align	2
- 179              		.global	Hw_Wait_Usec
- 180              		.thumb
- 181              		.thumb_func
- 183              	Hw_Wait_Usec:
- 184              	.LFB2:
-  81:../LIB_HW/Hw.c **** 
-  82:../LIB_HW/Hw.c **** 
-  83:../LIB_HW/Hw.c **** 
-  84:../LIB_HW/Hw.c **** 
-  85:../LIB_HW/Hw.c **** 
-  86:../LIB_HW/Hw.c **** /*---------------------------------------------------------------------------
-  87:../LIB_HW/Hw.c ****      TITLE   : Hw_Wait_Usec
-  88:../LIB_HW/Hw.c ****      WORK    : 
-  89:../LIB_HW/Hw.c ****      ARG     : void
-  90:../LIB_HW/Hw.c ****      RET     : void
-  91:../LIB_HW/Hw.c **** ---------------------------------------------------------------------------*/
-  92:../LIB_HW/Hw.c **** void Hw_Wait_Usec( u32 usec )
-  93:../LIB_HW/Hw.c **** {
- 185              		.loc 1 93 0
- 186              		.cfi_startproc
- 187              		@ args = 0, pretend = 0, frame = 8
- 188              		@ frame_needed = 0, uses_anonymous_args = 0
- 189              		@ link register save eliminated.
- 190              	.LVL15:
- 191 0000 82B0     		sub	sp, sp, #8
- 192              	.LCFI2:
- 193              		.cfi_def_cfa_offset 8
- 194              	.LBB12:
- 195              	.LBB13:
-  79:../LIB_HW/Hw.c ****     for ( i = 0 ; i < delay ; i++ ){ };
- 196              		.loc 1 79 0
- 197 0002 0023     		movs	r3, #0
- 198 0004 0193     		str	r3, [sp, #4]
- 199              	.LVL16:
- 200              	.LBE13:
- 201              	.LBE12:
-  94:../LIB_HW/Hw.c ****     Hw_Wait( usec * 6 );
- 202              		.loc 1 94 0
- 203 0006 00EB4000 		add	r0, r0, r0, lsl #1
- 204              	.LVL17:
- 205              	.LBB16:
- 206              	.LBB14:
-  79:../LIB_HW/Hw.c ****     for ( i = 0 ; i < delay ; i++ ){ };
- 207              		.loc 1 79 0
- 208 000a 0199     		ldr	r1, [sp, #4]
- 209              	.LBE14:
- 210              	.LBE16:
- 211              		.loc 1 94 0
- 212 000c 4200     		lsls	r2, r0, #1
- 213              	.LVL18:
- 214              	.LBB17:
- 215              	.LBB15:
-  79:../LIB_HW/Hw.c ****     for ( i = 0 ; i < delay ; i++ ){ };
- 216              		.loc 1 79 0
- 217 000e 8A42     		cmp	r2, r1
- 218 0010 05D9     		bls	.L8
- 219              	.L11:
- 220 0012 019B     		ldr	r3, [sp, #4]
- 221 0014 581C     		adds	r0, r3, #1
- 222              	.LVL19:
- 223 0016 0190     		str	r0, [sp, #4]
- 224              	.LVL20:
- 225 0018 0199     		ldr	r1, [sp, #4]
- 226 001a 8A42     		cmp	r2, r1
- 227 001c F9D8     		bhi	.L11
- 228              	.L8:
- 229              	.LBE15:
- 230              	.LBE17:
-  95:../LIB_HW/Hw.c **** }
- 231              		.loc 1 95 0
- 232 001e 02B0     		add	sp, sp, #8
- 233 0020 7047     		bx	lr
- 234              		.cfi_endproc
- 235              	.LFE2:
- 237 0022 00BF     		.section	.text.Hw_Wait_us,"ax",%progbits
- 238              		.align	2
- 239              		.global	Hw_Wait_us
- 240              		.thumb
- 241              		.thumb_func
- 243              	Hw_Wait_us:
- 244              	.LFB3:
-  96:../LIB_HW/Hw.c **** 
-  97:../LIB_HW/Hw.c **** 
-  98:../LIB_HW/Hw.c **** 
-  99:../LIB_HW/Hw.c **** 
- 100:../LIB_HW/Hw.c **** 
- 101:../LIB_HW/Hw.c **** /*---------------------------------------------------------------------------
- 102:../LIB_HW/Hw.c ****      TITLE   : Hw_Wait_us
- 103:../LIB_HW/Hw.c ****      WORK    : 
- 104:../LIB_HW/Hw.c ****      ARG     : void
- 105:../LIB_HW/Hw.c ****      RET     : void
- 106:../LIB_HW/Hw.c **** ---------------------------------------------------------------------------*/
- 107:../LIB_HW/Hw.c **** void Hw_Wait_us( u32 usec )
- 108:../LIB_HW/Hw.c **** {
- 245              		.loc 1 108 0
- 246              		.cfi_startproc
- 247              		@ args = 0, pretend = 0, frame = 8
- 248              		@ frame_needed = 0, uses_anonymous_args = 0
- 249              		@ link register save eliminated.
- 250              	.LVL21:
- 251 0000 82B0     		sub	sp, sp, #8
- 252              	.LCFI3:
- 253              		.cfi_def_cfa_offset 8
- 254              	.LBB18:
- 255              	.LBB19:
- 256              	.LBB20:
- 257              	.LBB21:
-  79:../LIB_HW/Hw.c ****     for ( i = 0 ; i < delay ; i++ ){ };
- 258              		.loc 1 79 0
- 259 0002 0023     		movs	r3, #0
- 260 0004 0193     		str	r3, [sp, #4]
- 261              	.LVL22:
- 262              	.LBE21:
- 263              	.LBE20:
-  94:../LIB_HW/Hw.c ****     Hw_Wait( usec * 6 );
- 264              		.loc 1 94 0
- 265 0006 00EB4000 		add	r0, r0, r0, lsl #1
- 266              	.LVL23:
- 267              	.LBB24:
- 268              	.LBB22:
-  79:../LIB_HW/Hw.c ****     for ( i = 0 ; i < delay ; i++ ){ };
- 269              		.loc 1 79 0
- 270 000a 0199     		ldr	r1, [sp, #4]
- 271              	.LBE22:
- 272              	.LBE24:
-  94:../LIB_HW/Hw.c ****     Hw_Wait( usec * 6 );
- 273              		.loc 1 94 0
- 274 000c 4200     		lsls	r2, r0, #1
- 275              	.LVL24:
- 276              	.LBB25:
- 277              	.LBB23:
-  79:../LIB_HW/Hw.c ****     for ( i = 0 ; i < delay ; i++ ){ };
- 278              		.loc 1 79 0
- 279 000e 8A42     		cmp	r2, r1
- 280 0010 05D9     		bls	.L13
- 281              	.L16:
- 282 0012 019B     		ldr	r3, [sp, #4]
- 283 0014 581C     		adds	r0, r3, #1
- 284              	.LVL25:
- 285 0016 0190     		str	r0, [sp, #4]
- 286              	.LVL26:
- 287 0018 0199     		ldr	r1, [sp, #4]
- 288 001a 8A42     		cmp	r2, r1
- 289 001c F9D8     		bhi	.L16
- 290              	.L13:
- 291              	.LBE23:
- 292              	.LBE25:
- 293              	.LBE19:
- 294              	.LBE18:
- 109:../LIB_HW/Hw.c ****     Hw_Wait_Usec( usec );
- 110:../LIB_HW/Hw.c **** }
- 295              		.loc 1 110 0
- 296 001e 02B0     		add	sp, sp, #8
- 297 0020 7047     		bx	lr
- 298              		.cfi_endproc
- 299              	.LFE3:
- 301              		.section	.text.Hw_Wait_ms,"ax",%progbits
- 302              		.align	2
- 303              		.global	Hw_Wait_ms
- 304              		.thumb
- 305              		.thumb_func
- 307              	Hw_Wait_ms:
- 308              	.LFB4:
- 111:../LIB_HW/Hw.c **** 
- 112:../LIB_HW/Hw.c **** 
- 113:../LIB_HW/Hw.c **** 
- 114:../LIB_HW/Hw.c **** 
- 115:../LIB_HW/Hw.c **** 
- 116:../LIB_HW/Hw.c **** /*---------------------------------------------------------------------------
- 117:../LIB_HW/Hw.c ****      TITLE   : Hw_Wait_ms
- 118:../LIB_HW/Hw.c ****      WORK    : 
- 119:../LIB_HW/Hw.c ****      ARG     : void
- 120:../LIB_HW/Hw.c ****      RET     : void
- 121:../LIB_HW/Hw.c **** ---------------------------------------------------------------------------*/
- 122:../LIB_HW/Hw.c **** void Hw_Wait_ms( u32 msec )
- 123:../LIB_HW/Hw.c **** {
- 309              		.loc 1 123 0
- 310              		.cfi_startproc
- 311              		@ args = 0, pretend = 0, frame = 8
- 312              		@ frame_needed = 0, uses_anonymous_args = 0
- 313              		@ link register save eliminated.
- 314              	.LVL27:
- 315              	.LBB26:
- 316              	.LBB27:
-  94:../LIB_HW/Hw.c ****     Hw_Wait( usec * 6 );
- 317              		.loc 1 94 0
- 318 0000 41F27073 		movw	r3, #6000
- 319              	.LBE27:
- 320              	.LBE26:
- 321              		.loc 1 123 0
- 322 0004 82B0     		sub	sp, sp, #8
- 323              	.LCFI4:
- 324              		.cfi_def_cfa_offset 8
- 325              	.LBB33:
- 326              	.LBB32:
- 327              	.LBB28:
- 328              	.LBB29:
-  79:../LIB_HW/Hw.c ****     for ( i = 0 ; i < delay ; i++ ){ };
- 329              		.loc 1 79 0
- 330 0006 0021     		movs	r1, #0
- 331              	.LBE29:
- 332              	.LBE28:
-  94:../LIB_HW/Hw.c ****     Hw_Wait( usec * 6 );
- 333              		.loc 1 94 0
- 334 0008 03FB00F0 		mul	r0, r3, r0
- 335              	.LVL28:
- 336              	.LBB31:
- 337              	.LBB30:
-  79:../LIB_HW/Hw.c ****     for ( i = 0 ; i < delay ; i++ ){ };
- 338              		.loc 1 79 0
- 339 000c 0191     		str	r1, [sp, #4]
- 340              	.LVL29:
- 341 000e 019A     		ldr	r2, [sp, #4]
- 342 0010 9042     		cmp	r0, r2
- 343 0012 05D9     		bls	.L18
- 344              	.L21:
- 345 0014 019B     		ldr	r3, [sp, #4]
- 346 0016 591C     		adds	r1, r3, #1
- 347              	.LVL30:
- 348 0018 0191     		str	r1, [sp, #4]
- 349              	.LVL31:
- 350 001a 019A     		ldr	r2, [sp, #4]
- 351 001c 9042     		cmp	r0, r2
- 352 001e F9D8     		bhi	.L21
- 353              	.L18:
- 354              	.LBE30:
- 355              	.LBE31:
- 356              	.LBE32:
- 357              	.LBE33:
- 124:../LIB_HW/Hw.c ****     Hw_Wait_Usec( msec*1000 );
- 125:../LIB_HW/Hw.c **** }
- 358              		.loc 1 125 0
- 359 0020 02B0     		add	sp, sp, #8
- 360 0022 7047     		bx	lr
- 361              		.cfi_endproc
- 362              	.LFE4:
- 364              		.text
- 365              	.Letext0:
- 366              		.file 2 "../LIB_HW/Hw_Define.h"
+  31              	.LVL0:
+  32 0000 10B5     		push	{r4, lr}
+  33              	.LCFI0:
+  34              		.cfi_def_cfa_offset 8
+  35              		.cfi_offset 4, -8
+  36              		.cfi_offset 14, -4
+  40:../LIB_HW/Hw_IMU.c **** 	u16 Ret = 0;
+  41:../LIB_HW/Hw_IMU.c **** 
+  42:../LIB_HW/Hw_IMU.c **** 
+  43:../LIB_HW/Hw_IMU.c **** 	Ret = Hw_MPU6050_Init();
+  37              		.loc 1 43 0
+  38 0002 0B4B     		ldr	r3, .L10
+  39 0004 9847     		blx	r3
+  40              	.LVL1:
+  44:../LIB_HW/Hw_IMU.c **** 
+  45:../LIB_HW/Hw_IMU.c **** 	if( Ret != 0 )
+  41              		.loc 1 45 0
+  42 0006 0446     		mov	r4, r0
+  43 0008 58B9     		cbnz	r0, .L8
+  46:../LIB_HW/Hw_IMU.c **** 	{
+  47:../LIB_HW/Hw_IMU.c **** 		Lb_printf("Hw_MPU6050_Init Ret : 0x%x\n", Ret);
+  48:../LIB_HW/Hw_IMU.c **** 		return Ret;
+  49:../LIB_HW/Hw_IMU.c **** 	} 
+  50:../LIB_HW/Hw_IMU.c **** 
+  51:../LIB_HW/Hw_IMU.c **** 
+  52:../LIB_HW/Hw_IMU.c **** 	Ret = Hw_HMC5883_Init();
+  44              		.loc 1 52 0
+  45 000a 0A48     		ldr	r0, .L10+4
+  46              	.LVL2:
+  47 000c 8047     		blx	r0
+  48              	.LVL3:
+  53:../LIB_HW/Hw_IMU.c **** 
+  54:../LIB_HW/Hw_IMU.c **** 	if( Ret != 0 )
+  49              		.loc 1 54 0
+  50 000e 0446     		mov	r4, r0
+  51 0010 08B9     		cbnz	r0, .L9
+  55:../LIB_HW/Hw_IMU.c **** 	{
+  56:../LIB_HW/Hw_IMU.c **** 		Lb_printf("Hw_HMC5883_Init Ret : 0x%x\n", Ret);
+  57:../LIB_HW/Hw_IMU.c **** 		return Ret;
+  58:../LIB_HW/Hw_IMU.c **** 	} 
+  59:../LIB_HW/Hw_IMU.c **** 
+  60:../LIB_HW/Hw_IMU.c **** 
+  61:../LIB_HW/Hw_IMU.c **** 	return Ret;
+  62:../LIB_HW/Hw_IMU.c **** }
+  52              		.loc 1 62 0
+  53 0012 2046     		mov	r0, r4
+  54              	.LVL4:
+  55 0014 10BD     		pop	{r4, pc}
+  56              	.LVL5:
+  57              	.L9:
+  56:../LIB_HW/Hw_IMU.c **** 		Lb_printf("Hw_HMC5883_Init Ret : 0x%x\n", Ret);
+  58              		.loc 1 56 0
+  59 0016 0848     		ldr	r0, .L10+8
+  60              	.LVL6:
+  61 0018 2146     		mov	r1, r4
+  62 001a 084A     		ldr	r2, .L10+12
+  63 001c 9047     		blx	r2
+  64              	.LVL7:
+  65              		.loc 1 62 0
+  66 001e 2046     		mov	r0, r4
+  67 0020 10BD     		pop	{r4, pc}
+  68              	.LVL8:
+  69              	.L8:
+  47:../LIB_HW/Hw_IMU.c **** 		Lb_printf("Hw_MPU6050_Init Ret : 0x%x\n", Ret);
+  70              		.loc 1 47 0
+  71 0022 0748     		ldr	r0, .L10+16
+  72              	.LVL9:
+  73 0024 2146     		mov	r1, r4
+  74 0026 054B     		ldr	r3, .L10+12
+  75 0028 9847     		blx	r3
+  76              	.LVL10:
+  77              		.loc 1 62 0
+  78 002a 2046     		mov	r0, r4
+  79 002c 10BD     		pop	{r4, pc}
+  80              	.L11:
+  81 002e 00BF     		.align	2
+  82              	.L10:
+  83 0030 00000000 		.word	Hw_MPU6050_Init
+  84 0034 00000000 		.word	Hw_HMC5883_Init
+  85 0038 1C000000 		.word	.LC1
+  86 003c 00000000 		.word	Lb_printf
+  87 0040 00000000 		.word	.LC0
+  88              		.cfi_endproc
+  89              	.LFE0:
+  91              		.section	.text.Hw_IMU_Reset,"ax",%progbits
+  92              		.align	2
+  93              		.global	Hw_IMU_Reset
+  94              		.thumb
+  95              		.thumb_func
+  97              	Hw_IMU_Reset:
+  98              	.LFB1:
+  63:../LIB_HW/Hw_IMU.c **** 
+  64:../LIB_HW/Hw_IMU.c **** 
+  65:../LIB_HW/Hw_IMU.c **** 
+  66:../LIB_HW/Hw_IMU.c **** 
+  67:../LIB_HW/Hw_IMU.c **** /*---------------------------------------------------------------------------
+  68:../LIB_HW/Hw_IMU.c ****      TITLE   : Hw_IMU_Reset
+  69:../LIB_HW/Hw_IMU.c ****      WORK    : 
+  70:../LIB_HW/Hw_IMU.c ****      ARG     : void
+  71:../LIB_HW/Hw_IMU.c ****      RET     : void
+  72:../LIB_HW/Hw_IMU.c **** ---------------------------------------------------------------------------*/
+  73:../LIB_HW/Hw_IMU.c **** void Hw_IMU_Reset( HW_IMU_DATA_OBJ *ptr_data )
+  74:../LIB_HW/Hw_IMU.c **** {
+  99              		.loc 1 74 0
+ 100              		.cfi_startproc
+ 101              		@ args = 0, pretend = 0, frame = 0
+ 102              		@ frame_needed = 0, uses_anonymous_args = 0
+ 103              		@ link register save eliminated.
+ 104              	.LVL11:
+ 105 0000 7047     		bx	lr
+ 106              		.cfi_endproc
+ 107              	.LFE1:
+ 109              		.global	__aeabi_i2d
+ 110              		.global	__aeabi_dadd
+ 111              		.global	__aeabi_dmul
+ 112              		.global	__aeabi_d2f
+ 113 0002 00BF     		.section	.text.Hw_IMU_GetData,"ax",%progbits
+ 114              		.align	2
+ 115              		.global	Hw_IMU_GetData
+ 116              		.thumb
+ 117              		.thumb_func
+ 119              	Hw_IMU_GetData:
+ 120              	.LFB2:
+  75:../LIB_HW/Hw_IMU.c **** 
+  76:../LIB_HW/Hw_IMU.c **** }
+  77:../LIB_HW/Hw_IMU.c **** 
+  78:../LIB_HW/Hw_IMU.c **** 
+  79:../LIB_HW/Hw_IMU.c **** 
+  80:../LIB_HW/Hw_IMU.c **** 
+  81:../LIB_HW/Hw_IMU.c **** 
+  82:../LIB_HW/Hw_IMU.c **** /*---------------------------------------------------------------------------
+  83:../LIB_HW/Hw_IMU.c ****      TITLE   : Hw_IMU_GetData
+  84:../LIB_HW/Hw_IMU.c ****      WORK    : 
+  85:../LIB_HW/Hw_IMU.c ****      ARG     : void
+  86:../LIB_HW/Hw_IMU.c ****      RET     : void
+  87:../LIB_HW/Hw_IMU.c **** ---------------------------------------------------------------------------*/
+  88:../LIB_HW/Hw_IMU.c **** u16 Hw_IMU_GetData( HW_IMU_DATA_OBJ *ptr_data )
+  89:../LIB_HW/Hw_IMU.c **** {
+ 121              		.loc 1 89 0
+ 122              		.cfi_startproc
+ 123              		@ args = 0, pretend = 0, frame = 32
+ 124              		@ frame_needed = 0, uses_anonymous_args = 0
+ 125              	.LVL12:
+ 126              		.loc 1 89 0
+ 127 0000 2DE9F04F 		push	{r4, r5, r6, r7, r8, r9, sl, fp, lr}
+ 128              	.LCFI1:
+ 129              		.cfi_def_cfa_offset 36
+ 130              		.cfi_offset 4, -36
+ 131              		.cfi_offset 5, -32
+ 132              		.cfi_offset 6, -28
+ 133              		.cfi_offset 7, -24
+ 134              		.cfi_offset 8, -20
+ 135              		.cfi_offset 9, -16
+ 136              		.cfi_offset 10, -12
+ 137              		.cfi_offset 11, -8
+ 138              		.cfi_offset 14, -4
+  90:../LIB_HW/Hw_IMU.c **** 	u16 Err = 0;
+  91:../LIB_HW/Hw_IMU.c **** 
+  92:../LIB_HW/Hw_IMU.c **** 	HW_MPU6050_DATA_OBJ MPU6050_Data;
+  93:../LIB_HW/Hw_IMU.c **** 	HW_HMC5883_DATA_OBJ HMC5883_Data;
+  94:../LIB_HW/Hw_IMU.c **** 
+  95:../LIB_HW/Hw_IMU.c **** 
+  96:../LIB_HW/Hw_IMU.c **** 	ptr_data->Enable_Acc     = FALSE;
+ 139              		.loc 1 96 0
+ 140 0004 4FF00008 		mov	r8, #0
+  89:../LIB_HW/Hw_IMU.c **** {
+ 141              		.loc 1 89 0
+ 142 0008 89B0     		sub	sp, sp, #36
+ 143              	.LCFI2:
+ 144              		.cfi_def_cfa_offset 72
+ 145              		.loc 1 96 0
+ 146 000a 80F80080 		strb	r8, [r0, #0]
+  97:../LIB_HW/Hw_IMU.c **** 	ptr_data->Enable_Temp    = FALSE;
+ 147              		.loc 1 97 0
+ 148 000e 80F80180 		strb	r8, [r0, #1]
+  98:../LIB_HW/Hw_IMU.c **** 	ptr_data->Enable_Gyro    = FALSE;
+ 149              		.loc 1 98 0
+ 150 0012 80F80280 		strb	r8, [r0, #2]
+  99:../LIB_HW/Hw_IMU.c **** 	ptr_data->Enable_Compass = FALSE;
+ 151              		.loc 1 99 0
+ 152 0016 80F80380 		strb	r8, [r0, #3]
+ 100:../LIB_HW/Hw_IMU.c **** 
+ 101:../LIB_HW/Hw_IMU.c **** 
+ 102:../LIB_HW/Hw_IMU.c **** 	if( Hw_HMC5883_GetEnable() == TRUE )
+ 153              		.loc 1 102 0
+ 154 001a 3F4F     		ldr	r7, .L19+16
+  89:../LIB_HW/Hw_IMU.c **** {
+ 155              		.loc 1 89 0
+ 156 001c 0646     		mov	r6, r0
+ 157              		.loc 1 102 0
+ 158 001e B847     		blx	r7
+ 159              	.LVL13:
+ 160 0020 0128     		cmp	r0, #1
+ 161 0022 0446     		mov	r4, r0
+ 162 0024 18D0     		beq	.L17
+ 163              	.LVL14:
+ 164              	.L14:
+ 103:../LIB_HW/Hw_IMU.c **** 	{
+ 104:../LIB_HW/Hw_IMU.c **** 		Err = Hw_MPU6050_GetData( &MPU6050_Data );
+ 105:../LIB_HW/Hw_IMU.c **** 
+ 106:../LIB_HW/Hw_IMU.c **** 		if( Err == 0 )
+ 107:../LIB_HW/Hw_IMU.c **** 		{
+ 108:../LIB_HW/Hw_IMU.c **** 			ptr_data->X_Acc = MPU6050_Data.X_Acc;
+ 109:../LIB_HW/Hw_IMU.c **** 			ptr_data->Y_Acc = MPU6050_Data.Y_Acc;
+ 110:../LIB_HW/Hw_IMU.c **** 			ptr_data->Z_Acc = MPU6050_Data.Z_Acc;
+ 111:../LIB_HW/Hw_IMU.c **** 			
+ 112:../LIB_HW/Hw_IMU.c **** 			ptr_data->Temp  = MPU6050_Data.Temp;
+ 113:../LIB_HW/Hw_IMU.c **** 
+ 114:../LIB_HW/Hw_IMU.c **** 			ptr_data->X_Gyro = MPU6050_Data.X_Gyro;
+ 115:../LIB_HW/Hw_IMU.c **** 			ptr_data->Y_Gyro = MPU6050_Data.Y_Gyro;
+ 116:../LIB_HW/Hw_IMU.c **** 			ptr_data->Z_Gyro = MPU6050_Data.Z_Gyro;
+ 117:../LIB_HW/Hw_IMU.c **** 
+ 118:../LIB_HW/Hw_IMU.c **** 			ptr_data->Enable_Acc     = TRUE;
+ 119:../LIB_HW/Hw_IMU.c **** 			ptr_data->Enable_Temp    = TRUE;
+ 120:../LIB_HW/Hw_IMU.c **** 			ptr_data->Enable_Gyro    = TRUE;	
+ 121:../LIB_HW/Hw_IMU.c **** 
+ 122:../LIB_HW/Hw_IMU.c **** 			// 각도 계산 
+ 123:../LIB_HW/Hw_IMU.c **** 			ptr_data->X_AccAngle = (atan2(MPU6050_Data.Y_Acc, MPU6050_Data.Z_Acc)+M_PI)*RAD_TO_DEG;
+ 124:../LIB_HW/Hw_IMU.c **** 			ptr_data->Y_AccAngle = (atan2(MPU6050_Data.X_Acc, MPU6050_Data.Z_Acc)+M_PI)*RAD_TO_DEG;
+ 125:../LIB_HW/Hw_IMU.c **** 		}
+ 126:../LIB_HW/Hw_IMU.c **** 	}
+ 127:../LIB_HW/Hw_IMU.c **** 
+ 128:../LIB_HW/Hw_IMU.c **** 
+ 129:../LIB_HW/Hw_IMU.c **** 
+ 130:../LIB_HW/Hw_IMU.c **** 	if( Hw_HMC5883_GetEnable() == TRUE )
+ 165              		.loc 1 130 0
+ 166 0026 B847     		blx	r7
+ 167              	.LVL15:
+ 168 0028 0128     		cmp	r0, #1
+ 169 002a 0446     		mov	r4, r0
+ 170 002c 03D0     		beq	.L18
+ 171              	.LVL16:
+ 172              	.L15:
+ 131:../LIB_HW/Hw_IMU.c **** 	{
+ 132:../LIB_HW/Hw_IMU.c **** 		Err = Hw_HMC5883_GetData( &HMC5883_Data );	
+ 133:../LIB_HW/Hw_IMU.c **** 
+ 134:../LIB_HW/Hw_IMU.c **** 		if( Err == 0 )
+ 135:../LIB_HW/Hw_IMU.c **** 		{
+ 136:../LIB_HW/Hw_IMU.c **** 			ptr_data->X_Compass = HMC5883_Data.X_Compass;
+ 137:../LIB_HW/Hw_IMU.c **** 			ptr_data->Y_Compass = HMC5883_Data.Y_Compass;
+ 138:../LIB_HW/Hw_IMU.c **** 			ptr_data->Z_Compass = HMC5883_Data.Z_Compass;
+ 139:../LIB_HW/Hw_IMU.c **** 
+ 140:../LIB_HW/Hw_IMU.c **** 			ptr_data->Enable_Compass = TRUE;			
+ 141:../LIB_HW/Hw_IMU.c **** 		}
+ 142:../LIB_HW/Hw_IMU.c **** 	}
+ 143:../LIB_HW/Hw_IMU.c **** 
+ 144:../LIB_HW/Hw_IMU.c **** 
+ 145:../LIB_HW/Hw_IMU.c **** 	return Err;
+ 146:../LIB_HW/Hw_IMU.c **** }
+ 173              		.loc 1 146 0
+ 174 002e 4046     		mov	r0, r8
+ 175 0030 09B0     		add	sp, sp, #36
+ 176 0032 BDE8F08F 		pop	{r4, r5, r6, r7, r8, r9, sl, fp, pc}
+ 177              	.L18:
+ 132:../LIB_HW/Hw_IMU.c **** 		Err = Hw_HMC5883_GetData( &HMC5883_Data );	
+ 178              		.loc 1 132 0
+ 179 0036 02A8     		add	r0, sp, #8
+ 180 0038 384A     		ldr	r2, .L19+20
+ 181 003a 9047     		blx	r2
+ 182              	.LVL17:
+ 134:../LIB_HW/Hw_IMU.c **** 		if( Err == 0 )
+ 183              		.loc 1 134 0
+ 184 003c 8046     		mov	r8, r0
+ 185 003e 0028     		cmp	r0, #0
+ 186 0040 F5D1     		bne	.L15
+ 136:../LIB_HW/Hw_IMU.c **** 			ptr_data->X_Compass = HMC5883_Data.X_Compass;
+ 187              		.loc 1 136 0
+ 188 0042 BDF80800 		ldrh	r0, [sp, #8]
+ 189              	.LVL18:
+ 137:../LIB_HW/Hw_IMU.c **** 			ptr_data->Y_Compass = HMC5883_Data.Y_Compass;
+ 190              		.loc 1 137 0
+ 191 0046 BDF80A30 		ldrh	r3, [sp, #10]
+ 138:../LIB_HW/Hw_IMU.c **** 			ptr_data->Z_Compass = HMC5883_Data.Z_Compass;
+ 192              		.loc 1 138 0
+ 193 004a BDF80C10 		ldrh	r1, [sp, #12]
+ 136:../LIB_HW/Hw_IMU.c **** 			ptr_data->X_Compass = HMC5883_Data.X_Compass;
+ 194              		.loc 1 136 0
+ 195 004e 7082     		strh	r0, [r6, #18]	@ movhi
+ 137:../LIB_HW/Hw_IMU.c **** 			ptr_data->Y_Compass = HMC5883_Data.Y_Compass;
+ 196              		.loc 1 137 0
+ 197 0050 B382     		strh	r3, [r6, #20]	@ movhi
+ 138:../LIB_HW/Hw_IMU.c **** 			ptr_data->Z_Compass = HMC5883_Data.Z_Compass;
+ 198              		.loc 1 138 0
+ 199 0052 F182     		strh	r1, [r6, #22]	@ movhi
+ 140:../LIB_HW/Hw_IMU.c **** 			ptr_data->Enable_Compass = TRUE;			
+ 200              		.loc 1 140 0
+ 201 0054 F470     		strb	r4, [r6, #3]
+ 202 0056 EAE7     		b	.L15
+ 203              	.LVL19:
+ 204              	.L17:
+ 104:../LIB_HW/Hw_IMU.c **** 		Err = Hw_MPU6050_GetData( &MPU6050_Data );
+ 205              		.loc 1 104 0
+ 206 0058 04A8     		add	r0, sp, #16
+ 207 005a 314B     		ldr	r3, .L19+24
+ 208 005c 9847     		blx	r3
+ 209              	.LVL20:
+ 106:../LIB_HW/Hw_IMU.c **** 		if( Err == 0 )
+ 210              		.loc 1 106 0
+ 211 005e 8046     		mov	r8, r0
+ 212 0060 0028     		cmp	r0, #0
+ 213 0062 E0D1     		bne	.L14
+ 108:../LIB_HW/Hw_IMU.c **** 			ptr_data->X_Acc = MPU6050_Data.X_Acc;
+ 214              		.loc 1 108 0
+ 215 0064 BDF81010 		ldrh	r1, [sp, #16]
+ 112:../LIB_HW/Hw_IMU.c **** 			ptr_data->Temp  = MPU6050_Data.Temp;
+ 216              		.loc 1 112 0
+ 217 0068 BDF81620 		ldrh	r2, [sp, #22]
+ 115:../LIB_HW/Hw_IMU.c **** 			ptr_data->Y_Gyro = MPU6050_Data.Y_Gyro;
+ 218              		.loc 1 115 0
+ 219 006c BDF81A30 		ldrh	r3, [sp, #26]
+ 110:../LIB_HW/Hw_IMU.c **** 			ptr_data->Z_Acc = MPU6050_Data.Z_Acc;
+ 220              		.loc 1 110 0
+ 221 0070 BDF814A0 		ldrh	sl, [sp, #20]
+ 109:../LIB_HW/Hw_IMU.c **** 			ptr_data->Y_Acc = MPU6050_Data.Y_Acc;
+ 222              		.loc 1 109 0
+ 223 0074 BDF81200 		ldrh	r0, [sp, #18]
+ 224              	.LVL21:
+ 114:../LIB_HW/Hw_IMU.c **** 			ptr_data->X_Gyro = MPU6050_Data.X_Gyro;
+ 225              		.loc 1 114 0
+ 226 0078 BDF81850 		ldrh	r5, [sp, #24]
+ 108:../LIB_HW/Hw_IMU.c **** 			ptr_data->X_Acc = MPU6050_Data.X_Acc;
+ 227              		.loc 1 108 0
+ 228 007c B180     		strh	r1, [r6, #4]	@ movhi
+ 116:../LIB_HW/Hw_IMU.c **** 			ptr_data->Z_Gyro = MPU6050_Data.Z_Gyro;
+ 229              		.loc 1 116 0
+ 230 007e BDF81C10 		ldrh	r1, [sp, #28]
+ 123:../LIB_HW/Hw_IMU.c **** 			ptr_data->X_AccAngle = (atan2(MPU6050_Data.Y_Acc, MPU6050_Data.Z_Acc)+M_PI)*RAD_TO_DEG;
+ 231              		.loc 1 123 0
+ 232 0082 DFF8A890 		ldr	r9, .L19+36
+ 112:../LIB_HW/Hw_IMU.c **** 			ptr_data->Temp  = MPU6050_Data.Temp;
+ 233              		.loc 1 112 0
+ 234 0086 7281     		strh	r2, [r6, #10]	@ movhi
+ 115:../LIB_HW/Hw_IMU.c **** 			ptr_data->Y_Gyro = MPU6050_Data.Y_Gyro;
+ 235              		.loc 1 115 0
+ 236 0088 F381     		strh	r3, [r6, #14]	@ movhi
+ 109:../LIB_HW/Hw_IMU.c **** 			ptr_data->Y_Acc = MPU6050_Data.Y_Acc;
+ 237              		.loc 1 109 0
+ 238 008a F080     		strh	r0, [r6, #6]	@ movhi
+ 110:../LIB_HW/Hw_IMU.c **** 			ptr_data->Z_Acc = MPU6050_Data.Z_Acc;
+ 239              		.loc 1 110 0
+ 240 008c A6F808A0 		strh	sl, [r6, #8]	@ movhi
+ 114:../LIB_HW/Hw_IMU.c **** 			ptr_data->X_Gyro = MPU6050_Data.X_Gyro;
+ 241              		.loc 1 114 0
+ 242 0090 B581     		strh	r5, [r6, #12]	@ movhi
+ 118:../LIB_HW/Hw_IMU.c **** 			ptr_data->Enable_Acc     = TRUE;
+ 243              		.loc 1 118 0
+ 244 0092 3470     		strb	r4, [r6, #0]
+ 119:../LIB_HW/Hw_IMU.c **** 			ptr_data->Enable_Temp    = TRUE;
+ 245              		.loc 1 119 0
+ 246 0094 7470     		strb	r4, [r6, #1]
+ 120:../LIB_HW/Hw_IMU.c **** 			ptr_data->Enable_Gyro    = TRUE;	
+ 247              		.loc 1 120 0
+ 248 0096 B470     		strb	r4, [r6, #2]
+ 116:../LIB_HW/Hw_IMU.c **** 			ptr_data->Z_Gyro = MPU6050_Data.Z_Gyro;
+ 249              		.loc 1 116 0
+ 250 0098 3182     		strh	r1, [r6, #16]	@ movhi
+ 123:../LIB_HW/Hw_IMU.c **** 			ptr_data->X_AccAngle = (atan2(MPU6050_Data.Y_Acc, MPU6050_Data.Z_Acc)+M_PI)*RAD_TO_DEG;
+ 251              		.loc 1 123 0
+ 252 009a 00B2     		sxth	r0, r0
+ 253 009c C847     		blx	r9
+ 254              	.LVL22:
+ 255 009e 0446     		mov	r4, r0
+ 256 00a0 0FFA8AF0 		sxth	r0, sl
+ 257 00a4 0D46     		mov	r5, r1
+ 258 00a6 C847     		blx	r9
+ 259              	.LVL23:
+ 260 00a8 DFF884B0 		ldr	fp, .L19+40
+ 261 00ac 0246     		mov	r2, r0
+ 262 00ae 0B46     		mov	r3, r1
+ 263 00b0 2046     		mov	r0, r4
+ 264 00b2 2946     		mov	r1, r5
+ 265 00b4 D847     		blx	fp
+ 266              	.LVL24:
+ 267 00b6 14A3     		adr	r3, .L19
+ 268 00b8 D3E90023 		ldrd	r2, [r3]
+ 269 00bc DFF874A0 		ldr	sl, .L19+44
+ 270 00c0 D047     		blx	sl
+ 271              	.LVL25:
+ 272 00c2 13A3     		adr	r3, .L19+8
+ 273 00c4 D3E90023 		ldrd	r2, [r3]
+ 274 00c8 164D     		ldr	r5, .L19+28
+ 275 00ca A847     		blx	r5
+ 276              	.LVL26:
+ 277 00cc 164C     		ldr	r4, .L19+32
+ 278 00ce A047     		blx	r4
+ 279              	.LVL27:
+ 280 00d0 B061     		str	r0, [r6, #24]	@ float
+ 124:../LIB_HW/Hw_IMU.c **** 			ptr_data->Y_AccAngle = (atan2(MPU6050_Data.X_Acc, MPU6050_Data.Z_Acc)+M_PI)*RAD_TO_DEG;
+ 281              		.loc 1 124 0
+ 282 00d2 BDF91000 		ldrsh	r0, [sp, #16]
+ 283 00d6 C847     		blx	r9
+ 284              	.LVL28:
+ 285 00d8 CDE90001 		strd	r0, [sp]
+ 286 00dc BDF91400 		ldrsh	r0, [sp, #20]
+ 287 00e0 C847     		blx	r9
+ 288              	.LVL29:
+ 289 00e2 0246     		mov	r2, r0
+ 290 00e4 0B46     		mov	r3, r1
+ 291 00e6 DDE90001 		ldrd	r0, [sp]
+ 292 00ea D847     		blx	fp
+ 293              	.LVL30:
+ 294 00ec 06A3     		adr	r3, .L19
+ 295 00ee D3E90023 		ldrd	r2, [r3]
+ 296 00f2 D047     		blx	sl
+ 297              	.LVL31:
+ 298 00f4 06A3     		adr	r3, .L19+8
+ 299 00f6 D3E90023 		ldrd	r2, [r3]
+ 300 00fa A847     		blx	r5
+ 301              	.LVL32:
+ 302 00fc A047     		blx	r4
+ 303              	.LVL33:
+ 304 00fe F061     		str	r0, [r6, #28]	@ float
+ 305 0100 91E7     		b	.L14
+ 306              	.L20:
+ 307 0102 00BFAFF3 		.align	3
+ 307      0080
+ 308              	.L19:
+ 309 0108 182D4454 		.word	1413754136
+ 310 010c FB210940 		.word	1074340347
+ 311 0110 00000020 		.word	536870912
+ 312 0114 DCA54C40 		.word	1078765020
+ 313 0118 00000000 		.word	Hw_HMC5883_GetEnable
+ 314 011c 00000000 		.word	Hw_HMC5883_GetData
+ 315 0120 00000000 		.word	Hw_MPU6050_GetData
+ 316 0124 00000000 		.word	__aeabi_dmul
+ 317 0128 00000000 		.word	__aeabi_d2f
+ 318 012c 00000000 		.word	__aeabi_i2d
+ 319 0130 00000000 		.word	atan2
+ 320 0134 00000000 		.word	__aeabi_dadd
+ 321              		.cfi_endproc
+ 322              	.LFE2:
+ 324              		.section	.rodata.str1.4,"aMS",%progbits,1
+ 325              		.align	2
+ 326              	.LC0:
+ 327 0000 48775F4D 		.ascii	"Hw_MPU6050_Init Ret : 0x%x\012\000"
+ 327      50553630 
+ 327      35305F49 
+ 327      6E697420 
+ 327      52657420 
+ 328              	.LC1:
+ 329 001c 48775F48 		.ascii	"Hw_HMC5883_Init Ret : 0x%x\012\000"
+ 329      4D433538 
+ 329      38335F49 
+ 329      6E697420 
+ 329      52657420 
+ 330              		.text
+ 331              	.Letext0:
+ 332              		.file 2 "../LIB_HW/Hw_Define.h"
+ 333              		.file 3 "../LIB_HW/Hw_MPU6050.h"
+ 334              		.file 4 "../LIB_HW/Hw_HMC5883.h"
+ 335              		.file 5 "../LIB_HW/Hw_IMU.h"
 DEFINED SYMBOLS
-                            *ABS*:0000000000000000 Hw.c
-/var/folders/bz/nn5481rn5xq59rb0mbj7x0880000gn/T//ccKwOr2H.s:19     .text.Hw_Init:0000000000000000 $t
-/var/folders/bz/nn5481rn5xq59rb0mbj7x0880000gn/T//ccKwOr2H.s:24     .text.Hw_Init:0000000000000000 Hw_Init
-/var/folders/bz/nn5481rn5xq59rb0mbj7x0880000gn/T//ccKwOr2H.s:138    .text.Hw_Wait:0000000000000000 $t
-/var/folders/bz/nn5481rn5xq59rb0mbj7x0880000gn/T//ccKwOr2H.s:143    .text.Hw_Wait:0000000000000000 Hw_Wait
-/var/folders/bz/nn5481rn5xq59rb0mbj7x0880000gn/T//ccKwOr2H.s:178    .text.Hw_Wait_Usec:0000000000000000 $t
-/var/folders/bz/nn5481rn5xq59rb0mbj7x0880000gn/T//ccKwOr2H.s:183    .text.Hw_Wait_Usec:0000000000000000 Hw_Wait_Usec
-/var/folders/bz/nn5481rn5xq59rb0mbj7x0880000gn/T//ccKwOr2H.s:238    .text.Hw_Wait_us:0000000000000000 $t
-/var/folders/bz/nn5481rn5xq59rb0mbj7x0880000gn/T//ccKwOr2H.s:243    .text.Hw_Wait_us:0000000000000000 Hw_Wait_us
-/var/folders/bz/nn5481rn5xq59rb0mbj7x0880000gn/T//ccKwOr2H.s:302    .text.Hw_Wait_ms:0000000000000000 $t
-/var/folders/bz/nn5481rn5xq59rb0mbj7x0880000gn/T//ccKwOr2H.s:307    .text.Hw_Wait_ms:0000000000000000 Hw_Wait_ms
+                            *ABS*:0000000000000000 Hw_IMU.c
+/var/folders/bz/nn5481rn5xq59rb0mbj7x0880000gn/T//ccqKRP1V.s:19     .text.Hw_IMU_Init:0000000000000000 $t
+/var/folders/bz/nn5481rn5xq59rb0mbj7x0880000gn/T//ccqKRP1V.s:24     .text.Hw_IMU_Init:0000000000000000 Hw_IMU_Init
+/var/folders/bz/nn5481rn5xq59rb0mbj7x0880000gn/T//ccqKRP1V.s:83     .text.Hw_IMU_Init:0000000000000030 $d
+/var/folders/bz/nn5481rn5xq59rb0mbj7x0880000gn/T//ccqKRP1V.s:92     .text.Hw_IMU_Reset:0000000000000000 $t
+/var/folders/bz/nn5481rn5xq59rb0mbj7x0880000gn/T//ccqKRP1V.s:97     .text.Hw_IMU_Reset:0000000000000000 Hw_IMU_Reset
+/var/folders/bz/nn5481rn5xq59rb0mbj7x0880000gn/T//ccqKRP1V.s:114    .text.Hw_IMU_GetData:0000000000000000 $t
+/var/folders/bz/nn5481rn5xq59rb0mbj7x0880000gn/T//ccqKRP1V.s:119    .text.Hw_IMU_GetData:0000000000000000 Hw_IMU_GetData
+/var/folders/bz/nn5481rn5xq59rb0mbj7x0880000gn/T//ccqKRP1V.s:309    .text.Hw_IMU_GetData:0000000000000108 $d
+/var/folders/bz/nn5481rn5xq59rb0mbj7x0880000gn/T//ccqKRP1V.s:325    .rodata.str1.4:0000000000000000 $d
                      .debug_frame:0000000000000010 $d
 
 UNDEFINED SYMBOLS
-Hw_PLL_Init
-Hw_ISR_Init
-Hw_DMA_Init
-Hw_Uart_Init
-Hw_Led_Init
-Hw_Timer_Init
-Hw_Si47xx_Init
-Hw_N5110G_Init
-Hw_I2C_Init
-Hw_VCom_Init
-Hw_IMU_Init
+Hw_MPU6050_Init
+Hw_HMC5883_Init
+Lb_printf
+__aeabi_i2d
+__aeabi_dadd
+__aeabi_dmul
+__aeabi_d2f
+Hw_HMC5883_GetEnable
+Hw_HMC5883_GetData
+Hw_MPU6050_GetData
+atan2

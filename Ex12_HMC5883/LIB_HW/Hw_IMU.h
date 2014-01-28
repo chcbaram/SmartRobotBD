@@ -57,6 +57,20 @@ typedef struct
 	s16 Y_Compass;
 	s16 Z_Compass;
 	
+
+	f32 X_AccAngle;
+	f32 Y_AccAngle;
+	f32 Z_AccAngle;
+
+	f32 X_GyroAngle;
+	f32 Y_GyroAngle;
+	f32 Z_GyroAngle;
+
+	f32 X_Angle;
+	f32 Y_Angle;
+	f32 Z_Angle;
+
+
 } HW_IMU_DATA_OBJ;
 
 

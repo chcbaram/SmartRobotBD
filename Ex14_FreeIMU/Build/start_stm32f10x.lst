@@ -1,0 +1,2010 @@
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 2
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.file	"Ap_GLcdMenu.c"
+  15              		.text
+  16              	.Ltext0:
+  17              		.cfi_sections	.debug_frame
+  18              		.section	.text.Ap_GLcdMenu_ShowMenu,"ax",%progbits
+  19              		.align	2
+  20              		.global	Ap_GLcdMenu_ShowMenu
+  21              		.thumb
+  22              		.thumb_func
+  24              	Ap_GLcdMenu_ShowMenu:
+  25              	.LFB0:
+  26              		.file 1 "../LIB_AP/Ap_GLcdMenu.c"
+   1:../LIB_AP/Ap_GLcdMenu.c **** //----------------------------------------------------------------------------
+   2:../LIB_AP/Ap_GLcdMenu.c **** //    프로그램명 	: GLcd Menu 관련 함수
+   3:../LIB_AP/Ap_GLcdMenu.c **** //
+   4:../LIB_AP/Ap_GLcdMenu.c **** //    만든이     	: Cho Han Cheol
+   5:../LIB_AP/Ap_GLcdMenu.c **** //
+   6:../LIB_AP/Ap_GLcdMenu.c **** //    날  짜     	: 
+   7:../LIB_AP/Ap_GLcdMenu.c **** //    
+   8:../LIB_AP/Ap_GLcdMenu.c **** //    최종 수정  	: 
+   9:../LIB_AP/Ap_GLcdMenu.c **** //
+  10:../LIB_AP/Ap_GLcdMenu.c **** //    MPU_Type		:
+  11:../LIB_AP/Ap_GLcdMenu.c **** //
+  12:../LIB_AP/Ap_GLcdMenu.c **** //    파일명     	: Ap_GLcdMenu.h
+  13:../LIB_AP/Ap_GLcdMenu.c **** //----------------------------------------------------------------------------
+  14:../LIB_AP/Ap_GLcdMenu.c **** 
+  15:../LIB_AP/Ap_GLcdMenu.c **** 
+  16:../LIB_AP/Ap_GLcdMenu.c **** 
+  17:../LIB_AP/Ap_GLcdMenu.c **** //----- 헤더파일 열기
+  18:../LIB_AP/Ap_GLcdMenu.c **** //
+  19:../LIB_AP/Ap_GLcdMenu.c **** #define  AP_GLCDMENU_LOCAL
+  20:../LIB_AP/Ap_GLcdMenu.c **** 
+  21:../LIB_AP/Ap_GLcdMenu.c **** #include "Ap_GLcdMenu.h"
+  22:../LIB_AP/Ap_GLcdMenu.c **** 
+  23:../LIB_AP/Ap_GLcdMenu.c ****   
+  24:../LIB_AP/Ap_GLcdMenu.c **** 
+  25:../LIB_AP/Ap_GLcdMenu.c **** //-- 내부 선언
+  26:../LIB_AP/Ap_GLcdMenu.c **** //
+  27:../LIB_AP/Ap_GLcdMenu.c **** 
+  28:../LIB_AP/Ap_GLcdMenu.c **** 
+  29:../LIB_AP/Ap_GLcdMenu.c **** 
+  30:../LIB_AP/Ap_GLcdMenu.c **** //-- 내부 변수
+  31:../LIB_AP/Ap_GLcdMenu.c **** //
+  32:../LIB_AP/Ap_GLcdMenu.c **** 
+  33:../LIB_AP/Ap_GLcdMenu.c ****   
+  34:../LIB_AP/Ap_GLcdMenu.c **** 
+  35:../LIB_AP/Ap_GLcdMenu.c **** //-- 내부 함수
+  36:../LIB_AP/Ap_GLcdMenu.c **** //
+  37:../LIB_AP/Ap_GLcdMenu.c **** void Ap_GLcdMenu_ShowMenu(void);
+  38:../LIB_AP/Ap_GLcdMenu.c **** 
+  39:../LIB_AP/Ap_GLcdMenu.c **** 
+  40:../LIB_AP/Ap_GLcdMenu.c ****   
+  41:../LIB_AP/Ap_GLcdMenu.c **** 
+  42:../LIB_AP/Ap_GLcdMenu.c **** 
+  43:../LIB_AP/Ap_GLcdMenu.c **** 
+  44:../LIB_AP/Ap_GLcdMenu.c **** /*---------------------------------------------------------------------------
+  45:../LIB_AP/Ap_GLcdMenu.c **** 	 TITLE   : Ap_GLcdMenu_ShowMenu
+  46:../LIB_AP/Ap_GLcdMenu.c **** 	 WORK    : 
+  47:../LIB_AP/Ap_GLcdMenu.c **** 	 ARG     : void
+  48:../LIB_AP/Ap_GLcdMenu.c **** 	 RET     : void
+  49:../LIB_AP/Ap_GLcdMenu.c **** ---------------------------------------------------------------------------*/
+  50:../LIB_AP/Ap_GLcdMenu.c **** void Ap_GLcdMenu_ShowMenu(void)
+  51:../LIB_AP/Ap_GLcdMenu.c **** {
+  27              		.loc 1 51 0
+  28              		.cfi_startproc
+  29              		@ args = 0, pretend = 0, frame = 0
+  30              		@ frame_needed = 0, uses_anonymous_args = 0
+  31 0000 38B5     		push	{r3, r4, r5, lr}
+  32              	.LCFI0:
+  33              		.cfi_def_cfa_offset 16
+  34              		.cfi_offset 3, -16
+  35              		.cfi_offset 4, -12
+  36              		.cfi_offset 5, -8
+  37              		.cfi_offset 14, -4
+  52:../LIB_AP/Ap_GLcdMenu.c **** 	u8 key;
+  53:../LIB_AP/Ap_GLcdMenu.c **** 
+  54:../LIB_AP/Ap_GLcdMenu.c **** 	Lb_printf("\n\n");
+  38              		.loc 1 54 0
+  39 0002 40F20000 		movw	r0, #:lower16:.LC0
+  40 0006 40F20004 		movw	r4, #:lower16:Lb_printf
+  55:../LIB_AP/Ap_GLcdMenu.c **** 	Lb_printf("*******************************************************\n");
+  41              		.loc 1 55 0
+  42 000a 40F20005 		movw	r5, #:lower16:.LC1
+  54:../LIB_AP/Ap_GLcdMenu.c **** 	Lb_printf("\n\n");
+  43              		.loc 1 54 0
+  44 000e C0F20004 		movt	r4, #:upper16:Lb_printf
+  45              		.loc 1 55 0
+  46 0012 C0F20005 		movt	r5, #:upper16:.LC1
+  54:../LIB_AP/Ap_GLcdMenu.c **** 	Lb_printf("\n\n");
+  47              		.loc 1 54 0
+  48 0016 C0F20000 		movt	r0, #:upper16:.LC0
+  49 001a A047     		blx	r4
+  50              	.LVL0:
+  51              		.loc 1 55 0
+  52 001c 2846     		mov	r0, r5
+  53 001e A047     		blx	r4
+  54              	.LVL1:
+  56:../LIB_AP/Ap_GLcdMenu.c **** 	Lb_printf("                      MPU6050                          \n");
+  55              		.loc 1 56 0
+  56 0020 40F20000 		movw	r0, #:lower16:.LC2
+  57 0024 C0F20000 		movt	r0, #:upper16:.LC2
+  58 0028 A047     		blx	r4
+  59              	.LVL2:
+  57:../LIB_AP/Ap_GLcdMenu.c **** 	Lb_printf("*******************************************************\n");
+  60              		.loc 1 57 0
+  61 002a 2846     		mov	r0, r5
+  62 002c A047     		blx	r4
+  63              	.LVL3:
+  58:../LIB_AP/Ap_GLcdMenu.c **** 	Lb_printf("* 1. LCD Clear                                        *\n");
+  64              		.loc 1 58 0
+  65 002e 40F20000 		movw	r0, #:lower16:.LC3
+  66 0032 C0F20000 		movt	r0, #:upper16:.LC3
+  67 0036 A047     		blx	r4
+  68              	.LVL4:
+  59:../LIB_AP/Ap_GLcdMenu.c **** 	Lb_printf("* 2. Show Acc                                         *\n");
+  69              		.loc 1 59 0
+  70 0038 40F20000 		movw	r0, #:lower16:.LC4
+  71 003c C0F20000 		movt	r0, #:upper16:.LC4
+  72 0040 A047     		blx	r4
+  73              	.LVL5:
+  60:../LIB_AP/Ap_GLcdMenu.c **** 	Lb_printf("* 3. Show MPU6050 Regs                                *\n");
+  74              		.loc 1 60 0
+  75 0042 40F20000 		movw	r0, #:lower16:.LC5
+  76 0046 C0F20000 		movt	r0, #:upper16:.LC5
+  77 004a A047     		blx	r4
+  78              	.LVL6:
+  61:../LIB_AP/Ap_GLcdMenu.c **** 	Lb_printf("* 4. Sonic                                            *\n");
+  79              		.loc 1 61 0
+  80 004c 40F20000 		movw	r0, #:lower16:.LC6
+  81 0050 C0F20000 		movt	r0, #:upper16:.LC6
+  82 0054 A047     		blx	r4
+  83              	.LVL7:
+  62:../LIB_AP/Ap_GLcdMenu.c **** 	Lb_printf("* 5. Show Compass                                     *\n");
+  84              		.loc 1 62 0
+  85 0056 40F20000 		movw	r0, #:lower16:.LC7
+  86 005a C0F20000 		movt	r0, #:upper16:.LC7
+  87 005e A047     		blx	r4
+  88              	.LVL8:
+  63:../LIB_AP/Ap_GLcdMenu.c **** 	Lb_printf("* 6. Show HMC5883 Regs                                *\n");
+  89              		.loc 1 63 0
+  90 0060 40F20000 		movw	r0, #:lower16:.LC8
+  91 0064 C0F20000 		movt	r0, #:upper16:.LC8
+  92 0068 A047     		blx	r4
+  93              	.LVL9:
+  64:../LIB_AP/Ap_GLcdMenu.c **** 	Lb_printf("* 7. Show IMU                                         *\n");
+  94              		.loc 1 64 0
+  95 006a 40F20000 		movw	r0, #:lower16:.LC9
+  96 006e C0F20000 		movt	r0, #:upper16:.LC9
+  97 0072 A047     		blx	r4
+  98              	.LVL10:
+  65:../LIB_AP/Ap_GLcdMenu.c **** 	Lb_printf("* 8.                                                  *\n");
+  99              		.loc 1 65 0
+ 100 0074 40F20000 		movw	r0, #:lower16:.LC10
+ 101 0078 C0F20000 		movt	r0, #:upper16:.LC10
+ 102 007c A047     		blx	r4
+ 103              	.LVL11:
+  66:../LIB_AP/Ap_GLcdMenu.c **** 	Lb_printf("* 9.                                                  *\n");
+ 104              		.loc 1 66 0
+ 105 007e 40F20000 		movw	r0, #:lower16:.LC11
+ 106 0082 C0F20000 		movt	r0, #:upper16:.LC11
+ 107 0086 A047     		blx	r4
+ 108              	.LVL12:
+  67:../LIB_AP/Ap_GLcdMenu.c **** 	Lb_printf("* m.  Menu                                            *\n");
+ 109              		.loc 1 67 0
+ 110 0088 40F20000 		movw	r0, #:lower16:.LC12
+ 111 008c C0F20000 		movt	r0, #:upper16:.LC12
+ 112 0090 A047     		blx	r4
+ 113              	.LVL13:
+  68:../LIB_AP/Ap_GLcdMenu.c **** 	Lb_printf("*******************************************************\n");
+ 114              		.loc 1 68 0
+ 115 0092 2846     		mov	r0, r5
+ 116 0094 A047     		blx	r4
+ 117              	.LVL14:
+  69:../LIB_AP/Ap_GLcdMenu.c **** 	Lb_printf("\n");
+ 118              		.loc 1 69 0
+ 119 0096 40F20000 		movw	r0, #:lower16:.LC13
+ 120 009a C0F20000 		movt	r0, #:upper16:.LC13
+ 121 009e A047     		blx	r4
+ 122              	.LVL15:
+ 123 00a0 38BD     		pop	{r3, r4, r5, pc}
+ 124              		.cfi_endproc
+ 125              	.LFE0:
+ 127 00a2 00BF     		.section	.text.Ap_GLcdMenu_GetCmd,"ax",%progbits
+ 128              		.align	2
+ 129              		.global	Ap_GLcdMenu_GetCmd
+ 130              		.thumb
+ 131              		.thumb_func
+ 133              	Ap_GLcdMenu_GetCmd:
+ 134              	.LFB1:
+  70:../LIB_AP/Ap_GLcdMenu.c **** }
+  71:../LIB_AP/Ap_GLcdMenu.c **** 
+  72:../LIB_AP/Ap_GLcdMenu.c **** 
+  73:../LIB_AP/Ap_GLcdMenu.c **** 
+  74:../LIB_AP/Ap_GLcdMenu.c **** 
+  75:../LIB_AP/Ap_GLcdMenu.c **** 
+  76:../LIB_AP/Ap_GLcdMenu.c **** /*---------------------------------------------------------------------------
+  77:../LIB_AP/Ap_GLcdMenu.c **** 	 TITLE   : Ap_GLcdMenu_GetCmd
+  78:../LIB_AP/Ap_GLcdMenu.c **** 	 WORK    : 
+  79:../LIB_AP/Ap_GLcdMenu.c **** 	 ARG     : void
+  80:../LIB_AP/Ap_GLcdMenu.c **** 	 RET     : 
+  81:../LIB_AP/Ap_GLcdMenu.c **** 				u8 : 눌려진 메뉴키 데이터 
+  82:../LIB_AP/Ap_GLcdMenu.c **** ---------------------------------------------------------------------------*/
+  83:../LIB_AP/Ap_GLcdMenu.c **** u8 Ap_GLcdMenu_GetCmd(void)
+  84:../LIB_AP/Ap_GLcdMenu.c **** {
+ 135              		.loc 1 84 0
+ 136              		.cfi_startproc
+ 137              		@ args = 0, pretend = 0, frame = 0
+ 138              		@ frame_needed = 0, uses_anonymous_args = 0
+ 139 0000 38B5     		push	{r3, r4, r5, lr}
+ 140              	.LCFI1:
+ 141              		.cfi_def_cfa_offset 16
+ 142              		.cfi_offset 3, -16
+ 143              		.cfi_offset 4, -12
+ 144              		.cfi_offset 5, -8
+ 145              		.cfi_offset 14, -4
+  85:../LIB_AP/Ap_GLcdMenu.c **** 	u8  key;
+  86:../LIB_AP/Ap_GLcdMenu.c **** 	
+  87:../LIB_AP/Ap_GLcdMenu.c **** 
+  88:../LIB_AP/Ap_GLcdMenu.c **** 	Lb_printf(">> ");
+ 146              		.loc 1 88 0
+ 147 0002 40F20000 		movw	r0, #:lower16:.LC14
+ 148 0006 40F20004 		movw	r4, #:lower16:Lb_printf
+ 149 000a C0F20004 		movt	r4, #:upper16:Lb_printf
+ 150 000e C0F20000 		movt	r0, #:upper16:.LC14
+ 151 0012 A047     		blx	r4
+ 152              	.LVL16:
+  89:../LIB_AP/Ap_GLcdMenu.c **** 
+  90:../LIB_AP/Ap_GLcdMenu.c **** 	key=get_byte();
+ 153              		.loc 1 90 0
+ 154 0014 40F20003 		movw	r3, #:lower16:get_byte
+ 155 0018 C0F20003 		movt	r3, #:upper16:get_byte
+ 156 001c 9847     		blx	r3
+ 157              	.LVL17:
+ 158 001e 0546     		mov	r5, r0
+ 159              	.LVL18:
+  91:../LIB_AP/Ap_GLcdMenu.c **** 	
+  92:../LIB_AP/Ap_GLcdMenu.c **** 	Lb_printf("\n");
+ 160              		.loc 1 92 0
+ 161 0020 40F20000 		movw	r0, #:lower16:.LC13
+ 162              	.LVL19:
+ 163 0024 C0F20000 		movt	r0, #:upper16:.LC13
+ 164 0028 A047     		blx	r4
+ 165              	.LVL20:
+  93:../LIB_AP/Ap_GLcdMenu.c **** 	
+  94:../LIB_AP/Ap_GLcdMenu.c **** 	return key;
+  95:../LIB_AP/Ap_GLcdMenu.c **** }
+ 166              		.loc 1 95 0
+ 167 002a 2846     		mov	r0, r5
+ 168 002c 38BD     		pop	{r3, r4, r5, pc}
+ 169              		.cfi_endproc
+ 170              	.LFE1:
+ 172              		.global	__aeabi_f2iz
+ 173              		.global	__aeabi_fsub
+ 174 002e 00BF     		.section	.text.Ap_GLcdMenu_ExeCmd,"ax",%progbits
+ 175              		.align	2
+ 176              		.global	Ap_GLcdMenu_ExeCmd
+ 177              		.thumb
+ 178              		.thumb_func
+ 180              	Ap_GLcdMenu_ExeCmd:
+ 181              	.LFB2:
+  96:../LIB_AP/Ap_GLcdMenu.c **** 
+  97:../LIB_AP/Ap_GLcdMenu.c **** 
+  98:../LIB_AP/Ap_GLcdMenu.c **** extern int16_t 		gyro_off_x, gyro_off_y, gyro_off_z;
+  99:../LIB_AP/Ap_GLcdMenu.c **** 
+ 100:../LIB_AP/Ap_GLcdMenu.c **** 
+ 101:../LIB_AP/Ap_GLcdMenu.c **** /*---------------------------------------------------------------------------
+ 102:../LIB_AP/Ap_GLcdMenu.c **** 	 TITLE   : Ap_GLcdMenu_ExeCmd
+ 103:../LIB_AP/Ap_GLcdMenu.c **** 	 WORK    : 
+ 104:../LIB_AP/Ap_GLcdMenu.c **** 	 ARG     : void
+ 105:../LIB_AP/Ap_GLcdMenu.c **** 	 RET     : 
+ 106:../LIB_AP/Ap_GLcdMenu.c **** 				u8 : 눌려진 메뉴키 데이터 
+ 107:../LIB_AP/Ap_GLcdMenu.c **** ---------------------------------------------------------------------------*/
+ 108:../LIB_AP/Ap_GLcdMenu.c **** u8 Ap_GLcdMenu_ExeCmd(void)
+ 109:../LIB_AP/Ap_GLcdMenu.c **** {
+ 182              		.loc 1 109 0
+ 183              		.cfi_startproc
+ 184              		@ args = 0, pretend = 0, frame = 128
+ 185              		@ frame_needed = 0, uses_anonymous_args = 0
+ 186 0000 2DE9F04F 		push	{r4, r5, r6, r7, r8, r9, sl, fp, lr}
+ 187              	.LCFI2:
+ 188              		.cfi_def_cfa_offset 36
+ 189              		.cfi_offset 4, -36
+ 190              		.cfi_offset 5, -32
+ 191              		.cfi_offset 6, -28
+ 192              		.cfi_offset 7, -24
+ 193              		.cfi_offset 8, -20
+ 194              		.cfi_offset 9, -16
+ 195              		.cfi_offset 10, -12
+ 196              		.cfi_offset 11, -8
+ 197              		.cfi_offset 14, -4
+ 198              	.LBB2:
+ 110:../LIB_AP/Ap_GLcdMenu.c **** 	u8 key;
+ 111:../LIB_AP/Ap_GLcdMenu.c **** 	u8 Status;
+ 112:../LIB_AP/Ap_GLcdMenu.c **** 	static u8 ExeFirst = TRUE;
+ 113:../LIB_AP/Ap_GLcdMenu.c **** 	u16 Ret;
+ 114:../LIB_AP/Ap_GLcdMenu.c **** 	static u8  Count    = 0;	
+ 115:../LIB_AP/Ap_GLcdMenu.c **** 	static s8  CircleX  = 0;	
+ 116:../LIB_AP/Ap_GLcdMenu.c **** 	u8 I2C_Data[20];	
+ 117:../LIB_AP/Ap_GLcdMenu.c **** 	s16 Temperature;	
+ 118:../LIB_AP/Ap_GLcdMenu.c **** 	s16 x;
+ 119:../LIB_AP/Ap_GLcdMenu.c **** 	s16 y;
+ 120:../LIB_AP/Ap_GLcdMenu.c **** 	u16 i;
+ 121:../LIB_AP/Ap_GLcdMenu.c **** 	u16 TimeStart;
+ 122:../LIB_AP/Ap_GLcdMenu.c **** 
+ 123:../LIB_AP/Ap_GLcdMenu.c **** 	HW_MPU6050_DATA_OBJ MPU6050_Data;
+ 124:../LIB_AP/Ap_GLcdMenu.c **** 	HW_HMC5883_DATA_OBJ HMC5883_Data;
+ 125:../LIB_AP/Ap_GLcdMenu.c **** 
+ 126:../LIB_AP/Ap_GLcdMenu.c **** 	HW_IMU_DATA_OBJ IMU_Data;
+ 127:../LIB_AP/Ap_GLcdMenu.c **** 
+ 128:../LIB_AP/Ap_GLcdMenu.c **** 
+ 129:../LIB_AP/Ap_GLcdMenu.c **** 
+ 130:../LIB_AP/Ap_GLcdMenu.c **** 	if( ExeFirst == TRUE )
+ 131:../LIB_AP/Ap_GLcdMenu.c **** 	{
+ 132:../LIB_AP/Ap_GLcdMenu.c **** 		Ap_GLcdMenu_ShowMenu();		
+ 199              		.loc 1 132 0
+ 200 0004 40F20001 		movw	r1, #:lower16:Ap_GLcdMenu_ShowMenu
+ 201              	.LBE2:
+ 109:../LIB_AP/Ap_GLcdMenu.c **** {
+ 202              		.loc 1 109 0
+ 203 0008 A1B0     		sub	sp, sp, #132
+ 204              	.LCFI3:
+ 205              		.cfi_def_cfa_offset 168
+ 206              	.LBB3:
+ 207              		.loc 1 132 0
+ 208 000a C0F20001 		movt	r1, #:upper16:Ap_GLcdMenu_ShowMenu
+ 209 000e 8847     		blx	r1
+ 210              	.LVL21:
+ 133:../LIB_AP/Ap_GLcdMenu.c **** 
+ 134:../LIB_AP/Ap_GLcdMenu.c **** 		Hw_N5110G_Print( 0, 0, "SmartRobot BD");
+ 211              		.loc 1 134 0
+ 212 0010 0020     		movs	r0, #0
+ 213 0012 0146     		mov	r1, r0
+ 214 0014 A94A     		ldr	r2, .L63
+ 215 0016 AA4B     		ldr	r3, .L63+4
+ 135:../LIB_AP/Ap_GLcdMenu.c **** 		Hw_N5110G_DrawRequest();
+ 216              		.loc 1 135 0
+ 217 0018 DFF81883 		ldr	r8, .L63+120
+ 134:../LIB_AP/Ap_GLcdMenu.c **** 		Hw_N5110G_Print( 0, 0, "SmartRobot BD");
+ 218              		.loc 1 134 0
+ 219 001c 9847     		blx	r3
+ 220              	.LVL22:
+ 221              		.loc 1 135 0
+ 222 001e C047     		blx	r8
+ 223              	.LVL23:
+ 224              	.LBE3:
+ 136:../LIB_AP/Ap_GLcdMenu.c **** 	}
+ 137:../LIB_AP/Ap_GLcdMenu.c **** 
+ 138:../LIB_AP/Ap_GLcdMenu.c **** 	while( (key = Ap_GLcdMenu_GetCmd()) != 0 )
+ 139:../LIB_AP/Ap_GLcdMenu.c **** 	{
+ 140:../LIB_AP/Ap_GLcdMenu.c **** 		switch(key)
+ 141:../LIB_AP/Ap_GLcdMenu.c **** 		{
+ 142:../LIB_AP/Ap_GLcdMenu.c **** 		   case '1':
+ 143:../LIB_AP/Ap_GLcdMenu.c **** 				Lb_printf("LCD Clear \n");
+ 144:../LIB_AP/Ap_GLcdMenu.c **** 				Hw_N5110G_Clear();
+ 145:../LIB_AP/Ap_GLcdMenu.c **** 				break;
+ 146:../LIB_AP/Ap_GLcdMenu.c **** 
+ 147:../LIB_AP/Ap_GLcdMenu.c **** 		   case '2':
+ 148:../LIB_AP/Ap_GLcdMenu.c **** 				
+ 149:../LIB_AP/Ap_GLcdMenu.c **** 				while( get_byte_check() == 0 )
+ 150:../LIB_AP/Ap_GLcdMenu.c **** 				{
+ 151:../LIB_AP/Ap_GLcdMenu.c **** 					TimeStart = Hw_Timer_Get_u16Count_Usec();
+ 152:../LIB_AP/Ap_GLcdMenu.c **** 
+ 153:../LIB_AP/Ap_GLcdMenu.c **** 					Ret = Hw_MPU6050_GetData( &MPU6050_Data );
+ 154:../LIB_AP/Ap_GLcdMenu.c **** 
+ 155:../LIB_AP/Ap_GLcdMenu.c **** 					Lb_printf("Time %d ", Hw_Timer_Get_u16Count_Usec() - TimeStart );
+ 156:../LIB_AP/Ap_GLcdMenu.c **** 
+ 157:../LIB_AP/Ap_GLcdMenu.c **** 					Lb_printf("AX %d ", MPU6050_Data.X_Acc );
+ 158:../LIB_AP/Ap_GLcdMenu.c **** 					Lb_printf("AY %d ", MPU6050_Data.Y_Acc );
+ 159:../LIB_AP/Ap_GLcdMenu.c **** 					Lb_printf("AZ %d ", MPU6050_Data.Z_Acc );
+ 160:../LIB_AP/Ap_GLcdMenu.c **** 					Lb_printf("T %d \n",  MPU6050_Data.Temp);
+ 161:../LIB_AP/Ap_GLcdMenu.c **** 
+ 162:../LIB_AP/Ap_GLcdMenu.c **** 					x = HW_N5110G_WIDTH/2 - MPU6050_Data.Y_Acc/200;
+ 163:../LIB_AP/Ap_GLcdMenu.c **** 					y = HW_N5110G_HEIGHT/2 - MPU6050_Data.X_Acc/200;
+ 164:../LIB_AP/Ap_GLcdMenu.c **** 
+ 165:../LIB_AP/Ap_GLcdMenu.c **** 					if( x > HW_N5110G_WIDTH-4) x = HW_N5110G_WIDTH-4;
+ 166:../LIB_AP/Ap_GLcdMenu.c **** 					if( x < 3 )                x = 3;
+ 167:../LIB_AP/Ap_GLcdMenu.c **** 					if( y > HW_N5110G_HEIGHT-4) y = HW_N5110G_HEIGHT-4;
+ 168:../LIB_AP/Ap_GLcdMenu.c **** 					if( y < 3 )                 y = 3;
+ 169:../LIB_AP/Ap_GLcdMenu.c **** 
+ 170:../LIB_AP/Ap_GLcdMenu.c **** 					Hw_N5110G_Clear();                                  
+ 171:../LIB_AP/Ap_GLcdMenu.c **** 					Hw_N5110G_DrawCircle(  x , y, 3, 0 );                           
+ 172:../LIB_AP/Ap_GLcdMenu.c **** 					Hw_N5110G_DrawRequest();
+ 173:../LIB_AP/Ap_GLcdMenu.c **** 					Hw_Wait_ms(100);
+ 174:../LIB_AP/Ap_GLcdMenu.c **** 				}
+ 175:../LIB_AP/Ap_GLcdMenu.c **** 				
+ 176:../LIB_AP/Ap_GLcdMenu.c **** 				break;
+ 177:../LIB_AP/Ap_GLcdMenu.c **** 
+ 178:../LIB_AP/Ap_GLcdMenu.c **** 		   case '3':
+ 179:../LIB_AP/Ap_GLcdMenu.c **** 				for( i=0; i<=0x75; i++ )
+ 180:../LIB_AP/Ap_GLcdMenu.c **** 				{
+ 181:../LIB_AP/Ap_GLcdMenu.c **** 					if( i%10 == 0 ) Lb_printf("\n 0x%02x: ", i);
+ 182:../LIB_AP/Ap_GLcdMenu.c **** 
+ 183:../LIB_AP/Ap_GLcdMenu.c **** 					I2C_Data[0] = 0x00;
+ 184:../LIB_AP/Ap_GLcdMenu.c **** 					Ret = Hw_I2C_IMU_MPU6050_ReadReg( i, I2C_Data );
+ 185:../LIB_AP/Ap_GLcdMenu.c **** 					Lb_printf("%02x ", I2C_Data[0]);
+ 186:../LIB_AP/Ap_GLcdMenu.c **** 				}           						
+ 187:../LIB_AP/Ap_GLcdMenu.c **** 			   break; 
+ 188:../LIB_AP/Ap_GLcdMenu.c **** 
+ 189:../LIB_AP/Ap_GLcdMenu.c **** 		   case '4':
+ 190:../LIB_AP/Ap_GLcdMenu.c **** 				while( get_byte_check() == 0 )
+ 191:../LIB_AP/Ap_GLcdMenu.c **** 				{
+ 192:../LIB_AP/Ap_GLcdMenu.c **** 					Lb_printf("L %d  R %d\n", Hw_Sonic_GetDistanceMM(0), Hw_Sonic_GetDistanceMM(1) );
+ 193:../LIB_AP/Ap_GLcdMenu.c **** 					Hw_Wait_ms(100);
+ 194:../LIB_AP/Ap_GLcdMenu.c **** 				}            	
+ 195:../LIB_AP/Ap_GLcdMenu.c **** 			   break;  
+ 196:../LIB_AP/Ap_GLcdMenu.c **** 
+ 197:../LIB_AP/Ap_GLcdMenu.c **** 		   case '5':
+ 198:../LIB_AP/Ap_GLcdMenu.c **** 				while( get_byte_check() == 0 )
+ 199:../LIB_AP/Ap_GLcdMenu.c **** 				{
+ 200:../LIB_AP/Ap_GLcdMenu.c **** 					TimeStart = Hw_Timer_Get_u16Count_Usec();
+ 201:../LIB_AP/Ap_GLcdMenu.c **** 
+ 202:../LIB_AP/Ap_GLcdMenu.c **** 					Ret = Hw_HMC5883_GetData( &HMC5883_Data );
+ 203:../LIB_AP/Ap_GLcdMenu.c **** 
+ 204:../LIB_AP/Ap_GLcdMenu.c **** 					Lb_printf("Time %d ", Hw_Timer_Get_u16Count_Usec() - TimeStart );
+ 205:../LIB_AP/Ap_GLcdMenu.c **** 
+ 206:../LIB_AP/Ap_GLcdMenu.c **** 					Lb_printf("CX %d ", HMC5883_Data.X_Compass );
+ 207:../LIB_AP/Ap_GLcdMenu.c **** 					Lb_printf("CY %d ", HMC5883_Data.Y_Compass );
+ 208:../LIB_AP/Ap_GLcdMenu.c **** 					Lb_printf("CZ %d ", HMC5883_Data.Z_Compass );
+ 209:../LIB_AP/Ap_GLcdMenu.c **** 
+ 210:../LIB_AP/Ap_GLcdMenu.c **** 					Lb_printf("SX %d  ", (s16)HMC5883_Data.X_CompassScale );
+ 211:../LIB_AP/Ap_GLcdMenu.c **** 					Lb_printf("SY %d  ", (s16)HMC5883_Data.Y_CompassScale );
+ 212:../LIB_AP/Ap_GLcdMenu.c **** 					Lb_printf("SZ %d  \n", (s16)HMC5883_Data.Z_CompassScale );
+ 213:../LIB_AP/Ap_GLcdMenu.c **** 
+ 214:../LIB_AP/Ap_GLcdMenu.c **** 					Hw_Wait_ms(10);
+ 215:../LIB_AP/Ap_GLcdMenu.c **** 				}
+ 216:../LIB_AP/Ap_GLcdMenu.c **** 			   break;  
+ 217:../LIB_AP/Ap_GLcdMenu.c **** 
+ 218:../LIB_AP/Ap_GLcdMenu.c **** 		   case '6':
+ 219:../LIB_AP/Ap_GLcdMenu.c **** 		   		for( i=0; i<13; i++ )
+ 220:../LIB_AP/Ap_GLcdMenu.c **** 		   		{
+ 221:../LIB_AP/Ap_GLcdMenu.c **** 			   		Ret = Hw_I2C_IMU_HMC5883_ReadReg( i, I2C_Data );
+ 225              		.loc 1 221 0
+ 226 0020 DFF81493 		ldr	r9, .L63+124
+ 222:../LIB_AP/Ap_GLcdMenu.c **** 			   		Lb_printf("Ret:%d Addr 0x%02x Data :0x%02x\n", Ret, i, I2C_Data[0] );
+ 227              		.loc 1 222 0
+ 228 0024 A74C     		ldr	r4, .L63+8
+ 229              	.L52:
+ 138:../LIB_AP/Ap_GLcdMenu.c **** 	while( (key = Ap_GLcdMenu_GetCmd()) != 0 )
+ 230              		.loc 1 138 0 discriminator 1
+ 231 0026 40F20000 		movw	r0, #:lower16:Ap_GLcdMenu_GetCmd
+ 232 002a C0F20000 		movt	r0, #:upper16:Ap_GLcdMenu_GetCmd
+ 233 002e 8047     		blx	r0
+ 234              	.LVL24:
+ 235 0030 0246     		mov	r2, r0
+ 236 0032 0028     		cmp	r0, #0
+ 237 0034 00F00B83 		beq	.L55
+ 140:../LIB_AP/Ap_GLcdMenu.c **** 		switch(key)
+ 238              		.loc 1 140 0
+ 239 0038 A2F13101 		sub	r1, r2, #49
+ 240 003c 3C29     		cmp	r1, #60
+ 241 003e F2D8     		bhi	.L52
+ 242 0040 01A3     		adr	r3, .L15
+ 243 0042 53F821F0 		ldr	pc, [r3, r1, lsl #2]
+ 244 0046 00BF     		.align	2
+ 245              	.L15:
+ 246 0048 31060000 		.word	.L6+1
+ 247 004c 33050000 		.word	.L43+1
+ 248 0050 AF040000 		.word	.L33+1
+ 249 0054 8B040000 		.word	.L44+1
+ 250 0058 29040000 		.word	.L45+1
+ 251 005c 3D030000 		.word	.L11+1
+ 252 0060 43020000 		.word	.L46+1
+ 253 0064 3D010000 		.word	.L47+1
+ 254 0068 27000000 		.word	.L52+1
+ 255 006c 27000000 		.word	.L52+1
+ 256 0070 27000000 		.word	.L52+1
+ 257 0074 27000000 		.word	.L52+1
+ 258 0078 27000000 		.word	.L52+1
+ 259 007c 27000000 		.word	.L52+1
+ 260 0080 27000000 		.word	.L52+1
+ 261 0084 27000000 		.word	.L52+1
+ 262 0088 27000000 		.word	.L52+1
+ 263 008c 27000000 		.word	.L52+1
+ 264 0090 27000000 		.word	.L52+1
+ 265 0094 27000000 		.word	.L52+1
+ 266 0098 27000000 		.word	.L52+1
+ 267 009c 27000000 		.word	.L52+1
+ 268 00a0 27000000 		.word	.L52+1
+ 269 00a4 27000000 		.word	.L52+1
+ 270 00a8 27000000 		.word	.L52+1
+ 271 00ac 27000000 		.word	.L52+1
+ 272 00b0 27000000 		.word	.L52+1
+ 273 00b4 27000000 		.word	.L52+1
+ 274 00b8 3B060000 		.word	.L14+1
+ 275 00bc 27000000 		.word	.L52+1
+ 276 00c0 27000000 		.word	.L52+1
+ 277 00c4 27000000 		.word	.L52+1
+ 278 00c8 27000000 		.word	.L52+1
+ 279 00cc 27000000 		.word	.L52+1
+ 280 00d0 27000000 		.word	.L52+1
+ 281 00d4 27000000 		.word	.L52+1
+ 282 00d8 27000000 		.word	.L52+1
+ 283 00dc 27000000 		.word	.L52+1
+ 284 00e0 27000000 		.word	.L52+1
+ 285 00e4 27000000 		.word	.L52+1
+ 286 00e8 27000000 		.word	.L52+1
+ 287 00ec 27000000 		.word	.L52+1
+ 288 00f0 27000000 		.word	.L52+1
+ 289 00f4 27000000 		.word	.L52+1
+ 290 00f8 27000000 		.word	.L52+1
+ 291 00fc 27000000 		.word	.L52+1
+ 292 0100 27000000 		.word	.L52+1
+ 293 0104 27000000 		.word	.L52+1
+ 294 0108 27000000 		.word	.L52+1
+ 295 010c 27000000 		.word	.L52+1
+ 296 0110 27000000 		.word	.L52+1
+ 297 0114 27000000 		.word	.L52+1
+ 298 0118 27000000 		.word	.L52+1
+ 299 011c 27000000 		.word	.L52+1
+ 300 0120 27000000 		.word	.L52+1
+ 301 0124 27000000 		.word	.L52+1
+ 302 0128 27000000 		.word	.L52+1
+ 303 012c 27000000 		.word	.L52+1
+ 304 0130 27000000 		.word	.L52+1
+ 305 0134 27000000 		.word	.L52+1
+ 306 0138 3B060000 		.word	.L14+1
+ 307              	.L47:
+ 308 013c DFF8C8A1 		ldr	sl, .L63+76
+ 309              	.LBB4:
+ 223:../LIB_AP/Ap_GLcdMenu.c **** 		   		}
+ 224:../LIB_AP/Ap_GLcdMenu.c **** 			   break;  
+ 225:../LIB_AP/Ap_GLcdMenu.c **** 
+ 226:../LIB_AP/Ap_GLcdMenu.c **** 		   case '7':
+ 227:../LIB_AP/Ap_GLcdMenu.c **** 
+ 228:../LIB_AP/Ap_GLcdMenu.c **** 				while( get_byte_check() == 0 )
+ 229:../LIB_AP/Ap_GLcdMenu.c **** 				{
+ 230:../LIB_AP/Ap_GLcdMenu.c **** 					TimeStart = Hw_Timer_Get_u16Count_Usec();
+ 231:../LIB_AP/Ap_GLcdMenu.c **** 
+ 232:../LIB_AP/Ap_GLcdMenu.c **** 					Ret = Hw_IMU_GetData( &IMU_Data );
+ 233:../LIB_AP/Ap_GLcdMenu.c **** 
+ 234:../LIB_AP/Ap_GLcdMenu.c **** 					Lb_printf("Time %d ", Hw_Timer_Get_u16Count_Usec() - TimeStart );
+ 235:../LIB_AP/Ap_GLcdMenu.c **** 
+ 236:../LIB_AP/Ap_GLcdMenu.c **** 					Lb_printf("EN %d ", IMU_Data.Enable_Acc );
+ 237:../LIB_AP/Ap_GLcdMenu.c **** 					Lb_printf("AX %d ", IMU_Data.X_Acc );
+ 238:../LIB_AP/Ap_GLcdMenu.c **** 					Lb_printf("AY %d ", IMU_Data.Y_Acc );
+ 239:../LIB_AP/Ap_GLcdMenu.c **** 					Lb_printf("AZ %d ", IMU_Data.Z_Acc );
+ 240:../LIB_AP/Ap_GLcdMenu.c **** 
+ 241:../LIB_AP/Ap_GLcdMenu.c **** 					Lb_printf("EN %d ", IMU_Data.Enable_Temp );
+ 242:../LIB_AP/Ap_GLcdMenu.c **** 					Lb_printf("TE %d ", IMU_Data.Temp );
+ 243:../LIB_AP/Ap_GLcdMenu.c **** 
+ 244:../LIB_AP/Ap_GLcdMenu.c **** 					Lb_printf("EN %d ", IMU_Data.Enable_Compass );
+ 245:../LIB_AP/Ap_GLcdMenu.c **** 					Lb_printf("CX %d ", IMU_Data.X_Compass );
+ 246:../LIB_AP/Ap_GLcdMenu.c **** 					Lb_printf("CY %d ", IMU_Data.Y_Compass );
+ 247:../LIB_AP/Ap_GLcdMenu.c **** 					Lb_printf("CZ %d\n", IMU_Data.Z_Compass );
+ 248:../LIB_AP/Ap_GLcdMenu.c **** 
+ 249:../LIB_AP/Ap_GLcdMenu.c **** 					Hw_Wait_ms(100);
+ 250:../LIB_AP/Ap_GLcdMenu.c **** 				}		   		
+ 251:../LIB_AP/Ap_GLcdMenu.c **** 			   break;  
+ 252:../LIB_AP/Ap_GLcdMenu.c **** 
+ 253:../LIB_AP/Ap_GLcdMenu.c **** 		   case '8':
+ 254:../LIB_AP/Ap_GLcdMenu.c **** 		   		//Hw_IMU_FreeIMU_zeroGyro();
+ 255:../LIB_AP/Ap_GLcdMenu.c **** 
+ 256:../LIB_AP/Ap_GLcdMenu.c **** 				while( get_byte_check() == 0 )
+ 257:../LIB_AP/Ap_GLcdMenu.c **** 				{
+ 258:../LIB_AP/Ap_GLcdMenu.c **** 					TimeStart = Hw_Timer_Get_u16Count_Usec();
+ 310              		.loc 1 258 0
+ 311 0140 614F     		ldr	r7, .L63+12
+ 312 0142 16E0     		b	.L13
+ 313              	.LVL25:
+ 314              	.L58:
+ 259:../LIB_AP/Ap_GLcdMenu.c **** 
+ 260:../LIB_AP/Ap_GLcdMenu.c **** 					Ret = Hw_IMU_Update( &IMU_Data, 10 );
+ 261:../LIB_AP/Ap_GLcdMenu.c **** 
+ 262:../LIB_AP/Ap_GLcdMenu.c **** 					Lb_printf("Time %05d ", (u16)(Hw_Timer_Get_u16Count_Usec() - TimeStart) );
+ 263:../LIB_AP/Ap_GLcdMenu.c **** 
+ 264:../LIB_AP/Ap_GLcdMenu.c **** 					Lb_printf("GX %d \t", IMU_Data.X_Gyro - gyro_off_x );
+ 265:../LIB_AP/Ap_GLcdMenu.c **** 					Lb_printf("GY %d \t", IMU_Data.Y_Gyro - gyro_off_y );
+ 266:../LIB_AP/Ap_GLcdMenu.c **** 					Lb_printf("GZ %d \t", IMU_Data.Z_Gyro - gyro_off_z );
+ 267:../LIB_AP/Ap_GLcdMenu.c **** 
+ 268:../LIB_AP/Ap_GLcdMenu.c **** 					Lb_printf("AngX %03d %03d  \t", (s16)IMU_Data.X_AccAngle, (s16)IMU_Data.X_Angle );
+ 269:../LIB_AP/Ap_GLcdMenu.c **** 					Lb_printf("AngY %03d %03d  \t", (s16)IMU_Data.Y_AccAngle, (s16)IMU_Data.Y_Angle );
+ 270:../LIB_AP/Ap_GLcdMenu.c **** 					Lb_printf("AngZ %03d %03d\n", (s16)IMU_Data.Z_AccAngle, (s16)IMU_Data.Z_Angle );
+ 271:../LIB_AP/Ap_GLcdMenu.c **** 
+ 272:../LIB_AP/Ap_GLcdMenu.c **** 
+ 273:../LIB_AP/Ap_GLcdMenu.c **** 
+ 274:../LIB_AP/Ap_GLcdMenu.c **** 					x = HW_N5110G_WIDTH/2  - (IMU_Data.X_Angle-180);
+ 275:../LIB_AP/Ap_GLcdMenu.c **** 					y = HW_N5110G_HEIGHT/2 - (IMU_Data.Y_Angle-180);
+ 276:../LIB_AP/Ap_GLcdMenu.c **** 
+ 277:../LIB_AP/Ap_GLcdMenu.c **** 					if( x > HW_N5110G_WIDTH-4) x = HW_N5110G_WIDTH-4;
+ 278:../LIB_AP/Ap_GLcdMenu.c **** 					if( x < 3 )                x = 3;
+ 315              		.loc 1 278 0
+ 316 0144 0326     		movs	r6, #3
+ 317 0146 022B     		cmp	r3, #2
+ 318 0148 00F38482 		bgt	.L56
+ 319              	.L28:
+ 320              	.LVL26:
+ 279:../LIB_AP/Ap_GLcdMenu.c **** 					if( y > HW_N5110G_HEIGHT-4) y = HW_N5110G_HEIGHT-4;
+ 321              		.loc 1 279 0
+ 322 014c 02B2     		sxth	r2, r0
+ 323 014e 2C2A     		cmp	r2, #44
+ 324 0150 75DC     		bgt	.L40
+ 325              	.L59:
+ 280:../LIB_AP/Ap_GLcdMenu.c **** 					if( y < 3 )                 y = 3;
+ 326              		.loc 1 280 0
+ 327 0152 0325     		movs	r5, #3
+ 328 0154 022A     		cmp	r2, #2
+ 329 0156 00F38082 		bgt	.L57
+ 330              	.L30:
+ 331              	.LVL27:
+ 281:../LIB_AP/Ap_GLcdMenu.c **** 
+ 282:../LIB_AP/Ap_GLcdMenu.c **** 					Hw_N5110G_Clear();                                  
+ 332              		.loc 1 282 0
+ 333 015a 5C48     		ldr	r0, .L63+16
+ 334 015c 8047     		blx	r0
+ 335              	.LVL28:
+ 283:../LIB_AP/Ap_GLcdMenu.c **** 					Hw_N5110G_DrawCircle(  x , y, 3, 0 );                           
+ 336              		.loc 1 283 0
+ 337 015e 2946     		mov	r1, r5
+ 338 0160 3046     		mov	r0, r6
+ 339 0162 0322     		movs	r2, #3
+ 340 0164 0023     		movs	r3, #0
+ 341 0166 5A4D     		ldr	r5, .L63+20
+ 342 0168 A847     		blx	r5
+ 343              	.LVL29:
+ 284:../LIB_AP/Ap_GLcdMenu.c **** 					Hw_N5110G_DrawRequest();
+ 344              		.loc 1 284 0
+ 345 016a C047     		blx	r8
+ 346              	.LVL30:
+ 285:../LIB_AP/Ap_GLcdMenu.c **** 
+ 286:../LIB_AP/Ap_GLcdMenu.c **** 					Hw_Wait_ms(10);
+ 347              		.loc 1 286 0
+ 348 016c 0A20     		movs	r0, #10
+ 349 016e 5949     		ldr	r1, .L63+24
+ 350 0170 8847     		blx	r1
+ 351              	.LVL31:
+ 352              	.L13:
+ 353              	.LBE4:
+ 256:../LIB_AP/Ap_GLcdMenu.c **** 				while( get_byte_check() == 0 )
+ 354              		.loc 1 256 0 discriminator 1
+ 355 0172 D047     		blx	sl
+ 356              	.LVL32:
+ 357 0174 0028     		cmp	r0, #0
+ 358 0176 7FF456AF 		bne	.L52
+ 359              	.LBB5:
+ 258:../LIB_AP/Ap_GLcdMenu.c **** 					TimeStart = Hw_Timer_Get_u16Count_Usec();
+ 360              		.loc 1 258 0
+ 361 017a B847     		blx	r7
+ 362              	.LVL33:
+ 260:../LIB_AP/Ap_GLcdMenu.c **** 					Ret = Hw_IMU_Update( &IMU_Data, 10 );
+ 363              		.loc 1 260 0
+ 364 017c 40F20006 		movw	r6, #:lower16:Hw_IMU_Update
+ 365 0180 0A21     		movs	r1, #10
+ 258:../LIB_AP/Ap_GLcdMenu.c **** 					TimeStart = Hw_Timer_Get_u16Count_Usec();
+ 366              		.loc 1 258 0
+ 367 0182 0546     		mov	r5, r0
+ 368              	.LVL34:
+ 260:../LIB_AP/Ap_GLcdMenu.c **** 					Ret = Hw_IMU_Update( &IMU_Data, 10 );
+ 369              		.loc 1 260 0
+ 370 0184 C0F20006 		movt	r6, #:upper16:Hw_IMU_Update
+ 371 0188 0FA8     		add	r0, sp, #60
+ 372              	.LVL35:
+ 373 018a B047     		blx	r6
+ 374              	.LVL36:
+ 262:../LIB_AP/Ap_GLcdMenu.c **** 					Lb_printf("Time %05d ", (u16)(Hw_Timer_Get_u16Count_Usec() - TimeStart) );
+ 375              		.loc 1 262 0
+ 376 018c B847     		blx	r7
+ 377              	.LVL37:
+ 378 018e 431B     		subs	r3, r0, r5
+ 379 0190 99B2     		uxth	r1, r3
+ 380 0192 5148     		ldr	r0, .L63+28
+ 381 0194 A047     		blx	r4
+ 382              	.LVL38:
+ 264:../LIB_AP/Ap_GLcdMenu.c **** 					Lb_printf("GX %d \t", IMU_Data.X_Gyro - gyro_off_x );
+ 383              		.loc 1 264 0
+ 384 0196 5148     		ldr	r0, .L63+32
+ 385 0198 BDF94820 		ldrsh	r2, [sp, #72]
+ 386 019c B0F90010 		ldrsh	r1, [r0, #0]
+ 265:../LIB_AP/Ap_GLcdMenu.c **** 					Lb_printf("GY %d \t", IMU_Data.Y_Gyro - gyro_off_y );
+ 387              		.loc 1 265 0
+ 388 01a0 4F4E     		ldr	r6, .L63+36
+ 264:../LIB_AP/Ap_GLcdMenu.c **** 					Lb_printf("GX %d \t", IMU_Data.X_Gyro - gyro_off_x );
+ 389              		.loc 1 264 0
+ 390 01a2 511A     		subs	r1, r2, r1
+ 391 01a4 4F48     		ldr	r0, .L63+40
+ 392 01a6 A047     		blx	r4
+ 393              	.LVL39:
+ 265:../LIB_AP/Ap_GLcdMenu.c **** 					Lb_printf("GY %d \t", IMU_Data.Y_Gyro - gyro_off_y );
+ 394              		.loc 1 265 0
+ 395 01a8 B6F90030 		ldrsh	r3, [r6, #0]
+ 396 01ac BDF94A50 		ldrsh	r5, [sp, #74]
+ 397              	.LVL40:
+ 398 01b0 4D48     		ldr	r0, .L63+44
+ 399 01b2 E91A     		subs	r1, r5, r3
+ 400 01b4 A047     		blx	r4
+ 401              	.LVL41:
+ 266:../LIB_AP/Ap_GLcdMenu.c **** 					Lb_printf("GZ %d \t", IMU_Data.Z_Gyro - gyro_off_z );
+ 402              		.loc 1 266 0
+ 403 01b6 4D48     		ldr	r0, .L63+48
+ 404 01b8 BDF94C20 		ldrsh	r2, [sp, #76]
+ 405 01bc B0F90010 		ldrsh	r1, [r0, #0]
+ 406 01c0 4B48     		ldr	r0, .L63+52
+ 407 01c2 511A     		subs	r1, r2, r1
+ 268:../LIB_AP/Ap_GLcdMenu.c **** 					Lb_printf("AngX %03d %03d  \t", (s16)IMU_Data.X_AccAngle, (s16)IMU_Data.X_Angle );
+ 408              		.loc 1 268 0
+ 409 01c4 4B4D     		ldr	r5, .L63+56
+ 266:../LIB_AP/Ap_GLcdMenu.c **** 					Lb_printf("GZ %d \t", IMU_Data.Z_Gyro - gyro_off_z );
+ 410              		.loc 1 266 0
+ 411 01c6 A047     		blx	r4
+ 412              	.LVL42:
+ 268:../LIB_AP/Ap_GLcdMenu.c **** 					Lb_printf("AngX %03d %03d  \t", (s16)IMU_Data.X_AccAngle, (s16)IMU_Data.X_Angle );
+ 413              		.loc 1 268 0
+ 414 01c8 1798     		ldr	r0, [sp, #92]	@ float
+ 415 01ca A847     		blx	r5
+ 416              	.LVL43:
+ 417 01cc 06B2     		sxth	r6, r0
+ 418 01ce 1D98     		ldr	r0, [sp, #116]	@ float
+ 419 01d0 A847     		blx	r5
+ 420              	.LVL44:
+ 421 01d2 3146     		mov	r1, r6
+ 422 01d4 02B2     		sxth	r2, r0
+ 423 01d6 4848     		ldr	r0, .L63+60
+ 424 01d8 A047     		blx	r4
+ 425              	.LVL45:
+ 269:../LIB_AP/Ap_GLcdMenu.c **** 					Lb_printf("AngY %03d %03d  \t", (s16)IMU_Data.Y_AccAngle, (s16)IMU_Data.Y_Angle );
+ 426              		.loc 1 269 0
+ 427 01da 1898     		ldr	r0, [sp, #96]	@ float
+ 428 01dc A847     		blx	r5
+ 429              	.LVL46:
+ 430 01de 06B2     		sxth	r6, r0
+ 431 01e0 1E98     		ldr	r0, [sp, #120]	@ float
+ 432 01e2 A847     		blx	r5
+ 433              	.LVL47:
+ 434 01e4 3146     		mov	r1, r6
+ 435 01e6 02B2     		sxth	r2, r0
+ 436 01e8 4448     		ldr	r0, .L63+64
+ 437 01ea A047     		blx	r4
+ 438              	.LVL48:
+ 270:../LIB_AP/Ap_GLcdMenu.c **** 					Lb_printf("AngZ %03d %03d\n", (s16)IMU_Data.Z_AccAngle, (s16)IMU_Data.Z_Angle );
+ 439              		.loc 1 270 0
+ 440 01ec 1998     		ldr	r0, [sp, #100]	@ float
+ 441 01ee A847     		blx	r5
+ 442              	.LVL49:
+ 443 01f0 06B2     		sxth	r6, r0
+ 444 01f2 1F98     		ldr	r0, [sp, #124]	@ float
+ 445 01f4 A847     		blx	r5
+ 446              	.LVL50:
+ 447 01f6 3146     		mov	r1, r6
+ 448 01f8 02B2     		sxth	r2, r0
+ 449 01fa 4148     		ldr	r0, .L63+68
+ 450 01fc A047     		blx	r4
+ 451              	.LVL51:
+ 274:../LIB_AP/Ap_GLcdMenu.c **** 					x = HW_N5110G_WIDTH/2  - (IMU_Data.X_Angle-180);
+ 452              		.loc 1 274 0
+ 453 01fe 0021     		movs	r1, #0
+ 454 0200 404E     		ldr	r6, .L63+72
+ 455 0202 C4F23431 		movt	r1, 17204
+ 456 0206 1D98     		ldr	r0, [sp, #116]	@ float
+ 457 0208 B047     		blx	r6
+ 458              	.LVL52:
+ 459 020a 0146     		mov	r1, r0
+ 460 020c 0020     		movs	r0, #0
+ 461 020e C4F22820 		movt	r0, 16936
+ 462 0212 B047     		blx	r6
+ 463              	.LVL53:
+ 464 0214 A847     		blx	r5
+ 465              	.LVL54:
+ 275:../LIB_AP/Ap_GLcdMenu.c **** 					y = HW_N5110G_HEIGHT/2 - (IMU_Data.Y_Angle-180);
+ 466              		.loc 1 275 0
+ 467 0216 0021     		movs	r1, #0
+ 274:../LIB_AP/Ap_GLcdMenu.c **** 					x = HW_N5110G_WIDTH/2  - (IMU_Data.X_Angle-180);
+ 468              		.loc 1 274 0
+ 469 0218 8346     		mov	fp, r0	@ movhi
+ 470              	.LVL55:
+ 275:../LIB_AP/Ap_GLcdMenu.c **** 					y = HW_N5110G_HEIGHT/2 - (IMU_Data.Y_Angle-180);
+ 471              		.loc 1 275 0
+ 472 021a C4F23431 		movt	r1, 17204
+ 473 021e 1E98     		ldr	r0, [sp, #120]	@ float
+ 474              	.LVL56:
+ 475 0220 B047     		blx	r6
+ 476              	.LVL57:
+ 477 0222 0146     		mov	r1, r0
+ 478 0224 0020     		movs	r0, #0
+ 479 0226 C4F2C010 		movt	r0, 16832
+ 480 022a B047     		blx	r6
+ 481              	.LVL58:
+ 482 022c A847     		blx	r5
+ 483              	.LVL59:
+ 277:../LIB_AP/Ap_GLcdMenu.c **** 					if( x > HW_N5110G_WIDTH-4) x = HW_N5110G_WIDTH-4;
+ 484              		.loc 1 277 0
+ 485 022e 0FFA8BF3 		sxth	r3, fp
+ 486 0232 502B     		cmp	r3, #80
+ 487 0234 86DD     		ble	.L58
+ 279:../LIB_AP/Ap_GLcdMenu.c **** 					if( y > HW_N5110G_HEIGHT-4) y = HW_N5110G_HEIGHT-4;
+ 488              		.loc 1 279 0
+ 489 0236 02B2     		sxth	r2, r0
+ 277:../LIB_AP/Ap_GLcdMenu.c **** 					if( x > HW_N5110G_WIDTH-4) x = HW_N5110G_WIDTH-4;
+ 490              		.loc 1 277 0
+ 491 0238 5026     		movs	r6, #80
+ 492              	.LVL60:
+ 279:../LIB_AP/Ap_GLcdMenu.c **** 					if( y > HW_N5110G_HEIGHT-4) y = HW_N5110G_HEIGHT-4;
+ 493              		.loc 1 279 0
+ 494 023a 2C2A     		cmp	r2, #44
+ 495 023c 89DD     		ble	.L59
+ 496              	.L40:
+ 497 023e 2C25     		movs	r5, #44
+ 498 0240 8BE7     		b	.L30
+ 499              	.LVL61:
+ 500              	.L46:
+ 501 0242 314E     		ldr	r6, .L63+76
+ 502              	.LBE5:
+ 230:../LIB_AP/Ap_GLcdMenu.c **** 					TimeStart = Hw_Timer_Get_u16Count_Usec();
+ 503              		.loc 1 230 0
+ 504 0244 204D     		ldr	r5, .L63+12
+ 232:../LIB_AP/Ap_GLcdMenu.c **** 					Ret = Hw_IMU_GetData( &IMU_Data );
+ 505              		.loc 1 232 0
+ 506 0246 314F     		ldr	r7, .L63+80
+ 507 0248 33E0     		b	.L12
+ 508              	.LVL62:
+ 509              	.L26:
+ 230:../LIB_AP/Ap_GLcdMenu.c **** 					TimeStart = Hw_Timer_Get_u16Count_Usec();
+ 510              		.loc 1 230 0
+ 511 024a A847     		blx	r5
+ 512              	.LVL63:
+ 513 024c 8246     		mov	sl, r0
+ 514              	.LVL64:
+ 232:../LIB_AP/Ap_GLcdMenu.c **** 					Ret = Hw_IMU_GetData( &IMU_Data );
+ 515              		.loc 1 232 0
+ 516 024e 0FA8     		add	r0, sp, #60
+ 517              	.LVL65:
+ 518 0250 B847     		blx	r7
+ 519              	.LVL66:
+ 234:../LIB_AP/Ap_GLcdMenu.c **** 					Lb_printf("Time %d ", Hw_Timer_Get_u16Count_Usec() - TimeStart );
+ 520              		.loc 1 234 0
+ 521 0252 A847     		blx	r5
+ 522              	.LVL67:
+ 523 0254 CAEB0001 		rsb	r1, sl, r0
+ 524 0258 2D48     		ldr	r0, .L63+84
+ 525 025a A047     		blx	r4
+ 526              	.LVL68:
+ 236:../LIB_AP/Ap_GLcdMenu.c **** 					Lb_printf("EN %d ", IMU_Data.Enable_Acc );
+ 527              		.loc 1 236 0
+ 528 025c 2D48     		ldr	r0, .L63+88
+ 529 025e 9DF83C10 		ldrb	r1, [sp, #60]	@ zero_extendqisi2
+ 530 0262 A047     		blx	r4
+ 531              	.LVL69:
+ 237:../LIB_AP/Ap_GLcdMenu.c **** 					Lb_printf("AX %d ", IMU_Data.X_Acc );
+ 532              		.loc 1 237 0
+ 533 0264 2C48     		ldr	r0, .L63+92
+ 534 0266 BDF94010 		ldrsh	r1, [sp, #64]
+ 535 026a A047     		blx	r4
+ 536              	.LVL70:
+ 238:../LIB_AP/Ap_GLcdMenu.c **** 					Lb_printf("AY %d ", IMU_Data.Y_Acc );
+ 537              		.loc 1 238 0
+ 538 026c 2B48     		ldr	r0, .L63+96
+ 539 026e BDF94210 		ldrsh	r1, [sp, #66]
+ 540 0272 A047     		blx	r4
+ 541              	.LVL71:
+ 239:../LIB_AP/Ap_GLcdMenu.c **** 					Lb_printf("AZ %d ", IMU_Data.Z_Acc );
+ 542              		.loc 1 239 0
+ 543 0274 2A48     		ldr	r0, .L63+100
+ 544 0276 BDF94410 		ldrsh	r1, [sp, #68]
+ 545 027a A047     		blx	r4
+ 546              	.LVL72:
+ 241:../LIB_AP/Ap_GLcdMenu.c **** 					Lb_printf("EN %d ", IMU_Data.Enable_Temp );
+ 547              		.loc 1 241 0
+ 548 027c 2548     		ldr	r0, .L63+88
+ 549 027e 9DF83D10 		ldrb	r1, [sp, #61]	@ zero_extendqisi2
+ 550 0282 A047     		blx	r4
+ 551              	.LVL73:
+ 242:../LIB_AP/Ap_GLcdMenu.c **** 					Lb_printf("TE %d ", IMU_Data.Temp );
+ 552              		.loc 1 242 0
+ 553 0284 2748     		ldr	r0, .L63+104
+ 554 0286 BDF94610 		ldrsh	r1, [sp, #70]
+ 555 028a A047     		blx	r4
+ 556              	.LVL74:
+ 244:../LIB_AP/Ap_GLcdMenu.c **** 					Lb_printf("EN %d ", IMU_Data.Enable_Compass );
+ 557              		.loc 1 244 0
+ 558 028c 2148     		ldr	r0, .L63+88
+ 559 028e 9DF83F10 		ldrb	r1, [sp, #63]	@ zero_extendqisi2
+ 560 0292 A047     		blx	r4
+ 561              	.LVL75:
+ 245:../LIB_AP/Ap_GLcdMenu.c **** 					Lb_printf("CX %d ", IMU_Data.X_Compass );
+ 562              		.loc 1 245 0
+ 563 0294 2448     		ldr	r0, .L63+108
+ 564 0296 BDF94E10 		ldrsh	r1, [sp, #78]
+ 565 029a A047     		blx	r4
+ 566              	.LVL76:
+ 246:../LIB_AP/Ap_GLcdMenu.c **** 					Lb_printf("CY %d ", IMU_Data.Y_Compass );
+ 567              		.loc 1 246 0
+ 568 029c 2348     		ldr	r0, .L63+112
+ 569 029e BDF95010 		ldrsh	r1, [sp, #80]
+ 570 02a2 A047     		blx	r4
+ 571              	.LVL77:
+ 247:../LIB_AP/Ap_GLcdMenu.c **** 					Lb_printf("CZ %d\n", IMU_Data.Z_Compass );
+ 572              		.loc 1 247 0
+ 573 02a4 2248     		ldr	r0, .L63+116
+ 574 02a6 BDF95210 		ldrsh	r1, [sp, #82]
+ 575 02aa A047     		blx	r4
+ 576              	.LVL78:
+ 249:../LIB_AP/Ap_GLcdMenu.c **** 					Hw_Wait_ms(100);
+ 577              		.loc 1 249 0
+ 578 02ac 6420     		movs	r0, #100
+ 579 02ae 094B     		ldr	r3, .L63+24
+ 580 02b0 9847     		blx	r3
+ 581              	.LVL79:
+ 582              	.L12:
+ 228:../LIB_AP/Ap_GLcdMenu.c **** 				while( get_byte_check() == 0 )
+ 583              		.loc 1 228 0 discriminator 1
+ 584 02b2 B047     		blx	r6
+ 585              	.LVL80:
+ 586 02b4 0028     		cmp	r0, #0
+ 587 02b6 C8D0     		beq	.L26
+ 588 02b8 B5E6     		b	.L52
+ 589              	.L64:
+ 590 02ba 00BF     		.align	2
+ 591              	.L63:
+ 592 02bc DC020000 		.word	.LC15
+ 593 02c0 00000000 		.word	Hw_N5110G_Print
+ 594 02c4 00000000 		.word	Lb_printf
+ 595 02c8 00000000 		.word	Hw_Timer_Get_u16Count_Usec
+ 596 02cc 00000000 		.word	Hw_N5110G_Clear
+ 597 02d0 00000000 		.word	Hw_N5110G_DrawCircle
+ 598 02d4 00000000 		.word	Hw_Wait_ms
+ 599 02d8 B4030000 		.word	.LC35
+ 600 02dc 00000000 		.word	gyro_off_x
+ 601 02e0 00000000 		.word	gyro_off_y
+ 602 02e4 C0030000 		.word	.LC36
+ 603 02e8 C8030000 		.word	.LC37
+ 604 02ec 00000000 		.word	gyro_off_z
+ 605 02f0 D0030000 		.word	.LC38
+ 606 02f4 00000000 		.word	__aeabi_f2iz
+ 607 02f8 D8030000 		.word	.LC39
+ 608 02fc EC030000 		.word	.LC40
+ 609 0300 00040000 		.word	.LC41
+ 610 0304 00000000 		.word	__aeabi_fsub
+ 611 0308 00000000 		.word	get_byte_check
+ 612 030c 00000000 		.word	Hw_IMU_GetData
+ 613 0310 F8020000 		.word	.LC17
+ 614 0314 9C030000 		.word	.LC32
+ 615 0318 04030000 		.word	.LC18
+ 616 031c 0C030000 		.word	.LC19
+ 617 0320 14030000 		.word	.LC20
+ 618 0324 A4030000 		.word	.LC33
+ 619 0328 44030000 		.word	.LC25
+ 620 032c 4C030000 		.word	.LC26
+ 621 0330 AC030000 		.word	.LC34
+ 622 0334 00000000 		.word	Hw_N5110G_DrawRequest
+ 623 0338 00000000 		.word	Hw_I2C_IMU_HMC5883_ReadReg
+ 624              	.LVL81:
+ 625              	.L11:
+ 221:../LIB_AP/Ap_GLcdMenu.c **** 			   		Ret = Hw_I2C_IMU_HMC5883_ReadReg( i, I2C_Data );
+ 626              		.loc 1 221 0
+ 627 033c 05A9     		add	r1, sp, #20
+ 628 033e 0020     		movs	r0, #0
+ 629              	.LVL82:
+ 630 0340 C847     		blx	r9
+ 631              	.LVL83:
+ 222:../LIB_AP/Ap_GLcdMenu.c **** 			   		Lb_printf("Ret:%d Addr 0x%02x Data :0x%02x\n", Ret, i, I2C_Data[0] );
+ 632              		.loc 1 222 0
+ 633 0342 9DF81430 		ldrb	r3, [sp, #20]	@ zero_extendqisi2
+ 634 0346 0022     		movs	r2, #0
+ 221:../LIB_AP/Ap_GLcdMenu.c **** 			   		Ret = Hw_I2C_IMU_HMC5883_ReadReg( i, I2C_Data );
+ 635              		.loc 1 221 0
+ 636 0348 0146     		mov	r1, r0
+ 637              	.LVL84:
+ 222:../LIB_AP/Ap_GLcdMenu.c **** 			   		Lb_printf("Ret:%d Addr 0x%02x Data :0x%02x\n", Ret, i, I2C_Data[0] );
+ 638              		.loc 1 222 0
+ 639 034a 7C48     		ldr	r0, .L65
+ 640              	.LVL85:
+ 641 034c A047     		blx	r4
+ 642              	.LVL86:
+ 221:../LIB_AP/Ap_GLcdMenu.c **** 			   		Ret = Hw_I2C_IMU_HMC5883_ReadReg( i, I2C_Data );
+ 643              		.loc 1 221 0
+ 644 034e 05A9     		add	r1, sp, #20
+ 645 0350 0120     		movs	r0, #1
+ 646 0352 C847     		blx	r9
+ 647              	.LVL87:
+ 222:../LIB_AP/Ap_GLcdMenu.c **** 			   		Lb_printf("Ret:%d Addr 0x%02x Data :0x%02x\n", Ret, i, I2C_Data[0] );
+ 648              		.loc 1 222 0
+ 649 0354 9DF81430 		ldrb	r3, [sp, #20]	@ zero_extendqisi2
+ 650 0358 0122     		movs	r2, #1
+ 221:../LIB_AP/Ap_GLcdMenu.c **** 			   		Ret = Hw_I2C_IMU_HMC5883_ReadReg( i, I2C_Data );
+ 651              		.loc 1 221 0
+ 652 035a 0146     		mov	r1, r0
+ 653              	.LVL88:
+ 222:../LIB_AP/Ap_GLcdMenu.c **** 			   		Lb_printf("Ret:%d Addr 0x%02x Data :0x%02x\n", Ret, i, I2C_Data[0] );
+ 654              		.loc 1 222 0
+ 655 035c 7748     		ldr	r0, .L65
+ 656              	.LVL89:
+ 657 035e A047     		blx	r4
+ 658              	.LVL90:
+ 221:../LIB_AP/Ap_GLcdMenu.c **** 			   		Ret = Hw_I2C_IMU_HMC5883_ReadReg( i, I2C_Data );
+ 659              		.loc 1 221 0
+ 660 0360 05A9     		add	r1, sp, #20
+ 661 0362 0220     		movs	r0, #2
+ 662 0364 C847     		blx	r9
+ 663              	.LVL91:
+ 222:../LIB_AP/Ap_GLcdMenu.c **** 			   		Lb_printf("Ret:%d Addr 0x%02x Data :0x%02x\n", Ret, i, I2C_Data[0] );
+ 664              		.loc 1 222 0
+ 665 0366 9DF81430 		ldrb	r3, [sp, #20]	@ zero_extendqisi2
+ 666 036a 0222     		movs	r2, #2
+ 221:../LIB_AP/Ap_GLcdMenu.c **** 			   		Ret = Hw_I2C_IMU_HMC5883_ReadReg( i, I2C_Data );
+ 667              		.loc 1 221 0
+ 668 036c 0146     		mov	r1, r0
+ 669              	.LVL92:
+ 222:../LIB_AP/Ap_GLcdMenu.c **** 			   		Lb_printf("Ret:%d Addr 0x%02x Data :0x%02x\n", Ret, i, I2C_Data[0] );
+ 670              		.loc 1 222 0
+ 671 036e 7348     		ldr	r0, .L65
+ 672              	.LVL93:
+ 673 0370 A047     		blx	r4
+ 674              	.LVL94:
+ 221:../LIB_AP/Ap_GLcdMenu.c **** 			   		Ret = Hw_I2C_IMU_HMC5883_ReadReg( i, I2C_Data );
+ 675              		.loc 1 221 0
+ 676 0372 05A9     		add	r1, sp, #20
+ 677 0374 0320     		movs	r0, #3
+ 678 0376 C847     		blx	r9
+ 679              	.LVL95:
+ 222:../LIB_AP/Ap_GLcdMenu.c **** 			   		Lb_printf("Ret:%d Addr 0x%02x Data :0x%02x\n", Ret, i, I2C_Data[0] );
+ 680              		.loc 1 222 0
+ 681 0378 9DF81430 		ldrb	r3, [sp, #20]	@ zero_extendqisi2
+ 682 037c 0322     		movs	r2, #3
+ 221:../LIB_AP/Ap_GLcdMenu.c **** 			   		Ret = Hw_I2C_IMU_HMC5883_ReadReg( i, I2C_Data );
+ 683              		.loc 1 221 0
+ 684 037e 0146     		mov	r1, r0
+ 685              	.LVL96:
+ 222:../LIB_AP/Ap_GLcdMenu.c **** 			   		Lb_printf("Ret:%d Addr 0x%02x Data :0x%02x\n", Ret, i, I2C_Data[0] );
+ 686              		.loc 1 222 0
+ 687 0380 6E48     		ldr	r0, .L65
+ 688              	.LVL97:
+ 689 0382 A047     		blx	r4
+ 690              	.LVL98:
+ 221:../LIB_AP/Ap_GLcdMenu.c **** 			   		Ret = Hw_I2C_IMU_HMC5883_ReadReg( i, I2C_Data );
+ 691              		.loc 1 221 0
+ 692 0384 05A9     		add	r1, sp, #20
+ 693 0386 0420     		movs	r0, #4
+ 694 0388 C847     		blx	r9
+ 695              	.LVL99:
+ 222:../LIB_AP/Ap_GLcdMenu.c **** 			   		Lb_printf("Ret:%d Addr 0x%02x Data :0x%02x\n", Ret, i, I2C_Data[0] );
+ 696              		.loc 1 222 0
+ 697 038a 9DF81430 		ldrb	r3, [sp, #20]	@ zero_extendqisi2
+ 698 038e 0422     		movs	r2, #4
+ 221:../LIB_AP/Ap_GLcdMenu.c **** 			   		Ret = Hw_I2C_IMU_HMC5883_ReadReg( i, I2C_Data );
+ 699              		.loc 1 221 0
+ 700 0390 0146     		mov	r1, r0
+ 701              	.LVL100:
+ 222:../LIB_AP/Ap_GLcdMenu.c **** 			   		Lb_printf("Ret:%d Addr 0x%02x Data :0x%02x\n", Ret, i, I2C_Data[0] );
+ 702              		.loc 1 222 0
+ 703 0392 6A48     		ldr	r0, .L65
+ 704              	.LVL101:
+ 705 0394 A047     		blx	r4
+ 706              	.LVL102:
+ 221:../LIB_AP/Ap_GLcdMenu.c **** 			   		Ret = Hw_I2C_IMU_HMC5883_ReadReg( i, I2C_Data );
+ 707              		.loc 1 221 0
+ 708 0396 05A9     		add	r1, sp, #20
+ 709 0398 0520     		movs	r0, #5
+ 710 039a C847     		blx	r9
+ 711              	.LVL103:
+ 222:../LIB_AP/Ap_GLcdMenu.c **** 			   		Lb_printf("Ret:%d Addr 0x%02x Data :0x%02x\n", Ret, i, I2C_Data[0] );
+ 712              		.loc 1 222 0
+ 713 039c 9DF81430 		ldrb	r3, [sp, #20]	@ zero_extendqisi2
+ 714 03a0 0522     		movs	r2, #5
+ 221:../LIB_AP/Ap_GLcdMenu.c **** 			   		Ret = Hw_I2C_IMU_HMC5883_ReadReg( i, I2C_Data );
+ 715              		.loc 1 221 0
+ 716 03a2 0146     		mov	r1, r0
+ 717              	.LVL104:
+ 222:../LIB_AP/Ap_GLcdMenu.c **** 			   		Lb_printf("Ret:%d Addr 0x%02x Data :0x%02x\n", Ret, i, I2C_Data[0] );
+ 718              		.loc 1 222 0
+ 719 03a4 6548     		ldr	r0, .L65
+ 720              	.LVL105:
+ 721 03a6 A047     		blx	r4
+ 722              	.LVL106:
+ 221:../LIB_AP/Ap_GLcdMenu.c **** 			   		Ret = Hw_I2C_IMU_HMC5883_ReadReg( i, I2C_Data );
+ 723              		.loc 1 221 0
+ 724 03a8 05A9     		add	r1, sp, #20
+ 725 03aa 0620     		movs	r0, #6
+ 726 03ac C847     		blx	r9
+ 727              	.LVL107:
+ 222:../LIB_AP/Ap_GLcdMenu.c **** 			   		Lb_printf("Ret:%d Addr 0x%02x Data :0x%02x\n", Ret, i, I2C_Data[0] );
+ 728              		.loc 1 222 0
+ 729 03ae 9DF81430 		ldrb	r3, [sp, #20]	@ zero_extendqisi2
+ 730 03b2 0622     		movs	r2, #6
+ 221:../LIB_AP/Ap_GLcdMenu.c **** 			   		Ret = Hw_I2C_IMU_HMC5883_ReadReg( i, I2C_Data );
+ 731              		.loc 1 221 0
+ 732 03b4 0146     		mov	r1, r0
+ 733              	.LVL108:
+ 222:../LIB_AP/Ap_GLcdMenu.c **** 			   		Lb_printf("Ret:%d Addr 0x%02x Data :0x%02x\n", Ret, i, I2C_Data[0] );
+ 734              		.loc 1 222 0
+ 735 03b6 6148     		ldr	r0, .L65
+ 736              	.LVL109:
+ 737 03b8 A047     		blx	r4
+ 738              	.LVL110:
+ 221:../LIB_AP/Ap_GLcdMenu.c **** 			   		Ret = Hw_I2C_IMU_HMC5883_ReadReg( i, I2C_Data );
+ 739              		.loc 1 221 0
+ 740 03ba 05A9     		add	r1, sp, #20
+ 741 03bc 0720     		movs	r0, #7
+ 742 03be C847     		blx	r9
+ 743              	.LVL111:
+ 222:../LIB_AP/Ap_GLcdMenu.c **** 			   		Lb_printf("Ret:%d Addr 0x%02x Data :0x%02x\n", Ret, i, I2C_Data[0] );
+ 744              		.loc 1 222 0
+ 745 03c0 9DF81430 		ldrb	r3, [sp, #20]	@ zero_extendqisi2
+ 221:../LIB_AP/Ap_GLcdMenu.c **** 			   		Ret = Hw_I2C_IMU_HMC5883_ReadReg( i, I2C_Data );
+ 746              		.loc 1 221 0
+ 747 03c4 0146     		mov	r1, r0
+ 748              	.LVL112:
+ 222:../LIB_AP/Ap_GLcdMenu.c **** 			   		Lb_printf("Ret:%d Addr 0x%02x Data :0x%02x\n", Ret, i, I2C_Data[0] );
+ 749              		.loc 1 222 0
+ 750 03c6 0722     		movs	r2, #7
+ 751 03c8 5C48     		ldr	r0, .L65
+ 752              	.LVL113:
+ 753 03ca A047     		blx	r4
+ 754              	.LVL114:
+ 221:../LIB_AP/Ap_GLcdMenu.c **** 			   		Ret = Hw_I2C_IMU_HMC5883_ReadReg( i, I2C_Data );
+ 755              		.loc 1 221 0
+ 756 03cc 05A9     		add	r1, sp, #20
+ 757 03ce 0820     		movs	r0, #8
+ 758 03d0 C847     		blx	r9
+ 759              	.LVL115:
+ 222:../LIB_AP/Ap_GLcdMenu.c **** 			   		Lb_printf("Ret:%d Addr 0x%02x Data :0x%02x\n", Ret, i, I2C_Data[0] );
+ 760              		.loc 1 222 0
+ 761 03d2 9DF81430 		ldrb	r3, [sp, #20]	@ zero_extendqisi2
+ 762 03d6 0822     		movs	r2, #8
+ 221:../LIB_AP/Ap_GLcdMenu.c **** 			   		Ret = Hw_I2C_IMU_HMC5883_ReadReg( i, I2C_Data );
+ 763              		.loc 1 221 0
+ 764 03d8 0146     		mov	r1, r0
+ 765              	.LVL116:
+ 222:../LIB_AP/Ap_GLcdMenu.c **** 			   		Lb_printf("Ret:%d Addr 0x%02x Data :0x%02x\n", Ret, i, I2C_Data[0] );
+ 766              		.loc 1 222 0
+ 767 03da 5848     		ldr	r0, .L65
+ 768              	.LVL117:
+ 769 03dc A047     		blx	r4
+ 770              	.LVL118:
+ 221:../LIB_AP/Ap_GLcdMenu.c **** 			   		Ret = Hw_I2C_IMU_HMC5883_ReadReg( i, I2C_Data );
+ 771              		.loc 1 221 0
+ 772 03de 05A9     		add	r1, sp, #20
+ 773 03e0 0920     		movs	r0, #9
+ 774 03e2 C847     		blx	r9
+ 775              	.LVL119:
+ 222:../LIB_AP/Ap_GLcdMenu.c **** 			   		Lb_printf("Ret:%d Addr 0x%02x Data :0x%02x\n", Ret, i, I2C_Data[0] );
+ 776              		.loc 1 222 0
+ 777 03e4 9DF81430 		ldrb	r3, [sp, #20]	@ zero_extendqisi2
+ 778 03e8 0922     		movs	r2, #9
+ 221:../LIB_AP/Ap_GLcdMenu.c **** 			   		Ret = Hw_I2C_IMU_HMC5883_ReadReg( i, I2C_Data );
+ 779              		.loc 1 221 0
+ 780 03ea 0146     		mov	r1, r0
+ 781              	.LVL120:
+ 222:../LIB_AP/Ap_GLcdMenu.c **** 			   		Lb_printf("Ret:%d Addr 0x%02x Data :0x%02x\n", Ret, i, I2C_Data[0] );
+ 782              		.loc 1 222 0
+ 783 03ec 5348     		ldr	r0, .L65
+ 784              	.LVL121:
+ 785 03ee A047     		blx	r4
+ 786              	.LVL122:
+ 221:../LIB_AP/Ap_GLcdMenu.c **** 			   		Ret = Hw_I2C_IMU_HMC5883_ReadReg( i, I2C_Data );
+ 787              		.loc 1 221 0
+ 788 03f0 05A9     		add	r1, sp, #20
+ 789 03f2 0A20     		movs	r0, #10
+ 790 03f4 C847     		blx	r9
+ 791              	.LVL123:
+ 222:../LIB_AP/Ap_GLcdMenu.c **** 			   		Lb_printf("Ret:%d Addr 0x%02x Data :0x%02x\n", Ret, i, I2C_Data[0] );
+ 792              		.loc 1 222 0
+ 793 03f6 9DF81430 		ldrb	r3, [sp, #20]	@ zero_extendqisi2
+ 794 03fa 0A22     		movs	r2, #10
+ 221:../LIB_AP/Ap_GLcdMenu.c **** 			   		Ret = Hw_I2C_IMU_HMC5883_ReadReg( i, I2C_Data );
+ 795              		.loc 1 221 0
+ 796 03fc 0146     		mov	r1, r0
+ 797              	.LVL124:
+ 222:../LIB_AP/Ap_GLcdMenu.c **** 			   		Lb_printf("Ret:%d Addr 0x%02x Data :0x%02x\n", Ret, i, I2C_Data[0] );
+ 798              		.loc 1 222 0
+ 799 03fe 4F48     		ldr	r0, .L65
+ 800              	.LVL125:
+ 801 0400 A047     		blx	r4
+ 802              	.LVL126:
+ 221:../LIB_AP/Ap_GLcdMenu.c **** 			   		Ret = Hw_I2C_IMU_HMC5883_ReadReg( i, I2C_Data );
+ 803              		.loc 1 221 0
+ 804 0402 05A9     		add	r1, sp, #20
+ 805 0404 0B20     		movs	r0, #11
+ 806 0406 C847     		blx	r9
+ 807              	.LVL127:
+ 222:../LIB_AP/Ap_GLcdMenu.c **** 			   		Lb_printf("Ret:%d Addr 0x%02x Data :0x%02x\n", Ret, i, I2C_Data[0] );
+ 808              		.loc 1 222 0
+ 809 0408 9DF81430 		ldrb	r3, [sp, #20]	@ zero_extendqisi2
+ 810 040c 0B22     		movs	r2, #11
+ 221:../LIB_AP/Ap_GLcdMenu.c **** 			   		Ret = Hw_I2C_IMU_HMC5883_ReadReg( i, I2C_Data );
+ 811              		.loc 1 221 0
+ 812 040e 0146     		mov	r1, r0
+ 813              	.LVL128:
+ 222:../LIB_AP/Ap_GLcdMenu.c **** 			   		Lb_printf("Ret:%d Addr 0x%02x Data :0x%02x\n", Ret, i, I2C_Data[0] );
+ 814              		.loc 1 222 0
+ 815 0410 4A48     		ldr	r0, .L65
+ 816              	.LVL129:
+ 817 0412 A047     		blx	r4
+ 818              	.LVL130:
+ 221:../LIB_AP/Ap_GLcdMenu.c **** 			   		Ret = Hw_I2C_IMU_HMC5883_ReadReg( i, I2C_Data );
+ 819              		.loc 1 221 0
+ 820 0414 05A9     		add	r1, sp, #20
+ 821 0416 0C20     		movs	r0, #12
+ 822 0418 C847     		blx	r9
+ 823              	.LVL131:
+ 222:../LIB_AP/Ap_GLcdMenu.c **** 			   		Lb_printf("Ret:%d Addr 0x%02x Data :0x%02x\n", Ret, i, I2C_Data[0] );
+ 824              		.loc 1 222 0
+ 825 041a 0C22     		movs	r2, #12
+ 221:../LIB_AP/Ap_GLcdMenu.c **** 			   		Ret = Hw_I2C_IMU_HMC5883_ReadReg( i, I2C_Data );
+ 826              		.loc 1 221 0
+ 827 041c 0146     		mov	r1, r0
+ 828              	.LVL132:
+ 222:../LIB_AP/Ap_GLcdMenu.c **** 			   		Lb_printf("Ret:%d Addr 0x%02x Data :0x%02x\n", Ret, i, I2C_Data[0] );
+ 829              		.loc 1 222 0
+ 830 041e 9DF81430 		ldrb	r3, [sp, #20]	@ zero_extendqisi2
+ 831 0422 4648     		ldr	r0, .L65
+ 832              	.LVL133:
+ 833 0424 A047     		blx	r4
+ 834              	.LVL134:
+ 835 0426 FEE5     		b	.L52
+ 836              	.LVL135:
+ 837              	.L45:
+ 838 0428 454F     		ldr	r7, .L65+4
+ 200:../LIB_AP/Ap_GLcdMenu.c **** 					TimeStart = Hw_Timer_Get_u16Count_Usec();
+ 839              		.loc 1 200 0
+ 840 042a 464E     		ldr	r6, .L65+8
+ 202:../LIB_AP/Ap_GLcdMenu.c **** 					Ret = Hw_HMC5883_GetData( &HMC5883_Data );
+ 841              		.loc 1 202 0
+ 842 042c DFF850A1 		ldr	sl, .L65+68
+ 843 0430 26E0     		b	.L10
+ 844              	.LVL136:
+ 845              	.L25:
+ 200:../LIB_AP/Ap_GLcdMenu.c **** 					TimeStart = Hw_Timer_Get_u16Count_Usec();
+ 846              		.loc 1 200 0
+ 847 0432 B047     		blx	r6
+ 848              	.LVL137:
+ 849 0434 8346     		mov	fp, r0
+ 850              	.LVL138:
+ 202:../LIB_AP/Ap_GLcdMenu.c **** 					Ret = Hw_HMC5883_GetData( &HMC5883_Data );
+ 851              		.loc 1 202 0
+ 852 0436 0AA8     		add	r0, sp, #40
+ 853              	.LVL139:
+ 854 0438 D047     		blx	sl
+ 855              	.LVL140:
+ 204:../LIB_AP/Ap_GLcdMenu.c **** 					Lb_printf("Time %d ", Hw_Timer_Get_u16Count_Usec() - TimeStart );
+ 856              		.loc 1 204 0
+ 857 043a B047     		blx	r6
+ 858              	.LVL141:
+ 859 043c CBEB0001 		rsb	r1, fp, r0
+ 860 0440 4148     		ldr	r0, .L65+12
+ 861 0442 A047     		blx	r4
+ 862              	.LVL142:
+ 206:../LIB_AP/Ap_GLcdMenu.c **** 					Lb_printf("CX %d ", HMC5883_Data.X_Compass );
+ 863              		.loc 1 206 0
+ 864 0444 4148     		ldr	r0, .L65+16
+ 865 0446 BDF92810 		ldrsh	r1, [sp, #40]
+ 866 044a A047     		blx	r4
+ 867              	.LVL143:
+ 207:../LIB_AP/Ap_GLcdMenu.c **** 					Lb_printf("CY %d ", HMC5883_Data.Y_Compass );
+ 868              		.loc 1 207 0
+ 869 044c 4048     		ldr	r0, .L65+20
+ 870 044e BDF92A10 		ldrsh	r1, [sp, #42]
+ 871 0452 A047     		blx	r4
+ 872              	.LVL144:
+ 208:../LIB_AP/Ap_GLcdMenu.c **** 					Lb_printf("CZ %d ", HMC5883_Data.Z_Compass );
+ 873              		.loc 1 208 0
+ 874 0454 BDF92C10 		ldrsh	r1, [sp, #44]
+ 875 0458 3E48     		ldr	r0, .L65+24
+ 876 045a A047     		blx	r4
+ 877              	.LVL145:
+ 210:../LIB_AP/Ap_GLcdMenu.c **** 					Lb_printf("SX %d  ", (s16)HMC5883_Data.X_CompassScale );
+ 878              		.loc 1 210 0
+ 879 045c 0C98     		ldr	r0, [sp, #48]	@ float
+ 880 045e A847     		blx	r5
+ 881              	.LVL146:
+ 882 0460 01B2     		sxth	r1, r0
+ 883 0462 3D48     		ldr	r0, .L65+28
+ 884 0464 A047     		blx	r4
+ 885              	.LVL147:
+ 211:../LIB_AP/Ap_GLcdMenu.c **** 					Lb_printf("SY %d  ", (s16)HMC5883_Data.Y_CompassScale );
+ 886              		.loc 1 211 0
+ 887 0466 0D98     		ldr	r0, [sp, #52]	@ float
+ 888 0468 A847     		blx	r5
+ 889              	.LVL148:
+ 890 046a 01B2     		sxth	r1, r0
+ 891 046c 3B48     		ldr	r0, .L65+32
+ 892 046e A047     		blx	r4
+ 893              	.LVL149:
+ 212:../LIB_AP/Ap_GLcdMenu.c **** 					Lb_printf("SZ %d  \n", (s16)HMC5883_Data.Z_CompassScale );
+ 894              		.loc 1 212 0
+ 895 0470 0E98     		ldr	r0, [sp, #56]	@ float
+ 896 0472 A847     		blx	r5
+ 897              	.LVL150:
+ 898 0474 01B2     		sxth	r1, r0
+ 899 0476 3A48     		ldr	r0, .L65+36
+ 900 0478 A047     		blx	r4
+ 901              	.LVL151:
+ 214:../LIB_AP/Ap_GLcdMenu.c **** 					Hw_Wait_ms(10);
+ 902              		.loc 1 214 0
+ 903 047a 0A20     		movs	r0, #10
+ 904 047c 394A     		ldr	r2, .L65+40
+ 905 047e 9047     		blx	r2
+ 906              	.LVL152:
+ 907              	.L10:
+ 210:../LIB_AP/Ap_GLcdMenu.c **** 					Lb_printf("SX %d  ", (s16)HMC5883_Data.X_CompassScale );
+ 908              		.loc 1 210 0 discriminator 1
+ 909 0480 394D     		ldr	r5, .L65+44
+ 198:../LIB_AP/Ap_GLcdMenu.c **** 				while( get_byte_check() == 0 )
+ 910              		.loc 1 198 0 discriminator 1
+ 911 0482 B847     		blx	r7
+ 912              	.LVL153:
+ 913 0484 0028     		cmp	r0, #0
+ 914 0486 D4D0     		beq	.L25
+ 915 0488 CDE5     		b	.L52
+ 916              	.LVL154:
+ 917              	.L44:
+ 918 048a 2D4E     		ldr	r6, .L65+4
+ 192:../LIB_AP/Ap_GLcdMenu.c **** 					Lb_printf("L %d  R %d\n", Hw_Sonic_GetDistanceMM(0), Hw_Sonic_GetDistanceMM(1) );
+ 919              		.loc 1 192 0
+ 920 048c 374D     		ldr	r5, .L65+48
+ 193:../LIB_AP/Ap_GLcdMenu.c **** 					Hw_Wait_ms(100);
+ 921              		.loc 1 193 0
+ 922 048e 354F     		ldr	r7, .L65+40
+ 923 0490 09E0     		b	.L9
+ 924              	.LVL155:
+ 925              	.L24:
+ 192:../LIB_AP/Ap_GLcdMenu.c **** 					Lb_printf("L %d  R %d\n", Hw_Sonic_GetDistanceMM(0), Hw_Sonic_GetDistanceMM(1) );
+ 926              		.loc 1 192 0
+ 927 0492 A847     		blx	r5
+ 928              	.LVL156:
+ 929 0494 8246     		mov	sl, r0
+ 930 0496 0120     		movs	r0, #1
+ 931 0498 A847     		blx	r5
+ 932              	.LVL157:
+ 933 049a 5146     		mov	r1, sl
+ 934 049c 0246     		mov	r2, r0
+ 935 049e 3448     		ldr	r0, .L65+52
+ 936 04a0 A047     		blx	r4
+ 937              	.LVL158:
+ 193:../LIB_AP/Ap_GLcdMenu.c **** 					Hw_Wait_ms(100);
+ 938              		.loc 1 193 0
+ 939 04a2 6420     		movs	r0, #100
+ 940 04a4 B847     		blx	r7
+ 941              	.LVL159:
+ 942              	.L9:
+ 190:../LIB_AP/Ap_GLcdMenu.c **** 				while( get_byte_check() == 0 )
+ 943              		.loc 1 190 0 discriminator 1
+ 944 04a6 B047     		blx	r6
+ 945              	.LVL160:
+ 946 04a8 0028     		cmp	r0, #0
+ 947 04aa F2D0     		beq	.L24
+ 948 04ac BBE5     		b	.L52
+ 949              	.LVL161:
+ 950              	.L33:
+ 140:../LIB_AP/Ap_GLcdMenu.c **** 		switch(key)
+ 951              		.loc 1 140 0
+ 952 04ae 4FF0000A 		mov	sl, #0
+ 181:../LIB_AP/Ap_GLcdMenu.c **** 					if( i%10 == 0 ) Lb_printf("\n 0x%02x: ", i);
+ 953              		.loc 1 181 0
+ 954 04b2 4CF6CD45 		movw	r5, #52429
+ 955 04b6 2F4F     		ldr	r7, .L65+56
+ 956 04b8 CCF6CC45 		movt	r5, 52428
+ 183:../LIB_AP/Ap_GLcdMenu.c **** 					I2C_Data[0] = 0x00;
+ 957              		.loc 1 183 0
+ 958 04bc 5646     		mov	r6, sl
+ 959 04be 26E0     		b	.L8
+ 960              	.LVL162:
+ 961              	.L22:
+ 184:../LIB_AP/Ap_GLcdMenu.c **** 					Ret = Hw_I2C_IMU_MPU6050_ReadReg( i, I2C_Data );
+ 962              		.loc 1 184 0
+ 963 04c0 05A9     		add	r1, sp, #20
+ 964 04c2 5FFA8AF0 		uxtb	r0, sl
+ 183:../LIB_AP/Ap_GLcdMenu.c **** 					I2C_Data[0] = 0x00;
+ 965              		.loc 1 183 0
+ 966 04c6 8DF81460 		strb	r6, [sp, #20]
+ 184:../LIB_AP/Ap_GLcdMenu.c **** 					Ret = Hw_I2C_IMU_MPU6050_ReadReg( i, I2C_Data );
+ 967              		.loc 1 184 0
+ 968 04ca B847     		blx	r7
+ 969              	.LVL163:
+ 185:../LIB_AP/Ap_GLcdMenu.c **** 					Lb_printf("%02x ", I2C_Data[0]);
+ 970              		.loc 1 185 0
+ 971 04cc 9DF81410 		ldrb	r1, [sp, #20]	@ zero_extendqisi2
+ 972 04d0 2948     		ldr	r0, .L65+60
+ 973 04d2 A047     		blx	r4
+ 974              	.LVL164:
+ 181:../LIB_AP/Ap_GLcdMenu.c **** 					if( i%10 == 0 ) Lb_printf("\n 0x%02x: ", i);
+ 975              		.loc 1 181 0
+ 976 04d4 1FFA8BF0 		uxth	r0, fp
+ 977 04d8 A5FB0012 		umull	r1, r2, r5, r0
+ 978 04dc D108     		lsrs	r1, r2, #3
+ 979 04de 01EB8103 		add	r3, r1, r1, lsl #2
+ 980 04e2 A0EB4300 		sub	r0, r0, r3, lsl #1
+ 981 04e6 82B2     		uxth	r2, r0
+ 982 04e8 002A     		cmp	r2, #0
+ 983 04ea 00F0AC80 		beq	.L60
+ 984              	.L49:
+ 184:../LIB_AP/Ap_GLcdMenu.c **** 					Ret = Hw_I2C_IMU_MPU6050_ReadReg( i, I2C_Data );
+ 985              		.loc 1 184 0
+ 986 04ee 05A9     		add	r1, sp, #20
+ 987 04f0 5FFA8BF0 		uxtb	r0, fp
+ 183:../LIB_AP/Ap_GLcdMenu.c **** 					I2C_Data[0] = 0x00;
+ 988              		.loc 1 183 0
+ 989 04f4 8DF81460 		strb	r6, [sp, #20]
+ 990 04f8 0BF1010A 		add	sl, fp, #1
+ 991              	.LVL165:
+ 184:../LIB_AP/Ap_GLcdMenu.c **** 					Ret = Hw_I2C_IMU_MPU6050_ReadReg( i, I2C_Data );
+ 992              		.loc 1 184 0
+ 993 04fc B847     		blx	r7
+ 994              	.LVL166:
+ 185:../LIB_AP/Ap_GLcdMenu.c **** 					Lb_printf("%02x ", I2C_Data[0]);
+ 995              		.loc 1 185 0
+ 996 04fe 1E48     		ldr	r0, .L65+60
+ 997 0500 9DF81410 		ldrb	r1, [sp, #20]	@ zero_extendqisi2
+ 998 0504 A047     		blx	r4
+ 999              	.LVL167:
+ 179:../LIB_AP/Ap_GLcdMenu.c **** 				for( i=0; i<=0x75; i++ )
+ 1000              		.loc 1 179 0
+ 1001 0506 BAF1760F 		cmp	sl, #118
+ 1002 050a 3FF48CAD 		beq	.L52
+ 1003              	.LVL168:
+ 1004              	.L8:
+ 181:../LIB_AP/Ap_GLcdMenu.c **** 					if( i%10 == 0 ) Lb_printf("\n 0x%02x: ", i);
+ 1005              		.loc 1 181 0
+ 1006 050e 1FFA8AF0 		uxth	r0, sl
+ 1007 0512 A5FB0013 		umull	r1, r3, r5, r0
+ 1008 0516 D908     		lsrs	r1, r3, #3
+ 1009 0518 01EB8102 		add	r2, r1, r1, lsl #2
+ 1010 051c A0EB4200 		sub	r0, r0, r2, lsl #1
+ 1011 0520 83B2     		uxth	r3, r0
+ 1012 0522 0AF1010B 		add	fp, sl, #1
+ 1013 0526 002B     		cmp	r3, #0
+ 1014 0528 CAD1     		bne	.L22
+ 181:../LIB_AP/Ap_GLcdMenu.c **** 					if( i%10 == 0 ) Lb_printf("\n 0x%02x: ", i);
+ 1015              		.loc 1 181 0 is_stmt 0 discriminator 1
+ 1016 052a 5146     		mov	r1, sl
+ 1017 052c 1348     		ldr	r0, .L65+64
+ 1018 052e A047     		blx	r4
+ 1019              	.LVL169:
+ 1020 0530 C6E7     		b	.L22
+ 1021              	.LVL170:
+ 1022              	.L43:
+ 1023 0532 034F     		ldr	r7, .L65+4
+ 1024              	.LBB6:
+ 151:../LIB_AP/Ap_GLcdMenu.c **** 					TimeStart = Hw_Timer_Get_u16Count_Usec();
+ 1025              		.loc 1 151 0 is_stmt 1
+ 1026 0534 034D     		ldr	r5, .L65+8
+ 153:../LIB_AP/Ap_GLcdMenu.c **** 					Ret = Hw_MPU6050_GetData( &MPU6050_Data );
+ 1027              		.loc 1 153 0
+ 1028 0536 DFF84CA0 		ldr	sl, .L65+72
+ 1029 053a 3CE0     		b	.L7
+ 1030              	.L66:
+ 1031              		.align	2
+ 1032              	.L65:
+ 1033 053c 78030000 		.word	.LC31
+ 1034 0540 00000000 		.word	get_byte_check
+ 1035 0544 00000000 		.word	Hw_Timer_Get_u16Count_Usec
+ 1036 0548 F8020000 		.word	.LC17
+ 1037 054c 44030000 		.word	.LC25
+ 1038 0550 4C030000 		.word	.LC26
+ 1039 0554 54030000 		.word	.LC27
+ 1040 0558 5C030000 		.word	.LC28
+ 1041 055c 64030000 		.word	.LC29
+ 1042 0560 6C030000 		.word	.LC30
+ 1043 0564 00000000 		.word	Hw_Wait_ms
+ 1044 0568 00000000 		.word	__aeabi_f2iz
+ 1045 056c 00000000 		.word	Hw_Sonic_GetDistanceMM
+ 1046 0570 38030000 		.word	.LC24
+ 1047 0574 00000000 		.word	Hw_I2C_IMU_MPU6050_ReadReg
+ 1048 0578 30030000 		.word	.LC23
+ 1049 057c 24030000 		.word	.LC22
+ 1050 0580 00000000 		.word	Hw_HMC5883_GetData
+ 1051 0584 00000000 		.word	Hw_MPU6050_GetData
+ 1052              	.LVL171:
+ 1053              	.L61:
+ 167:../LIB_AP/Ap_GLcdMenu.c **** 					if( y > HW_N5110G_HEIGHT-4) y = HW_N5110G_HEIGHT-4;
+ 1054              		.loc 1 167 0
+ 1055 0588 08B2     		sxth	r0, r1
+ 166:../LIB_AP/Ap_GLcdMenu.c **** 					if( x < 3 )                x = 3;
+ 1056              		.loc 1 166 0
+ 1057 058a 022A     		cmp	r2, #2
+ 1058 058c D8BF     		it	le
+ 1059 058e 0326     		movle	r6, #3
+ 1060              	.LVL172:
+ 167:../LIB_AP/Ap_GLcdMenu.c **** 					if( y > HW_N5110G_HEIGHT-4) y = HW_N5110G_HEIGHT-4;
+ 1061              		.loc 1 167 0
+ 1062 0590 2C28     		cmp	r0, #44
+ 1063 0592 4ADC     		bgt	.L36
+ 1064              	.L62:
+ 168:../LIB_AP/Ap_GLcdMenu.c **** 					if( y < 3 )                 y = 3;
+ 1065              		.loc 1 168 0
+ 1066 0594 0228     		cmp	r0, #2
+ 1067 0596 CCBF     		ite	gt
+ 1068 0598 9B46     		movgt	fp, r3
+ 1069 059a 4FF0030B 		movle	fp, #3
+ 1070              	.L20:
+ 170:../LIB_AP/Ap_GLcdMenu.c **** 					Hw_N5110G_Clear();                                  
+ 1071              		.loc 1 170 0
+ 1072 059e 304B     		ldr	r3, .L67
+ 1073 05a0 9847     		blx	r3
+ 1074              	.LVL173:
+ 171:../LIB_AP/Ap_GLcdMenu.c **** 					Hw_N5110G_DrawCircle(  x , y, 3, 0 );                           
+ 1075              		.loc 1 171 0
+ 1076 05a2 3046     		mov	r0, r6
+ 1077 05a4 0322     		movs	r2, #3
+ 1078 05a6 5946     		mov	r1, fp
+ 1079 05a8 0023     		movs	r3, #0
+ 1080 05aa 2E4E     		ldr	r6, .L67+4
+ 1081 05ac B047     		blx	r6
+ 1082              	.LVL174:
+ 172:../LIB_AP/Ap_GLcdMenu.c **** 					Hw_N5110G_DrawRequest();
+ 1083              		.loc 1 172 0
+ 1084 05ae C047     		blx	r8
+ 1085              	.LVL175:
+ 173:../LIB_AP/Ap_GLcdMenu.c **** 					Hw_Wait_ms(100);
+ 1086              		.loc 1 173 0
+ 1087 05b0 6420     		movs	r0, #100
+ 1088 05b2 2D4A     		ldr	r2, .L67+8
+ 1089 05b4 9047     		blx	r2
+ 1090              	.LVL176:
+ 1091              	.L7:
+ 1092              	.LBE6:
+ 149:../LIB_AP/Ap_GLcdMenu.c **** 				while( get_byte_check() == 0 )
+ 1093              		.loc 1 149 0 discriminator 1
+ 1094 05b6 B847     		blx	r7
+ 1095              	.LVL177:
+ 1096 05b8 0028     		cmp	r0, #0
+ 1097 05ba 7FF434AD 		bne	.L52
+ 1098              	.LBB7:
+ 151:../LIB_AP/Ap_GLcdMenu.c **** 					TimeStart = Hw_Timer_Get_u16Count_Usec();
+ 1099              		.loc 1 151 0
+ 1100 05be A847     		blx	r5
+ 1101              	.LVL178:
+ 1102 05c0 0646     		mov	r6, r0
+ 1103              	.LVL179:
+ 153:../LIB_AP/Ap_GLcdMenu.c **** 					Ret = Hw_MPU6050_GetData( &MPU6050_Data );
+ 1104              		.loc 1 153 0
+ 1105 05c2 01A8     		add	r0, sp, #4
+ 1106              	.LVL180:
+ 1107 05c4 D047     		blx	sl
+ 1108              	.LVL181:
+ 155:../LIB_AP/Ap_GLcdMenu.c **** 					Lb_printf("Time %d ", Hw_Timer_Get_u16Count_Usec() - TimeStart );
+ 1109              		.loc 1 155 0
+ 1110 05c6 A847     		blx	r5
+ 1111              	.LVL182:
+ 1112 05c8 811B     		subs	r1, r0, r6
+ 1113 05ca 2848     		ldr	r0, .L67+12
+ 1114 05cc A047     		blx	r4
+ 1115              	.LVL183:
+ 157:../LIB_AP/Ap_GLcdMenu.c **** 					Lb_printf("AX %d ", MPU6050_Data.X_Acc );
+ 1116              		.loc 1 157 0
+ 1117 05ce BDF90410 		ldrsh	r1, [sp, #4]
+ 1118 05d2 2748     		ldr	r0, .L67+16
+ 1119 05d4 A047     		blx	r4
+ 1120              	.LVL184:
+ 158:../LIB_AP/Ap_GLcdMenu.c **** 					Lb_printf("AY %d ", MPU6050_Data.Y_Acc );
+ 1121              		.loc 1 158 0
+ 1122 05d6 BDF90610 		ldrsh	r1, [sp, #6]
+ 1123 05da 2648     		ldr	r0, .L67+20
+ 1124 05dc A047     		blx	r4
+ 1125              	.LVL185:
+ 159:../LIB_AP/Ap_GLcdMenu.c **** 					Lb_printf("AZ %d ", MPU6050_Data.Z_Acc );
+ 1126              		.loc 1 159 0
+ 1127 05de BDF90810 		ldrsh	r1, [sp, #8]
+ 1128 05e2 2548     		ldr	r0, .L67+24
+ 1129 05e4 A047     		blx	r4
+ 1130              	.LVL186:
+ 160:../LIB_AP/Ap_GLcdMenu.c **** 					Lb_printf("T %d \n",  MPU6050_Data.Temp);
+ 1131              		.loc 1 160 0
+ 1132 05e6 2548     		ldr	r0, .L67+28
+ 1133 05e8 BDF90A10 		ldrsh	r1, [sp, #10]
+ 1134 05ec A047     		blx	r4
+ 1135              	.LVL187:
+ 162:../LIB_AP/Ap_GLcdMenu.c **** 					x = HW_N5110G_WIDTH/2 - MPU6050_Data.Y_Acc/200;
+ 1136              		.loc 1 162 0
+ 1137 05ee BDF90610 		ldrsh	r1, [sp, #6]
+ 1138 05f2 48F21F53 		movw	r3, #34079
+ 1139 05f6 C5F2EB13 		movt	r3, 20971
+ 1140 05fa 83FB0160 		smull	r6, r0, r3, r1
+ 1141              	.LVL188:
+ 163:../LIB_AP/Ap_GLcdMenu.c **** 					y = HW_N5110G_HEIGHT/2 - MPU6050_Data.X_Acc/200;
+ 1142              		.loc 1 163 0
+ 1143 05fe BDF90420 		ldrsh	r2, [sp, #4]
+ 1144 0602 83FB0263 		smull	r6, r3, r3, r2
+ 162:../LIB_AP/Ap_GLcdMenu.c **** 					x = HW_N5110G_WIDTH/2 - MPU6050_Data.Y_Acc/200;
+ 1145              		.loc 1 162 0
+ 1146 0606 CE17     		asrs	r6, r1, #31
+ 1147 0608 A6EBA011 		sub	r1, r6, r0, asr #6
+ 163:../LIB_AP/Ap_GLcdMenu.c **** 					y = HW_N5110G_HEIGHT/2 - MPU6050_Data.X_Acc/200;
+ 1148              		.loc 1 163 0
+ 1149 060c D217     		asrs	r2, r2, #31
+ 162:../LIB_AP/Ap_GLcdMenu.c **** 					x = HW_N5110G_WIDTH/2 - MPU6050_Data.Y_Acc/200;
+ 1150              		.loc 1 162 0
+ 1151 060e 2A31     		adds	r1, r1, #42
+ 163:../LIB_AP/Ap_GLcdMenu.c **** 					y = HW_N5110G_HEIGHT/2 - MPU6050_Data.X_Acc/200;
+ 1152              		.loc 1 163 0
+ 1153 0610 A2EBA310 		sub	r0, r2, r3, asr #6
+ 162:../LIB_AP/Ap_GLcdMenu.c **** 					x = HW_N5110G_WIDTH/2 - MPU6050_Data.Y_Acc/200;
+ 1154              		.loc 1 162 0
+ 1155 0614 8EB2     		uxth	r6, r1
+ 1156              	.LVL189:
+ 163:../LIB_AP/Ap_GLcdMenu.c **** 					y = HW_N5110G_HEIGHT/2 - MPU6050_Data.X_Acc/200;
+ 1157              		.loc 1 163 0
+ 1158 0616 1830     		adds	r0, r0, #24
+ 165:../LIB_AP/Ap_GLcdMenu.c **** 					if( x > HW_N5110G_WIDTH-4) x = HW_N5110G_WIDTH-4;
+ 1159              		.loc 1 165 0
+ 1160 0618 32B2     		sxth	r2, r6
+ 163:../LIB_AP/Ap_GLcdMenu.c **** 					y = HW_N5110G_HEIGHT/2 - MPU6050_Data.X_Acc/200;
+ 1161              		.loc 1 163 0
+ 1162 061a 83B2     		uxth	r3, r0
+ 165:../LIB_AP/Ap_GLcdMenu.c **** 					if( x > HW_N5110G_WIDTH-4) x = HW_N5110G_WIDTH-4;
+ 1163              		.loc 1 165 0
+ 1164 061c 502A     		cmp	r2, #80
+ 163:../LIB_AP/Ap_GLcdMenu.c **** 					y = HW_N5110G_HEIGHT/2 - MPU6050_Data.X_Acc/200;
+ 1165              		.loc 1 163 0
+ 1166 061e 99B2     		uxth	r1, r3
+ 1167              	.LVL190:
+ 165:../LIB_AP/Ap_GLcdMenu.c **** 					if( x > HW_N5110G_WIDTH-4) x = HW_N5110G_WIDTH-4;
+ 1168              		.loc 1 165 0
+ 1169 0620 B2DD     		ble	.L61
+ 167:../LIB_AP/Ap_GLcdMenu.c **** 					if( y > HW_N5110G_HEIGHT-4) y = HW_N5110G_HEIGHT-4;
+ 1170              		.loc 1 167 0
+ 1171 0622 08B2     		sxth	r0, r1
+ 165:../LIB_AP/Ap_GLcdMenu.c **** 					if( x > HW_N5110G_WIDTH-4) x = HW_N5110G_WIDTH-4;
+ 1172              		.loc 1 165 0
+ 1173 0624 5026     		movs	r6, #80
+ 1174              	.LVL191:
+ 167:../LIB_AP/Ap_GLcdMenu.c **** 					if( y > HW_N5110G_HEIGHT-4) y = HW_N5110G_HEIGHT-4;
+ 1175              		.loc 1 167 0
+ 1176 0626 2C28     		cmp	r0, #44
+ 1177 0628 B4DD     		ble	.L62
+ 1178              	.L36:
+ 1179 062a 4FF02C0B 		mov	fp, #44
+ 1180 062e B6E7     		b	.L20
+ 1181              	.LVL192:
+ 1182              	.L6:
+ 1183              	.LBE7:
+ 143:../LIB_AP/Ap_GLcdMenu.c **** 				Lb_printf("LCD Clear \n");
+ 1184              		.loc 1 143 0
+ 1185 0630 1348     		ldr	r0, .L67+32
+ 1186              	.LVL193:
+ 1187 0632 A047     		blx	r4
+ 1188              	.LVL194:
+ 144:../LIB_AP/Ap_GLcdMenu.c **** 				Hw_N5110G_Clear();
+ 1189              		.loc 1 144 0
+ 1190 0634 0A49     		ldr	r1, .L67
+ 1191 0636 8847     		blx	r1
+ 1192              	.LVL195:
+ 145:../LIB_AP/Ap_GLcdMenu.c **** 				break;
+ 1193              		.loc 1 145 0
+ 1194 0638 F5E4     		b	.L52
+ 1195              	.LVL196:
+ 1196              	.L14:
+ 287:../LIB_AP/Ap_GLcdMenu.c **** 				}			   
+ 288:../LIB_AP/Ap_GLcdMenu.c **** 			   break;
+ 289:../LIB_AP/Ap_GLcdMenu.c **** 
+ 290:../LIB_AP/Ap_GLcdMenu.c **** 		   case '9': 
+ 291:../LIB_AP/Ap_GLcdMenu.c **** 			   break;
+ 292:../LIB_AP/Ap_GLcdMenu.c **** 
+ 293:../LIB_AP/Ap_GLcdMenu.c **** 		   case '0':
+ 294:../LIB_AP/Ap_GLcdMenu.c **** 			   break;
+ 295:../LIB_AP/Ap_GLcdMenu.c **** 
+ 296:../LIB_AP/Ap_GLcdMenu.c **** 			case 'm':
+ 297:../LIB_AP/Ap_GLcdMenu.c **** 			case 'M':
+ 298:../LIB_AP/Ap_GLcdMenu.c **** 				Ap_GLcdMenu_ShowMenu();
+ 1197              		.loc 1 298 0
+ 1198 063a 40F20006 		movw	r6, #:lower16:Ap_GLcdMenu_ShowMenu
+ 1199 063e C0F20006 		movt	r6, #:upper16:Ap_GLcdMenu_ShowMenu
+ 1200 0642 B047     		blx	r6
+ 1201              	.LVL197:
+ 299:../LIB_AP/Ap_GLcdMenu.c **** 				break;
+ 1202              		.loc 1 299 0
+ 1203 0644 EFE4     		b	.L52
+ 1204              	.LVL198:
+ 1205              	.L60:
+ 181:../LIB_AP/Ap_GLcdMenu.c **** 					if( i%10 == 0 ) Lb_printf("\n 0x%02x: ", i);
+ 1206              		.loc 1 181 0
+ 1207 0646 0F48     		ldr	r0, .L67+36
+ 1208 0648 5946     		mov	r1, fp
+ 1209 064a A047     		blx	r4
+ 1210              	.LVL199:
+ 1211 064c 4FE7     		b	.L49
+ 1212              	.LVL200:
+ 1213              	.L55:
+ 300:../LIB_AP/Ap_GLcdMenu.c **** 				
+ 301:../LIB_AP/Ap_GLcdMenu.c **** 		   default :
+ 302:../LIB_AP/Ap_GLcdMenu.c **** 			   break;
+ 303:../LIB_AP/Ap_GLcdMenu.c **** 		}
+ 304:../LIB_AP/Ap_GLcdMenu.c **** 	}
+ 305:../LIB_AP/Ap_GLcdMenu.c **** 	
+ 306:../LIB_AP/Ap_GLcdMenu.c **** 	return key;
+ 307:../LIB_AP/Ap_GLcdMenu.c **** }
+ 1214              		.loc 1 307 0
+ 1215 064e 21B0     		add	sp, sp, #132
+ 1216 0650 BDE8F08F 		pop	{r4, r5, r6, r7, r8, r9, sl, fp, pc}
+ 1217              	.LVL201:
+ 1218              	.L56:
+ 1219 0654 1FFA8BF6 		uxth	r6, fp
+ 1220 0658 78E5     		b	.L28
+ 1221              	.LVL202:
+ 1222              	.L57:
+ 1223 065a 85B2     		uxth	r5, r0
+ 1224 065c 7DE5     		b	.L30
+ 1225              	.L68:
+ 1226 065e 00BF     		.align	2
+ 1227              	.L67:
+ 1228 0660 00000000 		.word	Hw_N5110G_Clear
+ 1229 0664 00000000 		.word	Hw_N5110G_DrawCircle
+ 1230 0668 00000000 		.word	Hw_Wait_ms
+ 1231 066c F8020000 		.word	.LC17
+ 1232 0670 04030000 		.word	.LC18
+ 1233 0674 0C030000 		.word	.LC19
+ 1234 0678 14030000 		.word	.LC20
+ 1235 067c 1C030000 		.word	.LC21
+ 1236 0680 EC020000 		.word	.LC16
+ 1237 0684 24030000 		.word	.LC22
+ 1238              		.cfi_endproc
+ 1239              	.LFE2:
+ 1241              		.section	.rodata.str1.4,"aMS",%progbits,1
+ 1242              		.align	2
+ 1243              	.LC0:
+ 1244 0000 0A0A00   		.ascii	"\012\012\000"
+ 1245 0003 00       		.space	1
+ 1246              	.LC1:
+ 1247 0004 2A2A2A2A 		.ascii	"***************************************************"
+ 1247      2A2A2A2A 
+ 1247      2A2A2A2A 
+ 1247      2A2A2A2A 
+ 1247      2A2A2A2A 
+ 1248 0037 2A2A2A2A 		.ascii	"****\012\000"
+ 1248      0A00
+ 1249 003d 000000   		.space	3
+ 1250              	.LC2:
+ 1251 0040 20202020 		.ascii	"                      MPU6050                      "
+ 1251      20202020 
+ 1251      20202020 
+ 1251      20202020 
+ 1251      20202020 
+ 1252 0073 20202020 		.ascii	"    \012\000"
+ 1252      0A00
+ 1253 0079 000000   		.space	3
+ 1254              	.LC3:
+ 1255 007c 2A20312E 		.ascii	"* 1. LCD Clear                                     "
+ 1255      204C4344 
+ 1255      20436C65 
+ 1255      61722020 
+ 1255      20202020 
+ 1256 00af 2020202A 		.ascii	"   *\012\000"
+ 1256      0A00
+ 1257 00b5 000000   		.space	3
+ 1258              	.LC4:
+ 1259 00b8 2A20322E 		.ascii	"* 2. Show Acc                                      "
+ 1259      2053686F 
+ 1259      77204163 
+ 1259      63202020 
+ 1259      20202020 
+ 1260 00eb 2020202A 		.ascii	"   *\012\000"
+ 1260      0A00
+ 1261 00f1 000000   		.space	3
+ 1262              	.LC5:
+ 1263 00f4 2A20332E 		.ascii	"* 3. Show MPU6050 Regs                             "
+ 1263      2053686F 
+ 1263      77204D50 
+ 1263      55363035 
+ 1263      30205265 
+ 1264 0127 2020202A 		.ascii	"   *\012\000"
+ 1264      0A00
+ 1265 012d 000000   		.space	3
+ 1266              	.LC6:
+ 1267 0130 2A20342E 		.ascii	"* 4. Sonic                                         "
+ 1267      20536F6E 
+ 1267      69632020 
+ 1267      20202020 
+ 1267      20202020 
+ 1268 0163 2020202A 		.ascii	"   *\012\000"
+ 1268      0A00
+ 1269 0169 000000   		.space	3
+ 1270              	.LC7:
+ 1271 016c 2A20352E 		.ascii	"* 5. Show Compass                                  "
+ 1271      2053686F 
+ 1271      7720436F 
+ 1271      6D706173 
+ 1271      73202020 
+ 1272 019f 2020202A 		.ascii	"   *\012\000"
+ 1272      0A00
+ 1273 01a5 000000   		.space	3
+ 1274              	.LC8:
+ 1275 01a8 2A20362E 		.ascii	"* 6. Show HMC5883 Regs                             "
+ 1275      2053686F 
+ 1275      7720484D 
+ 1275      43353838 
+ 1275      33205265 
+ 1276 01db 2020202A 		.ascii	"   *\012\000"
+ 1276      0A00
+ 1277 01e1 000000   		.space	3
+ 1278              	.LC9:
+ 1279 01e4 2A20372E 		.ascii	"* 7. Show IMU                                      "
+ 1279      2053686F 
+ 1279      7720494D 
+ 1279      55202020 
+ 1279      20202020 
+ 1280 0217 2020202A 		.ascii	"   *\012\000"
+ 1280      0A00
+ 1281 021d 000000   		.space	3
+ 1282              	.LC10:
+ 1283 0220 2A20382E 		.ascii	"* 8.                                               "
+ 1283      20202020 
+ 1283      20202020 
+ 1283      20202020 
+ 1283      20202020 
+ 1284 0253 2020202A 		.ascii	"   *\012\000"
+ 1284      0A00
+ 1285 0259 000000   		.space	3
+ 1286              	.LC11:
+ 1287 025c 2A20392E 		.ascii	"* 9.                                               "
+ 1287      20202020 
+ 1287      20202020 
+ 1287      20202020 
+ 1287      20202020 
+ 1288 028f 2020202A 		.ascii	"   *\012\000"
+ 1288      0A00
+ 1289 0295 000000   		.space	3
+ 1290              	.LC12:
+ 1291 0298 2A206D2E 		.ascii	"* m.  Menu                                         "
+ 1291      20204D65 
+ 1291      6E752020 
+ 1291      20202020 
+ 1291      20202020 
+ 1292 02cb 2020202A 		.ascii	"   *\012\000"
+ 1292      0A00
+ 1293 02d1 000000   		.space	3
+ 1294              	.LC13:
+ 1295 02d4 0A00     		.ascii	"\012\000"
+ 1296 02d6 0000     		.space	2
+ 1297              	.LC14:
+ 1298 02d8 3E3E2000 		.ascii	">> \000"
+ 1299              	.LC15:
+ 1300 02dc 536D6172 		.ascii	"SmartRobot BD\000"
+ 1300      74526F62 
+ 1300      6F742042 
+ 1300      4400
+ 1301 02ea 0000     		.space	2
+ 1302              	.LC16:
+ 1303 02ec 4C434420 		.ascii	"LCD Clear \012\000"
+ 1303      436C6561 
+ 1303      72200A00 
+ 1304              	.LC17:
+ 1305 02f8 54696D65 		.ascii	"Time %d \000"
+ 1305      20256420 
+ 1305      00
+ 1306 0301 000000   		.space	3
+ 1307              	.LC18:
+ 1308 0304 41582025 		.ascii	"AX %d \000"
+ 1308      642000
+ 1309 030b 00       		.space	1
+ 1310              	.LC19:
+ 1311 030c 41592025 		.ascii	"AY %d \000"
+ 1311      642000
+ 1312 0313 00       		.space	1
+ 1313              	.LC20:
+ 1314 0314 415A2025 		.ascii	"AZ %d \000"
+ 1314      642000
+ 1315 031b 00       		.space	1
+ 1316              	.LC21:
+ 1317 031c 54202564 		.ascii	"T %d \012\000"
+ 1317      200A00
+ 1318 0323 00       		.space	1
+ 1319              	.LC22:
+ 1320 0324 0A203078 		.ascii	"\012 0x%02x: \000"
+ 1320      25303278 
+ 1320      3A2000
+ 1321 032f 00       		.space	1
+ 1322              	.LC23:
+ 1323 0330 25303278 		.ascii	"%02x \000"
+ 1323      2000
+ 1324 0336 0000     		.space	2
+ 1325              	.LC24:
+ 1326 0338 4C202564 		.ascii	"L %d  R %d\012\000"
+ 1326      20205220 
+ 1326      25640A00 
+ 1327              	.LC25:
+ 1328 0344 43582025 		.ascii	"CX %d \000"
+ 1328      642000
+ 1329 034b 00       		.space	1
+ 1330              	.LC26:
+ 1331 034c 43592025 		.ascii	"CY %d \000"
+ 1331      642000
+ 1332 0353 00       		.space	1
+ 1333              	.LC27:
+ 1334 0354 435A2025 		.ascii	"CZ %d \000"
+ 1334      642000
+ 1335 035b 00       		.space	1
+ 1336              	.LC28:
+ 1337 035c 53582025 		.ascii	"SX %d  \000"
+ 1337      64202000 
+ 1338              	.LC29:
+ 1339 0364 53592025 		.ascii	"SY %d  \000"
+ 1339      64202000 
+ 1340              	.LC30:
+ 1341 036c 535A2025 		.ascii	"SZ %d  \012\000"
+ 1341      6420200A 
+ 1341      00
+ 1342 0375 000000   		.space	3
+ 1343              	.LC31:
+ 1344 0378 5265743A 		.ascii	"Ret:%d Addr 0x%02x Data :0x%02x\012\000"
+ 1344      25642041 
+ 1344      64647220 
+ 1344      30782530 
+ 1344      32782044 
+ 1345 0399 000000   		.space	3
+ 1346              	.LC32:
+ 1347 039c 454E2025 		.ascii	"EN %d \000"
+ 1347      642000
+ 1348 03a3 00       		.space	1
+ 1349              	.LC33:
+ 1350 03a4 54452025 		.ascii	"TE %d \000"
+ 1350      642000
+ 1351 03ab 00       		.space	1
+ 1352              	.LC34:
+ 1353 03ac 435A2025 		.ascii	"CZ %d\012\000"
+ 1353      640A00
+ 1354 03b3 00       		.space	1
+ 1355              	.LC35:
+ 1356 03b4 54696D65 		.ascii	"Time %05d \000"
+ 1356      20253035 
+ 1356      642000
+ 1357 03bf 00       		.space	1
+ 1358              	.LC36:
+ 1359 03c0 47582025 		.ascii	"GX %d \011\000"
+ 1359      64200900 
+ 1360              	.LC37:
+ 1361 03c8 47592025 		.ascii	"GY %d \011\000"
+ 1361      64200900 
+ 1362              	.LC38:
+ 1363 03d0 475A2025 		.ascii	"GZ %d \011\000"
+ 1363      64200900 
+ 1364              	.LC39:
+ 1365 03d8 416E6758 		.ascii	"AngX %03d %03d  \011\000"
+ 1365      20253033 
+ 1365      64202530 
+ 1365      33642020 
+ 1365      0900
+ 1366 03ea 0000     		.space	2
+ 1367              	.LC40:
+ 1368 03ec 416E6759 		.ascii	"AngY %03d %03d  \011\000"
+ 1368      20253033 
+ 1368      64202530 
+ 1368      33642020 
+ 1368      0900
+ 1369 03fe 0000     		.space	2
+ 1370              	.LC41:
+ 1371 0400 416E675A 		.ascii	"AngZ %03d %03d\012\000"
+ 1371      20253033 
+ 1371      64202530 
+ 1371      33640A00 
+ 1372              		.text
+ 1373              	.Letext0:
+ 1374              		.file 2 "../LIB_HW/Hw_Define.h"
+ 1375              		.file 3 "../LIB_HW/Hw_MPU6050.h"
+ 1376              		.file 4 "../LIB_HW/Hw_HMC5883.h"
+ 1377              		.file 5 "../LIB_HW/Hw_IMU.h"
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 Ap_GLcdMenu.c
+/var/folders/bz/nn5481rn5xq59rb0mbj7x0880000gn/T//cctQUrx2.s:19     .text.Ap_GLcdMenu_ShowMenu:0000000000000000 $t
+/var/folders/bz/nn5481rn5xq59rb0mbj7x0880000gn/T//cctQUrx2.s:24     .text.Ap_GLcdMenu_ShowMenu:0000000000000000 Ap_GLcdMenu_ShowMenu
+/var/folders/bz/nn5481rn5xq59rb0mbj7x0880000gn/T//cctQUrx2.s:1243   .rodata.str1.4:0000000000000000 .LC0
+/var/folders/bz/nn5481rn5xq59rb0mbj7x0880000gn/T//cctQUrx2.s:1246   .rodata.str1.4:0000000000000004 .LC1
+/var/folders/bz/nn5481rn5xq59rb0mbj7x0880000gn/T//cctQUrx2.s:1250   .rodata.str1.4:0000000000000040 .LC2
+/var/folders/bz/nn5481rn5xq59rb0mbj7x0880000gn/T//cctQUrx2.s:1254   .rodata.str1.4:000000000000007c .LC3
+/var/folders/bz/nn5481rn5xq59rb0mbj7x0880000gn/T//cctQUrx2.s:1258   .rodata.str1.4:00000000000000b8 .LC4
+/var/folders/bz/nn5481rn5xq59rb0mbj7x0880000gn/T//cctQUrx2.s:1262   .rodata.str1.4:00000000000000f4 .LC5
+/var/folders/bz/nn5481rn5xq59rb0mbj7x0880000gn/T//cctQUrx2.s:1266   .rodata.str1.4:0000000000000130 .LC6
+/var/folders/bz/nn5481rn5xq59rb0mbj7x0880000gn/T//cctQUrx2.s:1270   .rodata.str1.4:000000000000016c .LC7
+/var/folders/bz/nn5481rn5xq59rb0mbj7x0880000gn/T//cctQUrx2.s:1274   .rodata.str1.4:00000000000001a8 .LC8
+/var/folders/bz/nn5481rn5xq59rb0mbj7x0880000gn/T//cctQUrx2.s:1278   .rodata.str1.4:00000000000001e4 .LC9
+/var/folders/bz/nn5481rn5xq59rb0mbj7x0880000gn/T//cctQUrx2.s:1282   .rodata.str1.4:0000000000000220 .LC10
+/var/folders/bz/nn5481rn5xq59rb0mbj7x0880000gn/T//cctQUrx2.s:1286   .rodata.str1.4:000000000000025c .LC11
+/var/folders/bz/nn5481rn5xq59rb0mbj7x0880000gn/T//cctQUrx2.s:1290   .rodata.str1.4:0000000000000298 .LC12
+/var/folders/bz/nn5481rn5xq59rb0mbj7x0880000gn/T//cctQUrx2.s:1294   .rodata.str1.4:00000000000002d4 .LC13
+/var/folders/bz/nn5481rn5xq59rb0mbj7x0880000gn/T//cctQUrx2.s:128    .text.Ap_GLcdMenu_GetCmd:0000000000000000 $t
+/var/folders/bz/nn5481rn5xq59rb0mbj7x0880000gn/T//cctQUrx2.s:133    .text.Ap_GLcdMenu_GetCmd:0000000000000000 Ap_GLcdMenu_GetCmd
+/var/folders/bz/nn5481rn5xq59rb0mbj7x0880000gn/T//cctQUrx2.s:1297   .rodata.str1.4:00000000000002d8 .LC14
+/var/folders/bz/nn5481rn5xq59rb0mbj7x0880000gn/T//cctQUrx2.s:175    .text.Ap_GLcdMenu_ExeCmd:0000000000000000 $t
+/var/folders/bz/nn5481rn5xq59rb0mbj7x0880000gn/T//cctQUrx2.s:180    .text.Ap_GLcdMenu_ExeCmd:0000000000000000 Ap_GLcdMenu_ExeCmd
+/var/folders/bz/nn5481rn5xq59rb0mbj7x0880000gn/T//cctQUrx2.s:246    .text.Ap_GLcdMenu_ExeCmd:0000000000000048 $d
+/var/folders/bz/nn5481rn5xq59rb0mbj7x0880000gn/T//cctQUrx2.s:308    .text.Ap_GLcdMenu_ExeCmd:000000000000013c $t
+/var/folders/bz/nn5481rn5xq59rb0mbj7x0880000gn/T//cctQUrx2.s:592    .text.Ap_GLcdMenu_ExeCmd:00000000000002bc $d
+/var/folders/bz/nn5481rn5xq59rb0mbj7x0880000gn/T//cctQUrx2.s:627    .text.Ap_GLcdMenu_ExeCmd:000000000000033c $t
+/var/folders/bz/nn5481rn5xq59rb0mbj7x0880000gn/T//cctQUrx2.s:1033   .text.Ap_GLcdMenu_ExeCmd:000000000000053c $d
+/var/folders/bz/nn5481rn5xq59rb0mbj7x0880000gn/T//cctQUrx2.s:1055   .text.Ap_GLcdMenu_ExeCmd:0000000000000588 $t
+/var/folders/bz/nn5481rn5xq59rb0mbj7x0880000gn/T//cctQUrx2.s:1228   .text.Ap_GLcdMenu_ExeCmd:0000000000000660 $d
+/var/folders/bz/nn5481rn5xq59rb0mbj7x0880000gn/T//cctQUrx2.s:1242   .rodata.str1.4:0000000000000000 $d
+                     .debug_frame:0000000000000010 $d
+
+UNDEFINED SYMBOLS
+Lb_printf
+get_byte
+__aeabi_f2iz
+__aeabi_fsub
+Hw_IMU_Update
+Hw_N5110G_Print
+Hw_Timer_Get_u16Count_Usec
+Hw_N5110G_Clear
+Hw_N5110G_DrawCircle
+Hw_Wait_ms
+gyro_off_x
+gyro_off_y
+gyro_off_z
+get_byte_check
+Hw_IMU_GetData
+Hw_N5110G_DrawRequest
+Hw_I2C_IMU_HMC5883_ReadReg
+Hw_Sonic_GetDistanceMM
+Hw_I2C_IMU_MPU6050_ReadReg
+Hw_HMC5883_GetData
+Hw_MPU6050_GetData
